@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Natasha</string>
+    <string name="title_activity_web_view">ActivityWebView</string>
+
+    <string name="WEB_VIEW_URL">http://www.baidu.com</string>
+    <string name="WebView">WebView</string>
+</resources>
