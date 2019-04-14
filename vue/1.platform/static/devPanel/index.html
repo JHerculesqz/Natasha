@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Demo</title>
+    <link type="text/css" rel="stylesheet" href="css/MarvelDevPanel.css"/>
+    <script type="application/javascript" src="lib/jquery-3.2.1.min.js"></script>
+    <script type="application/javascript" src="lib/svg.min.js"></script>
+    <script type="application/javascript" src="js/plugins/MarvelDevPanel_2.js"></script>
+    <script type="application/javascript" src="js/plugins/MarvelDevPanel_3.js"></script>
+    <script type="application/javascript" src="js/plugins/MarvelDevPanel_3_1.js"></script>
+    <script type="application/javascript" src="js/plugins/MarvelDevPanel_4.js"></script>
+    <script type="application/javascript" src="js/plugins/MarvelDevPanel_5.js"></script>
+    <script type="application/javascript" src="js/plugins/MarvelDevPanel_6.js"></script>
+    <script type="application/javascript" src="js/plugins/MarvelDevPanel_7.js"></script>
+    <script type="application/javascript" src="js/plugins/MarvelDevPanel_8.js"></script>
+    <script type="application/javascript" src="js/plugins/MarvelDevPanel_9.js"></script>
+    <script type="application/javascript" src="js/MarvelDevPanel.js"></script>
+    <script>
+        $(document).ready(function () {
+            //1.init
+            var oMarvelDevPanel = new $.MarvelDevPanel();
+            var oOptions = {
+                id: "devPanel",
+                events: {
+                    afterInitPlugin: function () {
+                        console.log("afterInitPlugin...");
+                    },
+                    click4BD: function (oBD, e) {
+                        console.log(oBD);
+                    },
+                    contextMenu4BD: function (oBD, iX, iY, e) {
+                        console.log(oBD, iX, iY);
+                    },
+                },
+                "Raycus_6000": {
+                    url: "image/dev3.svg",
+                },
+                "Raycus_6000_1": {
+                    url: "image/dev3_1.svg",
+                },
+                "Raycus_12000": {
+                    url: "image/dev4.svg",
+                },
+                "Raycus_2000": {
+                    url: "image/dev5.svg",
+                },
+                "SXL_1": {
+                    url: "image/dev2.svg",
+                },
+                "manhole": {
+                    url: "image/manhole.svg",
+                },
+                "env": {
+                    url: "image/env.svg",
+                },
+                "car": {
+                    url: "image/car.svg",
+                },
+                "GK_1000": {
+                    url: "image/gk.svg",
+                },
+            };
+            oMarvelDevPanel.init(oOptions);
+
+            //2.initPlugin
+            oMarvelDevPanel.initPlugin("car");
+
+            //3.setLightColor
+            $("#id1").click(function () {
+                var oPlugin = oMarvelDevPanel.getPlugin("car");
+                setInterval(function () {
+                    oPlugin.setLightColor("l0Warn", Math.random() > 0.5 ? "#ff4c4c" : "#008c01");
+                    oPlugin.setLightColor("l0Status", Math.random() > 0.5 ? "#008c01" : "#f5df28");
+                    oPlugin.setLightColor("l2Warn", Math.random() > 0.5 ? "#ff4c4c" : "#008c01");
+                    oPlugin.setLightColor("l3Warn", Math.random() > 0.5 ? "#ff4c4c" : "#008c01");
+                    oPlugin.setLightColor("l4Warn", Math.random() > 0.5 ? "#ff4c4c" : "#008c01");
+                    oPlugin.setLightColor("l5Warn", Math.random() > 0.5 ? "#ff4c4c" : "#008c01");
+                    oPlugin.setLightColor("l6Warn", Math.random() > 0.5 ? "#ff4c4c" : "#008c01");
+                    oPlugin.setLightColor("l7Warn", Math.random() > 0.5 ? "#ff4c4c" : "#008c01");
+                    oPlugin.setLightColor("l8Warn", Math.random() > 0.5 ? "#ff4c4c" : "#008c01");
+                    oPlugin.setLightColor("l9Warn", Math.random() > 0.5 ? "#ff4c4c" : "#008c01");
+                    oPlugin.setLightColor("l10Warn", Math.random() > 0.5 ? "#ff4c4c" : "#008c01");
+                    oPlugin.setLightColor("l11Warn", Math.random() > 0.5 ? "#ff4c4c" : "#008c01");
+                    oPlugin.setLightColor("l12Warn", Math.random() > 0.5 ? "#ff4c4c" : "#008c01");
+                }, 1000);
+            });
+        });
+    </script>
+</head>
+<body>
+<button id="id1">设置颜色</button>
+<div id="devPanel"></div>
+</body>
+</html>

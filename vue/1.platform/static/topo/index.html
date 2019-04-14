@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Very NB Topo</title>
+    <link type="text/css" rel="stylesheet" href="css/MarvelTopo.css"/>
+    <script type="application/javascript" src="lib/konva.min.js"></script>
+    <script type="application/javascript" src="lib/keyboard.min.js"></script>
+    <script type="application/javascript" src="lib/jquery-3.2.1.min.js"></script>
+    <script type="application/javascript" src="js/_1_stage/MarvelTopoResource.js"></script>
+    <script type="application/javascript" src="js/_1_stage/MarvelTopoStage.js"></script>
+    <script type="application/javascript" src="js/_2_layer/MarvelTopoLayer.js"></script>
+    <script type="application/javascript" src="js/_3_sprite/_1_node/MarvelTopoNodeGroup.js"></script>
+    <script type="application/javascript" src="js/_3_sprite/_1_node/MarvelTopoNode.js"></script>
+    <script type="application/javascript" src="js/_3_sprite/_2_link/MarvelTopoLinkGroup.js"></script>
+    <script type="application/javascript" src="js/_3_sprite/_2_link/MarvelTopoLink.js"></script>
+    <script type="application/javascript" src="js/_3_sprite/_3_box/MarvelTopoBoxGroup.js"></script>
+    <script type="application/javascript" src="js/_3_sprite/_3_box/MarvelTopoBox.js"></script>
+    <script type="application/javascript" src="js/_3_sprite/MarvelTopoSprite.js"></script>
+    <script type="application/javascript" src="js/MarvelTopoApi.js"></script>
+    <script type="application/javascript" src="js/MarvelTopoUtils.js"></script>
+    <script type="application/javascript" src="js/MarvelTopo.js"></script>
+    <script>
+        $(document).ready(function () {
+            //region Mock
+
+            //region resources
+
+            var THEME_KEY = "dark";
+
+            var IMG_MAP = {
+                nodeGroup: "image/" + THEME_KEY + "/nodeGroup1.svg",
+                nodeGroupExpand: "image/" + THEME_KEY + "/nodeGroupExpand.svg",
+                node: "image/" + THEME_KEY + "/node1.svg"
+            };
+
+            var THEME_DARK = {
+                dark: {
+                    stage: {
+                        bgColor: "#272743",
+                        bgImg: "url('image/dark/bg.png')"
+                    },
+                    node: {
+                        labelColor: "#fff",
+                        selectColor: "rgba(255,255,255,0.25)"
+                    },
+                    link: {
+                        labelColor: "#fff",
+                        selectColor: 'rgba(255,255,255,0.75)',
+                        linkColor: {
+                            linkType1: "#ababb5",
+                            linkType2: "#FF4c4c",
+                            linkType3: "#ff8833",
+                            linkType_fiber: "#8b90b3",
+                            linkType_lu_1: "#3b3e4c",
+                            linkType_lu_2: "#3dcca6",
+                            linkType_lu_3: "#ff8833",
+                            linkType_lu_4: "#ff4c4c",
+                            linkType_wf: "#006ad4",
+                            linkType_fp: "#f464ac",
+                            linkType_rw: "#3399ff",
+                            linkType_rp: "#94c94f"
+                        }
+                    }
+                }
+            };
+
+            //endregion
+
+            //region node
+
+            var arrNodeGroup = [];
+            for (var i = 0; i < 2; i++) {
+                var iX = Math.random() * 400;
+                var iY = Math.random() * 200;
+                var oNodeGroup = {
+                    id: "nodeGroup" + i,
+                    x: iX,
+                    y: iY,
+                    uiImgKey: "nodeGroup",
+                    uiImgKey4Expand: "nodeGroupExpand",
+                    uiLabel: "nodeGroup" + i,
+                    uiTip: "nodeGroup" + i,
+                    uiTitle: "nodeGroup" + i,
+                    uiExpandNode: false,
+                    uiExpandNodeWidth: 200,
+                    uiExpandNodeHeight: 200,
+                    uiNode: true,
+                    uiOpacity: 1,
+                    children: [{
+                        id: "node" + i + "_1",
+                        x: 50,
+                        y: 50,
+                        uiImgKey: "node",
+                        uiLabel: "node" + i + "_1",
+                        uiTip: "node" + i + "_1",
+                        uiTitle: "node" + i + "_1",
+                        uiChild: true,
+                        uiNode: true
+                    }, {
+                        id: "node" + i + "_2",
+                        x: 100,
+                        y: 100,
+                        uiImgKey: "node",
+                        uiLabel: "node" + i + "_2",
+                        uiTip: "node" + i + "_2",
+                        uiTitle: "node" + i + "_2",
+                        uiChild: true,
+                        uiNode: true
+                    }]
+                };
+                arrNodeGroup.push(oNodeGroup);
+            }
+
+            var arrNode = [];
+            for (var i = 0; i < 2; i++) {
+                var iX = Math.random() * 400;
+                var iY = Math.random() * 200;
+                var oNode = {
+                    id: "node" + i,
+                    x: iX,
+                    y: iY,
+                    uiImgKey: "node",
+                    uiLabel: "node" + i,
+                    uiTip: "node" + i + "\n" + "This is a tip demo",
+                    uiTitle: "node" + i,
+                    uiNode: true
+                };
+                arrNode.push(oNode);
+            }
+            arrNode.push({
+                id: "nodexxx",
+                x: 0,
+                y: 0,
+                uiHide: false, //隐藏
+                uiOpacity: 0.5,
+                uiImgKey: "node",
+                uiLabel: "nodexxx",
+                uiTip: "nodexxx",
+                uiTitle: "nodexxx",
+                uiNode: true
+            });
+
+            //endregion
+
+            //region link
+
+            for (var i = 0; i < 3; i++) {
+                var iX = Math.random() * 400;
+                var iY = Math.random() * 200;
+                var oNode = {
+                    id: "nodeBase" + i,
+                    x: iX,
+                    y: iY,
+                    uiImgKey: "node",
+                    uiLabel: "nodeBase" + i,
+                    uiTip: "nodeBase" + i,
+                    uiTitle: "nodeBase" + i,
+                    uiNode: true
+                };
+                arrNode.push(oNode);
+            }
+
+            var arrLink = [];
+            //region 网元之间的虚链路
+            for (var i = 0; i < 3; i++) {
+                var oLink = {
+                    id: "link" + i,
+                    srcNodeId: "nodeBase0",
+                    dstNodeId: "nodeBase1",
+                    uiLabelL: "nodeBase0",
+                    uiLabelM: "link" + i,
+                    uiTip: "link" + i,
+                    uiTitle: "link" + i,
+                    uiLabelR: "nodeBase1",
+                    uiLink: true,
+                    uiLinkColorKey: "linkType_fiber",
+                    uiLinkWidth: 3,
+                    uiDirection: 2,
+                    uiDash: [10, 5]
+                };
+                arrLink.push(oLink);
+            }
+            //endregion
+            //region 网元之间的捆绑链路
+            for (var i = 0; i < 2; i++) {
+                //oLink1和oLink2为一组
+                var oLink1 = {
+                    id: "gLink" + i + "_" + i,
+                    srcNodeId: "nodeBase" + i,
+                    dstNodeId: "nodeBase" + (i + 1),
+                    uiLinkGroupId: "groupLink" + i + "_" + i,
+                    uiLink: true,
+                    uiLinkExpand: false,
+                    uiLabelL: "nodeBase" + i,
+                    uiLabelM: "gLink" + i + "_" + i,
+                    uiTip: "gLink" + i + "_" + i,
+                    uiTitle: "gLink" + i + "_" + i,
+                    uiLabelR: "nodeBase" + (i + 1),
+                    uiLinkColorKey: "linkType2",
+                    uiLinkWidth: 3,
+                    uiDirection: 1
+                };
+                var oLink2 = {
+                    id: "gLink" + i + "_" + (i + 1),
+                    srcNodeId: "nodeBase" + i,
+                    dstNodeId: "nodeBase" + (i + 1),
+                    uiLinkGroupId: "groupLink" + i + "_" + i,
+                    uiLink: true,
+                    uiLinkExpand: false,
+                    uiLabelL: "nodeBase" + i,
+                    uiLabelM: "gLink" + i + "_" + (i + 1),
+                    uiTip: "gLink" + i + "_" + (i + 1),
+                    uiTitle: "gLink" + i + "_" + (i + 1),
+                    uiLabelR: "nodeBase" + (i + 1),
+                    uiLinkColorKey: "linkType2",
+                    uiLinkWidth: 3,
+                    uiDirection: 1
+                };
+                //oLink3和oLink4为一组
+                var oLink3 = {
+                    id: "gLink" + i + "_" + (i + 2),
+                    srcNodeId: "nodeBase" + i,
+                    dstNodeId: "nodeBase" + (i + 1),
+                    uiLinkGroupId: "groupLink" + i + "_" + (i + 1),
+                    uiLink: true,
+                    uiLinkExpand: false,
+                    uiLabelL: "nodeBase" + i,
+                    uiLabelM: "gLink" + i + "_" + (i + 2),
+                    uiTip: "gLink" + i + "_" + (i + 2),
+                    uiTitle: "gLink" + i + "_" + (i + 2),
+                    uiLabelR: "nodeBase" + (i + 1),
+                    uiLinkColorKey: "linkType3",
+                    uiLinkWidth: 3,
+                    uiDirection: 1
+                };
+
+                var oLink4 = {
+                    id: "gLink" + i + "_" + (i + 3),
+                    srcNodeId: "nodeBase" + i,
+                    dstNodeId: "nodeBase" + (i + 1),
+                    uiLinkGroupId: "groupLink" + i + "_" + (i + 1),
+                    uiLink: true,
+                    uiLinkExpand: false,
+                    uiLabelL: "nodeBase" + i,
+                    uiLabelM: "gLink" + i + "_" + (i + 3),
+                    uiTip: "gLink" + i + "_" + (i + 3),
+                    uiTitle: "gLink" + i + "_" + (i + 3),
+                    uiLabelR: "nodeBase" + (i + 1),
+                    uiLinkColorKey: "linkType3",
+                    uiLinkWidth: 3,
+                    uiDirection: 1
+                };
+
+                arrLink.push(oLink1);
+                arrLink.push(oLink2);
+                arrLink.push(oLink3);
+                arrLink.push(oLink4);
+            }
+            //endregion
+            //region 站点内设备与站点外设备之间的链路
+            for (var i = 100; i < 101; i++) {
+                var oLink1 = {
+                    id: "gLink" + i + 0,
+                    srcNodeId: "nodeBase2",
+                    dstNodeId: "node1_1",
+                    uiLabelL: "nodeBase0",
+                    uiLabelM: "gLink" + i,
+                    uiTip: "gLink" + i,
+                    uiTitle: "gLink" + i,
+                    uiLabelR: "nodeBase1",
+                    uiLinkExpand: false,
+                    uiLink: true,
+                    uiLinkGroupId: "groupLink" + i + 0,
+                    uiLinkColorKey: "linkType2",
+                    uiLinkWidth: 3,
+                    uiDirection: 1
+                };
+                var oLink2 = {
+                    id: "gLink" + i + 1,
+                    srcNodeId: "nodeBase2",
+                    dstNodeId: "node1_1",
+                    uiLabelL: "nodeBase0",
+                    uiLabelM: "gLink" + i,
+                    uiTip: "gLink" + i,
+                    uiTitle: "gLink" + i,
+                    uiLabelR: "nodeBase1",
+                    uiLinkExpand: false,
+                    uiLink: true,
+                    uiLinkGroupId: "groupLink" + i + 0,
+                    uiLinkColorKey: "linkType2",
+                    uiLinkWidth: 3,
+                    uiDirection: 1
+                };
+                var oLink3 = {
+                    id: "gLink" + i + 2,
+                    srcNodeId: "nodeBase2",
+                    dstNodeId: "node1_2",
+                    uiLabelL: "nodeBase0",
+                    uiLabelM: "gLink" + i,
+                    uiTip: "gLink" + i,
+                    uiTitle: "gLink" + i,
+                    uiLabelR: "nodeBase1",
+                    uiLinkExpand: false,
+                    uiLink: true,
+                    uiLinkGroupId: "groupLink" + i + 1,
+                    uiLinkColorKey: "linkType3",
+                    uiLinkWidth: 3,
+                    uiDirection: 1
+                };
+                var oLink4 = {
+                    id: "gLink" + i + 3,
+                    srcNodeId: "nodeBase2",
+                    dstNodeId: "node1_2",
+                    uiLabelL: "nodeBase0",
+                    uiLabelM: "gLink" + i,
+                    uiTip: "gLink" + i,
+                    uiTitle: "gLink" + i,
+                    uiLabelR: "nodeBase1",
+                    uiLinkExpand: false,
+                    uiLink: true,
+                    uiLinkGroupId: "groupLink" + i + 1,
+                    uiLinkColorKey: "linkType3",
+                    uiLinkWidth: 3,
+                    uiDirection: 1
+                };
+                arrLink.push(oLink1);
+                arrLink.push(oLink2);
+                arrLink.push(oLink3);
+                arrLink.push(oLink4);
+            }
+            //endregion
+            //region 站点内设备与站点内的设备之间的链路
+            for (var i = 200; i < 201; i++) {
+                var oLink1 = {
+                    id: "gLink" + i + 0,
+                    srcNodeId: "node0_1",
+                    dstNodeId: "node1_1",
+                    uiLabelL: "nodeBase0",
+                    uiLabelM: "gLink" + i,
+                    uiTip: "gLink" + i,
+                    uiTitle: "gLink" + i,
+                    uiLabelR: "nodeBase1",
+                    uiLinkExpand: false,
+                    uiLink: true,
+                    uiLinkGroupId: "groupLink" + i + 0,
+                    uiLinkColorKey: "linkType2",
+                    uiLinkWidth: 3,
+                    uiDirection: 1
+                };
+                var oLink2 = {
+                    id: "gLink" + i + 1,
+                    srcNodeId: "node0_1",
+                    dstNodeId: "node1_1",
+                    uiLabelL: "nodeBase0",
+                    uiLabelM: "gLink" + i,
+                    uiTip: "gLink" + i,
+                    uiTitle: "gLink" + i,
+                    uiLabelR: "nodeBase1",
+                    uiLinkExpand: false,
+                    uiLink: true,
+                    uiLinkGroupId: "groupLink" + i + 0,
+                    uiLinkColorKey: "linkType2",
+                    uiLinkWidth: 3,
+                    uiDirection: 1
+                };
+                var oLink3 = {
+                    id: "gLink" + i + 2,
+                    srcNodeId: "node0_2",
+                    dstNodeId: "node1_2",
+                    uiLabelL: "nodeBase0",
+                    uiLabelM: "gLink" + i,
+                    uiTip: "gLink" + i,
+                    uiTitle: "gLink" + i,
+                    uiLabelR: "nodeBase1",
+                    uiLinkExpand: false,
+                    uiLink: true,
+                    uiLinkGroupId: "groupLink" + i + 1,
+                    uiLinkColorKey: "linkType3",
+                    uiLinkWidth: 3,
+                    uiDirection: 2
+                };
+                var oLink4 = {
+                    id: "gLink" + i + 3,
+                    srcNodeId: "node0_2",
+                    dstNodeId: "node1_2",
+                    uiLabelL: "nodeBase0",
+                    uiLabelM: "gLink" + i,
+                    uiTip: "gLink" + i,
+                    uiTitle: "gLink" + i,
+                    uiLabelR: "nodeBase1",
+                    uiLinkExpand: false,
+                    uiLink: true,
+                    uiLinkGroupId: "groupLink" + i + 1,
+                    uiLinkColorKey: "linkType3",
+                    uiLinkWidth: 3,
+                    uiDirection: 1
+                };
+                arrLink.push(oLink1);
+                arrLink.push(oLink2);
+                arrLink.push(oLink3);
+                arrLink.push(oLink4);
+            }
+            //endregion
+            //region 同一个站点内的设备之间的链路
+            for (var i = 300; i <= 301; i++) {
+                var oLink = {
+                    id: i,
+                    srcNodeId: "node0_1",
+                    dstNodeId: "node0_2",
+                    uiLabelL: i,
+                    uiLabelM: i,
+                    uiTip: i,
+                    uiTitle: i,
+                    uiLabelR: i,
+                    uiLinkExpand: false,
+                    uiLink: true,
+                    uiLinkGroupId: "node_in_siteExss",
+                    uiLinkColorKey: "linkType2",
+                    uiLinkWidth: 3,
+                    uiDirection: 1
+                };
+                arrLink.push(oLink);
+            }
+            //endregion
+            //endregion
+
+            //endregion
+
+            //region demo
+
+            //Topo
+            var oEventOptions = {
+                //region node
+                callbackOnNodeClick: function (oNode, oEvent) {
+                    console.log("callbackOnNodeClick");
+                    console.log(oNode);
+                    console.log(oEvent);
+                },
+                callbackGenerateNodeProp: function (oNode) {
+                    if (oNode.children) {
+                        oNode.uiLabel = "Group:" + oNode.id;
+                    }
+                    else {
+                        oNode.uiLabel = oNode.id;
+                    }
+                },
+                callbackGenerateNodeTip: function (oNode) {
+                    oNode.uiTitle = oNode.id;
+                    if (oNode.children) {
+                        oNode.uiTip = "This is a nodeGroup";
+                    }
+                    else {
+                        oNode.uiTip = "This is a node";
+                    }
+                },
+                //endregion
+                //region nodeGroup
+                callbackOnNodeGroupClick: function (oNodeGroup, oEvent) {
+                    console.log("callbackOnNodeGroupClick");
+                    console.log(oNodeGroup);
+                    console.log(oEvent);
+                },
+                //endregion
+                //region link
+                callbackOnLinkGroupClick: function (oLinkGroup, oEvent) {
+                    console.log("callbackOnLinkGroupClick");
+                    console.log(oLinkGroup);
+                    console.log(oEvent);
+                },
+                callbackOnLinkClick: function (oLink, oEvent) {
+                    console.log("callbackOnLinkClick");
+                    console.log(oLink);
+                    console.log(oEvent);
+                },
+                callbackGenerateLinkProp: function (oLink) {
+                    if (oLink.children) {
+                        oLink.uiLabelM = "Group: " + oLink.id;
+                        oLink.uiLinkColorKey = oLink.children[0].uiLinkColorKey;
+                    }
+                    else {
+                        oLink.uiLabelM = oLink.id;
+                    }
+                    oLink.uiLinkWidth = 3;
+                },
+                callbackGenerateLinkTip: function (oLink) {
+                    oLink.uiTitle = oLink.id;
+                    if (oLink.children) {
+                        oLink.uiTip = "This is a group link, has " + oLink.children.length + " links";
+                    }
+                    else {
+                        oLink.uiTip = "This is a link";
+                    }
+                },
+                //endregion
+                //region stage
+                callbackOnClick: function (oEvent) {
+                    console.log("click background")
+                },
+                callbackOnRightClick: function (oBuObj, iX, iY) {
+                    console.log("rightClick");
+                    console.log(oBuObj);
+                    console.log("position is x: " + iX + ", y: " + iY);
+                },
+                callbackOnPositionUpdate: function (bUpdate) {
+                    console.log("callbackOnPositionUpdate: " + bUpdate);
+                },
+                callbackOnAreaSelect: function (oSelectTopoData) {
+                    console.log(oSelectTopoData);
+                }
+                //endregion
+            };
+            var oTopo = new $.MarvelTopo();
+            window.oTopo = oTopo;
+            oTopo.Api.init(oTopo, {
+                id: "id1",
+                themeKey: THEME_KEY,
+                imgMap: IMG_MAP,
+                themeSetting: THEME_DARK,
+                eventOptions: oEventOptions,
+            }, function () {
+                oTopo.Api.draw(oTopo, {
+                    nodeGroups: arrNodeGroup,
+                    nodes: arrNode,
+                    links: arrLink
+                });
+            });
+
+            $("#expandNodeGroup").click(function () {
+                oTopo.Api.expandAllNodeGroup(oTopo);
+            });
+            $("#collapseNodeGroup").click(function () {
+                oTopo.Api.collapseAllNodeGroup(oTopo);
+            });
+
+            $("#expandLinkGroup").click(function () {
+                oTopo.Api.expandAllLinkGroup(oTopo);
+            });
+            $("#collapseLinkGroup").click(function () {
+                oTopo.Api.collapseAllLinkGroup(oTopo);
+            });
+            $("#selectNodes").click(function () {
+                oTopo.Api.selectNodesById(oTopo, ["node0", "node1", "node1_1"]);
+            });
+            $("#selectLinks").click(function () {
+                oTopo.Api.selectLinksById(oTopo, ["link0", "link1", "link2", "gLink1_2"]);
+            });
+            $("#getTopoData").click(function () {
+                var oTopoData = oTopo.Api.getTopoData(oTopo);
+                console.log(oTopoData);
+            });
+            $("#updateTopo").click(function () {
+                var oTopoData = oTopo.Api.getTopoData(oTopo);
+                var oLink = {
+                    id: "link1000",
+                    srcNodeId: "nodeBase0",
+                    dstNodeId: "nodeBase1",
+                    uiLabelL: "nodeBase0",
+                    uiLabelM: "link1000",
+                    uiLabelR: "nodeBase1",
+                    uiLink: true,
+                    uiLinkColorKey: "linkType_fiber",
+                    uiLinkWidth: 3
+                };
+                oTopoData.links.push(oLink);
+                oTopo.Api.updateTopo(oTopo, oTopoData);
+            });
+            var createNodeId = "createNodeId1";
+            $("#createNode").click(function () {
+                oTopo.Api.createNode({
+                    id: createNodeId,
+                    uiImgKey: "node",
+                    uiLabel: createNodeId,
+                    uiNode: true
+                }, function (oBuObj, bOk) {
+                    console.log("createNode: " + bOk);
+                }, true, oTopo);
+                createNodeId += 1;
+            });
+            $("#createNodeContinue").click(function () {
+                oTopo.Api.createNodeContinue({
+                    id: createNodeId,
+                    uiImgKey: "node",
+                    uiLabel: createNodeId,
+                    uiNode: true
+                }, function (oBuObj, bOk) {
+                    if (bOk) {
+                        var oTopoData = oTopo.Api.getTopoData(oTopo);
+                        var oNode = {
+                            id: createNodeId + "_" + Math.random() * 100,
+                            uiImgKey: "node",
+                            uiLabel: createNodeId,
+                            x: oBuObj.x,
+                            y: oBuObj.y,
+                            uiNode: true
+                        };
+                        oTopoData.nodes.push(oNode);
+                        oTopo.Api.updateTopo(oTopo, oTopoData);
+                    }
+                }, oTopo);
+                createNodeId += 1;
+            });
+            $("#savePosition").click(function () {
+                oTopo.Api.savePosition(oTopo);
+            });
+            $("#resetPosition").click(function () {
+                oTopo.Api.resetPosition(oTopo);
+            });
+            $("#isPositionUpdate").click(function () {
+                var bUpdate = oTopo.Api.isPositionUpdate(oTopo);
+                console.log(bUpdate);
+            });
+            $("#setBestView").click(function () {
+                oTopo.Api.setBestView(oTopo);
+            });
+            $("#hideOrShowNode").click(function () {
+                var oTopoData = oTopo.Api.getTopoData(oTopo);
+                oTopoData.nodes.forEach(function (oNode, index) {
+                    if (oNode.id == "nodeBase2") {
+                        if (oNode.uiHide == undefined) {
+                            oNode.uiHide = true;
+                        }
+                        else {
+                            oNode.uiHide = !oNode.uiHide;
+                        }
+                    }
+                });
+                oTopo.Api.updateTopo(oTopo, oTopoData);
+            });
+            $("#hideOrShowLink").click(function () {
+                var oTopoData = oTopo.Api.getTopoData(oTopo);
+                oTopoData.links.forEach(function (oLink, index) {
+                    if (oLink.id == "link0") {
+                        if (oLink.uiHide == undefined) {
+                            oLink.uiHide = true;
+                        }
+                        else {
+                            oLink.uiHide = !oLink.uiHide;
+                        }
+                    }
+                });
+                oTopo.Api.updateTopo(oTopo, oTopoData);
+            });
+            $("#getSelectedData").click(function () {
+                var oData = oTopo.Api.getSelectedData(oTopo);
+                console.log(oData);
+            });
+            var createLinkId = "createLinkId1";
+            $("#createLink").click(function () {
+                oTopo.Api.createLink(oTopo, function (bSuccessful, oSrcNode, oDstNode) {
+                    if (bSuccessful) {
+                        var oTopoData = oTopo.Api.getTopoData(oTopo);
+                        var oLink = {
+                            id: createLinkId,
+                            srcNodeId: oSrcNode.id,
+                            dstNodeId: oDstNode.id,
+                            uiLabelL: "nodeBase0",
+                            uiLabelM: createLinkId,
+                            uiLabelR: "nodeBase1",
+                            uiLink: true,
+                            uiLinkColorKey: "linkType_lu_2",
+                            uiLinkWidth: 3,
+                            uiDirection: 1
+                        };
+                        oTopoData.links.push(oLink);
+                        oTopo.Api.updateTopo(oTopo, oTopoData);
+
+                        createLinkId += 1;
+                    }
+                });
+            });
+            $("#createLinkContinue").click(function () {
+                oTopo.Api.createLinkContinue(oTopo, function (bSuccessful, oSrcNode, oDstNode) {
+                    if (bSuccessful) {
+                        var oTopoData = oTopo.Api.getTopoData(oTopo);
+                        var oLink = {
+                            id: createLinkId,
+                            srcNodeId: oSrcNode.id,
+                            dstNodeId: oDstNode.id,
+                            uiLabelL: "nodeBase0",
+                            uiLabelM: createLinkId,
+                            uiLabelR: "nodeBase1",
+                            uiLink: true,
+                            uiLinkColorKey: "linkType_lu_2",
+                            uiLinkWidth: 3
+                        };
+                        oTopoData.links.push(oLink);
+                        oTopo.Api.updateTopo(oTopo, oTopoData);
+                        createLinkId += 1;
+                    }
+                });
+            });
+            $("#getPosChangeTopoCache").click(function () {
+                var oRes = oTopo.Api.getPosChangeTopoCache(oTopo);
+                console.log(oRes);
+            });
+            $("#setAreaSelect1").click(function () {
+                oTopo.Api.setConfig(oTopo, {areaSelect: "node"});
+            });
+            $("#setAreaSelect2").click(function () {
+                oTopo.Api.setConfig(oTopo, {areaSelect: "link"});
+            });
+            $("#setAreaSelect3").click(function () {
+                oTopo.Api.setConfig(oTopo, {areaSelect: "all"});
+            });
+            $("#circleTest").click(function () {
+                var oGroup = new Konva.Group({
+                    id: "xxxxssssdddd",
+                    x: 40,
+                    y: 40
+                });
+
+                var oCircle = new Konva.Circle({
+                    radius: 40,
+                    fill: "red",
+                    fillEnabled: false,
+                    stroke: "green",
+                    strokeWidth: 4,
+                    dash: [10, 10],
+//                    angle: 180
+                });
+                oGroup.add(oCircle);
+
+                oGroup.on("click", function () {
+                    console.log("sssfff");
+                });
+
+                oTopo.ins.layerNode.add(oGroup);
+                oTopo.ins.layerNode.batchDraw();
+            });
+            $("#rectTest").click(function () {
+                var oRect = oTopo.ins.stage.findOne("#rect");
+                if (oRect) {
+                    console.log("x: " + oRect.x() + ", y: " + oRect.y() + ", width: " + oRect.width() + ", height: " + oRect.height());
+                }
+                else {
+                    oRect = new Konva.Rect({
+                        id: "rect",
+                        x: 10,
+                        y: 10,
+                        width: 100,
+                        height: 100,
+                        stroke: "red",
+                        strokeWidth: 5
+                    });
+
+                    oTopo.ins.layerNode.add(oRect);
+                    oTopo.ins.layerNode.batchDraw();
+                }
+
+            });
+            //endregion
+        });
+    </script>
+</head>
+<body style="box-sizing: border-box; margin: 0; padding: 10px;">
+<div style="width: 100%">
+    <button id="expandNodeGroup">expandNodeGroup</button>
+    <button id="collapseNodeGroup">collapseNodeGroup</button>
+    <button id="expandLinkGroup">expandLinkGroup</button>
+    <button id="collapseLinkGroup">collapseLinkGroup</button>
+    <button id="selectNodes">selectNodes</button>
+    <button id="selectLinks">selectLinks</button>
+    <button id="getTopoData">getTopoData</button>
+    <button id="updateTopo">updateTopo</button>
+    <button id="createNode">createNode</button>
+    <button id="createNodeContinue">createNodeContinue</button>
+    <button id="savePosition">savePosition</button>
+    <button id="resetPosition">resetPosition</button>
+    <button id="isPositionUpdate">isPositionUpdate</button>
+    <button id="setBestView">setBestView</button>
+    <button id="hideOrShowNode">hideOrShowNode</button>
+    <button id="hideOrShowLink">hideOrShowLink</button>
+    <button id="getSelectedData">getSelectedData</button>
+    <button id="createLink">createLink</button>
+    <button id="createLinkContinue">createLinkContinue</button>
+    <button id="getPosChangeTopoCache">getPosChangeTopoCache</button>
+    <button id="setAreaSelect1">设置框选网元</button>
+    <button id="setAreaSelect2">设置框选链路</button>
+    <button id="setAreaSelect3">设置框选网元和链路</button>
+    <button id="circleTest">circleTest</button>
+    <button id="rectTest">rectTest</button>
+</div>
+<div>
+    <div id="id1" style="width:1200px; height:600px; z-index: 1000; position: relative;"></div>
+    <div style="width: 600px; height: 600px; border-right: 1px solid red; z-index: 999; position:absolute; top: 40px; pointer-events: none;"></div>
+    <div style="width: 1200px; height: 300px; border-bottom: 1px solid red; z-index: 999; position:absolute; top: 40px; pointer-events: none;"></div>
+</div>
+</body>
+</html>

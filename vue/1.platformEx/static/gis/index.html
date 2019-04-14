@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Shit</title>
+    <link type="text/css" rel="stylesheet" href="lib/leaflet.css"/>
+    <link type="text/css" rel="stylesheet" href="lib/leaflet.custom.css"/>
+    <script type="application/javascript" src="lib/leaflet.js"></script>
+    <script type="application/javascript" src="lib/plugins/leaflet.heat/leaflet.heat.js"></script>
+    <script type="application/javascript"
+            src="lib/plugins/leaflet.polylineDecorator/leaflet.polylineDecorator.js"></script>
+    <script type="application/javascript" src="lib/jquery-3.2.1.min.js"></script>
+    <script type="application/javascript" src="js/_1_stage/MarvelGisStage.js"></script>
+    <script type="application/javascript" src="js/_2_layer/MarvelGisLayer.js"></script>
+    <script type="application/javascript" src="js/_3_sprite/MarvelGisSprite.js"></script>
+    <script type="application/javascript" src="js/_3_sprite/_1_node/MarvelGisNode.js"></script>
+    <script type="application/javascript" src="js/_3_sprite/_1_node/MarvelGisNodeGroup.js"></script>
+    <script type="application/javascript" src="js/_3_sprite/_2_link/MarvelGisLinkGroup.js"></script>
+    <script type="application/javascript" src="js/MarvelGisApi.js"></script>
+    <script type="application/javascript" src="js/MarvelGis.js"></script>
+    <script>
+        $(document).ready(function () {
+            //region Mock
+            var arrNodes = [];
+            var arrNodeGroups = [];
+            var arrLinks = [];
+            var oTopoData = {
+                nodes: arrNodes,
+                nodeGroups: arrNodeGroups,
+                links: arrLinks
+            };
+
+            //region node
+            arrNodes.push({
+                id: "marker1",
+                x: 51.5,
+                y: -0.09,
+                uiType: "ne",
+                uiImgUrl: "lib/images/node1.svg",
+                uiImgWidth: 32,
+                uiLabel: "marker1",
+                uiTips: "<b>marker1</b><br>11111",
+                uiDraggable: true,
+                uiOpacity: 1
+            });
+            arrNodes.push({
+                id: "marker2",
+                x: 51.50344816877402,
+                y: -0.09883403778076173,
+                uiType: "ne",
+                uiImgUrl: "lib/images/node1.svg",
+                uiImgWidth: 32,
+                uiLabel: "marker2",
+                uiTips: "<b>marker2</b><br>11111",
+                uiDraggable: true,
+                uiOpacity: 1
+            });
+            //endregion
+
+            //region nodeGroup
+            arrNodeGroups.push({
+                uiExpand: false,
+                id: "site1",
+                x: 51.49994457056707,
+                y: -0.10597944259643556,
+                uiType: "site",
+                uiImgUrl: "lib/images/nodeGroup1.svg",
+                uiImgWidth: 32,
+                uiLabel: "site1",
+                uiTips: "<b>site1</b><br>11111",
+                uiOpacity: 1,
+                r: 30,
+                uiColor: "red",
+                uiFillColor: "#f03",
+                uiFillOpacity: 0.5,
+                children: [{
+                    id: "site1_ne1",
+                    x: 51.49992987708078,
+                    y: -0.10618329048156738,
+                    uiType: "neInSite",
+                    uiImgUrl: "lib/images/node1.svg",
+                    uiImgWidth: 32,
+                    uiLabel: "site1_ne1",
+                    uiTips: "<b>site1_ne1</b><br>11111",
+                    uiDraggable: false,
+                    uiOpacity: 1
+                }, {
+                    id: "site1_ne2",
+                    x: 51.49999332628028,
+                    y: -0.10580241680145265,
+                    uiType: "neInSite",
+                    uiImgUrl: "lib/images/node1.svg",
+                    uiImgWidth: 32,
+                    uiLabel: "site1_ne2",
+                    uiTips: "<b>site1_ne2</b><br>11111",
+                    uiDraggable: false,
+                    uiOpacity: 1
+                }]
+            });
+            arrNodeGroups.push({
+                uiExpand: false,
+                id: "site2",
+                x: 51.49894457056707,
+                y: -0.10597944259643556,
+                uiType: "site",
+                uiImgUrl: "lib/images/nodeGroup1.svg",
+                uiImgWidth: 32,
+                uiLabel: "site2",
+                uiTips: "<b>site2</b><br>11111",
+                uiOpacity: 1,
+                r: 30,
+                uiColor: "red",
+                uiFillColor: "#f03",
+                uiFillOpacity: 0.5,
+                children: [{
+                    id: "site2_ne1",
+                    x: 51.49892987708078,
+                    y: -0.10618329048156738,
+                    uiType: "neInSite",
+                    uiImgUrl: "lib/images/node1.svg",
+                    uiImgWidth: 32,
+                    uiLabel: "site2_ne1",
+                    uiTips: "<b>site2_ne1</b><br>11111",
+                    uiDraggable: false,
+                    uiOpacity: 1
+                }, {
+                    id: "site2_ne2",
+                    x: 51.49899332628028,
+                    y: -0.10580241680145265,
+                    uiType: "neInSite",
+                    uiImgUrl: "lib/images/node1.svg",
+                    uiImgWidth: 32,
+                    uiLabel: "site2_ne2",
+                    uiTips: "<b>site2_ne2</b><br>11111",
+                    uiDraggable: false,
+                    uiOpacity: 1
+                }]
+            });
+            //endregion
+
+            //region link
+
+            //region 网元与网元
+
+            arrLinks.push({
+                id: "link1",
+                srcNodeId: "marker1",
+                dstNodeId: "marker2",
+                uiType: "link",
+                uiColor: "red",
+                uiWeight: 3,
+                uiOpacity: 1,
+                uiDashArray: "5, 10",
+                uiTips: "link1",
+                uiDirection: 2
+            });
+
+            //endregion
+
+            //region 网元与站点之间
+
+            arrLinks.push({
+                id: "link2",
+                srcNodeId: "marker2",
+                dstNodeId: "site1_ne1",
+                uiType: "link",
+                uiColor: "red",
+                uiWeight: 3,
+                uiOpacity: 1,
+                uiDashArray: "5, 10",
+                uiTips: "link2",
+                uiDirection: 2
+            });
+            arrLinks.push({
+                id: "link3",
+                srcNodeId: "marker2",
+                dstNodeId: "site1_ne2",
+                uiType: "link",
+                uiColor: "red",
+                uiWeight: 3,
+                uiOpacity: 1,
+                uiDashArray: "5, 10",
+                uiTips: "link2",
+                uiDirection: 2
+            });
+
+            //endregion
+
+            //region 站点与站点之间
+
+            arrLinks.push({
+                id: "link4",
+                srcNodeId: "site2_ne1",
+                dstNodeId: "site1_ne1",
+                uiType: "link",
+                uiColor: "red",
+                uiWeight: 3,
+                uiOpacity: 1,
+                uiDashArray: "5, 10",
+                uiTips: "link2",
+                uiDirection: 2
+            });
+            arrLinks.push({
+                id: "link5",
+                srcNodeId: "site2_ne2",
+                dstNodeId: "site1_ne2",
+                uiType: "link",
+                uiColor: "red",
+                uiWeight: 3,
+                uiOpacity: 1,
+                uiDashArray: "5, 10",
+                uiTips: "link2",
+                uiDirection: 2
+            });
+
+            //endregion
+
+            //endregion
+
+            //endregion
+
+            //region demo
+
+            //Topo
+            var oGis = new $.MarvelGis();
+            //init
+            var eventOptions = {
+                //region Stage
+                callbackOnZoom: function(e){
+                    console.log("callbackOnZoom");
+                    console.log(e);
+                },
+                callbackOnClick: function(e){
+                    console.log("callbackOnClick");
+                    console.log(e);
+                },
+                callbackOnContextmenu: function(e){
+                    console.log("callbackOnContextmenu");
+                    console.log(e);
+                },
+                //endregion
+                //region node
+                callbackOnNodeDblClick: function(e){
+                    console.log("callbackOnNodeDblClick");
+                    console.log(e);
+                },
+                callbackOnNodeDrag: function(e){
+                    console.log("callbackOnNodeDrag");
+                    console.log(e);
+                },
+                callbackOnNodeClick: function(e){
+                    console.log("callbackOnNodeClick");
+                    console.log(e);
+                },
+                callbackOnCircleDblclick: function(e){
+                    console.log("callbackOnCircleDblclick");
+                    console.log(e);
+                },
+                callbackOnNodeContextMenu: function (e) {
+                    console.log("callbackOnNodeContextMenu");
+                    console.log(e);
+                },
+                //endregion
+                //region nodeGroup
+                callbackOnNodeGroupClick: function(e){
+                    console.log("callbackOnNodeGroupClick");
+                    console.log(e);
+                },
+                //endregion
+                //region link
+                callbackOnLinkClick: function(e){
+                    console.log("callbackOnLinkClick");
+                    console.log(e);
+                },
+                //endregion
+            };
+            oGis.Api.init("id1", 51.505, -0.09, 13, {
+                hasZoomCtrl: true
+            }, eventOptions, oGis);
+            //draw
+            oGis.Api.draw(oTopoData, oGis);
+            //Marker/circle/polygon
+            oGis.Api.addMarker("marker3", 51.5, -0.07, "lib/images/node1.svg", 32, {
+                        id: "marker3",
+                        x: 51.5,
+                        y: -0.08,
+                        uiType: "ne",
+                        uiImgUrl: "lib/images/node1.svg",
+                        uiImgWidth: 32,
+                        uiLabel: "marker3",
+                        uiTips: "<b>marker3</b><br>11111",
+                        uiDraggable: true,
+                        uiOpacity: 1
+                    },
+                    oGis);
+            oGis.Api.addCircle("circle1", 51.5, -0.06, 30, {
+                id: "circle1",
+                x: 51.5,
+                y: -0.08,
+                r: 30,
+                uiType: "circle",
+                uiColor: "red",
+                uiFillColor: "#f03",
+                uiTips: "<b>circle1</b><br>11111",
+                uiFillOpacity: 0.5
+            }, oGis);
+            oGis.Api.addPolygon("polygon1", [
+                [51.509, -0.08],
+                [51.503, -0.06],
+                [51.51, -0.047]
+            ], {
+                id: "polygon1",
+                points: [
+                    [51.509, -0.08],
+                    [51.503, -0.06],
+                    [51.51, -0.047]
+                ],
+                uiTips: "polygon1"
+            }, oGis);
+
+            $("#oTest4Map1").click(function () {
+                oGis.Api.setCenter(51.505, -0.09, 10, oGis);
+            });
+            $("#oTest4Map2").click(function () {
+//                oGis.Api.showOrHide();
+                alert("Gis控件不提供");
+            });
+            $("#oTest4Map3").click(function () {
+                var oResDiff = oGis.Api.getDiffLst(
+                        ["marker2", "marker3", "marker4"],
+                        ["site", "ne"], oGis);
+                console.log(oResDiff);
+            });
+            $("#oTest4Marker").click(function () {
+                oGis.Api.delMarker("marker3", oGis);
+                oGis.Api.setImgUrl("marker1", "lib/images/nodeGroup1.svg", 32, oGis);
+                oGis.Api.setOpacity4Marker("marker1", 0.5, oGis);
+                oGis.Api.setPos4Marker("marker1", 51.502, -0.09, oGis);
+                oGis.Api.setTips4Marker("marker1", "fuck world!!", oGis);
+                oGis.Api.setBuObj4Marker("marker1", {a: 11}, oGis);
+                oGis.Api.setHide4Marker("marker2", true, oGis);
+                setTimeout(function () {
+                    oGis.Api.setHide4Marker("marker2", false, oGis);
+                }, 2000);
+            });
+            $("#oTest4Circle").click(function () {
+                oGis.Api.delCircle("circle1", oGis);
+            });
+            $("#oTest4Group").click(function () {
+                oGis.Api.expandAllGroup("site", oGis);
+            });
+            $("#oTest4Group2").click(function () {
+                oGis.Api.collapseAllGroup("site", oGis);
+            });
+            $("#oTest4Group3").click(function () {
+                oGis.Api.delGroup("site1", oGis);
+            });
+            $("#oTest4Group4").click(function () {
+                oGis.Api.setOpacity4Group("site2", 0.5, oGis);
+            });
+            $("#oTest4Line").click(function () {
+                oGis.Api.delPolyline("link1", oGis);
+            });
+            $("#oTest4AttachedIcon").click(function(){
+                oGis.Api.addAttachedIcon4Marker("marker1", "", oGis);
+                setTimeout(function(){
+                    oGis.Api.delAttachedIcon4Marker("marker1", oGis);
+                }, 2000);
+            });
+            $("#oTest4Topo").click(function(){
+                var oTopoData = oGis.Api.getTopoData(oGis);
+                console.log("TopoCache is ");
+                console.log(oTopoData);
+
+            });
+            //endregion
+        });
+    </script>
+</head>
+<body>
+<button id="oTest4Map1">test4Map(setCenter)</button>
+<button id="oTest4Map2">test4Map(showOrHide)</button>
+<button id="oTest4Map3">test4Map3(getDiffLst)</button>
+<button id="oTest4Marker">test4Marker</button>
+<button id="oTest4AttachedIcon">test4AttachedIcon</button>
+<button id="oTest4Circle">test4Circle</button>
+<button id="oTest4Group">test4Group(expandAllGroup)</button>
+<button id="oTest4Group2">test4Group(collapseAllGroup)</button>
+<button id="oTest4Group3">test4Group(delGroup)</button>
+<button id="oTest4Group4">test4Group(setOpacity4Group)</button>
+<button id="oTest4Line">test4Line(delPolyline)</button>
+<button id="oTest4Topo">test4Topo</button>
+<div class="gisMap" id="id1"
+     style="width: 100%;height: 500px;display:block;"></div>
+</body>
+</html>
