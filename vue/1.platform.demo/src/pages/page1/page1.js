@@ -2,14 +2,30 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
-import router from './router/index'
+import router from './router'
+import store from './store'
+import http from '~~/component/http'
+import dom from '~~/component/dom'
+import SkinUtilsEx from '~~/component/skin'
+import I18nUtilsEx from '~~/component/i18n'
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
-/* eslint-disable no-new */
+SkinUtilsEx.initTheme();
+
+I18nUtilsEx.setDefaultLang("zh");
+const i18n = I18nUtilsEx.initI18n({
+  'zh': require('./i18n/zh'),
+  'en': require('./i18n/en')
+});
+
 new Vue({
   el: '#app',
   router,
-  components: { App },
-  template: '<App/>'
-})
+  http,
+  store,
+  dom,
+  i18n,
+  template: '<App/>',
+  components: { App }
+});
