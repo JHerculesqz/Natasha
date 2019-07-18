@@ -1,0 +1,53 @@
+{
+  "plugins": [
+    "node_modules/jsdoc-vue-component",
+    "plugins/markdown",
+    "plugins/summarize"
+  ],
+  "jsdoc-vue-component": {
+    "log": true
+  },
+  "markdown": {
+    "tags": ["author", "classdesc", "description", "param", "property", "returns", "see", "throws", "vue"]
+  },
+  "recurseDepth": 10,
+  "source": {
+    "include": ["src/pages"],
+    "includePattern": ".+\\.(js|vue)$",
+    "excludePattern": "(^|\\/|\\\\)_"
+  },
+  "sourceType": "module",
+  "tags": {
+    "allowUnknownTags": true,
+    "dictionaries": ["jsdoc", "closure"]
+  },
+  "templates": {
+    "logoFile": "",
+    "cleverLinks": false,
+    "monospaceLinks": false,
+    "dateFormat": "ddd MMM Do YYYY",
+    "outputSourceFiles": true,
+    "outputSourcePath": true,
+    "systemName": "DocStrap",
+    "footer": "",
+    "copyright": "DocStrap Copyright © 2012-2015 The contributors to the JSDoc3 and DocStrap projects.",
+    "navType": "vertical",
+    "theme": "cosmo",
+    "linenums": true,
+    "collapseSymbols": false,
+    "inverseNav": true,
+    "protocol": "html://",
+    "methodHeadingReturns": false
+  },
+  "markdown": {
+    "parser": "gfm",
+    "hardwrap": true
+  },
+  "opts": {
+    "template": "node_modules/sherry-docstrap/template",
+    "encoding": "utf8",
+    "destination": "./static/jsdoc/",
+    "recurse": true,
+    "readme": "README.md"
+  }
+}
