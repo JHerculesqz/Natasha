@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Very NB Topo</title>
+    <script type="application/javascript" src="lib/jquery-3.2.1.min.js"></script>
+    <script type="application/javascript" src="lib/sigma.min.js"></script>
+    <script type="application/javascript" src="lib/plugins/sigma.layout.forceAtlas2.min.js"></script>
+    <script type="application/javascript" src="lib/plugins/sigma.plugins.dragNodes.min.js"></script>
+    <script type="application/javascript" src="js/MarvelSigma.js"></script>
+    <script type="application/javascript" src="js/MarvelArbor.js"></script>
+    <script type="application/javascript" src="js/MarvelCanvas.js"></script>
+    <script type="application/javascript" src="js/MarvelArborAPI.js"></script>
+    <script>
+        $(document).ready(function () {
+            var oMarvelArborAPI = new $.MarvelArborAPI();
+
+            $("#initBtn").click(function () {
+                oMarvelArborAPI.sigmaEx.init("viewport", function (e) {
+                    console.log(e);
+                });
+            });
+            $("#setDataBtn").click(function () {
+                var N = 100;
+                var TYPES = ["container", "list", "key", "description", "leaf", "type", "leaf-list"];
+                var arrNodes = [];
+                for (var i = 0; i < N; i++) {
+                    arrNodes.push({
+                        id: 'n' + i,
+                        label: 'Node ' + i,
+                        x: Math.random(),
+                        y: Math.random(),
+                        size: 0 == i ? 3 : 1.2,
+                        type: TYPES[(Math.random() * 6 | 0)]
+                    });
+                }
+                var arrLinks = [];
+                for (var i = 0; i < N; i++) {
+                    arrLinks.push({
+                        id: 'e' + i,
+                        source: 'n' + (Math.random() * N | 0),
+                        target: 'n' + (Math.random() * N | 0)
+                    });
+                }
+                oMarvelArborAPI.sigmaEx.setData(arrNodes, arrLinks);
+            });
+            $("#updateDataBtn").click(function () {
+                oMarvelArborAPI.sigmaEx.updateData(function (oNode) {
+                    if (oNode.type == "container") {
+                        oNode.color = "#243f6a";
+                    }
+                    else if (oNode.type == "list") {
+                        oNode.color = "#487ed4";
+                    }
+                    else if (oNode.type == "key") {
+                        oNode.color = "#6cbe3f";
+                    }
+                    else if (oNode.type == "description") {
+                        oNode.color = "#90fda9";
+                    }
+                    else if (oNode.type == "leaf") {
+                        oNode.color = "#b53d13";
+                    }
+                    else if (oNode.type == "type") {
+                        oNode.color = "#d97c7e";
+                    }
+                    else if (oNode.type == "leaf-list") {
+                        oNode.color = "#fdbbe8";
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+<div>
+    <button id="initBtn">Init</button>
+    <button id="setDataBtn">setDataBtn</button>
+    <button id="updateDataBtn">updateDataBtn</button>
+</div>
+<div id="viewport" style="width: 1600px;height: 600px;"></div>
+</body>
+</html>

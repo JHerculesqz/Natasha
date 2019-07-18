@@ -1,0 +1,12 @@
+.marveltopo_cursor_handopen{
+    cursor: url("../image/handopen.cur"), auto;
+}
+.marveltopo_cursor_close{
+    cursor: url("../image/handclosed.cur"), auto;
+}
+.marveltopo_cursor_select{
+    cursor: url("../image/select.cur"), auto;
+}
+.marveltopo_cursor_none{
+    cursor: url("../image/cursor-black.cur"), auto;
+}
