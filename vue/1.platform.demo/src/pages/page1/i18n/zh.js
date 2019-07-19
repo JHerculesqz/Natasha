@@ -1,3 +1,3 @@
 export const L = {
-  HELLO_WORLD: '你好 世界!'
+  APP_INDEX: '首页',
 };

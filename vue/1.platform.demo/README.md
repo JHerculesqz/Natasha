@@ -1,4 +1,4 @@
-# multi-page-project-demo
+# core-fw-vue-widget-demo
 
 > A Vue.js project
 

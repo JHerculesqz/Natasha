@@ -1,5 +1,5 @@
 {
-  "name": "multi-page-project-demo",
+  "name": "core-fw-vue-widget-demo",
   "version": "1.0.0",
   "description": "A Vue.js project",
   "author": "author",
@@ -17,7 +17,7 @@
   "dependencies": {
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
-    "core-fw-vue-widget": "^1.0.0",
+    "core-fw-vue-widget-new": "^1.0.0",
     "echarts": "^4.1.0",
     "lodash": "^4.17.4",
     "moment": "^2.18.1",

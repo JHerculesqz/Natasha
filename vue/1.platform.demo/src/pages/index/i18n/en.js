@@ -1,3 +1,3 @@
 export const L = {
-  HELLO_WORLD: 'Hello World!'
+  APP_INDEX: 'Index',
 };

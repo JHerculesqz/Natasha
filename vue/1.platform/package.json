@@ -1,9 +1,9 @@
 {
-  "name": "multi-page-project-demo",
+  "name": "core-fw-vue-widget-new",
   "version": "1.0.0",
   "description": "A Vue.js project",
   "author": "author",
-  "private": true,
+  "private": false,
   "scripts": {
     "start": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "dev": "npm run start -- --env.name=all",
