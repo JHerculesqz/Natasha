@@ -27,7 +27,7 @@ module.exports = {
       'vue$': 'vue/dist/vue.esm.js',
       '@': resolve('src'),
       'jquery':'jquery',
-      '~~': "core-fw-vue-widget-new/src/components/walle",
+      '~~': "natasha-vue/src/walle",
     }
   },
   module: {
