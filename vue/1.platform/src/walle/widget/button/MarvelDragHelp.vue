@@ -30,7 +30,7 @@
 </template>
 
 <script>
-  import MarvelDialog from "../../../walle/widget/dialog/MarvelDialog";
+  import MarvelDialog from "../dialog/MarvelDialog";
 
   /**
    *  MarvelDragHelp widget description
@@ -201,7 +201,7 @@
     cursor: auto;
     border-radius: 100%;
     border: 2px solid rgba(255, 255, 255, 1);
-    background: url("../../../../../static/walle/draghelp/circleBg-white.png") no-repeat center rgba(0, 170, 255, 0.8);
+    background: url("../../../../static/images/draghelp/circleBg-white.png") no-repeat center rgba(0, 170, 255, 0.8);
     box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.3);
   }
 

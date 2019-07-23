@@ -45,7 +45,7 @@
     </div>
     <div class="text">
       <span v-if="showPageNum">{{$t("show") + pageNumInfo}}</span>
-      <span>{{$t("total") + totalNum $t("unit")}}</span>
+      <span>{{$t("total") + totalNum + $t("unit")}}</span>
     </div>
     <div class="text">
       <span v-if="showNumSelected">{{$t("select") + selectedNum + $t("unit")}}</span>

@@ -3,7 +3,7 @@
 </template>
 
 <script>
-  import "core-fw-vue-widget-d3js/d3.v3.min"
+  import "natasha-d3js/d3.v3.min"
 
   /**
    *  MarvelD3Tree widget description
@@ -345,7 +345,7 @@
       setData: function (treeData, funOnClick) {
         var self = this;
         //clear container
-        window.$("#" + this.id).empty();
+        $("#" + this.id).empty();
         // clearCache
         this.clearCache();
 

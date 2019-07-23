@@ -16,7 +16,7 @@
    */
   export default {
     name: "MarvelProgress",
-    components:{},
+    components: {},
     props: {
       percent: {
         type: Number,
@@ -39,7 +39,7 @@
         required: false,
       },
     },
-    data() {
+    data: function () {
       return {}
     },
     methods: {}
@@ -52,21 +52,21 @@
     height: 100%;
   }
 
-  .label{
+  .label {
     display: inline-block;
     width: 80px;
   }
 
-  .progress{
+  .progress {
     display: inline-block;
     width: calc(100% - 100px);
-    height:100%;
+    height: 100%;
     border-radius: 5px;
     background: #dcdcdc;
     margin-left: 10px;
   }
 
-  .progress-bar{
+  .progress-bar {
     background: #5ecc49;
     border-radius: 6px;
     float: left;
@@ -75,13 +75,10 @@
     font-size: 12px;
   }
 
-  .progress-percentage{
+  .progress-percentage {
     display: inline-block;
     margin-left: 10px;
     color: #333;
     vertical-align: top;
   }
-
-  /*endregion*/
-
 </style>

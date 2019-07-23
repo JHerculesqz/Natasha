@@ -3,24 +3,24 @@
 </template>
 
 <script>
-  import 'core-fw-vue-widget-topo/css/MarvelTopo.css';
+  import 'natasha/css/MarvelTopo.css';
 
-  require('core-fw-vue-widget-topo/lib/konva.min.js');
-  require('core-fw-vue-widget-topo/lib/keyboard.min.js');
-  require('core-fw-vue-widget-topo/lib/jquery-3.2.1.min.js');
-  require('core-fw-vue-widget-topo/js/_1_stage/MarvelTopoResource.js');
-  require('core-fw-vue-widget-topo/js/_1_stage/MarvelTopoStage.js');
-  require('core-fw-vue-widget-topo/js/_2_layer/MarvelTopoLayer.js');
-  require('core-fw-vue-widget-topo/js/_3_sprite/_1_node/MarvelTopoNodeGroup.js');
-  require('core-fw-vue-widget-topo/js/_3_sprite/_1_node/MarvelTopoNode.js');
-  require('core-fw-vue-widget-topo/js/_3_sprite/_2_link/MarvelTopoLinkGroup.js');
-  require('core-fw-vue-widget-topo/js/_3_sprite/_2_link/MarvelTopoLink.js');
-  require('core-fw-vue-widget-topo/js/_3_sprite/_3_box/MarvelTopoBoxGroup.js');
-  require('core-fw-vue-widget-topo/js/_3_sprite/_3_box/MarvelTopoBox.js');
-  require('core-fw-vue-widget-topo/js/_3_sprite/MarvelTopoSprite.js');
-  require('core-fw-vue-widget-topo/js/MarvelTopoApi.js');
-  require('core-fw-vue-widget-topo/js/MarvelTopoUtils.js');
-  require('core-fw-vue-widget-topo/js/MarvelTopo.js');
+  require('natasha/lib/konva.min.js');
+  require('natasha/lib/keyboard.min.js');
+  require('natasha/lib/jquery-3.2.1.min.js');
+  require('natasha/js/_1_stage/MarvelTopoResource.js');
+  require('natasha/js/_1_stage/MarvelTopoStage.js');
+  require('natasha/js/_2_layer/MarvelTopoLayer.js');
+  require('natasha/js/_3_sprite/_1_node/MarvelTopoNodeGroup.js');
+  require('natasha/js/_3_sprite/_1_node/MarvelTopoNode.js');
+  require('natasha/js/_3_sprite/_2_link/MarvelTopoLinkGroup.js');
+  require('natasha/js/_3_sprite/_2_link/MarvelTopoLink.js');
+  require('natasha/js/_3_sprite/_3_box/MarvelTopoBoxGroup.js');
+  require('natasha/js/_3_sprite/_3_box/MarvelTopoBox.js');
+  require('natasha/js/_3_sprite/MarvelTopoSprite.js');
+  require('natasha/js/MarvelTopoApi.js');
+  require('natasha/js/MarvelTopoUtils.js');
+  require('natasha/js/MarvelTopo.js');
 
   /**
    *  MarvelTopo widget description
@@ -96,13 +96,13 @@
       },
       init: function (oAfterCallBack, oConfig) {
         //#region resources
-        var bgImg = require("../../../../../static/walle/topo/image/dark/bg.png");
-        var nodeGroupImgDark = require("../../../../../static/walle/topo/image/dark/nodeGroup1.svg");
-        var nodeGroupImgDefault = require("../../../../../static/walle/topo/image/default/nodeGroup1.svg");
-        var nodeGroupExpandImgDark = require("../../../../../static/walle/topo/image/dark/nodeGroupExpand.svg");
-        var nodeGroupExpandImgDefault = require("../../../../../static/walle/topo/image/default/nodeGroupExpand.svg");
-        var nodeImgDark = require("../../../../../static/walle/topo/image/dark/node1.svg");
-        var nodeImgDefault = require("../../../../../static/walle/topo/image/default/node1.svg");
+        var bgImg = require("../../../../static/images/topo/image/dark/bg.png");
+        var nodeGroupImgDark = require("../../../../static/images/topo/image/dark/nodeGroup1.svg");
+        var nodeGroupImgDefault = require("../../../../static/images/topo/image/default/nodeGroup1.svg");
+        var nodeGroupExpandImgDark = require("../../../../static/images/topo/image/dark/nodeGroupExpand.svg");
+        var nodeGroupExpandImgDefault = require("../../../../static/images/topo/image/default/nodeGroupExpand.svg");
+        var nodeImgDark = require("../../../../static/images/topo/image/dark/node1.svg");
+        var nodeImgDefault = require("../../../../static/images/topo/image/default/node1.svg");
 
         var IMG_MAP = {
           nodeGroup: this.theme == "dark" ? nodeGroupImgDark : nodeGroupImgDefault,

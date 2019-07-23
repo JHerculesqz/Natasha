@@ -116,7 +116,7 @@
 <script>
   import MarvelPaging from "../paging/MarvelPaging"
   import MarvelGridExFreeze from "./MarvelGridExFreeze";
-  import StringUtilsEx from "../../../walle/component/str"
+  import StringUtilsEx from "../../component/str"
   import Lodash from "lodash"
   import MarvelGridColumnConfig from "./MarvelGridColumnConfig";
 
@@ -1200,7 +1200,7 @@
     position: absolute;
     width: 100%;
     height: 100%;
-    background: url("../../../../../static/walle/common/emptyTip2.png") no-repeat center;
+    background: url("../../../../static/images/common/emptyTip2.png") no-repeat center;
     background-size: 14%;
     display: none;
   }

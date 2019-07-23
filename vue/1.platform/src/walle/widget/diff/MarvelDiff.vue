@@ -3,10 +3,10 @@
 </template>
 
 <script>
-  import "core-fw-vue-widget-diff/diffview.css";
+  import "natasha-diff/diffview.css";
 
-  require('core-fw-vue-widget-diff/diffview.js');
-  require('core-fw-vue-widget-diff/difflib.js');
+  require('natasha-diff/diffview.js');
+  require('natasha-diff/difflib.js');
 
   /**
    *  MarvelDiff widget description

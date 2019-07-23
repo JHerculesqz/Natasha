@@ -29,8 +29,8 @@
 </template>
 
 <script>
-  import MarvelInput from "../../widget/input/MarvelInput";
-  import StringUtilsEx from "../../../walle/component/str";
+  import MarvelInput from "./MarvelInput";
+  import StringUtilsEx from "../../component/str";
 
   /**
    *  MarvelListInput widget description

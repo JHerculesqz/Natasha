@@ -43,7 +43,7 @@
 </i18n>
 
 <script>
-  import MarvelDate2Calendar from "../date/MarvelDate2Calendar";
+  import MarvelDate2Calendar from "./MarvelDate2Calendar";
 
   /**
    *  MarvelDate2 widget description

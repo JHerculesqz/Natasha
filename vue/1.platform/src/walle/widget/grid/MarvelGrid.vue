@@ -102,7 +102,7 @@
 </i18n>
 
 <script>
-  import MarvelCheckBox from "../../../walle/widget/select/MarvelCheckBox.vue";
+  import MarvelCheckBox from "../select/MarvelCheckBox.vue";
 
   /**
    *  MarvelGrid widget description
@@ -307,7 +307,7 @@
   }
 
   .gridWrapper .empty {
-    background: url("../../../../../static/walle/common/emptyTip2.png") no-repeat center;
+    background: url("../../../../static/images/common/emptyTip2.png") no-repeat center;
     background-size: 14%;
   }
 

@@ -3,14 +3,14 @@
 </template>
 
 <script>
-  import "core-fw-vue-widget-devpanelex/css/MarvelRackPanel.css";
+  import "natasha-devpanelex/css/MarvelRackPanel.css";
 
-  require('core-fw-vue-widget-devpanelex/lib/jquery-3.2.1.min.js');
-  require('core-fw-vue-widget-devpanelex/lib/svg.min.js');
-  require('core-fw-vue-widget-devpanelex/lib/saveSvgAsPng.js');
-  require('core-fw-vue-widget-devpanelex/lib/html2canvas.min.js');
-  require('core-fw-vue-widget-devpanelex/js/MarvelRackPanel.js');
-  require('core-fw-vue-widget-devpanelex/js/MarvelRackCabinet.js');
+  require('natasha-devpanelex/lib/jquery-3.2.1.min.js');
+  require('natasha-devpanelex/lib/svg.min.js');
+  require('natasha-devpanelex/lib/saveSvgAsPng.js');
+  require('natasha-devpanelex/lib/html2canvas.min.js');
+  require('natasha-devpanelex/js/MarvelRackPanel.js');
+  require('natasha-devpanelex/js/MarvelRackCabinet.js');
 
   /**
    *  MarvelDevPanelEx widget description

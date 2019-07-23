@@ -69,7 +69,7 @@
   }
 
   .dashboardAdaptToContWrapper .cont .contArea {
-    background: url("../../../../../static/walle/common/emptyTip3.png") no-repeat center;
+    background: url("../../../../static/images/common/emptyTip3.png") no-repeat center;
     background-size: 18%;
   }
 

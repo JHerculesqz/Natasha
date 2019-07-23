@@ -13,7 +13,7 @@
 </template>
 
 <script>
-  import MarvelPrompt from '../prompt/MarvelPrompt.vue';
+  import MarvelPrompt from './MarvelPrompt.vue';
 
   /**
    *  MarvelPromptGlobal widget description

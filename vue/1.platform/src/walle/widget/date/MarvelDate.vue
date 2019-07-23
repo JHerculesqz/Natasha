@@ -29,7 +29,7 @@
 </template>
 
 <script>
-  import MarvelDateUtils from "../../../walle/component/date";
+  import MarvelDateUtils from "../../component/date";
 
   /**
    *  MarvelDate widget description
