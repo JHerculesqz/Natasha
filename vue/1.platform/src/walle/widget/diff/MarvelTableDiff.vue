@@ -27,7 +27,7 @@
 </template>
 
 <script>
-  import StringUtils from "../../../walle/component/str";
+  import StringUtils from "../../component/str";
 
   /**
    *  MarvelTableDiff widget description

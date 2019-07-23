@@ -3,16 +3,16 @@
 </template>
 
 <script>
-  import 'core-fw-vue-widget-topoarbor/lib/jquery-3.2.1.min.js';
-  import 'core-fw-vue-widget-topoarbor/lib/sigma.js';
-  // require('core-fw-vue-widget-topoarbor/lib/jquery-3.2.1.min.js');
-  // require('core-fw-vue-widget-topoarbor/lib/sigma.min.js');
-  require('core-fw-vue-widget-topoarbor/lib/plugins/sigma.layout.forceAtlas2.min.js');
-  require('core-fw-vue-widget-topoarbor/lib/plugins/sigma.plugins.dragNodes.min.js');
-  require('core-fw-vue-widget-topoarbor/js/MarvelSigma.js');
-  require('core-fw-vue-widget-topoarbor/js/MarvelArbor.js');
-  require('core-fw-vue-widget-topoarbor/js/MarvelCanvas.js');
-  require('core-fw-vue-widget-topoarbor/js/MarvelArborAPI.js');
+  import 'natasha-topoarbor/lib/jquery-3.2.1.min.js';
+  import 'natasha-topoarbor/lib/sigma.js';
+  // require('natasha-topoarbor/lib/jquery-3.2.1.min.js');
+  // require('natasha-topoarbor/lib/sigma.min.js');
+  require('natasha-topoarbor/lib/plugins/sigma.layout.forceAtlas2.min.js');
+  require('natasha-topoarbor/lib/plugins/sigma.plugins.dragNodes.min.js');
+  require('natasha-topoarbor/js/MarvelSigma.js');
+  require('natasha-topoarbor/js/MarvelArbor.js');
+  require('natasha-topoarbor/js/MarvelCanvas.js');
+  require('natasha-topoarbor/js/MarvelArborAPI.js');
 
   /**
    *  MarvelTopoArbor widget description

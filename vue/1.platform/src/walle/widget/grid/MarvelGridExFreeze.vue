@@ -1146,7 +1146,7 @@ multiDropdown：下拉框多选，支持度不好，待优化
   }
 
   .gridWrapper .empty {
-    background: url("../../../../../static/walle/common/emptyTip2.png") no-repeat center;
+    background: url("../../../../static/images/common/emptyTip2.png") no-repeat center;
     background-size: 14%;
   }
 

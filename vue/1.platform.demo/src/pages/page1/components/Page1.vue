@@ -22,11 +22,13 @@
   import MarvelAccordion from "~~/widget/accordion/MarvelAccordion";
   //#endregion
   import Page4Date from './demo4widgets/2.widget/Page4Date'
+  import Page4WorkFlow from './demo4widgets/3.navigator/Page4WorkFlow'
 
   export default {
     components: {
       MarvelAccordion,
       Page4Date,
+      Page4WorkFlow,
     },
     name: 'page1',
     data: function () {
@@ -145,6 +147,9 @@
           }, {
             id: "",
             label: "向导"
+          }, {
+            id: "Page4WorkFlow",
+            label: "工作流"
           }]
         }, {
           label: "控件(面板)",

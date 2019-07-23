@@ -43,7 +43,7 @@
 </i18n>
 
 <script>
-  import StringUtilsEx from '../../../walle/component/str'
+  import StringUtilsEx from '../../component/str'
   import MarvelButton from "../button/MarvelButton";
 
   /**

@@ -18,7 +18,7 @@
 </template>
 
 <script>
-  import StrUtils from "../../../walle/component/str";
+  import StrUtils from "../../component/str";
 
   /**
    *  MarvelLayout2 widget description

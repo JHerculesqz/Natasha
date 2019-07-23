@@ -290,7 +290,6 @@ customer：自定义单元格，支持文本单元格和dropdown单元格的切�
                     </template>
                     <template v-else>
                       <select class="customerSelect"
-                              :disabled="dropDownCellDisabled(title.key, row)"
                               @click.stop
                               @change.stop="onOptionChange(title.key, row, $event)">
                         <option class="customerSelectOption"
@@ -374,10 +373,10 @@ customer：自定义单元格，支持文本单元格和dropdown单元格的切�
 </template>
 
 <script>
-  import MarvelPaging from "../../../walle/widget/paging/MarvelPaging"
+  import MarvelPaging from "../paging/MarvelPaging"
   import _ from "lodash"
-  import StringUtils from "../../../walle/component/str/index.js"
-  import MarvelDropDownButton from "../../../walle/widget/button/MarvelDropDownButton"
+  import StringUtils from "../../component/str"
+  import MarvelDropDownButton from "../button/MarvelDropDownButton"
 
   /**
    *  MarvelGridEx widget description
@@ -1665,7 +1664,7 @@ customer：自定义单元格，支持文本单元格和dropdown单元格的切�
   }
 
   .gridWrapper .empty {
-    background: url("../../../../../static/walle/common/emptyTip2.png") no-repeat center;
+    background: url("../../../../static/images/common/emptyTip2.png") no-repeat center;
     background-size: 14%;
   }
 

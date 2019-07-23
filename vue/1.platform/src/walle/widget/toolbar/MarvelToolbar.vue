@@ -9,8 +9,8 @@
            v-bind:key="item.id" v-bind:class="[{dpn: item.visible === false},{disable: item.disable === true}]">
         <div class="toolbarItemLabel" :title="item.tip? item.tip : item.label" v-bind:class="item.itemLabelCustom"
              v-on:click="onToolbarItemClick($event, item)">
-          <div class="toolbarIcon" v-bind:class="item.icon" v-bind:class="item.iconCustom"></div>
-          <div class="toolbarName" :class="{dpn: !showLabels}" v-bind:class="item.nameCustom">{{item.label}}
+          <div class="toolbarIcon" v-bind:class="[item.icon, item.iconCustom]"></div>
+          <div class="toolbarName" :class="[{dpn: !showLabels}, item.nameCustom]">{{item.label}}
           </div>
         </div>
         <div class="toolbarCustomSubPanel" v-if="item.hasCustomSubPanel"

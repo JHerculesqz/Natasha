@@ -45,7 +45,7 @@
       //#region lifeCycle
 
       _destroy: function () {
-        window.$("#" + this.id).empty();
+        $("#" + this.id).empty();
       },
 
       //#endregion
@@ -63,7 +63,7 @@
       createTree: function (d) {
         let list = '';
         let self = this;
-        window.$.each(d, function (i, n) {
+        $.each(d, function (i, n) {
           self.nodeDataArr[n.id] = n;
           let cls = n.icon + ' lazyTreefile';
           let folder = '';
@@ -113,7 +113,7 @@
           }
 
           //init html
-          window.$("#" + this.id).empty().append(this.createTree(this.treeData));
+          $("#" + this.id).empty().append(this.createTree(this.treeData));
 
 
           //bind click event
@@ -156,19 +156,19 @@
         $(`[nodeId=${nodeId}]`)[0].style.color = '#417de2';
       },
       expandAllNodes: function (oNode) {
-        let x = window.$(`[nodeid=${oNode.id}]`);//
+        let x = $(`[nodeid=${oNode.id}]`);//
         if (x.attr('lazyload') === "true") {
           let curObj = x.parent().find('.lazyTreeItemIcon');
           this.lazyLoadData(curObj);
         }
-        window.$(`[nodeid=${oNode.id}]`).parent().parent().find('ul').show();
-        const obj = window.$(`[nodeid=${oNode.id}]`).parent().parent().find(`.${this.expIcon}`);
+        $(`[nodeid=${oNode.id}]`).parent().parent().find('ul').show();
+        const obj = $(`[nodeid=${oNode.id}]`).parent().parent().find(`.${this.expIcon}`);
         obj.addClass(this.folderIcon);
         obj.removeClass(this.expIcon);
       },
       folderAllNodes: function (oNode) {
-        window.$(`[nodeid=${oNode.id}]`).parent().parent().find('ul').hide();
-        const obj = window.$(`[nodeid=${oNode.id}]`).parent().parent().find(`.${this.folderIcon}`);
+        $(`[nodeid=${oNode.id}]`).parent().parent().find('ul').hide();
+        const obj = $(`[nodeid=${oNode.id}]`).parent().parent().find(`.${this.folderIcon}`);
         obj.addClass(this.expIcon);
         obj.removeClass(this.folderIcon);
       }

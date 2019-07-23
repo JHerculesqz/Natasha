@@ -68,8 +68,8 @@
       //#region lifeCycle
 
       _initEx: function () {
-        this.iniputWrap = _.debounce(function (event) {
-          this.callbackOnInput(this.inputMsg);
+        this.inputWrap = _.debounce(function (event) {
+          this.callback4OnInput(this.inputMsg);
         }, 1000);
       },
 

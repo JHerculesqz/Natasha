@@ -3,20 +3,20 @@
 </template>
 
 <script>
-  import "core-fw-vue-widgrt-devPanel/css/MarvelDevPanel.css";
+  import "natasha-devPanel/css/MarvelDevPanel.css";
 
-  require('core-fw-vue-widgrt-devPanel/lib/svg.min.js');
-  require('core-fw-vue-widgrt-devPanel/js/plugins/MarvelDevPanel_1.js');
-  require('core-fw-vue-widgrt-devPanel/js/plugins/MarvelDevPanel_2.js');
-  require('core-fw-vue-widgrt-devPanel/js/plugins/MarvelDevPanel_3.js');
-  require('core-fw-vue-widgrt-devPanel/js/plugins/MarvelDevPanel_3_1.js');
-  require('core-fw-vue-widgrt-devPanel/js/plugins/MarvelDevPanel_4.js');
-  require('core-fw-vue-widgrt-devPanel/js/plugins/MarvelDevPanel_5.js');
-  require('core-fw-vue-widgrt-devPanel/js/plugins/MarvelDevPanel_6.js');
-  require('core-fw-vue-widgrt-devPanel/js/plugins/MarvelDevPanel_7.js');
-  require('core-fw-vue-widgrt-devPanel/js/plugins/MarvelDevPanel_8.js');
-  require('core-fw-vue-widgrt-devPanel/js/plugins/MarvelDevPanel_9.js');
-  require('core-fw-vue-widgrt-devPanel/js/MarvelDevPanel.js');
+  require('natasha-devPanel/lib/svg.min.js');
+  require('natasha-devPanel/js/plugins/MarvelDevPanel_1.js');
+  require('natasha-devPanel/js/plugins/MarvelDevPanel_2.js');
+  require('natasha-devPanel/js/plugins/MarvelDevPanel_3.js');
+  require('natasha-devPanel/js/plugins/MarvelDevPanel_3_1.js');
+  require('natasha-devPanel/js/plugins/MarvelDevPanel_4.js');
+  require('natasha-devPanel/js/plugins/MarvelDevPanel_5.js');
+  require('natasha-devPanel/js/plugins/MarvelDevPanel_6.js');
+  require('natasha-devPanel/js/plugins/MarvelDevPanel_7.js');
+  require('natasha-devPanel/js/plugins/MarvelDevPanel_8.js');
+  require('natasha-devPanel/js/plugins/MarvelDevPanel_9.js');
+  require('natasha-devPanel/js/MarvelDevPanel.js');
 
   /**
    *  MarvelDevPanel widget description
@@ -26,11 +26,11 @@
   export default {
     name: 'MarvelDevPanel',
     props: {
-      id:{
+      id: {
         type: String,
-        default:"",
-        required: true,
-      },
+        default: "",
+        required: true
+      }
     },
     data: function () {
       return {
@@ -54,10 +54,10 @@
       _onContextMenuClickBD: function (oBD, iX, iY) {
         this.$emit("onContextMenuClickBD", oBD, iX, iY);
       },
-      _onMouseOverBD: function(oBD, iX, iY){
+      _onMouseOverBD: function (oBD, iX, iY) {
         this.$emit("onMouseOverBD", oBD, iX, iY);
       },
-      _onMouseOutBD: function(oBD, iX, iY){
+      _onMouseOutBD: function (oBD, iX, iY) {
         this.$emit("onMouseOutBD", oBD, iX, iY);
       },
 
@@ -81,16 +81,16 @@
             contextMenu4BD: function (oBD, iX, iY, e) {
               self._onContextMenuClickBD(oBD, iX, iY);
             },
-            mouseOver:function (oBD, iX, iY, e) {
-              self._onMouseOverBD(oBD, iX, iY, e)
+            mouseOver: function (oBD, iX, iY, e) {
+              self._onMouseOverBD(oBD, iX, iY, e);
             },
-            mouseout:function (oBD, iX, iY, e) {
-              self.mouseout(oBD, iX, iY, e);
+            mouseOut: function (oBD, iX, iY, e) {
+              self._onMouseOutBD(oBD, iX, iY, e);
             }
           }
         };
 
-        var newOptions = Object.assign(oOptions,oConfig);
+        var newOptions = Object.assign(oOptions, oConfig);
         this.m_oMarvelDevPanel.init(newOptions);
       },
       initPlugin: function (strDevType) {

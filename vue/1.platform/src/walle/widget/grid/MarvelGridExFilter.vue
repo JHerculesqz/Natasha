@@ -301,7 +301,7 @@ customer：自定义单元格，支持文本单元格和dropdown单元格的切�
 </i18n>
 
 <script>
-  import MarvelPaging from "../../../walle/widget/paging/MarvelPaging"
+  import MarvelPaging from "../paging/MarvelPaging"
   import _ from "lodash"
 
   /**

@@ -250,7 +250,7 @@
 
   .dark .tabWrapper {
     border: 1px solid transparent;
-    background-color: transparent;
+    background-color: #161C36;
   }
 
   .dark .tabWrapper .headArea {

@@ -8,7 +8,7 @@
 </template>
 
 <script>
-  import brower from '../../../walle/component/browser';
+  import brower from '../../component/browser';
 
   /**
    *  MarvelPrompt widget description

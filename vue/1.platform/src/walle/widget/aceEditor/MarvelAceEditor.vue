@@ -5,7 +5,7 @@
 </template>
 
 <script>
-  import StringUtilsEx from '../../../walle/component/str'
+  import StringUtilsEx from '../../component/str'
 
   /**
    *  MarvelAceEditor widget description
