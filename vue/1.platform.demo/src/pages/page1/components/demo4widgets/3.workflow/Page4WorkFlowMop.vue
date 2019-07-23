@@ -74,7 +74,7 @@
         },{
           key:"operation",
           label:"Operation",
-          width:"150px",
+          width:"200px",
           type:"text",
           visible: true,
           isTreeNodeCell: true,
@@ -135,8 +135,8 @@
         this.treeNodes = [];
         for(var i = 0; i< 2;i++){
           var oNode={
-            id:i,
-            no:i,
+            id:i+2,
+            no:i+2,
             operation:"operation" + i,
             operationobj:"operationObj" + i,
             progress:i + "%",
@@ -216,7 +216,7 @@
                 hasRadiobox: false,
                 isInitCheck: false,
                 isInitExpand: true,
-                isLeafNode: false
+                isLeafNode: true
               };
               oNodeChild.children.push(oNodeChildEx);
             }

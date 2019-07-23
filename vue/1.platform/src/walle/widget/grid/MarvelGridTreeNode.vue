@@ -216,7 +216,7 @@
         this.$emit("onCheckOrNotRecussionTreeNode", isCheck, nodeItemInner);
       },
       callback4OnExpandOrNotTreeNode:function (isExpand, nodeItemInner) {
-        this.$emit("onExpandOrNoteTreeNode", isExpand, nodeItemInner);
+        this.$emit("onExpandOrNotTreeNode", isExpand, nodeItemInner);
       },
 
       //#endregion
