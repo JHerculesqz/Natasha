@@ -135,6 +135,7 @@
         this.treeNodes = [];
         for(var i = 0; i< 2;i++){
           var oNode={
+            name:i,
             id:i,
             no:i,
             operation:"operation" + i,
@@ -163,6 +164,7 @@
           };
           for(var j = 0; j<1;j++){
             var oNodeChild = {
+              name:oNode.id + "_" + j,
               id:oNode.id + "_" + j,
               no:oNode.id + "_" + j,
               operation:"operation" + oNode.id + "_" + j,
@@ -190,8 +192,9 @@
               isLeafNode: false
             };
             oNode.children.push(oNodeChild);
-            for(var k = 0; k<1;k++){
+            for(var k = 0; k<3;k++){
               var oNodeChildEx = {
+                name:oNodeChild.id + "_" + k,
                 id:oNodeChild.id + "_" + k,
                 no:oNodeChild.id + "_" + k,
                 operation:"operation" + oNodeChild.id + "_" + k,
