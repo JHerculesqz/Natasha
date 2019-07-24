@@ -135,8 +135,8 @@
         this.treeNodes = [];
         for(var i = 0; i< 2;i++){
           var oNode={
-            id:i+2,
-            no:i+2,
+            id:i,
+            no:i,
             operation:"operation" + i,
             operationobj:"operationObj" + i,
             progress:i + "%",
@@ -161,7 +161,7 @@
             isInitExpand: true,
             isLeafNode: false
           };
-          for(var j = 0; j<2;j++){
+          for(var j = 0; j<1;j++){
             var oNodeChild = {
               id:oNode.id + "_" + j,
               no:oNode.id + "_" + j,
@@ -182,7 +182,7 @@
                 value:"icon-file-text2"
               }],
               children:[],
-              nodeLevel:1,
+              nodeLevel:2,
               hasCheckbox: false,
               hasRadiobox: false,
               isInitCheck: false,
@@ -190,7 +190,7 @@
               isLeafNode: false
             };
             oNode.children.push(oNodeChild);
-            for(var k = 0; k<2;k++){
+            for(var k = 0; k<1;k++){
               var oNodeChildEx = {
                 id:oNodeChild.id + "_" + k,
                 no:oNodeChild.id + "_" + k,
@@ -211,7 +211,7 @@
                   value:"icon-file-text2"
                 }],
                 children:[],
-                nodeLevel:1,
+                nodeLevel:3,
                 hasCheckbox: false,
                 hasRadiobox: false,
                 isInitCheck: false,
