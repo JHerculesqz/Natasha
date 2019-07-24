@@ -12,23 +12,23 @@
   require('echarts/lib/component/dataZoom');
 
   /**
-   *  MarvelChartBarLine widget description
+   *  MarvelChartBarLine2 widget description
    *  @vuedoc
-   *  @exports MarvelChartBarLine
+   *  @exports MarvelChartBarLine2
    */
   export default {
-    name: 'MarvelChartBarLine',
+    name: 'MarvelChartBarLine2',
     props: {
       id: {
         type: String,
         default: "",
         required: true,
-      },
+      }
     },
     data: function () {
       return {
         chartObj: undefined,
-        chartData: undefined
+        chartData: undefined,
       }
     },
     beforeDestroy: function () {
@@ -66,32 +66,17 @@
 
       generateZoom: function (bIsZoom) {
         if (bIsZoom) {
-          if (this.chartData.sliderConfig != undefined) {
-            //用于控制一次展示的柱子的百分比以及滑动块离底部距离
-            return [{
-              type: 'slider',
-              fillerColor: '#687178',
-              height: 10,//设置滑动条高度
-              handleSize: 20,
-              start: this.chartData.sliderConfig.start,//滑动块展示起始的百分比
-              end: this.chartData.sliderConfig.end,//滑动块展示结束的百分比
-              bottom: this.chartData.sliderConfig.bottom,//滑动块展示离底部距离
-              showDetail: false,
-              zoomLock: true,
-            }];
-          } else {
-            return [{
-              type: 'slider',
-              fillerColor: '#687178',
-              height: 10,//设置滑动条高度
-              handleSize: 20,
-              start: 0,
-              end: 50,
-              bottom: 10,
-              showDetail: false,
-              zoomLock: true,
-            }]
-          }
+          return [{
+            type: 'slider',
+            fillerColor: '#687178',
+            height: 10,//设置滑动条高度
+            handleSize: 20,
+            start: 0,
+            end: 50,
+            bottom: 10,
+            showDetail: false,
+            zoomLock: true,
+          }];
         } else {
           return [];
         }
@@ -150,7 +135,6 @@
               type: 'value',
               name: arrYAxis[i].title,
               show: arrYAxis[i].isShow,
-              minInterval: arrYAxis[i].hasOwnProperty("minInterval") ? arrYAxis[i].minInterval : 0,
               splitLine: {
                 lineStyle: {
                   type: 'dashed',//控制横向的虚线分割线
@@ -160,32 +144,6 @@
             arrYaxis.push(oYaxis);
           }
           return arrYaxis;
-        }
-      },
-      genToolTip: function (oData) {
-        if (oData.customerTip) {
-          return {
-            trigger: 'axis',
-            axisPointer: {
-              type: 'cross',
-              crossStyle: {
-                color: '#999'
-              }
-            },
-            formatter: function (prarm) {
-              return oData.tip[prarm[0].dataIndex];
-            }
-          }
-        } else {
-          return {
-            trigger: 'axis',
-            axisPointer: {
-              type: 'cross',
-              crossStyle: {
-                color: '#999'
-              }
-            }
-          }
         }
       },
 
@@ -203,8 +161,20 @@
         this.chartData = oData;
         var option = {
           color: this.chartData.colors,
-          tooltip: this.genToolTip(oData),
+          tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+              type: 'cross',
+              crossStyle: {
+                color: '#999'
+              }
+            }
+          },
           dataZoom: this.generateZoom(this.chartData.isSlide),
+          grid: {
+            left: '10%',
+            bottom: '45%'
+          },
           legend: {
             data: this.chartData.category,//图标的标题分类
             selectedMode: this.chartData.canSelect == undefined ? true : this.chartData.canSelect,
@@ -214,6 +184,10 @@
               type: 'category',
               name: this.chartData.xAxisName,
               data: this.chartData.xAxisValue,//横坐标的值
+              axisLabel: {
+                rotate: 60,
+                interval: 0
+              },
               axisPointer: {
                 type: 'shadow'
               },
@@ -226,9 +200,6 @@
           option['grid'] = {
             top: this.chartData.top
           };
-        }
-        if (this.chartData.axisLabel != undefined) {
-          option['xAxis'][0].axisLabel = this.chartData.axisLabel;
         }
         this.chartObj.setOption(option, true);
       },
