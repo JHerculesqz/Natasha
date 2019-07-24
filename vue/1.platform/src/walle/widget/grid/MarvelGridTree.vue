@@ -632,7 +632,7 @@
 </script>
 
 <style scoped>
-  .marvelGridWrapper{
+  .marvelGridWrapper {
     border: 1px solid #f0f0f0;
   }
 
