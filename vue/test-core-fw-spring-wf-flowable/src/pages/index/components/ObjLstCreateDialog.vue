@@ -34,34 +34,34 @@
         contItems:[{
           type:"input",
           key:"contItems_index1",
-          name:"网元名称"
+          name:"XXX名称"
         },{
           type:"input",
           key:"contItems_index2",
-          name:"网元IP"
+          name:"XXX"
         },{
           type:"dropdown",
           key:"contItems_index3",
-          name:"网元类型",
+          name:"XXX",
           dropItems:[{
-            label:"OptiX PTN 990",
-            title:"OptiX PTN 990",
+            label:"Option1",
+            title:"Option1",
             active:true,
           },{
-            label:"OptiX PTN 880",
-            title:"OptiX PTN 880",
+            label:"Option2",
+            title:"Option2",
           },{
-            label:"OptiX PTN 770",
-            title:"OptiX PTN 770",
+            label:"Option3",
+            title:"Option3",
           }]
         },{
           type:"input",
           key:"contItems_index4",
-          name:"调整前LSRID"
+          name:"XXX"
         },{
           type:"input",
           key:"contItems_index5",
-          name:"调整后LSRID"
+          name:"XXX"
         },]
       }
     },
