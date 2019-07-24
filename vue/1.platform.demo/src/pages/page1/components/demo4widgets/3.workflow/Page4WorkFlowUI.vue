@@ -46,7 +46,7 @@
   import RenovationSetup from "./stepcomponents/RenovationSetup";
 
   export default {
-    name: 'page4Crumb',
+    name: 'page4WorkFlowUI',
     components: {
       MarvelWorkFlow,
       MarvelTab,

@@ -3,7 +3,7 @@
     <table class="gridCont" cellspacing="0" cellpadding="0">
       <tbody>
       <tr>
-        <td v-for="(title,index) in titles" v-bind:style="{width: titles.width}">
+        <td v-for="(title,index) in titles" v-bind:style="{width: title.width}">
           <div v-if="_isTreeNodeCell(title)" v-bind:style="_calcTreeNodeCellStyle(nodeItemInner)">
             <div class="treeItemIcon" v-bind:class="_openEx(nodeItemInner)"
                  v-on:click="_toggle(nodeItemInner)"></div>
@@ -13,7 +13,7 @@
                      v-on:change.stop="_onCheckboxClick">
             </div>
             <div class="treeItemCheck" v-if="nodeItemInner.hasRadiobox">
-              <input class="treeitemCheckbox" type="radio" :checked="nodeItemInner.isCheck"
+              <input class="treeitemCheckbox" type="radio" :checked='nodeItemInner.isCheck'
                      v-bind:id="'title_' + nodeItemInner.id"
                      v-on:click.stop="_onRadioboxClick">
             </div>
@@ -21,7 +21,7 @@
               {{_getTdValue(title, nodeItemInner)}}
             </div>
           </div>
-          <div v-eles class="treeItemName">
+          <div v-else class="treeItemName">
             <!--列支持文本类型-->
             <div v-if="title.type=='text'">
               <div class="textCell" :title="_getTdValue(title, nodeItemInner)">
@@ -35,8 +35,8 @@
                        :value="_getTdValue(title, nodeItemInner)"
                        :title="_getTdValue(title, nodeItemInner)"
                        @click.stop
-                       @keyup.enter="_editRowFinished(title.ket, nodeItemInner, $event)"
-                       @blur="_editRowFinished(title.ket, nodeItemInner, $event)">
+                       @keyup.enter="_editRowFinished(title.key, nodeItemInner, $event)"
+                       @blur="_editRowFinished(title.key, nodeItemInner, $event)">
               </div>
             </div>
             <!--列支持图标类型-->
@@ -46,7 +46,8 @@
                     :class="[icon.value]"
                     :style="{color:icon.color}"
                     :title="icon.title"
-                    @click.stop="_onIconClick(title.key, nodeItemInner, icon)"></span>
+                    @click.stop="_onIconClick(title.key, nodeItemInner, icon)">
+              </span>
             </div>
           </div>
         </td>
@@ -54,8 +55,7 @@
       <tr>
         <td :colspan="titles.length">
           <template v-if="_showChildren(nodeItemInner)" v-for="oNodeChildItem in nodeItemInner.children">
-            <marvel-grid-tree-node :key="oNodeChildItem.nodeLevel + oNodeChildrenItem.name"
-                                   :nodeItem="oNodeChildrenItem"
+            <marvel-grid-tree-node :key="oNodeChildItem.nodeLevel + oNodeChildItem.name" :nodeItem="oNodeChildItem"
                                    :titles="titles"
                                    @onCheckOrNotRecussionTreeNode="onCheckOrNotRecussionTreeNode"
                                    @onExpandOrNotTreeNode="onExpandOrNotTreeNode"
@@ -79,7 +79,7 @@
     name: 'MarvelGridTreeNode',
     props: {
       nodeItem: {
-        type: Array,
+        type: Object,
         default: undefined,
         required: true,
       },
@@ -161,10 +161,10 @@
       },
       _toggle: function (nodeItemInner) {
         nodeItemInner.isExpand = !nodeItemInner.isExpand;
-        this.callback4OnExpandOrNoteTreeNode(nodeItemInner.isExpand, nodeItemInner);
+        this.callback4OnExpandOrNotTreeNode(nodeItemInner.isExpand, nodeItemInner);
       },
       onExpandOrNotTreeNode: function (isExpand, nodeItemInner) {
-        this.callback4OnExpandOrNoteTreeNode(isExpand, nodeItemInner);
+        this.callback4OnExpandOrNotTreeNode(isExpand, nodeItemInner);
       },
       _isTreeNodeCell: function (oTitle) {
         return oTitle.isTreeNodeCell;
@@ -176,14 +176,14 @@
       },
       _onCheckboxClick:function (event) {
         var isCheck = event.target.checked;
-        this.callbackOnCheckOrNotRecussionTreeNode(isCheck, this.nodeItemInner);
+        this.callback4OnCheckOrNotRecussionTreeNode(isCheck, this.nodeItemInner);
       },
       _onRadioboxClick: function (event) {
-        var isCheck = !this.nodeItemInner.isChick;
-        this.callbackOnCheckOrNotRecussionTreeNode(isCheck, this.nodeItemInner)
+        var isCheck = !this.nodeItemInner.isCheck;
+        this.callback4OnCheckOrNotRecussionTreeNode(isCheck, this.nodeItemInner)
       },
       onCheckOrNotRecussionTreeNode: function (isCheck, nodeItemInner) {
-        this.callbackOnCheckOrNotRecussionTreeNode(isCheck, nodeItemInner)
+        this.callback4OnCheckOrNotRecussionTreeNode(isCheck, nodeItemInner)
       },
       _editRowFinished: function (strKeyVal, nodeItemInner, oEvent) {
         let oOldVal = nodeItemInner[strKeyVal];
@@ -196,7 +196,7 @@
               oOldVal = '';
             }
             oEvent.target.value = oOldVal;//校验不通过调用该回调
-          })
+          });
         }
       },
       _onIconClick: function (strKeyVal, nodeItemInner, oIcon) {
@@ -212,17 +212,17 @@
       callback4OnIconClick:function (nodeItemInner, oIcon) {
         this.$emit("onIconClick", nodeItemInner, oIcon);
       },
-      callbackOnCheckOrNotRecussionTreeNode:function (isCheck, nodeItemInner) {
+      callback4OnCheckOrNotRecussionTreeNode:function (isCheck, nodeItemInner) {
         this.$emit("onCheckOrNotRecussionTreeNode", isCheck, nodeItemInner);
       },
-      callback4OnExpandOrNoteTreeNode:function (isExpand, nodeItemInner) {
-        this.$emit("onExpandOrNoteTreeNode", isCheck, nodeItemInner);
+      callback4OnExpandOrNotTreeNode:function (isExpand, nodeItemInner) {
+        this.$emit("onExpandOrNotTreeNode", isExpand, nodeItemInner);
       },
 
       //#endregion
       //#region 3rd
       //#endregion
-    },
+    }
   }
 </script>
 
