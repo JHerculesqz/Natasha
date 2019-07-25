@@ -1,41 +1,34 @@
 <template>
   <div class="objListPageWrapper">
-    <div class="topArea">
-      <div class="title4objListPageWrapper">XXX列表</div>
-      <marvel-button v-show="tabItems[0].isActive" ref="objLstPageCreateBtn" label="新建" classCustom="classCustom4Btn"
-                     v-on:onClick="_onClickToCreate"></marvel-button>
-    </div>
-    <div class="bottomArea">
-      <marvel-tab :tabItems="tabItems" :hideBorder="true">
-        <marvel-tab-item :isActive="tabItems[0].isActive" style="padding: 10px;box-sizing: border-box;">
-          <marvel-grid-ex ref="objLstGrid"
-                          gridId="objLstGrid"
-                          :titles="title4objLst"
-                          :rows="row4objLst"
-                          :dynamicPaging="true"
-                          :totalNum = "totalNum"
-                          :totalPage = "totalPage"
-                          :canDrag="true"
-                          :hasFoot="true"
-                          v-on:onIconClick="_onIconClick"
-                          v-on:onPageChange = "_onPageChange"></marvel-grid-ex>
-        </marvel-tab-item>
-        <marvel-tab-item :isActive="tabItems[1].isActive"  style="padding: 10px;box-sizing: border-box;">
-          <marvel-grid-ex ref="objLstGridFinish"
-                          gridId="objLstGridFinish"
-                          :titles="title4objLst"
-                          :rows="row4objLstFinished"
-                          :dynamicPaging="true"
-                          :totalNum = "totalNumFinished"
-                          :totalPage = "totalPageFinished"
-                          :canDrag="true"
-                          :hasFoot="true"
-                          v-on:onIconClick="_onIconClick"
-                          v-on:onPageChange = "_onPageChange4Finished"></marvel-grid-ex>
-        </marvel-tab-item>
-      </marvel-tab>
-    </div>
+    <marvel-work-flow-obj-lst ref="ObjLst"
+                              :title4objLst="title4objLst"
+                              :row4objLst="row4objLst"
+                              :totalNum="totalNum"
+                              :totalPage="totalPage"
+                              :limit="limit"
+                              :title4objLstFinished="title4objLst"
+                              :row4objLstFinished="row4objLstFinished"
+                              :totalNumFinished="totalNumFinished"
+                              :totalPageFinished="totalPageFinished"
+                              :limitFinished="limitFinished"
+                              @onClickToCreate="_onClickToCreate"
+                              @onClickToBatchCreate="_onClickToBatchCreate"
+                              @onPageChange="_onPageChange"
+                              @onPageChange4Finished="_onPageChange4Finished"
+                              @onIconClick4Delete="_onIconClick4Delete"
+                              @onIconClick4View="_onIconClick4View">
+      <div slot="btnArea" class="slotBtnArea">
+        <marvel-button v-show="tabItems[0].isActive" ref="objLstPageCreateBtn4" label="XXX"
+                       classCustom="classCustom4Btn"
+                       v-on:onClick="_onClickToXXX"></marvel-button>
+        <marvel-button v-show="tabItems[0].isActive" ref="objLstPageCreateBtn3" label="分析"
+                       classCustom="classCustom4Btn"
+                       v-on:onClick="_onClickToAnalysis"></marvel-button>
+      </div>
+    </marvel-work-flow-obj-lst>
     <obj-lst-create-dialog ref="objLstCreateDialog" @onCreate="_onCreate"></obj-lst-create-dialog>
+    <obj-lst-batch-create-dialog ref="objLstBatchCreateDialog"
+                                 @onCreate="_onBatchCreate"></obj-lst-batch-create-dialog>
   </div>
 </template>
 
@@ -47,6 +40,8 @@
   import HttpUtils from "./0.common/httpUtil/httpUtils";
   import MockUtils from "./0.common/mock";
   import ObjLstCreateDialog from "./ObjLstCreateDialog";
+  import ObjLstBatchCreateDialog from "./ObjLstCreateBatchDialog";
+  import MarvelWorkFlowObjLst from "~~/widget/workFlow/MarvelWorkFlowObjLst";
 
   /**
    * ObjLstPage component description
@@ -56,6 +51,8 @@
   export default {
     name: 'ObjLstPage',
     components: {
+      MarvelWorkFlowObjLst,
+      ObjLstBatchCreateDialog,
       ObjLstCreateDialog,
       MarvelButton,
       MarvelGridEx,
@@ -68,87 +65,81 @@
         debug: true,
         //#endregion
         //#region tab
-        tabItems:[{
-          label:"执行中",
-          isActive:true
-        },{
-          label:"执行完毕",
-          isActive:false
+        tabItems: [{
+          label: "执行中",
+          isActive: true
+        }, {
+          label: "执行完毕",
+          isActive: false
         }],
         //#endregion
         //#region grid
-        title4objLst:[{
-          label:"序号",
-          key:"id",
-          type:"text",
-          visible:true,
-          width:"8%"
-        },{
-          label:"Lst1",
-          key:"nodeName",
-          type:"text",
-          visible:true,
-          width:"20%"
-        },{
-          label:"Lst2",
-          key:"LSRIDBefore",
-          type:"text",
-          visible:true,
-          width:"20%"
-        },{
-          label:"Lst3",
-          key:"tergetLSRID",
-          type:"text",
-          visible:true,
-          width:"20%"
-        },{
-          label:"Lst4",
-          key:"nodeType",
-          type:"text",
-          visible:true,
-          width:"20%"
-        },{
-          label:"创建时间",
-          key:"createTime",
-          type:"text",
-          visible:true,
-          width:"20%"
-        },{
-          label:"执行时间",
-          key:"executionTime",
-          type:"text",
-          visible:true,
-          width:"20%"
-        },{
-          label:"执行状态",
-          key:"executionStatus",
-          type:"text",
-          visible:true,
-          width:"20%"
-        },{
-          label:"创建人",
-          key:"userName",
-          type:"text",
-          visible:true,
-          width:"20%"
-        },{
-          label:"操作",
-          key:"operation",
-          type:"icon",
-          visible:true,
-          width:"10%"
+        title4objLst: [{
+          label: "序号",
+          key: "id",
+          type: "text",
+          visible: true,
+          width: "8%"
+        }, {
+          label: "Lst1",
+          key: "nodeName",
+          type: "text",
+          visible: true,
+          width: "20%"
+        }, {
+          label: "Lst2",
+          key: "LSRIDBefore",
+          type: "text",
+          visible: true,
+          width: "20%"
+        }, {
+          label: "Lst3",
+          key: "tergetLSRID",
+          type: "text",
+          visible: true,
+          width: "20%"
+        }, {
+          label: "Lst4",
+          key: "nodeType",
+          type: "text",
+          visible: true,
+          width: "20%"
+        }, {
+          label: "创建时间",
+          key: "createTime",
+          type: "text",
+          visible: true,
+          width: "20%"
+        }, {
+          label: "执行时间",
+          key: "executionTime",
+          type: "text",
+          visible: true,
+          width: "20%"
+        }, {
+          label: "执行状态",
+          key: "executionStatus",
+          type: "text",
+          visible: true,
+          width: "20%"
+        }, {
+          label: "创建人",
+          key: "userName",
+          type: "text",
+          visible: true,
+          width: "20%"
         }],
-        row4objLst:[],
-        totalNum:0,
-        totalPage:1,
-        limit:26,
-        currentPage:1,
+        row4objLst: [],
+        totalNum: 0,
+        totalPage: 1,
+        limit: 26,
+        currentPage: 1,
 
-        row4objLstFinished:[],
-        totalNumFinished:0,
-        totalPageFinished:1,
-        limitFinished:26,
-        currentPageFinished:1
+        row4objLstFinished: [],
+        totalNumFinished: 0,
+        totalPageFinished: 1,
+        limitFinished: 26,
+        currentPageFinished: 1
         //#endregion
       }
     },
@@ -168,20 +159,51 @@
         var self = this;
 
         //get wf
-        this._getWfModel(function (oRes) {
-          self._setWfModel(oRes);
+        this._getWfModelGrid(function (oRes) {
+          self._setWfModelGrid(oRes);
         });
 
-        this._getWfModelFinished(function (oRes) {
-          self._setWfModelFinished(oRes);
+        this._getWfModelFinishedGrid(function (oRes) {
+          self._setWfModelFinishedGrid(oRes);
         });
       },
 
       //#endregion
 
-      //#region grid
+      //#region Button operate
 
-      _getWfModel: function (oAfterCallback) {
+      _onClickToCreate: function () {
+        this.$refs.objLstCreateDialog.toShowDialog();
+      },
+      _onClickToBatchCreate: function () {
+        this.$refs.objLstBatchCreateDialog.toShowDialog();
+      },
+      _onClickToAnalysis: function () {
+        console.log("onclick Analysis")
+      },
+      _onClickToXXX: function () {
+        console.log("onclick XXX")
+      },
+      _onCreate: function (oOption) {
+        var oParams = oOption;
+        var reqBody = JSON.stringify(oParams);
+        if (this.debug) {
+          console.log(oOption)
+        } else {
+          HttpUtils.post("addNode", reqBody).then(res => {
+            oRes = res.data.resultObj;
+          });
+        }
+      },
+      _onBatchCreate: function (oOption) {
+        //todo
+      },
+
+      //#endregion
+
+      //#region grid data
+
+      _getWfModelGrid: function (oAfterCallback) {
         var oRes = undefined;
         var oParams = {
           skip: (this.currentPage - 1) * this.limit,
@@ -198,13 +220,13 @@
 
         oAfterCallback(oRes);
       },
-      _setWfModel: function (oRes) {
+      _setWfModelGrid: function (oRes) {
         this.row4objLst = oRes.arrRows;
         this.totalNum = oRes.totalNum;
         this.totalPage = oRes.totalPage
       },
 
-      _getWfModelFinished: function (oAfterCallback) {
+      _getWfModelFinishedGrid: function (oAfterCallback) {
         var oRes = undefined;
         var oParams = {
           skip: (this.currentPageFinished - 1) * this.limitFinished,
@@ -221,7 +243,7 @@
 
         oAfterCallback(oRes);
       },
-      _setWfModelFinished: function (oRes) {
+      _setWfModelFinishedGrid: function (oRes) {
         this.row4objLstFinished = oRes.arrRows;
         this.totalNumFinished = oRes.totalNum;
         this.totalPageFinished = oRes.totalPage
@@ -229,67 +251,52 @@
 
       //#endregion
 
-      //#region create
+      //#region grid action
 
-      _onClickToCreate: function () {
-        this.$refs.objLstCreateDialog.toShowDialog();
-      },
-      _onCreate: function (oOption) {
-        var oParams = oOption;
-        var reqBody = JSON.stringify(oParams);
-        if (this.debug) {
-          console.log(oOption)
-        } else {
-          HttpUtils.post("addNode", reqBody).then(res => {
-            oRes = res.data.resultObj;
-          });
-        }
-      },
       _onPageChange: function (iPageIndex, perPageNum) {
         var self = this;
         this.currentPage = iPageIndex;
         //get wf
-        this._getWfModel(function (oRes) {
-          self._setWfModel(oRes);
+        this._getWfModelGrid(function (oRes) {
+          self._setWfModelGrid(oRes);
         });
       },
       _onPageChange4Finished: function (iPageIndex, perPageNum) {
         var self = this;
         this.currentPageFinished = iPageIndex;
         //get wf
-        this._getWfModelFinished(function (oRes) {
-          self._setWfModelFinished(oRes);
+        this._getWfModelFinishedGrid(function (oRes) {
+          self._setWfModelFinishedGrid(oRes);
         });
       },
-      _onIconClick: function (oRow) {
-        var oCell = this._getRowCellByKey(oRow, "nodeName");
+      _onIconClick4Delete: function (oRow, oNode) {
         var oParams = {
-          nodeName:oCell.value
+          nodeName: oNode.value
         };
         var reqBody = JSON.stringify(oParams);
         if (this.debug) {
-          console.log(oCell.value);
-          window.location.href="http://localhost:8080/page1.html#/";
+          console.log("delete:");
+          console.log(oNode.value);
+        } else {
+          HttpUtils.post("deleteNode", reqBody).then(res => {
+            //todo update
+          });
+        }
+      },
+      _onIconClick4View: function (oRow, oNode) {
+        var oParams = {
+          nodeName: oNode.value
+        };
+        var reqBody = JSON.stringify(oParams);
+        if (this.debug) {
+          console.log(oNode.value);
+          window.location.href = "http://localhost:8080/page1.html#/";
         } else {
           HttpUtils.post("checkDetails4Node", reqBody).then(res => {
 
           });
         }
       },
-      _getRowCellByKey: function (oRow, strKey) {
-        var targetCell = undefined;
-        for(var i = 0; i< oRow.length; i++){
-          var oCell = oRow[i];
-          if(strKey == oCell.key){
-            targetCell = oCell;
-            break;
-          }else{
-            continue;
-          }
-        }
-        return targetCell;
-      }
-
 
       //#endregion
 
@@ -304,34 +311,14 @@
 
 <style scoped>
 
-  .objListPageWrapper{
+  .objListPageWrapper {
     width: 100%;
     height: 100%;
   }
 
-  .topArea{
-    height: 50px;
-    padding: 10px 10px 0 10px;
-    box-sizing: border-box;
-  }
-
-  .title4objListPageWrapper{
-    line-height: 32px;
-    font-size: 18px;
-    color: #4d4d4d;
-    font-weight: bolder;
-    float: left;
-  }
-
-  .classCustom4Btn{
+  .classCustom4Btn {
     float: right;
-  }
-
-  .bottomArea{
-    height: calc(100% - 50px);
-    width: 100%;
-    padding: 10px;
-    box-sizing: border-box;
+    margin-left: 20px;
   }
 
 </style>

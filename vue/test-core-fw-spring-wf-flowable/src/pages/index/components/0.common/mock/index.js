@@ -48,14 +48,6 @@ export default {
         key:"userName",
         value:"userName" + i
       });
-      oRow.push({
-        key:"operation",
-        value:[{
-          value:"icon-wrench",
-          color:"#3399ff",
-          title:"查看"
-        }],
-      });
 
       oRes.resultObj.arrRows.push(oRow);
     }
