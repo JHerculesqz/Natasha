@@ -145,8 +145,8 @@
           stack: '1',
           label: {
             normal: {
-              show: true,//显示数据
-              position: 'top'//显示数据位置'top/right/left/insideLeft/insideRight/insideTop/insideBottom'
+              show: true, //显示数据
+              position: 'top'//显示数据位置 'top/right/left/insideLeft/insideRight/insideTop/insideBottom'
             }
           },
         };
@@ -240,6 +240,26 @@
 </script>
 
 <style scoped>
+  /*region basic*/
+
+  *{
+    font-family: "Microsoft YaHei", "arial",sans-serif;
+  }
+  ::-webkit-scrollbar{
+    width:8px;
+    height:8px;
+    background-color: rgba(0,0,0,0);
+  }
+  ::-webkit-scrollbar-track{
+    border-radius: 10px;
+    background-color: rgba(0,0,0,0);
+  }
+  ::-webkit-scrollbar-thumb{
+    border-radius: 10px;
+    background-color: #aaa;
+  }
+
+  /*endregion*/
   .chart {
     width: 100%;
     height: 100%;
