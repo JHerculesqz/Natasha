@@ -33,6 +33,13 @@ var API = {
     desc:R,
     errorAdvice:errorAdvice
   },
+  getComponentInfo:{
+    url: "/wf/flowable/getComponentInfo",
+    loading:true,
+    checkRes:true,
+    desc:R,
+    errorAdvice:errorAdvice
+  },
 };
 
 export default {

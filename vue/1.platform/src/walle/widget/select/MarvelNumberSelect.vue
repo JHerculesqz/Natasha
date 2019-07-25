@@ -136,6 +136,26 @@
 </script>
 
 <style scoped>
+  /*region basic*/
+
+  *{
+    font-family: "Microsoft YaHei", "arial",sans-serif;
+  }
+  ::-webkit-scrollbar{
+    width:8px;
+    height:8px;
+    background-color: rgba(0,0,0,0);
+  }
+  ::-webkit-scrollbar-track{
+    border-radius: 10px;
+    background-color: rgba(0,0,0,0);
+  }
+  ::-webkit-scrollbar-thumb{
+    border-radius: 10px;
+    background-color: #aaa;
+  }
+
+  /*endregion*/
   .marvelNumberSelectWrapper {
     height: 100%;
     width: 100%;
@@ -149,8 +169,8 @@
   }
 
   .minus {
-    height: 36px;
-    width: 100%;
+    width: 36px;
+    height: 100%;
     border-radius: 4px 0 0 4px;
     border-right: 1px solid #dcdfe6;
     float: left;

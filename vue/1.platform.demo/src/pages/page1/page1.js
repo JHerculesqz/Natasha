@@ -14,11 +14,15 @@ Vue.config.productionTip = false;
 
 SkinUtilsEx.initTheme();
 
-I18nUtilsEx.setDefaultLang("zh");
+//设置默认语言环境
+let lan = "zh";
+I18nUtilsEx.setDefaultLang(lan);
+
 const i18n = I18nUtilsEx.initI18n({
   'zh': require('./i18n/zh'),
   'en': require('./i18n/en')
 });
+I18nUtilsEx.localeChange(i18n, lan);
 
 new Vue({
   el: '#app',

@@ -10,7 +10,7 @@
         <div class="toolbarItemLabel" :title="item.tip? item.tip : item.label" v-bind:class="item.itemLabelCustom"
              v-on:click="onToolbarItemClick($event, item)">
           <div class="toolbarIcon" v-bind:class="[item.icon, item.iconCustom]"></div>
-          <div class="toolbarName" :class="[{dpn: !showLabels}, item.nameCustom]">{{item.label}}
+          <div class="toolbarName" v-bind:class="[{dpn: !showLabels}, item.nameCustom]">{{item.label}}
           </div>
         </div>
         <div class="toolbarCustomSubPanel" v-if="item.hasCustomSubPanel"
@@ -112,6 +112,26 @@
 </script>
 
 <style scoped>
+  /*region basic*/
+
+  *{
+    font-family: "Microsoft YaHei", "arial",sans-serif;
+  }
+  ::-webkit-scrollbar{
+    width:8px;
+    height:8px;
+    background-color: rgba(0,0,0,0);
+  }
+  ::-webkit-scrollbar-track{
+    border-radius: 10px;
+    background-color: rgba(0,0,0,0);
+  }
+  ::-webkit-scrollbar-thumb{
+    border-radius: 10px;
+    background-color: #aaa;
+  }
+
+  /*endregion*/
   .dpn {
     display: none !important;
   }

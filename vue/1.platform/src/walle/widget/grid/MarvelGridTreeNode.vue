@@ -174,7 +174,7 @@
           "margin-left": (this.nodeItemInner.nodeLevel - 1) * 16 + "px"
         }
       },
-      _onCheckboxClick:function (event) {
+      _onCheckboxClick: function (event) {
         var isCheck = event.target.checked;
         this.callback4OnCheckOrNotRecussionTreeNode(isCheck, this.nodeItemInner);
       },
@@ -188,11 +188,11 @@
       _editRowFinished: function (strKeyVal, nodeItemInner, oEvent) {
         let oOldVal = nodeItemInner[strKeyVal];
         let oNewVal = oEvent.target.value;
-        if(this.editCellFinished){
-          this.editCellFinished(nodeItemInner, oOldVal, oNewVal, ()=>{
+        if (this.editCellFinished) {
+          this.editCellFinished(nodeItemInner, oOldVal, oNewVal, () => {
             nodeItemInner[strKeyVal] = oNewVal;//外界对值进行校验，校验通过调用该回调
-          },()=>{
-            if(undefined == oOldVal){
+          }, () => {
+            if (undefined == oOldVal) {
               oOldVal = '';
             }
             oEvent.target.value = oOldVal;//校验不通过调用该回调
@@ -209,13 +209,13 @@
       //#endregion
       //#region callback
 
-      callback4OnIconClick:function (nodeItemInner, oIcon) {
+      callback4OnIconClick: function (nodeItemInner, oIcon) {
         this.$emit("onIconClick", nodeItemInner, oIcon);
       },
-      callback4OnCheckOrNotRecussionTreeNode:function (isCheck, nodeItemInner) {
+      callback4OnCheckOrNotRecussionTreeNode: function (isCheck, nodeItemInner) {
         this.$emit("onCheckOrNotRecussionTreeNode", isCheck, nodeItemInner);
       },
-      callback4OnExpandOrNotTreeNode:function (isExpand, nodeItemInner) {
+      callback4OnExpandOrNotTreeNode: function (isExpand, nodeItemInner) {
         this.$emit("onExpandOrNotTreeNode", isExpand, nodeItemInner);
       },
 
@@ -227,44 +227,64 @@
 </script>
 
 <style scoped>
+  /*region basic*/
 
-  .gridWrapper{
+  *{
+    font-family: "Microsoft YaHei", "arial",sans-serif;
+  }
+  ::-webkit-scrollbar{
+    width:8px;
+    height:8px;
+    background-color: rgba(0,0,0,0);
+  }
+  ::-webkit-scrollbar-track{
+    border-radius: 10px;
+    background-color: rgba(0,0,0,0);
+  }
+  ::-webkit-scrollbar-thumb{
+    border-radius: 10px;
+    background-color: #aaa;
+  }
+
+  /*endregion*/
+
+  .gridWrapper {
     width: 100%;
     height: 100%;
     background-color: #fff;
     box-sizing: border-box;
   }
 
-  .gridWrapper table tbody tr,td{
+  .gridWrapper table tbody tr, td {
     padding-top: 2px;
   }
 
-  .gridCont table tbody tr:first-child:hover{
+  .gridCont table tbody tr:first-child:hover {
     background-color: #eaf6f9;
   }
 
-  .gridCont{
+  .gridCont {
     width: 100%;
     height: 100%;
     box-sizing: border-box;
   }
 
   .expandBorder {
-    border-bottom:1px solid #cccccc;
+    border-bottom: 1px solid #cccccc;
   }
 
-  .treeItemIcon{
+  .treeItemIcon {
     width: 16px;
     height: 16px;
     font-size: 10px;
-    color:#000000;
+    color: #000000;
     line-height: 16px;
     cursor: pointer;
     float: left;
     margin-top: 7px;
   }
 
-  .treeItemCheck{
+  .treeItemCheck {
     float: left;
     height: 12px;
     width: 12px;
@@ -273,7 +293,7 @@
     margin-top: 3px;
   }
 
-  .treeitemCheckbox{
+  .treeitemCheckbox {
     width: 100%;
     height: 100%;
     position: absolute;
@@ -282,16 +302,16 @@
     left: 0;
   }
 
-  .treeItemName{
+  .treeItemName {
     white-space: nowrap;
   }
 
-  .iconOnly{
+  .iconOnly {
     padding-left: 5px;
     margin-right: 5px;
   }
 
-  .iconOnly:hover{
+  .iconOnly:hover {
     cursor: pointer;
   }
 

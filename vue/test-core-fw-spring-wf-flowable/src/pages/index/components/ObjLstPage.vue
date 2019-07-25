@@ -1,7 +1,7 @@
 <template>
   <div class="objListPageWrapper">
     <div class="topArea">
-      <div class="title4objListPageWrapper">待整改网元列表</div>
+      <div class="title4objListPageWrapper">XXX列表</div>
       <marvel-button v-show="tabItems[0].isActive" ref="objLstPageCreateBtn" label="新建" classCustom="classCustom4Btn"
                      v-on:onClick="_onClickToCreate"></marvel-button>
     </div>
@@ -84,25 +84,25 @@
           visible:true,
           width:"8%"
         },{
-          label:"网元",
+          label:"Lst1",
           key:"nodeName",
           type:"text",
           visible:true,
           width:"20%"
         },{
-          label:"修改前LSRID",
+          label:"Lst2",
           key:"LSRIDBefore",
           type:"text",
           visible:true,
           width:"20%"
         },{
-          label:"修改后LSRID",
+          label:"Lst3",
           key:"tergetLSRID",
           type:"text",
           visible:true,
           width:"20%"
         },{
-          label:"网元类型",
+          label:"Lst4",
           key:"nodeType",
           type:"text",
           visible:true,
@@ -126,7 +126,7 @@
           visible:true,
           width:"20%"
         },{
-          label:"用户",
+          label:"创建人",
           key:"userName",
           type:"text",
           visible:true,

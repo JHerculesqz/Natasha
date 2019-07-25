@@ -1648,6 +1648,26 @@ customer：自定义单元格，支持文本单元格和dropdown单元格的切�
 </script>
 
 <style scoped>
+  /*region basic*/
+
+  *{
+    font-family: "Microsoft YaHei", "arial",sans-serif;
+  }
+  ::-webkit-scrollbar{
+    width:8px;
+    height:8px;
+    background-color: rgba(0,0,0,0);
+  }
+  ::-webkit-scrollbar-track{
+    border-radius: 10px;
+    background-color: rgba(0,0,0,0);
+  }
+  ::-webkit-scrollbar-thumb{
+    border-radius: 10px;
+    background-color: #aaa;
+  }
+
+  /*endregion*/
 
   .gridWrapper {
     width: 100%;

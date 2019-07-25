@@ -117,6 +117,26 @@
 </script>
 
 <style scoped>
+  /*region basic*/
+
+  *{
+    font-family: "Microsoft YaHei", "arial",sans-serif;
+  }
+  ::-webkit-scrollbar{
+    width:8px;
+    height:8px;
+    background-color: rgba(0,0,0,0);
+  }
+  ::-webkit-scrollbar-track{
+    border-radius: 10px;
+    background-color: rgba(0,0,0,0);
+  }
+  ::-webkit-scrollbar-thumb{
+    border-radius: 10px;
+    background-color: #aaa;
+  }
+
+  /*endregion*/
   .panel {
     width: 100%;
     height: 100%;

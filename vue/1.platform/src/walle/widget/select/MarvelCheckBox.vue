@@ -9,7 +9,7 @@
       <label v-bind:for="[id]"></label>
     </div>
     <label v-bind:for="[id]" class="checkBoxLabel" v-bind:title="label"
-           v-bind:class="{ dpn: isShowLabel }">{{ label }}</label>
+           v-bind:class="{ dpn: !isShowLabel }">{{ label }}</label>
   </div>
   <!--checkBox end-->
 </template>
@@ -98,6 +98,26 @@
 </script>
 
 <style scoped>
+  /*region basic*/
+
+  *{
+    font-family: "Microsoft YaHei", "arial",sans-serif;
+  }
+  ::-webkit-scrollbar{
+    width:8px;
+    height:8px;
+    background-color: rgba(0,0,0,0);
+  }
+  ::-webkit-scrollbar-track{
+    border-radius: 10px;
+    background-color: rgba(0,0,0,0);
+  }
+  ::-webkit-scrollbar-thumb{
+    border-radius: 10px;
+    background-color: #aaa;
+  }
+
+  /*endregion*/
   * {
     box-sizing: border-box
   }
