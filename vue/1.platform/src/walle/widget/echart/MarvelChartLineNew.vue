@@ -96,7 +96,7 @@
           yAxis: {
             type: 'value',
             name: this.chartData.yName,
-            minInterval: arrYAxis[i].hasOwnProperty("minInterval") ? arrYAxis[i].minInterval : 0,
+            minInterval: this.chartData.hasOwnProperty("minInterval") ? this.chartData.minInterval : 0,
             splitLine: {
               lineStyle: {
                 type: 'dashed',//控制横向的虚线分割线

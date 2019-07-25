@@ -72,7 +72,6 @@
 
       generateZoom: function (slideConfig) {
         if (slideConfig != undefined && slideConfig.show) {
-          //用于控制一次展示的柱子的百分比以及滑动块离底部距离
           return [{
             type: 'slider',
             fillerColor: '#687178',
@@ -90,15 +89,15 @@
       },
       generateXaixs: function (arrAxis) {
         var arrAxisData = [];
-        for (var i = 0; j < arrAxis.length; i++) {
-          arrAxisData = arrAxisData.concat(arrAxis);
+        for (var i = 0; i < arrAxis.length; i++) {
+          arrAxisData = arrAxisData.concat(arrAxis[i]);
           if (i != arrAxis.length - 1) {
             arrAxisData.push('');
           }
         }
         return arrAxisData;
       },
-      generateYaixs: function (arrYAxis) {
+      generateYaxis: function (arrYAxis) {
         var arrYaxis = [];
         for (var i = 0; i < arrYAxis.length; i++) {
           var oYaxis = {
@@ -129,15 +128,15 @@
         var oMap = {};
         var arrSeriesData1 = arrSeries[0].data.slice(0);
         var arrSeriesData2 = arrSeries[1].data.slice(0);
-        var oSeries1 = this.generateSingleSeries(arrSeries[0], arrSeriesData2, true);
-        var oSeries2 = this.generateSingleSeries(arrSeries[1], arrSeriesData1, false);
+        var oSeries1 = this.genreteSingleSeries(arrSeries[0], arrSeriesData2, true);
+        var oSeries2 = this.genreteSingleSeries(arrSeries[1], arrSeriesData1, false);
 
         arrSeriesData.push(oSeries1);
         arrSeriesData.push(oSeries2);
 
         return arrSeriesData;
       },
-      generateSingleSeries: function (oSeries1, arrOtherData, bIsFirst) {
+      genreteSingleSeries: function (oSeries1, arrOtherData, bIsFirst) {
         var oSeries = {
           name: oSeries1.name,
           barWidth: oSeries1.barWidth,
@@ -147,11 +146,11 @@
           label: {
             normal: {
               show: true,//显示数据
-              position: 'top'//显示数据位置'top/right/left/insideRight/insideTop/insideBottom'
+              position: 'top'//显示数据位置'top/right/left/insideLeft/insideRight/insideTop/insideBottom'
             }
           },
         };
-        for (var i = 0; i < arrOtherData.length; i++) {
+        for (var i = 0; i <= arrOtherData.length; i++) {
           if (bIsFirst) {
             oSeries.data.push('');
           } else {
@@ -233,9 +232,6 @@
           };
         }
         this.chartObj.setOption(option, true);
-      },
-      resize: function () {
-        this.chartObj.resize();
       },
 
       //#endregion

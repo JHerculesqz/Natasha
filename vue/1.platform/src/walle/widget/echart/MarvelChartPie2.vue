@@ -82,7 +82,7 @@
         var option = {
           tooltip: {
             trigger: "item",
-            formatter: "{b} : {c}({d}%)"
+            formatter: "{b}: {c} ({d}%)"
           },
           color: oData.color,
           legend: {
