@@ -10,7 +10,7 @@
     </div>
     <div class="expandBtn icon-marvelIcon-97"
          v-on:click="onExpandBtnClick"></div>
-    <div class="expandBrnInner" v-bind:class="[icon]"></div>
+    <div class="expandBtnInner" v-bind:class="[icon]"></div>
   </div>
 </template>
 

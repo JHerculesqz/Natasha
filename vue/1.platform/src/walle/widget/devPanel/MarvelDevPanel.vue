@@ -3,20 +3,20 @@
 </template>
 
 <script>
-  import "natasha-devPanel/css/MarvelDevPanel.css";
+  import "natasha-devpanel/css/MarvelDevPanel.css";
 
-  require('natasha-devPanel/lib/svg.min.js');
-  require('natasha-devPanel/js/plugins/MarvelDevPanel_1.js');
-  require('natasha-devPanel/js/plugins/MarvelDevPanel_2.js');
-  require('natasha-devPanel/js/plugins/MarvelDevPanel_3.js');
-  require('natasha-devPanel/js/plugins/MarvelDevPanel_3_1.js');
-  require('natasha-devPanel/js/plugins/MarvelDevPanel_4.js');
-  require('natasha-devPanel/js/plugins/MarvelDevPanel_5.js');
-  require('natasha-devPanel/js/plugins/MarvelDevPanel_6.js');
-  require('natasha-devPanel/js/plugins/MarvelDevPanel_7.js');
-  require('natasha-devPanel/js/plugins/MarvelDevPanel_8.js');
-  require('natasha-devPanel/js/plugins/MarvelDevPanel_9.js');
-  require('natasha-devPanel/js/MarvelDevPanel.js');
+  require('natasha-devpanel/lib/svg.min.js');
+  require('natasha-devpanel/js/plugins/MarvelDevPanel_1.js');
+  require('natasha-devpanel/js/plugins/MarvelDevPanel_2.js');
+  require('natasha-devpanel/js/plugins/MarvelDevPanel_3.js');
+  require('natasha-devpanel/js/plugins/MarvelDevPanel_3_1.js');
+  require('natasha-devpanel/js/plugins/MarvelDevPanel_4.js');
+  require('natasha-devpanel/js/plugins/MarvelDevPanel_5.js');
+  require('natasha-devpanel/js/plugins/MarvelDevPanel_6.js');
+  require('natasha-devpanel/js/plugins/MarvelDevPanel_7.js');
+  require('natasha-devpanel/js/plugins/MarvelDevPanel_8.js');
+  require('natasha-devpanel/js/plugins/MarvelDevPanel_9.js');
+  require('natasha-devpanel/js/MarvelDevPanel.js');
 
   /**
    *  MarvelDevPanel widget description

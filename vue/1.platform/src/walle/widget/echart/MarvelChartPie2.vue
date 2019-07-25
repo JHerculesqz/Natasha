@@ -26,7 +26,7 @@
       },
       theme: {
         type: String,
-        default: "dark",
+        default: "",
         required: false,
       },
       width: {

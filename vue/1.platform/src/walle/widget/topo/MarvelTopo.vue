@@ -3,24 +3,24 @@
 </template>
 
 <script>
-  import 'natasha/css/MarvelTopo.css';
+  import 'natasha-topo/css/MarvelTopo.css';
 
-  require('natasha/lib/konva.min.js');
-  require('natasha/lib/keyboard.min.js');
-  require('natasha/lib/jquery-3.2.1.min.js');
-  require('natasha/js/_1_stage/MarvelTopoResource.js');
-  require('natasha/js/_1_stage/MarvelTopoStage.js');
-  require('natasha/js/_2_layer/MarvelTopoLayer.js');
-  require('natasha/js/_3_sprite/_1_node/MarvelTopoNodeGroup.js');
-  require('natasha/js/_3_sprite/_1_node/MarvelTopoNode.js');
-  require('natasha/js/_3_sprite/_2_link/MarvelTopoLinkGroup.js');
-  require('natasha/js/_3_sprite/_2_link/MarvelTopoLink.js');
-  require('natasha/js/_3_sprite/_3_box/MarvelTopoBoxGroup.js');
-  require('natasha/js/_3_sprite/_3_box/MarvelTopoBox.js');
-  require('natasha/js/_3_sprite/MarvelTopoSprite.js');
-  require('natasha/js/MarvelTopoApi.js');
-  require('natasha/js/MarvelTopoUtils.js');
-  require('natasha/js/MarvelTopo.js');
+  window.keyBoardJs = require('natasha-topo/lib/keyboard.min.js');
+  require('natasha-topo/lib/konva.min.js');
+  require('natasha-topo/lib/jquery-3.2.1.min.js');
+  require('natasha-topo/js/_1_stage/MarvelTopoResource.js');
+  require('natasha-topo/js/_1_stage/MarvelTopoStage.js');
+  require('natasha-topo/js/_2_layer/MarvelTopoLayer.js');
+  require('natasha-topo/js/_3_sprite/_1_node/MarvelTopoNodeGroup.js');
+  require('natasha-topo/js/_3_sprite/_1_node/MarvelTopoNode.js');
+  require('natasha-topo/js/_3_sprite/_2_link/MarvelTopoLinkGroup.js');
+  require('natasha-topo/js/_3_sprite/_2_link/MarvelTopoLink.js');
+  require('natasha-topo/js/_3_sprite/_3_box/MarvelTopoBoxGroup.js');
+  require('natasha-topo/js/_3_sprite/_3_box/MarvelTopoBox.js');
+  require('natasha-topo/js/_3_sprite/MarvelTopoSprite.js');
+  require('natasha-topo/js/MarvelTopoApi.js');
+  require('natasha-topo/js/MarvelTopoUtils.js');
+  require('natasha-topo/js/MarvelTopo.js');
 
   /**
    *  MarvelTopo widget description

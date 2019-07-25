@@ -169,8 +169,8 @@
   }
 
   .minus {
-    height: 36px;
-    width: 100%;
+    width: 36px;
+    height: 100%;
     border-radius: 4px 0 0 4px;
     border-right: 1px solid #dcdfe6;
     float: left;

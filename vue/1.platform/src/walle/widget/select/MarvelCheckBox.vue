@@ -9,7 +9,7 @@
       <label v-bind:for="[id]"></label>
     </div>
     <label v-bind:for="[id]" class="checkBoxLabel" v-bind:title="label"
-           v-bind:class="{ dpn: isShowLabel }">{{ label }}</label>
+           v-bind:class="{ dpn: !isShowLabel }">{{ label }}</label>
   </div>
   <!--checkBox end-->
 </template>

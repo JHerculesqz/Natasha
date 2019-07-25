@@ -4,28 +4,29 @@
 </template>
 
 <script>
-  import "natasha/lib/leaflet.css";
-  import "natasha/lib/leaflet.custom.css";
-  import "natasha/lib/plugins/leaflet.PolylineMeasure/Leaflet.PolylineMeasure.css";
-  import "natasha/css/MarvelGis.css";
-  import "natasha/lib/plugins/leaflet.pm/leaflet.pm.css";
+  import "natasha-gis/lib/leaflet.css";
+  import "natasha-gis/lib/leaflet.custom.css";
+  import "natasha-gis/lib/plugins/leaflet.PolylineMeasure/Leaflet.PolylineMeasure.css";
+  import "natasha-gis/css/MarvelGis.css";
+  import "natasha-gis/lib/plugins/leaflet.pm/leaflet.pm.css";
 
-  require('natasha/lib/jquery-3.2.1.min.js');
-  require('natasha/lib/leaflet.js');
-  require('natasha/lib/plugins/leaflet.heat/leaflet.heat.js');
-  require('natasha/lib/plugins/leaflet.polylineDecorator/leaflet.polylineDecorator.js');
-  require('natasha/lib/plugins/zoomify/leaflet-deepzoom.js');
-  require('natasha/lib/plugins/leaflet-easyPrint/bundle.js');
-  require('natasha/lib/plugins/leaflet.PolylineMeasure/Leaflet.PolylineMeasure.js');
-  require('natasha/lib/keyboard.min.js');
-  require('natasha/js/_1_stage/MarvelGisStage.js');
-  require('natasha/js/_2_layer/MarvelGisLayer.js');
-  require('natasha/js/_3_sprite/MarvelGisSprite.js');
-  require('natasha/js/_3_sprite/_1_node/MarvelGisNode.js');
-  require('natasha/js/_3_sprite/_1_node/MarvelGisNodeGroup.js');
-  require('natasha/js/_3_sprite/_2_link/MarvelGisLinkGroup.js');
-  require('natasha/js/MarvelGisApi.js');
-  require('natasha/js/MarvelGis.js');
+  window.keyBoardJs = require('natasha-gis/lib/keyboard.min.js');
+  require('natasha-gis/lib/jquery-3.2.1.min.js');
+  require('natasha-gis/lib/leaflet.js');
+  require('natasha-gis/lib/plugins/leaflet.heat/leaflet.heat.js');
+  require('natasha-gis/lib/plugins/leaflet.polylineDecorator/leaflet.polylineDecorator.js');
+  require('natasha-gis/lib/plugins/zoomify/leaflet-deepzoom.js');
+  require('natasha-gis/lib/plugins/leaflet-easyPrint/bundle.js');
+  require('natasha-gis/lib/plugins/leaflet.PolylineMeasure/Leaflet.PolylineMeasure.js');
+  require('natasha-gis/lib/plugins/leaflet.pm/leaflet.pm.min.js');
+  require('natasha-gis/js/_1_stage/MarvelGisStage.js');
+  require('natasha-gis/js/_2_layer/MarvelGisLayer.js');
+  require('natasha-gis/js/_3_sprite/MarvelGisSprite.js');
+  require('natasha-gis/js/_3_sprite/_1_node/MarvelGisNode.js');
+  require('natasha-gis/js/_3_sprite/_1_node/MarvelGisNodeGroup.js');
+  require('natasha-gis/js/_3_sprite/_2_link/MarvelGisLinkGroup.js');
+  require('natasha-gis/js/MarvelGisApi.js');
+  require('natasha-gis/js/MarvelGis.js');
 
   /**
    *  MarvelLeaflet widget description
