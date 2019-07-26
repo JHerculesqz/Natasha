@@ -62,7 +62,7 @@
     },
     methods: {
       //#region inner
-      
+
       showSubHelpItem: function () {
         this.callback4ShowSubHelpItem();
         this.showSubMenu = !this.showSubMenu;
@@ -109,19 +109,22 @@
 <style scoped>
   /*region basic*/
 
-  *{
-    font-family: "Microsoft YaHei", "arial",sans-serif;
+  * {
+    font-family: "Microsoft YaHei", "arial", sans-serif;
   }
-  ::-webkit-scrollbar{
-    width:8px;
-    height:8px;
-    background-color: rgba(0,0,0,0);
+
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    background-color: rgba(0, 0, 0, 0);
   }
-  ::-webkit-scrollbar-track{
+
+  ::-webkit-scrollbar-track {
     border-radius: 10px;
-    background-color: rgba(0,0,0,0);
+    background-color: rgba(0, 0, 0, 0);
   }
-  ::-webkit-scrollbar-thumb{
+
+  ::-webkit-scrollbar-thumb {
     border-radius: 10px;
     background-color: #aaa;
   }
@@ -129,7 +132,7 @@
   /*endregion*/
 
   .menuhelpWrapper {
-    width:100%;
+    width: 100%;
     height: 100%;
     position: relative;
   }
@@ -151,14 +154,14 @@
     font-size: 12px;
   }
 
-  .platformHelp_SubMenuItemWrap{
+  .platformHelp_SubMenuItemWrap {
     position: absolute;
     top: 44px;
     left: -50px;
     z-index: 1003;
   }
 
-  .menuHelptopTriangle{
+  .menuHelptopTriangle {
     width: 0;
     border-right: 5px solid transparent;
     border-left: 5px solid transparent;
@@ -166,15 +169,74 @@
     margin: 0 auto;
   }
 
-  .menuHelpSubMenuCont{
+  .menuHelpSubMenuCont {
     background-color: #f0f0f0;
     padding: 9px;
   }
 
-  .menuHelpSubMenuItem{
+  .menuHelpSubMenuItem {
     padding: 0px 10px;
     cursor: pointer;
     white-space: nowrap;
-
+    box-sizing: border-box;
+    font-size: 12px;
+    font-family: "arial,微软雅黑";
   }
+
+  .helpitem:hover {
+    background-color: rgba(61, 204, 166, 0.6);
+    border: 1px solid #3dcca6
+  }
+
+  a {
+    text-decoration: none;
+    color: #666666;
+    font-family: "arial,微软雅黑";
+  }
+
+  .helpitem {
+    width: 100%;
+    heigth: 100%;
+  }
+
+  .menuHelpItemIcon {
+    font-size: 14px;
+    display: inline-block;
+    height: 18px;
+    width: 18px;
+    color: #666666;
+  }
+
+  .showhelp-content {
+    display: inline-block;
+    position: relative;
+    height: 18px;
+    line-height: 18px;
+    font-size: 12px;
+    color: #666666;
+    white-space: nowrap;
+  }
+
+  .showhelpContact {
+    margin-left: 20px;
+    height: 24px;
+    line-height: 24px;
+  }
+
+  .menuHelpban {
+    height: 20px;
+    width: 2px;
+    background-color: #ffffff;
+  }
+
+  .iconACss {
+    font-size: 16px;
+    margin-left: 5px;
+    color: #3399ff;
+  }
+
+  .iconACss:hover {
+    color: #ffffff;
+  }
+
 </style>
