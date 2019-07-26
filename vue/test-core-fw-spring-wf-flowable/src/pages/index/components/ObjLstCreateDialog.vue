@@ -33,12 +33,12 @@
         showDialog:false,
         contItems:[{
           type:"input",
-          key:"contItems_index1",
-          name:"XXX名称"
+          key:"wfModelKey",
+          name:"wfModelKey"
         },{
           type:"input",
-          key:"contItems_index2",
-          name:"XXX"
+          key:"userId",
+          name:"userId"
         },{
           type:"dropdown",
           key:"contItems_index3",

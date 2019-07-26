@@ -26,29 +26,29 @@ var D = "delete data";
 var T = "trigger";
 
 var API = {
-  addNode:{
-    url: "/wf/flowable/addNode",
+  createWFIns4UIWF:{
+    url: "/wf/flowable/createWFIns4UIWF",
     loading:true,
     checkRes:true,
     desc:R,
     errorAdvice:errorAdvice
   },
-  getNodeLst:{
-    url: "/wf/flowable/getNodeLst",
+  getWFInsLst4UIWF:{
+    url: "/wf/flowable/getWFInsLst4UIWF",
     loading:true,
     checkRes:true,
     desc:R,
     errorAdvice:errorAdvice
   },
-  getNodeLstFinished:{
-    url: "/wf/flowable/getNodeLstFinished",
+  getHistoryWFInsLst4UIWF:{
+    url: "/wf/flowable/getHistoryWFInsLst4UIWF",
     loading:true,
     checkRes:true,
     desc:R,
     errorAdvice:errorAdvice
   },
-  checkDetails4Node:{
-    url: "/wf/flowable/checkDetails4Node",
+  delWFIns4UIWF:{
+    url: "/wf/flowable/delWFIns4UIWF",
     loading:true,
     checkRes:true,
     desc:R,

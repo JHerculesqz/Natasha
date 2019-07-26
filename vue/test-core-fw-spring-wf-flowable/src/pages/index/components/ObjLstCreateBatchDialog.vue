@@ -4,7 +4,7 @@
                    title="上传" :width=500 :height=380 :dragable=true
                    v-on:onClickDialogClose="_onClickDialogClose">
       <div slot="dialogCont" style="height: 100%;">
-
+        <obj-lst-create-dialog-cont ref="ObjLstCreateDialogCont" :contItems="contItems"></obj-lst-create-dialog-cont>
       </div>
       <div slot="dialogFoot">
         <marvel-button ref="confirmToCreate" label="新建"
@@ -18,49 +18,20 @@
 
 <script>
   import MarvelButton from '~~/widget/button/MarvelButton';
+  import ObjLstCreateDialogCont from "./ObjLstCreateDialogCont";
   import MarvelDialog from '~~/widget/dialog/MarvelDialog';
 
   export default {
     name: "ObjLstBatchCreateDialog",
     components: {
       MarvelDialog,
+      ObjLstCreateDialogCont,
       MarvelButton
     },
     data(){
       return{
         showDialog:false,
-        contItems:[{
-          type:"input",
-          key:"contItems_index1",
-          name:"XXX名称"
-        },{
-          type:"input",
-          key:"contItems_index2",
-          name:"XXX"
-        },{
-          type:"dropdown",
-          key:"contItems_index3",
-          name:"XXX",
-          dropItems:[{
-            label:"Option1",
-            title:"Option1",
-            active:true,
-          },{
-            label:"Option2",
-            title:"Option2",
-          },{
-            label:"Option3",
-            title:"Option3",
-          }]
-        },{
-          type:"input",
-          key:"contItems_index4",
-          name:"XXX"
-        },{
-          type:"input",
-          key:"contItems_index5",
-          name:"XXX"
-        },]
+        contItems:[]
       }
     },
     methods:{

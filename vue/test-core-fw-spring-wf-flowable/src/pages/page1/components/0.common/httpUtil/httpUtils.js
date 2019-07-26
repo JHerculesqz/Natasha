@@ -26,8 +26,15 @@ var D = "delete data";
 var T = "trigger";
 
 var API = {
-  testWfModel:{
-    url: "/wf/flowable/testWfModel",
+  getWFIns4UIWF:{
+    url: "/wf/flowable/getWFIns4UIWF",
+    loading:true,
+    checkRes:true,
+    desc:R,
+    errorAdvice:errorAdvice
+  },
+  updateCurTaskId4UIWF:{
+    url: "/wf/flowable/updateCurTaskId4UIWF",
     loading:true,
     checkRes:true,
     desc:R,

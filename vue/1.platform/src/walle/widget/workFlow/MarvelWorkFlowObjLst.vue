@@ -33,7 +33,7 @@
                           :totalPage="totalPageFinished"
                           :canDrag="true"
                           :hasFoot="true"
-                          v-on:onIconClick="_onIconClick"
+                          v-on:onIconClick="_onIconClickFinished"
                           v-on:onPageChange="callback4OnPageChange4Finished"></marvel-grid-ex>
         </marvel-tab-item>
       </marvel-tab>
@@ -219,11 +219,17 @@
         return arrRows;
       },
       _onIconClick: function (oRow, oCell, oIcon) {
-        var oNode = this._getRowCellByKey(oRow, "nodeName");
         if(oIcon.value == "icon-wrench"){
-          this.callback4OnIconClick4View(oRow, oNode);
+          this.callback4OnIconClick4View(oRow);
         }else if(oIcon.value == "icon-bin"){
-          this.callback4OnIconClick4Delete(oRow, oNode);
+          this.callback4OnIconClick4Delete(oRow);
+        }
+      },
+      _onIconClickFinished: function (oRow, oCell, oIcon) {
+        if(oIcon.value == "icon-wrench"){
+          this.callback4OnIconClick4ViewFinished(oRow);
+        }else if(oIcon.value == "icon-bin"){
+          this.callback4OnIconClick4DeleteFinished(oRow);
         }
       },
       _getRowCellByKey: function (oRow, strKey) {
@@ -255,11 +261,17 @@
       callback4OnPageChange4Finished: function (iPageIndex, perPageNum) {
         this.$emit("onPageChange4Finished", iPageIndex, perPageNum);
       },
-      callback4OnIconClick4Delete: function (oRow, oNode) {
-        this.$emit("onIconClick4Delete", oRow, oNode);
+      callback4OnIconClick4Delete: function (oRow) {
+        this.$emit("onIconClick4Delete", oRow);
       },
-      callback4OnIconClick4View: function (oRow, oNode) {
-        this.$emit("onIconClick4View", oRow, oNode);
+      callback4OnIconClick4View: function (oRow) {
+        this.$emit("onIconClick4View", oRow);
+      },
+      callback4OnIconClick4DeleteFinished: function (oRow) {
+        this.$emit("onIconClick4DeleteFinished", oRow);
+      },
+      callback4OnIconClick4ViewFinished: function (oRow) {
+        this.$emit("onIconClick4ViewFinished", oRow);
       },
 
       //#endregion

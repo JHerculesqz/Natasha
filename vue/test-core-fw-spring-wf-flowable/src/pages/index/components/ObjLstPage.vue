@@ -16,7 +16,9 @@
                               @onPageChange="_onPageChange"
                               @onPageChange4Finished="_onPageChange4Finished"
                               @onIconClick4Delete="_onIconClick4Delete"
-                              @onIconClick4View="_onIconClick4View">
+                              @onIconClick4DeleteFinished="_onIconClick4DeleteFinished"
+                              @onIconClick4View="_onIconClick4View"
+                              @onIconClick4ViewFinished="_onIconClick4ViewFinished">
       <div slot="btnArea" class="slotBtnArea">
         <marvel-button v-show="tabItems[0].isActive" ref="objLstPageCreateBtn4" label="XXX"
                        classCustom="classCustom4Btn"
@@ -42,6 +44,7 @@
   import ObjLstCreateDialog from "./ObjLstCreateDialog";
   import ObjLstBatchCreateDialog from "./ObjLstCreateBatchDialog";
   import MarvelWorkFlowObjLst from "~~/widget/workFlow/MarvelWorkFlowObjLst";
+  import Bus from "~~/core/bus";
 
   /**
    * ObjLstPage component description
@@ -62,7 +65,7 @@
     data() {
       return {
         //#region const
-        debug: true,
+        debug: false,
         //#endregion
         //#region tab
         tabItems: [{
@@ -81,50 +84,32 @@
           visible: true,
           width: "8%"
         }, {
-          label: "Lst1",
-          key: "nodeName",
+          label: "curTaskId",
+          key: "curTaskId",
           type: "text",
           visible: true,
           width: "20%"
         }, {
-          label: "Lst2",
-          key: "LSRIDBefore",
+          label: "起始时间",
+          key: "startTime",
           type: "text",
           visible: true,
           width: "20%"
         }, {
-          label: "Lst3",
-          key: "tergetLSRID",
+          label: "结束时间",
+          key: "endTime",
           type: "text",
           visible: true,
           width: "20%"
         }, {
-          label: "Lst4",
-          key: "nodeType",
-          type: "text",
-          visible: true,
-          width: "20%"
-        }, {
-          label: "创建时间",
-          key: "createTime",
-          type: "text",
-          visible: true,
-          width: "20%"
-        }, {
-          label: "执行时间",
-          key: "executionTime",
-          type: "text",
-          visible: true,
-          width: "20%"
-        }, {
-          label: "执行状态",
-          key: "executionStatus",
+          label: "是否已结束",
+          key: "finish",
           type: "text",
           visible: true,
           width: "20%"
         }, {
           label: "创建人",
-          key: "userName",
+          key: "userId",
           type: "text",
           visible: true,
           width: "20%"
@@ -185,13 +170,20 @@
         console.log("onclick XXX")
       },
       _onCreate: function (oOption) {
-        var oParams = oOption;
-        var reqBody = JSON.stringify(oParams);
+        var self = this;
+        var reqBody = {
+          reqBuVoStr: JSON.stringify({
+            wfModelKey:oOption.wfModelKey,
+            userId:oOption.userId,
+          })
+        };
         if (this.debug) {
           console.log(oOption)
         } else {
-          HttpUtils.post("addNode", reqBody).then(res => {
-            oRes = res.data.resultObj;
+          HttpUtils.post("createWFIns4UIWF", reqBody).then(res => {
+            self._getWfModelGrid(function (oRes) {
+              self._setWfModelGrid(oRes);
+            });
           });
         }
       },
@@ -205,48 +197,114 @@
 
       _getWfModelGrid: function (oAfterCallback) {
         var oRes = undefined;
-        var oParams = {
-          skip: (this.currentPage - 1) * this.limit,
-          rowsNum: this.limit,
+        var reqBody = {
+          reqBuVoStr: JSON.stringify({
+            skip: (this.currentPage - 1) * this.limit,
+            limit: this.limit,
+          })
         };
-        var reqBody = JSON.stringify(oParams);
         if (this.debug) {
-          oRes = MockUtils.mock4GetObjLst(this.currentPage, this.limit).resultObj;
+          console.log(reqBody);
+          oRes = MockUtils.mock4GetObjLst(this.currentPage, this.limit).body.resultObj;
+          oAfterCallback(oRes);
         } else {
-          HttpUtils.post("getNodeLst", reqBody).then(res => {
-            oRes = res.data.resultObj;
+          HttpUtils.post("getWFInsLst4UIWF", reqBody).then(res => {
+            oRes = res.body.resultObj;
+            oAfterCallback(oRes);
           });
         }
-
-        oAfterCallback(oRes);
       },
       _setWfModelGrid: function (oRes) {
-        this.row4objLst = oRes.arrRows;
-        this.totalNum = oRes.totalNum;
-        this.totalPage = oRes.totalPage
+        var arrRows = [];
+        for (var i = 0; i < oRes.length; i++) {
+          let oRow = [];
+          oRow.push({
+            key: "id",
+            value: oRes[i].id
+          });
+          oRow.push({
+            key: "curTaskId",
+            value: oRes[i].curTaskId
+          });
+          oRow.push({
+            key: "startTime",
+            value: oRes[i].startTime
+          });
+          oRow.push({
+            key: "endTime",
+            value: oRes[i].endTime
+          });
+          oRow.push({
+            key: "finish",
+            value: oRes[i].finish
+          });
+          oRow.push({
+            key: "userId",
+            value: oRes[i].userId
+          });
+
+          arrRows.push(oRow);
+        }
+
+        this.row4objLst = JSON.parse(JSON.stringify(arrRows));
+        this.totalNum = 300;//todo
+        this.totalPage = Math.ceil(this.totalNum / this.limit);
       },
 
       _getWfModelFinishedGrid: function (oAfterCallback) {
         var oRes = undefined;
-        var oParams = {
-          skip: (this.currentPageFinished - 1) * this.limitFinished,
-          rowsNum: this.limitFinished,
+        var reqBody = {
+          reqBuVoStr: JSON.stringify({
+            skip: (this.currentPageFinished - 1) * this.limitFinished,
+            limit: this.limitFinished,
+          })
         };
-        var reqBody = JSON.stringify(oParams);
         if (this.debug) {
-          oRes = MockUtils.mock4GetObjLst(this.currentPageFinished, this.limitFinished).resultObj;
+          console.log(reqBody);
+          oRes = MockUtils.mock4GetObjLst(this.currentPageFinished, this.limitFinished).body.resultObj;
+          oAfterCallback(oRes);
         } else {
-          HttpUtils.post("getNodeLstFinished", reqBody).then(res => {
-            oRes = res.data.resultObj;
+          HttpUtils.post("getHistoryWFInsLst4UIWF", reqBody).then(res => {
+            oRes = res.body.resultObj;
+            oAfterCallback(oRes);
           });
         }
-
-        oAfterCallback(oRes);
       },
       _setWfModelFinishedGrid: function (oRes) {
-        this.row4objLstFinished = oRes.arrRows;
-        this.totalNumFinished = oRes.totalNum;
-        this.totalPageFinished = oRes.totalPage
+        var arrRows = [];
+        for (var i = 0; i < oRes.length; i++) {
+          let oRow = [];
+          oRow.push({
+            key: "id",
+            value: oRes[i].id
+          });
+          oRow.push({
+            key: "curTaskId",
+            value: oRes[i].curTaskId
+          });
+          oRow.push({
+            key: "startTime",
+            value: oRes[i].startTime
+          });
+          oRow.push({
+            key: "endTime",
+            value: oRes[i].endTime
+          });
+          oRow.push({
+            key: "finish",
+            value: oRes[i].finish
+          });
+          oRow.push({
+            key: "userId",
+            value: oRes[i].userId
+          });
+
+          arrRows.push(oRow);
+        }
+
+        this.row4objLstFinished = JSON.parse(JSON.stringify(arrRows));
+        this.totalNumFinished = 300;//todo
+        this.totalPageFinished = Math.ceil(this.totalNumFinished / this.limitFinished);
       },
 
       //#endregion
@@ -269,33 +327,83 @@
           self._setWfModelFinishedGrid(oRes);
         });
       },
-      _onIconClick4Delete: function (oRow, oNode) {
-        var oParams = {
-          nodeName: oNode.value
+      _onIconClick4Delete: function (oRow) {
+        var self = this;
+        var oOption = {
+          showOkButton: true,
+          showCancelBtn: true,
+          confirmCont: "是否进行删除操作",
+          confirmType: "warning",
+          oAfterOk: function () {
+            self._toDeleteObj(oRow);
+          },
+          oAfterCancel: function () {
+          }
         };
-        var reqBody = JSON.stringify(oParams);
+        Bus.$emit('msg', 'show-confirm', oOption);
+      },
+      _toDeleteObj: function(oRow){
+        var self = this;
+        var wfInsId = this._getRowCellByKey(oRow, "id").value;
+        var reqBody = {
+          reqBuVoStr: JSON.stringify({
+            wfInsId: wfInsId
+          })
+        };
         if (this.debug) {
           console.log("delete:");
-          console.log(oNode.value);
+          console.log(wfInsId);
         } else {
-          HttpUtils.post("deleteNode", reqBody).then(res => {
-            //todo update
+          HttpUtils.post("delWFIns4UIWF", reqBody).then(res => {
+            self._getWfModelGrid(function (oRes) {
+              self._setWfModelGrid(oRes);
+            });
           });
         }
       },
-      _onIconClick4View: function (oRow, oNode) {
-        var oParams = {
-          nodeName: oNode.value
+      _onIconClick4DeleteFinished: function (oRow) {
+        var self = this;
+        var wfInsId = this._getRowCellByKey(oRow, "id").value;
+        var reqBody = {
+          reqBuVoStr: JSON.stringify({
+            wfInsId: wfInsId
+          })
         };
-        var reqBody = JSON.stringify(oParams);
         if (this.debug) {
-          console.log(oNode.value);
-          window.location.href = "http://localhost:8080/page1.html#/";
+          console.log("delete:");
+          console.log(wfInsId);
         } else {
-          HttpUtils.post("checkDetails4Node", reqBody).then(res => {
-
+          HttpUtils.post("delWFIns4UIWF", reqBody).then(res => {
+            self._getWfModelFinishedGrid(function (oRes) {
+              self._setWfModelFinishedGrid(oRes);
+            });
           });
         }
+      },
+      _onIconClick4View: function (oRow) {
+        var storage=window.localStorage;
+        storage.setItem("wfInsId",this._getRowCellByKey(oRow, "id").value);
+        storage.setItem("finish",this._getRowCellByKey(oRow, "finish").value);
+        window.location.href = "http://localhost:8080/page1.html#/";
+      },
+      _onIconClick4ViewFinished: function (oRow) {
+        var storage=window.localStorage;
+        storage.setItem("wfInsId",this._getRowCellByKey(oRow, "id").value);
+        storage.setItem("finish",this._getRowCellByKey(oRow, "finish").value);
+        window.location.href = "http://localhost:8080/page1.html#/";
+      },
+      _getRowCellByKey: function (oRow, strKey) {
+        var targetCell = undefined;
+        for(var i = 0; i< oRow.length; i++){
+          var oCell = oRow[i];
+          if(strKey == oCell.key){
+            targetCell = oCell;
+            break;
+          }else{
+            continue;
+          }
+        }
+        return targetCell;
       },
 
       //#endregion

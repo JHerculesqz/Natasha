@@ -128,9 +128,9 @@
         if (this.debug) {
           oRes = MockUtils.mock4GetComponentInfo(oParams.componentName).resultObj;
         } else {
-          HttpUtils.post("getComponentInfo", reqBody).then(res => {
-            oRes = res.data.resultObj;
-          });
+          // HttpUtils.post("getComponentInfo", reqBody).then(res => {
+          //   oRes = res.data.resultObj;
+          // });
         }
 
         oAfterCallback(oRes);

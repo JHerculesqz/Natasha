@@ -153,9 +153,13 @@
         }
 
         this.stepItems = JSON.parse(JSON.stringify(stepItemArr));
+        this.$nextTick(function () {
+          this.$refs.refWorkFlow.setProgress(this.stepItems[0]);
+        });
       },
       onWizardClick: function (oItem) {
-        console.log("workFlow click")
+        console.log("workFlow click");
+        this.$refs.refWorkFlow.setProgress(oItem);
       }
 
       //#endregion
