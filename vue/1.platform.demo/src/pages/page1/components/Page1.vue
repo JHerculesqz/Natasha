@@ -24,6 +24,7 @@
   import Page4Date from './demo4widgets/2.widget/Page4Date'
   import page4WorkFlowUI from './demo4widgets/3.workflow/page4WorkFlowUI'
   import page4WorkFlowMOP from './demo4widgets/3.workflow/page4WorkFlowMop'
+  import Page4WorkFlowObjLst from './demo4widgets/3.workflow/Page4WorkFlowObjLst'
 
   export default {
     components: {
@@ -31,6 +32,7 @@
       Page4Date,
       page4WorkFlowUI,
       page4WorkFlowMOP,
+      Page4WorkFlowObjLst,
     },
     name: 'page1',
     data: function () {
@@ -269,6 +271,9 @@
           },{
             id: "page4WorkFlowMOP",
             label: "workFlow-MOP"
+          },{
+            id: "Page4WorkFlowObjLst",
+            label: "workFlow-实例列表"
           }]
         }, {
           label: "典型页面",

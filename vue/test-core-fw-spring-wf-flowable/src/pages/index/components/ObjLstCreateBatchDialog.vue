@@ -1,7 +1,7 @@
 <template>
   <div class="ObjLstCreateDialogWrapper">
     <marvel-dialog :showDialog="showDialog" ref="ObjLstCreateDialog"
-                   title="创建" :width=500 :height=380 :dragable=true
+                   title="上传" :width=500 :height=380 :dragable=true
                    v-on:onClickDialogClose="_onClickDialogClose">
       <div slot="dialogCont" style="height: 100%;">
         <obj-lst-create-dialog-cont ref="ObjLstCreateDialogCont" :contItems="contItems"></obj-lst-create-dialog-cont>
@@ -22,39 +22,16 @@
   import MarvelDialog from '~~/widget/dialog/MarvelDialog';
 
   export default {
-    name: "ObjLstCreateDialog",
+    name: "ObjLstBatchCreateDialog",
     components: {
-      ObjLstCreateDialogCont,
       MarvelDialog,
+      ObjLstCreateDialogCont,
       MarvelButton
     },
     data(){
       return{
         showDialog:false,
-        contItems:[{
-          type:"dropdown",
-          key:"contItems_index3",
-          name:"XXX",
-          dropItems:[{
-            label:"Option1",
-            title:"Option1",
-            active:true,
-          },{
-            label:"Option2",
-            title:"Option2",
-          },{
-            label:"Option3",
-            title:"Option3",
-          }]
-        },{
-          type:"input",
-          key:"contItems_index4",
-          name:"XXX"
-        },{
-          type:"input",
-          key:"contItems_index5",
-          name:"XXX"
-        },]
+        contItems:[]
       }
     },
     methods:{

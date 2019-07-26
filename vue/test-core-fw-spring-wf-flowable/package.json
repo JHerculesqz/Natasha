@@ -1,7 +1,7 @@
 {
-  "name": "test-core-fw-wf",
+  "name": "test-core-fw-spring-wf-flowable",
   "version": "1.0.0",
-  "description": "app-workflow-web project",
+  "description": "test-core-fw-spring-wf-flowable project",
   "author": "author",
   "private": true,
   "scripts": {
@@ -31,7 +31,7 @@
     "moment": "^2.18.1",
     "jquery": "^3.2.1",
 
-    "natasha-vue": "^1.0.2",
+    "natasha-vue": "^1.0.5",
     "natasha-icon": "^1.0.0"
   },
   "devDependencies": {

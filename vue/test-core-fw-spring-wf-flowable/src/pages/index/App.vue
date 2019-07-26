@@ -2,6 +2,13 @@
   <div id="app">
     <router-view></router-view>
     <marvel-loading-icon-public ref="loading"></marvel-loading-icon-public>
+    <marvel-confirm :showConfirm="showConfirm"
+                    :showOkBtn="showOkBtn4Confirm"
+                    :showCancelBtn="showCancelBtn4Confirm"
+                    :confirmCont="confirmCont"
+                    :tipType="confirmType"
+                    v-on:onClickOK="_onClickConfirmOK"
+                    v-on:onClickCancel="_onClickConfirmCancel"></marvel-confirm>
     <marvel-confirm-ex :showConfirm="showConfirmEx"
                        :showOkBtn="showOkBtn4ConfirmEx"
                        :showCancelBtn="showCancelBtn4ConfirmEx"
@@ -19,17 +26,28 @@
 <script>
   import Bus from "~~/core/bus";
   import MarvelLoadingIconPublic from "~~/widget/loading/MarvelLoadingIconPublic";
+  import MarvelConfirm from "~~/widget/dialog/MarvelConfirm";
   import MarvelConfirmEx from "~~/widget/dialog/MarvelConfirmEx";
   import MarvelPromptGlobal from "~~/widget/prompt/MarvelPromptGlobal";
   export default {
     components:{
       MarvelLoadingIconPublic,
+      MarvelConfirm,
       MarvelConfirmEx,
       MarvelPromptGlobal,
     },
     name: 'app',
     data: function () {
       return {
+        //#region showConfirm
+        showConfirm:false,
+        showOkBtn4Confirm:true,
+        showCancelBtn4Confirm:true,
+        confirmCont:"",
+        confirmType:"tip",
+        funOnConfirmOk: undefined,
+        funOnConfirmCancel: undefined,
+        //#endregion
         //#region confirmEx
         showConfirmEx: false,
         showOkBtn4ConfirmEx: true,
@@ -69,6 +87,9 @@
             var key = params;
             this.$refs.loading.imsgMarvelLoadingPublicHide(key);
           }
+          else if(e == "show-confirm"){
+            this._showConfirm(params)
+          }
           else if(e == "show-confirmEx"){
             this._showConfirmEx(params)
           }
@@ -76,6 +97,30 @@
             this._addPrompt(params)
           }
         })
+      },
+
+      //#endregion
+
+      //region confirm
+
+      _showConfirm: function (oParams) {
+        this.showConfirm = true;
+        this.showOkBtn4Confirm = oParams.showOkButton;
+        this.showCancelBtn4Confirm = oParams.showCancelBtn;
+        this.confirmCont = oParams.confirmCont;
+        this.confirmType = oParams.confirmType;
+        this.funOnConfirmOk = oParams.oAfterOk;
+        this.funOnConfirmCancel = oParams.oAfterCancel;
+      },
+
+      _onClickConfirmOK: function() {
+        this.showConfirm = false;
+        this.funOnConfirmOk();
+      },
+
+      _onClickConfirmCancel: function(){
+        this.showConfirm = false;
+        this.funOnConfirmCancel();
       },
 
       //#endregion

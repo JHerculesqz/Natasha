@@ -26,15 +26,36 @@ var D = "delete data";
 var T = "trigger";
 
 var API = {
-  testWfModel:{
-    url: "/wf/flowable/testWfModel",
+  getWFIns4UIWF:{
+    url: "/wf/flowable/getWFIns4UIWF",
     loading:true,
     checkRes:true,
     desc:R,
     errorAdvice:errorAdvice
   },
-  getComponentInfo:{
-    url: "/wf/flowable/getComponentInfo",
+  updateCurTaskId4UIWF:{
+    url: "/wf/flowable/updateCurTaskId4UIWF",
+    loading:true,
+    checkRes:true,
+    desc:R,
+    errorAdvice:errorAdvice
+  },
+  createIns4MopWF:{
+    url: "/wf/flowable/createIns4MopWF",
+    loading:true,
+    checkRes:true,
+    desc:R,
+    errorAdvice:errorAdvice
+  },
+  getTaskList4MopWF:{
+    url: "/wf/flowable/getTaskList4MopWF",
+    loading:true,
+    checkRes:true,
+    desc:R,
+    errorAdvice:errorAdvice
+  },
+  submitTask4MopWF:{
+    url: "/wf/flowable/submitTask4MopWF",
     loading:true,
     checkRes:true,
     desc:R,

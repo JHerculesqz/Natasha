@@ -2,8 +2,9 @@
 // Template version: 1.3.1
 // see http://vuejs-templates.github.io/webpack for documentation.
 
-const path = require('path')
-const targetUrl = 'http://localhost:9001';
+const path = require('path');
+const targetUrl = 'http://localhost:9000';
+// const targetUrl = 'http://192.168.43.137:9000';
 
 module.exports = {
   dev: {

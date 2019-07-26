@@ -31,6 +31,11 @@
         default: undefined,
         required: true,
       },
+      hasJudgeBeforeWizardSwitch:{
+        type: Boolean,
+        default: false,
+        required: false,
+      },
       isClickable: {
         type: Boolean,
         default: false,
@@ -44,8 +49,12 @@
       //#region inner
 
       onWizardClick: function (oItem) {
-        this.setProgress(oItem.index);
-        this.callback4OnWizardClick(oItem);
+        if(this.hasJudgeBeforeWizardSwitch){
+          this.callback4OnWizardClick(oItem);
+        }else{
+          this.setProgress(oItem.index);
+          this.callback4OnWizardClick(oItem);
+        }
       },
 
       //#endregion

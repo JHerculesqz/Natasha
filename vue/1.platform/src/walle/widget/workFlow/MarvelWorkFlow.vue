@@ -1,7 +1,11 @@
 <template>
   <div class="workFlowWrapper">
     <div class="topStepArea">
-      <marvel-wizard ref="refWorkFlowWizard" :items="stepItemsInner" :isClickable="isClickable" @onWizardClick="onWizardClick"></marvel-wizard>
+      <marvel-wizard ref="refWorkFlowWizard"
+                     :items="stepItemsInner"
+                     :isClickable="isClickable"
+                     :hasJudgeBeforeWizardSwitch="true"
+                     @onWizardClick="onWizardClick"></marvel-wizard>
     </div>
     <div class="bottomContArea">
       <component v-bind:is="currentStep.uiCompName"></component>
@@ -47,20 +51,14 @@
       //#region inner
 
       onWizardClick: function (oItem) {
-        this.currentStep = {
-          label: oItem.label,
-          index: oItem.index,
-          uiCompName: oItem.uiCompName
-        };
-
-        this.callback4OnWizardClick();
+        this.callback4OnWizardClick(oItem);
       },
 
       //#endregion
       //#region callback
 
       callback4OnWizardClick: function (oItem) {
-        this.$emit("onWizardClick", oItem);
+        return this.$emit("onWizardClick", oItem);
       },
 
       //#endregion
@@ -85,9 +83,6 @@
         handler: function () {
           if (this.stepItems.length > 0) {
             this.stepItemsInner = JSON.parse(JSON.stringify(this.stepItems));
-            this.$nextTick(function () {
-              this.setProgress(this.stepItems[0]);
-            });
           } else {
             this.currentStep = {
               label: "",

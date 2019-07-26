@@ -31,7 +31,7 @@
     data() {
       return {
         //#region const
-        debug: true,
+        debug: false,
         //#endregion
         //#region workFlow
         stepItems: [],
@@ -72,31 +72,70 @@
 
       _getWfModel: function (oAfterCallback) {
         var oRes = undefined;
+        var storage=window.localStorage;
+        var reqBody = {
+          reqBuVoStr: JSON.stringify({
+            wfInsId: storage["wfInsId"]
+          })
+        };
         if (this.debug) {
           oRes = MockUtils.mock4TestWfModel().resultObj;
+          oAfterCallback(oRes);
         } else {
-          HttpUtils.post("testWfModel", {}).then(res => {
-            oRes = res.data.resultObj;
+          HttpUtils.post("getWFIns4UIWF", reqBody).then(res => {
+            oRes = res.body.resultObj;
+            oAfterCallback(oRes);
           });
         }
-
-        oAfterCallback(oRes);
       },
       _setWfModel: function (oRes) {
         var stepItemArr = [];
-        var WfModelItems = JSON.parse(JSON.stringify(oRes.testWfModelOutItemVos[0].wfModelStepVo4Chgs));
+        var WfModelItems = JSON.parse(JSON.stringify(oRes.lstUIWFInsTaskVo));
+        var defaultActiveStep = {};
         for (var i = 0; i < WfModelItems.length; i++) {
-          stepItemArr.push({
+          var oItem = {
+            id: WfModelItems[i].id,
             label: WfModelItems[i].name,
             index: i + 1,
-            uiCompName: WfModelItems[i].uiCompName
-          });
+            uiCompName: WfModelItems[i].uiComponentName
+          };
+          stepItemArr.push(oItem);
+
+          if(oRes.curTaskId == WfModelItems[i].id){
+            defaultActiveStep = oItem;
+          }
         }
 
         this.stepItems = JSON.parse(JSON.stringify(stepItemArr));
+        this.$nextTick(function () {
+          this.$refs.refWorkFlow.setProgress(defaultActiveStep);
+        });
+
+        //get current step
+
       },
       onWizardClick: function (oItem) {
-        console.log("workFlow click")
+        //if can switch
+        this.$refs.refWorkFlow.setProgress(oItem);
+
+        //updateWorkflow
+        var oRes = undefined;
+        var storage=window.localStorage;
+        if(storage["finish"] == "false"){
+          var reqBody = {
+            reqBuVoStr: JSON.stringify({
+              wfInsId: storage["wfInsId"],
+              taskId: oItem.id
+            })
+          };
+          if (this.debug) {
+            console.log(reqBody);
+          } else {
+            HttpUtils.post("updateCurTaskId4UIWF", reqBody).then(res => {
+            });
+          }
+        }
+
       }
 
       //#endregion
