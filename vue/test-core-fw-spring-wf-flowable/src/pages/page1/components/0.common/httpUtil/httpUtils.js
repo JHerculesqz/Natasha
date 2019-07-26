@@ -40,8 +40,22 @@ var API = {
     desc:R,
     errorAdvice:errorAdvice
   },
-  getComponentInfo:{
-    url: "/wf/flowable/getComponentInfo",
+  createIns4MopWF:{
+    url: "/wf/flowable/createIns4MopWF",
+    loading:true,
+    checkRes:true,
+    desc:R,
+    errorAdvice:errorAdvice
+  },
+  getTaskList4MopWF:{
+    url: "/wf/flowable/getTaskList4MopWF",
+    loading:true,
+    checkRes:true,
+    desc:R,
+    errorAdvice:errorAdvice
+  },
+  submitTask4MopWF:{
+    url: "/wf/flowable/submitTask4MopWF",
     loading:true,
     checkRes:true,
     desc:R,

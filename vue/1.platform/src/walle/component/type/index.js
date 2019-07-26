@@ -4,6 +4,6 @@ export function isString(arg) {
   return toStr.call(arg) === "[object String]";
 }
 
-export function isArrays(arg) {
+export function isArray(arg) {
   return toStr.call(arg) === "[object Array]";
 }

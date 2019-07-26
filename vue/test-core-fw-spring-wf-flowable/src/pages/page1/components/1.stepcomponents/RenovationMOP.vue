@@ -39,37 +39,38 @@
     data() {
       return {
         //#region const
-        debug: true,
+        debug: false,
+        modelKey:"MOPPTNLSRID",
         //#endregion
         //#region workFlow
         titles4GridTree:[{
-          key:"no",
-          label:"No.",
+          key:"id",
+          label:"ID",
           width:"50px",
           type:"text",
           visible: true,
         },{
-          key:"operation",
-          label:"Operation",
+          key:"wfInsId",
+          label:"wfInsId",
+          width:"50px",
+          type:"text",
+          visible: true,
+        },{
+          key:"operationName",
+          label:"OperationName",
           width:"200px",
           type:"text",
           visible: true,
           isTreeNodeCell: true,
         },{
-          key:"operationobj",
-          label:"Operation Object",
+          key:"startTime",
+          label:"startTime",
           width:"150px",
           type:"text",
           visible: true,
         },{
-          key:"progress",
-          label:"Progress",
-          width:"100px",
-          type:"text",
-          visible: true,
-        },{
-          key:"state",
-          label:"State",
+          key:"endTime",
+          label:"endTime",
           width:"100px",
           type:"text",
           visible: true,
@@ -93,7 +94,10 @@
           visible: true,
         }],
         treeNodes:[],
-        detailsInfo:""
+        detailsInfo:"",
+        //#endregion
+        //#region mop
+        mopId:undefined
         //#endregion
       }
     },
@@ -112,36 +116,129 @@
       _initEx: function () {
         var self = this;
 
-        this._getStepCont(function (oRes) {
-          self._setStepCont(oRes);
+        this._creatMop(function (res) {
+          self.mopId = res.body.resultObj.id;
+          self._getStepCont(function (oRes) {
+            self._setStepCont(oRes);
+          });
         });
       },
 
       //#endregion
 
+      _creatMop: function(oAfterCallback){
+        var storage=window.localStorage;
+        var reqBody = {
+          reqBuVoStr: JSON.stringify({
+            wfInsId: storage["wfInsId"],
+            wfModelKey: this.modelKey,
+            mapParams: {
+              a:1,
+              b:2
+            },
+          })
+        };
+        if (this.debug) {
+          console.log(reqBody);
+        } else {
+          HttpUtils.post("createIns4MopWF", reqBody).then(res => {
+            oAfterCallback(res);
+          });
+        }
+      },
       _getStepCont: function (oAfterCallback) {
         var oRes = undefined;
+        var storage=window.localStorage;
         var oParams = {
-          componentName: "RenovationMOP",
+          wfInsId: storage["wfInsId"],
         };
         var reqBody = JSON.stringify(oParams);
         if (this.debug) {
           oRes = MockUtils.mock4GetComponentInfo(oParams.componentName).resultObj;
+          oAfterCallback(oRes);
         } else {
-          // HttpUtils.post("getComponentInfo", reqBody).then(res => {
-          //   oRes = res.data.resultObj;
-          // });
+          HttpUtils.post("getTaskList4MopWF", reqBody).then(res => {
+            oRes = res.body.resultObj;
+            oAfterCallback(oRes);
+          });
         }
-
-        oAfterCallback(oRes);
       },
       _setStepCont: function (oRes) {
-        this.treeNodes = oRes;
-        console.log(oRes);
+        var oTree=[];
+        for(var i= 0; i< oRes.length; i++){
+          var oData = oRes[i];
+          var oTreeCell = {
+            name: oData.id,
+            id:  oData.id,
+            wfInsId: oData.wfInsId,
+            operationName: oData.name,
+            startTime: oData.startTime,
+            endTime: oData.endTime,
+            skip: [{
+              title: "跳过",
+              value: "icon-forward2"
+            }],
+            pause: [{
+              title: "暂停",
+              value: "icon-pause"
+            }],
+            viewdetails: [{
+              title: "查看详情",
+              value: "icon-file-text2"
+            }],
+            children: [],
+            nodeLevel: 0,
+            hasCheckbox: false,
+            hasRadiobox: false,
+            isInitCheck: false,
+            isInitExpand: true,
+            isLeafNode: false
+          };
+          oTree.push(oTreeCell);
+        }
+
+        this.treeNodes = oTree;
+      },
+
+      _getLevel: function(arrNodes, oNode){
+        //todo
+      },
+      _isLeafNode: function(arrNodes, oNode){
+        var bIsLeafNode = true;
+        for(var i = 0; i<arrNodes.length; i++){
+          if (arrNodes[i].parentId == oNode.id) {
+            bIsLeafNode = false;
+            break;
+          }
+        }
+
+        if (oNode.parentId != null && bIsLeafNode){
+          return true;
+        }else{
+          return false;
+        }
       },
 
       _onIconClick: function (oRow, oCell) {
-        this.detailsInfo = oRow
+        var self = this;
+        var reqBody = {
+          reqBuVoStr: JSON.stringify({
+            wfInsId: this.mopId,
+            mapParams: {
+              a:1,
+              b:2
+            },
+          })
+        };
+        if (this.debug) {
+          this.detailsInfo = oRow;
+        } else {
+          HttpUtils.post("submitTask4MopWF", reqBody).then(res => {
+            self._getStepCont(function (oRes) {
+              self._setStepCont(oRes);
+            });
+          });
+        }
       }
 
       //#endregion
@@ -161,14 +258,14 @@
   }
 
   .mopLeft{
-    width: 1000px;
+    width: calc(80% - 20px);
     height: 100%;
     float: left;
   }
 
   .mopRight{
     float: left;
-    width: calc(100% - 1020px);
+    width: 20%;
     margin-left:20px;
     background-color: #ffffff;
     height: 100%;

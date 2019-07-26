@@ -42,9 +42,9 @@ export default {
     }
     oMyForm.append("file", oFileBlock);
     if (bIsFinish) {
-      oMyForm.append("isFinish", "true")
+      oMyForm.append("isFinish", "true");
     } else {
-      oMyForm.append("isFinish", "false")
+      oMyForm.append("isFinish", "false");
     }
     let oReq = new XMLHttpRequest();
     oReq.open("POST", postUrl, true);

@@ -1,6 +1,7 @@
 <template>
   <div class="iconTextBtn"
        :title="userDefineTitle?userDefineTitle:label"
+       :style="butStyle"
        v-bind:class="[isPrimaryStyle, isMouseDownStyle, size, disable, classCustom, icon, {tip:isWarn}, isIconPosToRight]"
        v-on:click="onClick" v-on:mousedown="_onMouseDown" v-on:mouseup="_onMouseUp">{{ label }}
   </div>
@@ -38,6 +39,10 @@
             return false;
           }
         }
+      },
+      butStyle: {
+        default: "",
+        required: false,
       },
       classCustom: {
         type: String,

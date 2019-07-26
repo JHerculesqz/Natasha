@@ -10,7 +10,7 @@
   import "natasha-gis/css/MarvelGis.css";
   import "natasha-gis/lib/plugins/leaflet.pm/leaflet.pm.css";
 
-  window.keyBoardJs = require('natasha-gis/lib/keyboard.min.js');
+  window.keyboardJS = require('natasha-gis/lib/keyboard.min.js');
   require('natasha-gis/lib/jquery-3.2.1.min.js');
   require('natasha-gis/lib/leaflet.js');
   require('natasha-gis/lib/plugins/leaflet.heat/leaflet.heat.js');

@@ -82,10 +82,10 @@
               self._onContextMenuClickBD(oBD, iX, iY);
             },
             mouseOver: function (oBD, iX, iY, e) {
-              self._onMouseOverBD(oBD, iX, iY, e);
+              self._onMouseOverBD(oBD, iX, iY);
             },
             mouseOut: function (oBD, iX, iY, e) {
-              self._onMouseOutBD(oBD, iX, iY, e);
+              self._onMouseOutBD(oBD, iX, iY);
             }
           }
         };

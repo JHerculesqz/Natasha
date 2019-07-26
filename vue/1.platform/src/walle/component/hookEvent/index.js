@@ -55,7 +55,7 @@ export default {
 
     //1.定时器处理
     Vue.prototype.$startTimer = startTimer;
-    Vue.prototype.$endTime = endTimer;
+    Vue.prototype.$endTimer = endTimer;
 
     //1.mounted事件处理
     Vue.prototype.$mountEvent = mountEvent;

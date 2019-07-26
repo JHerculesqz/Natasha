@@ -199,10 +199,26 @@ export default {
         }
         treeNodes.push(oNode);
       }
+
+
       return {
-        resultObj: treeNodes,
-        errorObj: null,
-        ok: true
+        "resultObj": [{
+          "id": "70de36ae-af7b-11e9-926e-aeb6d0d021b1",
+          "parentId": null,
+          "wfInsId": "70d6bc97-af7b-11e9-926e-aeb6d0d021b1",
+          "name": "STEP1.起床",
+          "startTime": "2019-07-207 04:00:32",
+          "endTime": ""
+        }, {
+          "id": "51ab14a5-af7d-11e9-9d05-aeb6d0d021b1",
+          "parentId": null,
+          "wfInsId": "51a34c6e-af7d-11e9-9d05-aeb6d0d021b1",
+          "name": "STEP1.起床",
+          "startTime": "2019-07-207 04:13:58",
+          "endTime": ""
+        }],
+        "errorObj": null,
+        "ok": true
       }
     }
 

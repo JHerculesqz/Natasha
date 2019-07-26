@@ -4,6 +4,7 @@
 
 const path = require('path');
 const targetUrl = 'http://localhost:9000';
+// const targetUrl = 'http://192.168.43.137:9000';
 
 module.exports = {
   dev: {

@@ -173,8 +173,8 @@
         var self = this;
         var reqBody = {
           reqBuVoStr: JSON.stringify({
-            wfModelKey:oOption.wfModelKey,
-            userId:oOption.userId,
+            wfModelKey:"NavToolsPTNLSRID",
+            userId:"jj",
           })
         };
         if (this.debug) {

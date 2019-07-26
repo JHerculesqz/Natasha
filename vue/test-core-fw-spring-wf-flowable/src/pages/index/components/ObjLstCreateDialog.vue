@@ -32,14 +32,6 @@
       return{
         showDialog:false,
         contItems:[{
-          type:"input",
-          key:"wfModelKey",
-          name:"wfModelKey"
-        },{
-          type:"input",
-          key:"userId",
-          name:"userId"
-        },{
           type:"dropdown",
           key:"contItems_index3",
           name:"XXX",
