@@ -1,7 +1,7 @@
 {
-  "name": "test-core-fw-wf",
+  "name": "test-core-fw-spring-wf-flowable",
   "version": "1.0.0",
-  "description": "app-workflow-web project",
+  "description": "test-core-fw-spring-wf-flowable project",
   "author": "author",
   "private": true,
   "scripts": {
