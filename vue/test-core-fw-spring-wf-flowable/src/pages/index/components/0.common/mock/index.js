@@ -6,17 +6,17 @@ export default {
         "curTaskId": "ecaaab22-9797-4292-86ee-09c051385201",
         "lstUIWFInsTaskVo": [{
           "id": "ecaaab22-9797-4292-86ee-09c051385201",
-          "name": "待改造网元信息",
+          "name": "step1",
           "uiComponentName": "RenovationNEInfo"
         }, {
           "id": "c94e543f-05fb-4199-b49d-d0b9aa106911",
-          "name": "改造前准备",
+          "name": "step2",
           "uiComponentName": "RenovationSetup"
         }, {
           "id": "d4d88402-14bd-4ab6-8571-e1b74f6e1975",
-          "name": "改造分析报告",
+          "name": "step3",
           "uiComponentName": "RenovationReport"
-        }, {"id": "0386108d-7ffd-4575-89bf-0b5ce031f36e", "name": "MOP清单", "uiComponentName": "RenovationMOP"}],
+        }, {"id": "0386108d-7ffd-4575-89bf-0b5ce031f36e", "name": "step4", "uiComponentName": "RenovationMOP"}],
         "startTime": "2019-07-26 10:52:24",
         "endTime": null,
         "userId": "jdl",
