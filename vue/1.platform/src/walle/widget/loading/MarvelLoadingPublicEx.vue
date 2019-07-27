@@ -1,6 +1,6 @@
 <template>
   <!-- maskLoading start-->
-  <div class="maskLoadingPublic" v-bind:class="{ dpn: !bIsShow }" v-dom-portal>
+  <div class="maskLoadingPublic" v-bind:class="{ dpn:!bIsShow}" v-dom-portal>
     <div class="loadingBoard">
       <div class="loadingIcon">
         <div class="icon">
@@ -11,7 +11,7 @@
           <div class="dot"></div>
         </div>
       </div>
-      <div class="loadingTip" v-text="loadingMsg"></div>
+      <div class="loadingTip" v-html="loadingMsg"></div>
       <div v-if="hasCancelBtn" class="loadingCancel" :title="$t('cancel')"
            v-on:click="imsgMarvelLoadingCancel">X
       </div>
@@ -48,21 +48,21 @@
       hasCancelBtn: {
         type: Boolean,
         default: false,
-        required: false,
+        required: false
       },
       showList: {
         type: Array,
         default: function () {
-          return [];
+          return []
         },
-        required: false,
-      },
+        required: false
+      }
     },
     data: function () {
       return {}
     },
     computed: {
-      loadingMsgEx: function () {
+      loadingMsg: function () {
         var iLen = this.showList.length;
         if (iLen !== 0) {
           return this.showList[iLen - 1].strMsg;

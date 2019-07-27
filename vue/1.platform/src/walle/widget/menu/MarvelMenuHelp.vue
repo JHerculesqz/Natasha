@@ -13,7 +13,7 @@
               </a>
             </div>
           </div>
-          <div class="helpitem" v-if="item.type == 'itemEspase'">
+          <div class="helpitem" v-if="item.type == 'itemEspace'">
             <div class="menuHelpItemIcon" :title="item.title">
               <span v-bind:class="item.icon"></span>
             </div>
@@ -21,7 +21,7 @@
             <div class="showhelpContact" v-for="itemSubItem in item.subItems">
               <span class="showhelp-text">{{itemSubItem.label}}</span>
               <a class="iconACss" :href="generateHref(itemSubItem.userId)" title="eSpace">
-                <span class="icon-marvel-113"></span>
+                <span class="icon-marvelIcon-113"></span>
               </a>
               <a class="iconACss" :href="generateMail(itemSubItem.userId, item.title)" title="Email">
                 <span class="icon-marvelIcon-104"></span>
@@ -66,7 +66,7 @@
       showSubHelpItem: function () {
         this.callback4ShowSubHelpItem();
         this.showSubMenu = !this.showSubMenu;
-      }
+      },
       hideSubMenu: function () {
         this.showSubMenu = false;
       },
@@ -80,9 +80,9 @@
       //#endregion
       //#region callback
 
-      callback4ShowSubMenuHelpItem: function () {
+      callback4ShowSubHelpItem: function () {
         this.$emit("showSubHelpItem");
-      }
+      },
 
       //#endregion
       //#region 3rd
@@ -146,8 +146,8 @@
   }
 
   .showhelp-btn span {
-    background-color: #3399ff;
-    border: 2px solid #3399ff;
+    background-color: #3399FF;
+    border: 2px solid #3399FF;
     padding-left: 5px;
     padding-right: 5px;
     border-radius: 10px;
@@ -180,12 +180,13 @@
     white-space: nowrap;
     box-sizing: border-box;
     font-size: 12px;
+    color: #666666;
     font-family: "arial,微软雅黑";
   }
 
   .helpitem:hover {
     background-color: rgba(61, 204, 166, 0.6);
-    border: 1px solid #3dcca6
+    border: 1px solid #3dcaa6
   }
 
   a {
@@ -232,7 +233,7 @@
   .iconACss {
     font-size: 16px;
     margin-left: 5px;
-    color: #3399ff;
+    color: #3399FF;
   }
 
   .iconACss:hover {

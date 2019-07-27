@@ -107,10 +107,24 @@ export default {
     } else if (strComponentName == "RenovationMOP") {
       return {
         "resultObj": [{
-          "id": "70de36ae-af7b-11e9-926e-aeb6d0d021b1",
+          "id": "aaaaa",
           "parentId": null,
-          "wfInsId": "70d6bc97-af7b-11e9-926e-aeb6d0d021b1",
+          "wfInsId": "aaaaa",
           "name": "STEP1.起床",
+          "startTime": "2019-07-207 04:00:32",
+          "endTime": ""
+        },{
+          "id": "bbbbb",
+          "parentId": null,
+          "wfInsId": "bbbbb",
+          "name": "STEP2.吃早饭",
+          "startTime": "2019-07-207 04:00:32",
+          "endTime": ""
+        },{
+          "id": "ccccc",
+          "parentId": "bbbbb",
+          "wfInsId": "ccccc",
+          "name": "STEP2.1.喝水",
           "startTime": "2019-07-207 04:00:32",
           "endTime": ""
         }],

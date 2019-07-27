@@ -1,6 +1,7 @@
 <template>
   <div class="alarmGroup">
-    <div class="alarm emergent" v-for="item in items"
+    <div class="alarm emergent" v-for="item in items" v-on:click="_callback4OnItemClick(item)"
+         :class="{alarmActive: item.isActive}"
          v-bind:class="[item.level]">
       {{ item.label }}
     </div>
@@ -24,6 +25,19 @@
     },
     data: function () {
       return {}
+    },
+    methods: {
+      //#region inner
+      //#endregion
+      //#region callback
+
+      _callback4OnItemClick: function (oItem) {
+        this.$emit("onItemClick", oItem)
+      }
+
+      //#endregion
+      //#region 3rd
+      //#endregion
     }
   }
 </script>
@@ -31,19 +45,22 @@
 <style scoped>
   /*region basic*/
 
-  *{
-    font-family: "Microsoft YaHei", "arial",sans-serif;
+  * {
+    font-family: "Microsoft YaHei", "arial", sans-serif;
   }
-  ::-webkit-scrollbar{
-    width:8px;
-    height:8px;
-    background-color: rgba(0,0,0,0);
+
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    background-color: rgba(0, 0, 0, 0);
   }
-  ::-webkit-scrollbar-track{
+
+  ::-webkit-scrollbar-track {
     border-radius: 10px;
-    background-color: rgba(0,0,0,0);
+    background-color: rgba(0, 0, 0, 0);
   }
-  ::-webkit-scrollbar-thumb{
+
+  ::-webkit-scrollbar-thumb {
     border-radius: 10px;
     background-color: #aaa;
   }
@@ -97,6 +114,10 @@
 
   .alarmGroup .level6:before {
     background-color: #808080;
+  }
+
+  .alarmActive {
+    background-color: rgba(0, 0, 0, 0.2);
   }
 
   /*region dark theme*/

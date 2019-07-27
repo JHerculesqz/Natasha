@@ -1,42 +1,27 @@
 <template>
   <div class="workFlowWrapper">
     <div class="topArea">
-      <div class="title4objListPageWrapper">XXX列表</div>
-      <slot name="btnArea"></slot>
-      <marvel-button v-show="tabItems[0].isActive" ref="objLstPageCreateBtn2" label="批量创建" classCustom="classCustom4Btn"
-                     v-on:onClick="callback4OnClickToBatchCreate"></marvel-button>
-      <marvel-button v-show="tabItems[0].isActive" ref="objLstPageCreateBtn1" label="新建" classCustom="classCustom4Btn"
-                     v-on:onClick="callback4OnClickToCreate"></marvel-button>
+      <div class="title4objListPageWrapper">TITLE</div>
+      <div class="btnAreaWrapper">
+        <slot name="btnArea"></slot>
+        <marvel-button ref="objLstPageCreateBtn2" label="批量创建" classCustom="classCustom4Btn"
+                       v-on:onClick="callback4OnClickToBatchCreate"></marvel-button>
+        <marvel-button ref="objLstPageCreateBtn1" label="创建" classCustom="classCustom4Btn"
+                       v-on:onClick="callback4OnClickToCreate"></marvel-button>
+      </div>
     </div>
     <div class="bottomArea">
-      <marvel-tab :tabItems="tabItems" :hideBorder="true">
-        <marvel-tab-item :isActive="tabItems[0].isActive" style="padding: 10px;box-sizing: border-box;">
-          <marvel-grid-ex ref="objLstGrid"
-                          gridId="objLstGrid"
-                          :titles="title4objLstInner"
-                          :rows="row4objLstInner"
-                          :dynamicPaging="true"
-                          :totalNum="totalNum"
-                          :totalPage="totalPage"
-                          :canDrag="true"
-                          :hasFoot="true"
-                          v-on:onIconClick="_onIconClick"
-                          v-on:onPageChange="callback4OnPageChange"></marvel-grid-ex>
-        </marvel-tab-item>
-        <marvel-tab-item :isActive="tabItems[1].isActive" style="padding: 10px;box-sizing: border-box;">
-          <marvel-grid-ex ref="objLstGridFinish"
-                          gridId="objLstGridFinish"
-                          :titles="title4objLstInner"
-                          :rows="row4objLstFinishedInner"
-                          :dynamicPaging="true"
-                          :totalNum="totalNumFinished"
-                          :totalPage="totalPageFinished"
-                          :canDrag="true"
-                          :hasFoot="true"
-                          v-on:onIconClick="_onIconClickFinished"
-                          v-on:onPageChange="callback4OnPageChange4Finished"></marvel-grid-ex>
-        </marvel-tab-item>
-      </marvel-tab>
+      <marvel-grid-ex ref="objLstGrid"
+                      gridId="objLstGrid"
+                      :titles="title4objLstInner"
+                      :rows="row4objLstInner"
+                      :dynamicPaging="true"
+                      :totalNum="totalNum"
+                      :totalPage="totalPage"
+                      :canDrag="true"
+                      :hasFoot="true"
+                      v-on:onIconClick="_onIconClick"
+                      v-on:onPageChange="callback4OnPageChange"></marvel-grid-ex>
     </div>
   </div>
 </template>
@@ -71,6 +56,11 @@
         default: undefined,
         required: true,
       },
+      rowOriginData: {
+        type: Object,
+        default: undefined,
+        required: true,
+      },
       totalNum: {
         type: Number,
         default: 0,
@@ -85,52 +75,13 @@
         type: Number,
         default: 26,
         required: false,
-      },
-      title4objLstFinished: {
-        type: Array,
-        default: undefined,
-        required: true,
-      },
-      row4objLstFinished: {
-        type: Array,
-        default: undefined,
-        required: true,
-      },
-      totalNumFinished: {
-        type: Number,
-        default: 0,
-        required: false,
-      },
-      totalPageFinished: {
-        type: Number,
-        default: 1,
-        required: false,
-      },
-      limitFinished: {
-        type: Number,
-        default: 26,
-        required: false,
-      },
+      }
     },
     data: function () {
       return {
-        //#region tab
-        tabItems: [{
-          label: "执行中",
-          isActive: true
-        }, {
-          label: "执行完毕",
-          isActive: false
-        }],
-        //#endregion
         //#region grid
         title4objLstInner: [],
-        row4objLstInner: [],
-        currentPage: 1,
-
-        title4objLstFinishedInner: [],
-        row4objLstFinishedInner: [],
-        currentPageFinished: 1
+        row4objLstInner: []
         //#endregion
       }
     },
@@ -147,29 +98,19 @@
       //#region lifeCycle
 
       _initEx: function () {
-        this._genTitles4UnFinishedGrid();
-        this._genRows4UnFinishedGrid();
-        this._genTitles4FinishedGrid();
-        this._genRows4FinishedGrid();
+        this._genTitles4Grid();
+        this._genRows4Grid();
       },
 
       //#endregion
 
-      _genTitles4UnFinishedGrid: function () {
+      _genTitles4Grid: function () {
         var arrTitles = JSON.parse(JSON.stringify(this.title4objLst));
         this.title4objLstInner = this._genTitles(arrTitles);
       },
-      _genRows4UnFinishedGrid: function () {
+      _genRows4Grid: function () {
         var arrRows = JSON.parse(JSON.stringify(this.row4objLst));
         this.row4objLstInner = this._genRows(arrRows);
-      },
-      _genTitles4FinishedGrid: function () {
-        var arrTitles = JSON.parse(JSON.stringify(this.title4objLstFinished));
-        this.title4objLstFinishedInner = this._genTitles(arrTitles);
-      },
-      _genRows4FinishedGrid: function () {
-        var arrRows = JSON.parse(JSON.stringify(this.row4objLst));
-        this.row4objLstFinishedInner = this._genRows(arrRows);
       },
 
       _genTitles: function (arrTitles) {
@@ -178,14 +119,44 @@
           key: "checkBox",
           type: "checkBox",
           visible: true,
-          width: "8%"
+          width: "36px"
+        }, {
+          label: "insId4UIWf",
+          key: "id",
+          type: "text",
+          visible: false,
+          width: "36px"
+        }, {
+          label: "curTaskId4UIWf",
+          key: "curTaskId",
+          type: "text",
+          visible: false,
+          width: "36px"
         }];
         var oOptionTitle = [{
+          label: "开始时间",
+          key: "startTime",
+          type: "text",
+          visible: true,
+          width: "160px"
+        }, {
+          label: "结束时间",
+          key: "endTime",
+          type: "text",
+          visible: true,
+          width: "160px"
+        }, {
+          label: "创建人",
+          key: "userId",
+          type: "text",
+          visible: true,
+          width: "80px"
+        }, {
           label: "操作",
           key: "operation",
           type: "icon",
           visible: true,
-          width: "10%"
+          width: "120px"
         }];
         var arrNewTitleV1 = oCheckTitle.concat(arrTitles);
         var arrNewTitleV2 = arrNewTitleV1.concat(oOptionTitle);
@@ -193,53 +164,87 @@
         return arrNewTitleV2;
       },
       _genRows: function (arrRows) {
-        var oCheckRowCell = {
-          key: "checkBox",
-          value: "",
-          checked: false,
-          disabled: false,
-        };
-        var oOptionRowCell = {
-          key: "operation",
-          value: [{
-            value: "icon-wrench",
-            color: "#3399ff",
-            title: "查看"
-          }, {
-            value: "icon-bin",
-            color: "#3399ff",
-            title: "删除"
-          }],
-        };
-
+        var oRes = this.rowOriginData.lstUIWFInsVo;
+        var bHasOperationAlready = false;
         for (var i = 0; i < arrRows.length; i++) {
-          arrRows[i].unshift(oCheckRowCell);
-          arrRows[i].push(oOptionRowCell);
+          arrRows[i].push({
+            key: "checkBox",
+            value: "",
+            checked: false,
+            disabled: false,
+          });
+          arrRows[i].push({
+            key: "id",
+            value: oRes[i].id
+          });
+          arrRows[i].push({
+            key: "curTaskId",
+            value: oRes[i].curTaskId
+          });
+          arrRows[i].push({
+            key: "startTime",
+            value: oRes[i].startTime
+          });
+          arrRows[i].push({
+            key: "endTime",
+            value: oRes[i].endTime
+          });
+          arrRows[i].push({
+            key: "userId",
+            value: oRes[i].userId
+          });
+
+          //add custom operation icon
+          for (var j = 0; j < arrRows[i].length; j++) {
+            var oCell = arrRows[i][j];
+            if (oCell.key == 'operation') {
+              bHasOperationAlready = true;
+              oCell.value.unshift({
+                value: "icon-bin",
+                color: "#3399ff",
+                title: "删除"
+              });
+              oCell.value.unshift({
+                value: "icon-wrench",
+                color: "#3399ff",
+                title: "查看"
+              });
+            }
+          }
+          if (!bHasOperationAlready) {
+            arrRows[i].push({
+              key: "operation",
+              value: [{
+                value: "icon-wrench",
+                color: "#3399ff",
+                title: "查看"
+              }, {
+                value: "icon-bin",
+                color: "#3399ff",
+                title: "删除"
+              }],
+            });
+          }
         }
         return arrRows;
       },
       _onIconClick: function (oRow, oCell, oIcon) {
-        if(oIcon.value == "icon-wrench"){
+        if (oIcon.value == "icon-wrench") {
           this.callback4OnIconClick4View(oRow);
-        }else if(oIcon.value == "icon-bin"){
+        } else if (oIcon.value == "icon-bin") {
           this.callback4OnIconClick4Delete(oRow);
-        }
-      },
-      _onIconClickFinished: function (oRow, oCell, oIcon) {
-        if(oIcon.value == "icon-wrench"){
-          this.callback4OnIconClick4ViewFinished(oRow);
-        }else if(oIcon.value == "icon-bin"){
-          this.callback4OnIconClick4DeleteFinished(oRow);
+        } else {
+          this.callback4OnCustomIconClick(oRow, oIcon.value);
         }
       },
       _getRowCellByKey: function (oRow, strKey) {
         var targetCell = undefined;
-        for(var i = 0; i< oRow.length; i++){
+        for (var i = 0; i < oRow.length; i++) {
           var oCell = oRow[i];
-          if(strKey == oCell.key){
+          if (strKey == oCell.key) {
             targetCell = oCell;
             break;
-          }else{
+          } else {
             continue;
           }
         }
@@ -258,20 +263,14 @@
       callback4OnPageChange: function (iPageIndex, perPageNum) {
         this.$emit("onPageChange", iPageIndex, perPageNum);
       },
-      callback4OnPageChange4Finished: function (iPageIndex, perPageNum) {
-        this.$emit("onPageChange4Finished", iPageIndex, perPageNum);
-      },
       callback4OnIconClick4Delete: function (oRow) {
         this.$emit("onIconClick4Delete", oRow);
       },
+      callback4OnCustomIconClick: function (oRow, oIcon) {
+        this.$emit("onCustomIconClick", oRow, oIcon);
+      },
       callback4OnIconClick4View: function (oRow) {
         this.$emit("onIconClick4View", oRow);
-      },
-      callback4OnIconClick4DeleteFinished: function (oRow) {
-        this.$emit("onIconClick4DeleteFinished", oRow);
-      },
-      callback4OnIconClick4ViewFinished: function (oRow) {
-        this.$emit("onIconClick4ViewFinished", oRow);
       },
 
       //#endregion
@@ -282,29 +281,16 @@
     watch: {
       title4objLst: {
         handler: function () {
-          this._genTitles4UnFinishedGrid();
+          this._genTitles4Grid();
         },
         deep: true
       },
       row4objLst: {
         handler: function () {
-          this._genRows4UnFinishedGrid();
+          this._genRows4Grid();
         },
         deep: true
-      },
-      title4objLstFinished: {
-        handler: function () {
-          this._genTitles4FinishedGrid();
-        },
-        deep: true
-      },
-      row4objLstFinished: {
-        handler: function () {
-          this._genRows4FinishedGrid();
-        },
-        deep: true
-      },
-
+      }
     },
   }
 </script>
@@ -339,17 +325,22 @@
   }
 
   .topArea {
-    height: 50px;
-    padding: 10px 20px 0 20px;
+    height: 46px;
+    padding: 7px 20px 0 20px;
     box-sizing: border-box;
   }
 
   .title4objListPageWrapper {
     line-height: 32px;
-    font-size: 18px;
+    font-size: 26px;
     color: #4d4d4d;
     font-weight: bolder;
     float: left;
+  }
+
+  .btnAreaWrapper {
+    position: relative;
+    top: 0px;
   }
 
   .classCustom4Btn {
@@ -358,9 +349,9 @@
   }
 
   .bottomArea {
-    height: calc(100% - 50px);
+    height: calc(100% - 46px);
     width: 100%;
-    padding: 10px;
+    padding: 0 10px 10px 10px;
     box-sizing: border-box;
   }
 </style>

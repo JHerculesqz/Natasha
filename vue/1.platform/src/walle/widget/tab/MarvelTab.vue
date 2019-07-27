@@ -203,7 +203,7 @@
     float: left;
     font-family: arial, "Microsoft YaHei", sans-serif;
     color: #333;
-    font-size: 16px;
+    font-size: 14px;
     padding: 0 10px;
     cursor: pointer;
   }

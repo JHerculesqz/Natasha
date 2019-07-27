@@ -3,27 +3,21 @@
     <marvel-work-flow-obj-lst ref="ObjLst"
                               :title4objLst="title4objLst"
                               :row4objLst="row4objLst"
+                              :rowOriginData="rowOriginData"
                               :totalNum="totalNum"
                               :totalPage="totalPage"
                               :limit="limit"
-                              :title4objLstFinished="title4objLst"
-                              :row4objLstFinished="row4objLstFinished"
-                              :totalNumFinished="totalNumFinished"
-                              :totalPageFinished="totalPageFinished"
-                              :limitFinished="limitFinished"
                               @onClickToCreate="_onClickToCreate"
                               @onClickToBatchCreate="_onClickToBatchCreate"
                               @onPageChange="_onPageChange"
-                              @onPageChange4Finished="_onPageChange4Finished"
                               @onIconClick4Delete="_onIconClick4Delete"
-                              @onIconClick4DeleteFinished="_onIconClick4DeleteFinished"
                               @onIconClick4View="_onIconClick4View"
-                              @onIconClick4ViewFinished="_onIconClick4ViewFinished">
+                              @onCustomIconClick="_onCustomIconClick">
       <div slot="btnArea" class="slotBtnArea">
-        <marvel-button v-show="tabItems[0].isActive" ref="objLstPageCreateBtn4" label="XXX"
+        <marvel-button ref="objLstPageCreateBtn4" label="自定义按钮2"
                        classCustom="classCustom4Btn"
                        v-on:onClick="_onClickToXXX"></marvel-button>
-        <marvel-button v-show="tabItems[0].isActive" ref="objLstPageCreateBtn3" label="分析"
+        <marvel-button ref="objLstPageCreateBtn3" label="自定义按钮1"
                        classCustom="classCustom4Btn"
                        v-on:onClick="_onClickToAnalysis"></marvel-button>
       </div>
@@ -36,9 +30,6 @@
 
 <script>
   import MarvelButton from '~~/widget/button/MarvelButton';
-  import MarvelTab from '~~/widget/tab/MarvelTab';
-  import MarvelTabItem from '~~/widget/tab/MarvelTabItem';
-  import MarvelGridEx from '~~/widget/grid/MarvelGridEx';
   import HttpUtils from "./0.common/httpUtil/httpUtils";
   import MockUtils from "./0.common/mock";
   import ObjLstCreateDialog from "./ObjLstCreateDialog";
@@ -58,73 +49,38 @@
       ObjLstBatchCreateDialog,
       ObjLstCreateDialog,
       MarvelButton,
-      MarvelGridEx,
-      MarvelTab,
-      MarvelTabItem
     },
     data() {
       return {
         //#region const
         debug: false,
         //#endregion
-        //#region tab
-        tabItems: [{
-          label: "执行中",
-          isActive: true
-        }, {
-          label: "执行完毕",
-          isActive: false
-        }],
-        //#endregion
         //#region grid
         title4objLst: [{
-          label: "序号",
-          key: "id",
-          type: "text",
-          visible: true,
-          width: "8%"
-        }, {
-          label: "curTaskId",
-          key: "curTaskId",
+          label: "业务列1",
+          key: "business1",
           type: "text",
           visible: true,
           width: "20%"
         }, {
-          label: "起始时间",
-          key: "startTime",
+          label: "业务列2",
+          key: "business2",
           type: "text",
           visible: true,
           width: "20%"
         }, {
-          label: "结束时间",
-          key: "endTime",
-          type: "text",
-          visible: true,
-          width: "20%"
-        }, {
-          label: "是否已结束",
-          key: "finish",
-          type: "text",
-          visible: true,
-          width: "20%"
-        }, {
-          label: "创建人",
-          key: "userId",
+          label: "业务列N",
+          key: "businessN",
           type: "text",
           visible: true,
           width: "20%"
         }],
         row4objLst: [],
+        rowOriginData: undefined,
         totalNum: 0,
         totalPage: 1,
         limit: 26,
         currentPage: 1,
-
-        row4objLstFinished: [],
-        totalNumFinished: 0,
-        totalPageFinished: 1,
-        limitFinished: 26,
-        currentPageFinished: 1
         //#endregion
       }
     },
@@ -143,13 +99,9 @@
       _initEx: function () {
         var self = this;
 
-        //get wf
-        this._getWfModelGrid(function (oRes) {
-          self._setWfModelGrid(oRes);
-        });
-
-        this._getWfModelFinishedGrid(function (oRes) {
-          self._setWfModelFinishedGrid(oRes);
+        //get insLst
+        this._getInsModelGrid(function (oRes) {
+          self._setInsModelGrid(oRes);
         });
       },
 
@@ -173,29 +125,29 @@
         var self = this;
         var reqBody = {
           reqBuVoStr: JSON.stringify({
-            wfModelKey:"NavToolsPTNLSRID",
-            userId:"jj",
+            modelKey: "NavToolsPTNLSRID",
+            userId: "jj",
           })
         };
         if (this.debug) {
           console.log(oOption)
         } else {
-          HttpUtils.post("createWFIns4UIWF", reqBody).then(res => {
-            self._getWfModelGrid(function (oRes) {
-              self._setWfModelGrid(oRes);
+          HttpUtils.post("createIns4UIWF", reqBody).then(res => {
+            self._getInsModelGrid(function (oRes) {
+              self._setInsModelGrid(oRes);
             });
           });
         }
       },
       _onBatchCreate: function (oOption) {
-        //todo
+        //业务侧自行实现
       },
 
       //#endregion
 
       //#region grid data
 
-      _getWfModelGrid: function (oAfterCallback) {
+      _getInsModelGrid: function (oAfterCallback) {
         var oRes = undefined;
         var reqBody = {
           reqBuVoStr: JSON.stringify({
@@ -205,106 +157,58 @@
         };
         if (this.debug) {
           console.log(reqBody);
-          oRes = MockUtils.mock4GetObjLst(this.currentPage, this.limit).body.resultObj;
+          oRes = MockUtils.mock4GetObjLst(this.currentPage, this.limit).resultObj;
           oAfterCallback(oRes);
         } else {
-          HttpUtils.post("getWFInsLst4UIWF", reqBody).then(res => {
+          HttpUtils.post("getInsLst4UIWF", reqBody).then(res => {
             oRes = res.body.resultObj;
             oAfterCallback(oRes);
           });
         }
       },
-      _setWfModelGrid: function (oRes) {
+      _setInsModelGrid: function (oData) {
+        var oRes = oData.lstUIWFInsVo;
         var arrRows = [];
         for (var i = 0; i < oRes.length; i++) {
           let oRow = [];
+
+          //#region 业务侧列数据
           oRow.push({
-            key: "id",
-            value: oRes[i].id
+            key: "business1",
+            value: '1' + i
           });
           oRow.push({
-            key: "curTaskId",
-            value: oRes[i].curTaskId
+            key: "business2",
+            value: '2' + i
           });
           oRow.push({
-            key: "startTime",
-            value: oRes[i].startTime
+            key: "businessN",
+            value: 'N' + i
           });
+          //endregion
+
+          //#region 自定义添加 操作按钮
           oRow.push({
-            key: "endTime",
-            value: oRes[i].endTime
+            key: "operation",
+            value: [{
+              value: "icon-marvelIcon_2-13",
+              color: "#3dcca6",
+              title: "自定义操作1"
+            }, {
+              value: "icon-marvelIcon_2-14",
+              color: "#3dcca6",
+              title: "自定义操作2"
+            }],
           });
-          oRow.push({
-            key: "finish",
-            value: oRes[i].finish
-          });
-          oRow.push({
-            key: "userId",
-            value: oRes[i].userId
-          });
+          //#endrregion
 
           arrRows.push(oRow);
         }
 
+        this.rowOriginData = oData;
         this.row4objLst = JSON.parse(JSON.stringify(arrRows));
-        this.totalNum = 300;//todo
+        this.totalNum = oData.count;
         this.totalPage = Math.ceil(this.totalNum / this.limit);
-      },
-
-      _getWfModelFinishedGrid: function (oAfterCallback) {
-        var oRes = undefined;
-        var reqBody = {
-          reqBuVoStr: JSON.stringify({
-            skip: (this.currentPageFinished - 1) * this.limitFinished,
-            limit: this.limitFinished,
-          })
-        };
-        if (this.debug) {
-          console.log(reqBody);
-          oRes = MockUtils.mock4GetObjLst(this.currentPageFinished, this.limitFinished).body.resultObj;
-          oAfterCallback(oRes);
-        } else {
-          HttpUtils.post("getHistoryWFInsLst4UIWF", reqBody).then(res => {
-            oRes = res.body.resultObj;
-            oAfterCallback(oRes);
-          });
-        }
-      },
-      _setWfModelFinishedGrid: function (oRes) {
-        var arrRows = [];
-        for (var i = 0; i < oRes.length; i++) {
-          let oRow = [];
-          oRow.push({
-            key: "id",
-            value: oRes[i].id
-          });
-          oRow.push({
-            key: "curTaskId",
-            value: oRes[i].curTaskId
-          });
-          oRow.push({
-            key: "startTime",
-            value: oRes[i].startTime
-          });
-          oRow.push({
-            key: "endTime",
-            value: oRes[i].endTime
-          });
-          oRow.push({
-            key: "finish",
-            value: oRes[i].finish
-          });
-          oRow.push({
-            key: "userId",
-            value: oRes[i].userId
-          });
-
-          arrRows.push(oRow);
-        }
-
-        this.row4objLstFinished = JSON.parse(JSON.stringify(arrRows));
-        this.totalNumFinished = 300;//todo
-        this.totalPageFinished = Math.ceil(this.totalNumFinished / this.limitFinished);
       },
 
       //#endregion
@@ -314,17 +218,9 @@
       _onPageChange: function (iPageIndex, perPageNum) {
         var self = this;
         this.currentPage = iPageIndex;
-        //get wf
-        this._getWfModelGrid(function (oRes) {
-          self._setWfModelGrid(oRes);
-        });
-      },
-      _onPageChange4Finished: function (iPageIndex, perPageNum) {
-        var self = this;
-        this.currentPageFinished = iPageIndex;
-        //get wf
-        this._getWfModelFinishedGrid(function (oRes) {
-          self._setWfModelFinishedGrid(oRes);
+        //get insLst
+        this._getInsModelGrid(function (oRes) {
+          self._setInsModelGrid(oRes);
         });
       },
       _onIconClick4Delete: function (oRow) {
@@ -342,64 +238,42 @@
         };
         Bus.$emit('msg', 'show-confirm', oOption);
       },
-      _toDeleteObj: function(oRow){
+      _toDeleteObj: function (oRow) {
         var self = this;
-        var wfInsId = this._getRowCellByKey(oRow, "id").value;
+        var strInsId = this._getRowCellByKey(oRow, "id").value;
         var reqBody = {
           reqBuVoStr: JSON.stringify({
-            wfInsId: wfInsId
+            insId: strInsId
           })
         };
         if (this.debug) {
           console.log("delete:");
-          console.log(wfInsId);
+          console.log(strInsId);
         } else {
-          HttpUtils.post("delWFIns4UIWF", reqBody).then(res => {
-            self._getWfModelGrid(function (oRes) {
-              self._setWfModelGrid(oRes);
-            });
-          });
-        }
-      },
-      _onIconClick4DeleteFinished: function (oRow) {
-        var self = this;
-        var wfInsId = this._getRowCellByKey(oRow, "id").value;
-        var reqBody = {
-          reqBuVoStr: JSON.stringify({
-            wfInsId: wfInsId
-          })
-        };
-        if (this.debug) {
-          console.log("delete:");
-          console.log(wfInsId);
-        } else {
-          HttpUtils.post("delWFIns4UIWF", reqBody).then(res => {
-            self._getWfModelFinishedGrid(function (oRes) {
-              self._setWfModelFinishedGrid(oRes);
+          HttpUtils.post("delIns4UIWF", reqBody).then(res => {
+            self._getInsModelGrid(function (oRes) {
+              self._setInsModelGrid(oRes);
             });
           });
         }
       },
       _onIconClick4View: function (oRow) {
-        var storage=window.localStorage;
-        storage.setItem("wfInsId",this._getRowCellByKey(oRow, "id").value);
-        storage.setItem("finish",this._getRowCellByKey(oRow, "finish").value);
+        var storage = window.localStorage;
+        storage.setItem("insId", this._getRowCellByKey(oRow, "id").value);
         window.location.href = "http://localhost:8080/page1.html#/";
       },
-      _onIconClick4ViewFinished: function (oRow) {
-        var storage=window.localStorage;
-        storage.setItem("wfInsId",this._getRowCellByKey(oRow, "id").value);
-        storage.setItem("finish",this._getRowCellByKey(oRow, "finish").value);
-        window.location.href = "http://localhost:8080/page1.html#/";
+      _onCustomIconClick: function (oRow, oIcon) {
+        //自定义操作图标点击
+        console.log(oIcon);
       },
       _getRowCellByKey: function (oRow, strKey) {
         var targetCell = undefined;
-        for(var i = 0; i< oRow.length; i++){
+        for (var i = 0; i < oRow.length; i++) {
           var oCell = oRow[i];
-          if(strKey == oCell.key){
+          if (strKey == oCell.key) {
             targetCell = oCell;
             break;
-          }else{
+          } else {
             continue;
           }
         }
@@ -427,6 +301,7 @@
   .classCustom4Btn {
     float: right;
     margin-left: 20px;
+    background-color: #3dcca6 !important;
   }
 
 </style>
