@@ -83,9 +83,9 @@
           });
           //drawNodeGroup
           oTopoData.nodeGroups.forEach(function (oNodeGroup, index) {
-            oGis.Sprite.NodeGroup.delGroup(oNodeGroup, oGis);
+            oGis.Sprite.NodeGroup.delGroup(oNodeGroup.id, oGis);
           });
-          //drawLink
+          ////drawLink
           oTopoData.links.forEach(function (oLink, index) {
             oGis.Sprite.LinkGroup.delPolyline(oLink.id, oGis);
           });
@@ -134,7 +134,7 @@
         };
 
         this.setImgSize = function (strId,strImgClass,iImgWidth, oGis) {
-          oGis.Sprite.Node.setImgSize(strId, strImgClass, iImgWidth, oGis);
+            oGis.Sprite.Node.setImgSize(strId, strImgClass, iImgWidth, oGis);
         };
 
         this.setOpacity4Marker = function (strId, iOpacity, oGis) {

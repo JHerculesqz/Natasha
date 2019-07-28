@@ -305,10 +305,15 @@
         clone.removeAttribute('height');
         clone.setAttribute('preserveAspectRatio', 'xMinYMin meet');
       } else {
+        //svg的宽度、高度使用option中传进来的值
         clone.setAttribute("width", width * options.scale);
         clone.setAttribute("height", height * options.scale);
       }
 
+      clone.setAttribute('preserveAspectRatio', 'xMinYMin meet');
+      //viewbox的宽度、高度从svg元素中获取
+      width = getDimension(el, clone, 'width');
+      height = getDimension(el, clone, 'height');
       clone.setAttribute("viewBox", [
         options.left || 0,
         options.top || 0,
@@ -429,7 +434,7 @@
     }
   }
 
-  out$.download = function(name, uri) {
+  out$.download = function(name, uri,callback) {
     if (navigator.msSaveOrOpenBlob) {
       navigator.msSaveOrOpenBlob(uriToBlob(uri), name);
     } else {
@@ -454,6 +459,9 @@
         }
         saveLink.click();
         document.body.removeChild(saveLink);
+        if(callback){
+          callback();
+        }
       }
       else {
         window.open(uri, '_temp', 'menubar=no,toolbar=no,status=no');
@@ -485,8 +493,11 @@
     requireDomNode(el);
 
     options = options || {};
+    if(!options.callBack){
+      options.callBack = function () {}
+    }
     out$.svgAsPngUri(el, options, function(uri) {
-      out$.download(name, uri);
+      out$.download(name, uri,options.callBack);
     });
   }
 
