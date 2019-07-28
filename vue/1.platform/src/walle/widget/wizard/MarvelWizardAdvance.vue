@@ -48,7 +48,7 @@
             </div>
           </div>
         </div>
-        <div v-if="wizardsItem.isWarning" class="wizardWarningDiv"><span class="wizardWarningNum">{{wizardsItem.warningNum}}</span>
+        <div v-if="wizardsItem.isWarning" class="wizardWarningDiv"><span class="wizardWarningNum">{{wizardsItem.warningNum }}</span>
         </div>
       </div>
     </div>
@@ -97,8 +97,8 @@
       //#endregion
     },
     watch: {
-      wizardItems: {
-        handeler(newVal) {
+      wizardsItems: {
+        handler(newVal) {
           this.arrItems = JSON.parse(JSON.stringify(newVal));
           for (var i = 0; i < this.arrItems.length; i++) {
             var oItem = this.arrItems[i];
@@ -164,9 +164,9 @@
             oStandardItem = this.arrItems[iPreIndex];
             //1.1.先判断index是否符合标准
             if (iPreIndex >= 0) {
-              var oStandarPreItem = this.arrItems[iPreIndex];
+              var oStandardPreItem = this.arrItems[iPreIndex];
               var iPreItemWidth = $("#" + oStandardItem.id).width();
-              //1.2.如果加上这次的已经大于父容器的的宽度，说明已经找到
+              //1.2.如果加上这次的已经大于父容器的宽度，说明已经找到
               if (iWidthSum + iPreItemWidth >= iWidthParent) {
                 bIsFirstShowItemFind = true;
                 bIsLastShowItemFind = true;
@@ -183,7 +183,7 @@
             if (iNextIndex < this.arrItems.length) {
               var oStandardNextItem = this.arrItems[iNextIndex];
               var iNextItemWidth = $("#" + oStandardNextItem.id).width();
-              //1.2.如果加上这次的已经大于父容器的的宽度，说明已经找到
+              //1.2.如果加上这次的已经大于父容器的宽度，说明已经找到
               if (iWidthSum + iNextItemWidth >= iWidthParent) {
                 bIsFirstShowItemFind = true;
                 bIsLastShowItemFind = true;
@@ -205,7 +205,7 @@
           if (iPreIndexDst == 0) {
             this.canClickPreBtn = false;
           } else {
-            this.canClickNextBtn = true;
+            this.canClickPreBtn = true;
           }
           if (iLastIndexDst == this.arrItems.length - 1) {
             this.canClickNextBtn = false;
@@ -227,8 +227,8 @@
           this.showStepArea = true;
         });
       },
-      onClickItem: function (oWizardItem) {
-        this.callback4OnClickItem(oWizardItem);
+      onClickItem: function (oWizardsItem) {
+        this.callback4OnClickItem(oWizardsItem);
       },
       hideSubMenu: function () {
         for (var i = 0; i < this.arrItems.length; i++) {
@@ -302,11 +302,11 @@
           var oNextItem = this.arrItems[i];
           if (oPreItem.id == this.lastShowItem.id) {
             oNextItem.isShow = true;
-            iFirstIndex = i - 1;
+            iLastIndex = i - 1;
           }
           if (oPreItem.id == this.firstShowItem.id) {
             oPreItem.isShow = false;
-            iLastIndex = i - 1;
+            iFirstIndex = i - 1;
           }
         }
         this.firstShowItem = this.arrItems[iFirstIndex];
@@ -326,12 +326,12 @@
       //#endregion
       //#region callback
 
-      callback4OnClickItem: function (oWizardItem) {
-        this.$emit("onClickItem", oWizardItem);
+      callback4OnClickItem: function (oWizardsItem) {
+        this.$emit("onClickItem", oWizardsItem);
       },
-      callback4OnClickSubMenu: function (oWizardItem, strLabel) {
-        this.$emit("onClickSubMenu", oWizardItem, strLabel);
-      }
+      callback4OnClickSubMenu: function (oWizardsItem, strLabel) {
+        this.$emit("onClickSubMenu", oWizardsItem, strLabel);
+      },
 
       //#endregion
       //#region 3rd
@@ -379,13 +379,13 @@
   }
 
   /*endregion*/
-  .marvelWizardAdvanceWrapper{
+  .marvelWizardAdvanceWrapper {
     height: 100%;
     text-align: center;
     white-space: nowrap;
   }
 
-  .preStepArea{
+  .preStepArea {
     float: left;
     width: 20px;
     height: 100%;
@@ -393,26 +393,26 @@
     margin-right: 10px;
   }
 
-  .preIcon:before{
+  .preIcon:before {
     line-height: 35px;
     color: #fff;
   }
 
-  .preIcon:hover{
+  .preIcon:hover {
     cursor: pointer;
   }
 
-  .preIconNoClick{
+  .preIconNoClick {
     line-height: 35px;
     color: #878787;
     pointer-events: none;
   }
 
-  .preIconNoClick:hover{
+  .preIconNoClick:hover {
     cursor: not-allowed;
   }
 
-  .nextStepArea{
+  .nextStepArea {
     float: right;
     width: 20px;
     height: 100%;
@@ -420,32 +420,32 @@
     margin-left: 10px;
   }
 
-  .nextIcon:before{
+  .nextIcon:before {
     color: #fff;
     line-height: 35px;
   }
 
-  .nextIconNoClick{
-    color:#878787;
+  .nextIconNoClick {
+    color: #878787;
     line-height: 35px;
     pointer-events: none;
   }
 
-  .nextIcon:hover{
+  .nextIcon:hover {
     cursor: pointer;
   }
 
-  .nextIconNoClick:hover{
+  .nextIconNoClick:hover {
     cursor: not-allowed;
   }
 
-  .wiazrdArea{
+  .wiazrdArea {
     display: inline-block;
     width: calc(100% - 60px);
     height: 100%;
   }
 
-  .wizardsItemContiner{
+  .wizardsItemContiner {
     margin-right: 8px;
     height: 30px;
     line-height: 30px;
@@ -453,13 +453,13 @@
     position: relative;
   }
 
-  .decorationArea{
+  .decorationArea {
     height: 100%;
   }
 
-  .decorationLeft{
+  .decorationLeft {
     height: 100%;
-    background-color: rgba(0,0,0,0.0);
+    background-color: rgba(0, 0, 0, 0.0);
     float: left;
     box-sizing: border-box;
     border-top: 15px solid #fff;
@@ -467,9 +467,9 @@
     border-left: 17px solid transparent;
   }
 
-  .decorationLeftActive{
+  .decorationLeftActive {
     height: 100%;
-    background-color: rgba(0,0,0,0.0);
+    background-color: rgba(0, 0, 0, 0.0);
     float: left;
     box-sizing: border-box;
     border-top: 15px solid #3399ff;
@@ -477,7 +477,7 @@
     border-left: 17px solid transparent;
   }
 
-  .decorationCenter{
+  .decorationCenter {
     float: left;
     width: calc(100% - 35px);
     height: 100%;
@@ -485,7 +485,7 @@
     box-sizing: border-box;
   }
 
-  .decorationCenterActive{
+  .decorationCenterActive {
     float: left;
     width: calc(100% - 35px);
     height: 100%;
@@ -493,7 +493,7 @@
     box-sizing: border-box;
   }
 
-  .decorationRight{
+  .decorationRight {
     float: left;
     position: relative;
     border-top: 15px solid transparent;
@@ -501,7 +501,7 @@
     border-left: 17px solid #fff;
   }
 
-  .decorationRightActive{
+  .decorationRightActive {
     float: left;
     position: relative;
     border-left: 17px solid #3399ff;
@@ -509,7 +509,7 @@
     border-bottom: 15px solid transparent;
   }
 
-  .contArea{
+  .contArea {
     height: 100%;
     position: relative;
     top: -30px;
@@ -517,11 +517,11 @@
     margin-right: 19px;
   }
 
-  .contArea:hover{
+  .contArea:hover {
     cursor: pointer;
   }
 
-  .wizardsItemText{
+  .wizardsItemText {
     float: left;
     color: #000;
     background-color: #fff;
@@ -529,7 +529,7 @@
     margin-right: 8px;
   }
 
-  .wizardsItemTextActive{
+  .wizardsItemTextActive {
     float: left;
     color: #fff;
     background-color: #3399ff;
@@ -537,7 +537,7 @@
     margin-right: 8px;
   }
 
-  .wizardsItemFinish{
+  .wizardsItemFinish {
     float: left;
     color: #000;
     background-color: #fff;
@@ -545,7 +545,7 @@
     margin-left: 5px;
   }
 
-  .wizardsItemFinishActive{
+  .wizardsItemFinishActive {
     float: left;
     color: #fff;
     background-color: #3399ff;
@@ -553,7 +553,7 @@
     margin-left: 5px;
   }
 
-  .wizardRightActive{
+  .wizardRightActive {
     float: left;
     width: 17px;
     display: inline-block;
@@ -563,11 +563,11 @@
     color: #fff;
   }
 
-  .wizardRightActive:hover{
+  .wizardRightActive:hover {
     cursor: pointer;
   }
 
-  .wizardRight{
+  .wizardRight {
     float: left;
     width: 17px;
     display: inline-block;
@@ -577,17 +577,17 @@
     color: #000;
   }
 
-  .wizardRight:hover{
+  .wizardRight:hover {
     cursor: pointer;
   }
 
-  .userInfoSubMenu{
+  .userInfoSubMenu {
     position: absolute;
     top: 30px;
     z-index: 2;
   }
 
-  .userInfoSubMenu .topTriangle{
+  .userInfoSubMenu .topTriangle {
     width: 0;
     border-right: 5px solid transparent;
     border-left: 5px solid transparent;
@@ -595,13 +595,13 @@
     margin: 0 auto;
   }
 
-  .userInfoSubMenu .userInfoSubMenuCont{
+  .userInfoSubMenu .userInfoSubMenuCont {
     padding: 9px;
     border: 1px solid #ccc;
     background-color: #ffffff;
   }
 
-  .userInfoSubMenu .userInfoSubMenuCont .userInfoSubMenuItem{
+  .userInfoSubMenu .userInfoSubMenuCont .userInfoSubMenuItem {
     height: 24px;
     padding: 3px 10px;
     border: 1px solid transparent;
@@ -610,18 +610,18 @@
     box-sizing: border-box;
   }
 
-  .userInfoSubMenu .userInfoSubMenuCont .userInfoSubMenuItem:hover{
+  .userInfoSubMenu .userInfoSubMenuCont .userInfoSubMenuItem:hover {
     background-color: #f5f6f7;
   }
 
-  .userInfoSubMenu .userInfoSubMenuCont .userInfoSubMenuItem .userInfoSubMenuItemIcon{
+  .userInfoSubMenu .userInfoSubMenuCont .userInfoSubMenuItem .userInfoSubMenuItemIcon {
     display: inline-block;
     height: 18px;
     width: 18px;
     color: #666666;
   }
 
-  .userInfoSubMenu .userInfoSubMenuCont .userInfoSubMenuItem .userInfoSubMenuItemName{
+  .userInfoSubMenu .userInfoSubMenuCont .userInfoSubMenuItem .userInfoSubMenuItemName {
     display: inline-block;
     position: relative;
     top: -4px;
@@ -632,13 +632,13 @@
     white-space: nowrap;
   }
 
-  .wizardWarningDiv{
+  .wizardWarningDiv {
     float: right;
     width: 20px;
     margin-top: -45px;
   }
 
-  .wizardWarningNum{
+  .wizardWarningNum {
     background: red;
     border-radius: 6px;
     font-size: 12px;

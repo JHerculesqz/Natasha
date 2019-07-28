@@ -1,7 +1,6 @@
 <template>
   <div class="alarmGroup">
-    <div class="alarm emergent" v-for="item in items" v-on:click="_callback4OnItemClick(item)"
-         :class="{alarmActive: item.isActive}"
+    <div class="alarm emergent" v-for="item in items"
          v-bind:class="[item.level]">
       {{ item.label }}
     </div>
@@ -25,19 +24,6 @@
     },
     data: function () {
       return {}
-    },
-    methods: {
-      //#region inner
-      //#endregion
-      //#region callback
-
-      _callback4OnItemClick: function (oItem) {
-        this.$emit("onItemClick", oItem)
-      }
-
-      //#endregion
-      //#region 3rd
-      //#endregion
     }
   }
 </script>
@@ -114,10 +100,6 @@
 
   .alarmGroup .level6:before {
     background-color: #808080;
-  }
-
-  .alarmActive {
-    background-color: rgba(0, 0, 0, 0.2);
   }
 
   /*region dark theme*/

@@ -186,7 +186,7 @@
 
   .helpitem:hover {
     background-color: rgba(61, 204, 166, 0.6);
-    border: 1px solid #3dcaa6
+    border: 1px solid #3dcaa6;
   }
 
   a {

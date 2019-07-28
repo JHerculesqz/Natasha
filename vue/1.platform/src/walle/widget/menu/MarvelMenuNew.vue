@@ -13,7 +13,7 @@
          v-click-outside="hideSubMenu">
       <div class="subMenuGroup" v-for="group in curMenuItem.groups">
         <div class="subMenuSession" v-for="session in group.sessions">
-          <div class="subMenuTitle"><span v-bind:class="session.iconVal"></span>&nbsp:&nbsp:{{ session.label }}
+          <div class="subMenuTitle"><span v-bind:class="session.iconVal"></span>&nbsp;&nbsp;{{ session.label }}
           </div>
           <div class="subMenuItem" v-bind:class="item.disable"
                v-for="item in session.items"

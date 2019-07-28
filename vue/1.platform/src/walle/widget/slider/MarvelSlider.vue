@@ -127,6 +127,17 @@
         </li>
       </ul>
       <div
+        ref="processEnd"
+        :class="['vue-slider-process', {'vue-slider-process-dragable':isRange && processDragable }]"
+        :style="processEndStyle"
+        @mousedown="moveStart($event, 0, true)"
+        @touchstart="moveStart($event, 0, true)"></div>
+      <div ref="endtip" v-if="isRange" class="endSideTip" :style="sideTipStyle">{{formatter ? formatting(max) : max}}
+      </div>
+      <div ref="starttip" v-if="isRange" class="startSideTip" :style="sideTipStyle">{{formatter ? formatting(min) :
+        min}}
+      </div>
+      <div
         ref="process"
         :class="['vue-slider-process', { 'vue-slider-process-dragable': isRange && processDragable }]"
         :style="processStyle"
@@ -150,6 +161,7 @@
     </div>
   </div>
 </template>
+
 <script>
   // Unsharp text [#166](https://github.com/NightCatSama/vue-slider-component/issues/166)
   const roundToDPR = (function () {
@@ -157,149 +169,241 @@
     return value => Math.round(value * r) / r
   })()
 
+  /**
+   *  MarvelSlider widget description
+   *  @vuedoc
+   *  @exports MarvelSlider
+   */
   export default {
-    name: 'VueSliderComponent',
+    name: 'MarvelSlider',
     props: {
       width: {
         type: [Number, String],
-        default: 'auto'
+        default: 'auto',
+        required: false,
       },
       height: {
         type: [Number, String],
-        default: 6
+        default: 6,
+        required: false,
       },
       data: {
         type: Array,
-        default: null
+        default: null,
+        required: false,
       },
       dotSize: {
         type: Number,
-        default: 16
+        default: 16,
+        required: false,
       },
       dotWidth: {
         type: Number,
-        required: false
+        default: 16,
+        required: false,
       },
       dotHeight: {
         type: Number,
-        required: false
+        default: 16,
+        required: false,
       },
       min: {
         type: Number,
-        default: 0
+        default: 0,
+        required: false,
       },
       max: {
         type: Number,
-        default: 100
+        default: 100,
+        required: false,
       },
       interval: {
         type: Number,
-        default: 1
+        default: 1,
+        required: false,
       },
       show: {
         type: Boolean,
-        default: true
+        default: true,
+        required: false,
       },
       disabled: {
         type: [Boolean, Array],
-        default: false
+        default: false,
+        required: false,
       },
       piecewise: {
         type: Boolean,
-        default: false
+        default: false,
+        required: false,
       },
       tooltip: {
         type: [String, Boolean],
-        default: 'always'
+        default: 'always',
+        required: false,
       },
       eventType: {
         type: String,
-        default: 'auto'
+        default: 'auto',
+        required: false,
       },
       direction: {
         type: String,
-        default: 'horizontal'
+        default: 'horizontal',
+        required: false,
       },
       reverse: {
         type: Boolean,
-        default: false
+        default: false,
+        required: false,
       },
       lazy: {
         type: Boolean,
-        default: false
+        default: false,
+        required: false,
       },
       clickable: {
         type: Boolean,
-        default: true
+        default: true,
+        required: false,
       },
       speed: {
         type: Number,
-        default: 0.5
+        default: 0.5,
+        required: false,
       },
       realTime: {
         type: Boolean,
-        default: false
+        default: false,
+        required: false,
       },
       stopPropagation: {
         type: Boolean,
-        default: false
+        default: false,
+        required: false,
       },
       value: {
         type: [String, Number, Array, Object],
-        default: 0
+        default: 0,
+        required: false,
       },
       piecewiseLabel: {
         type: Boolean,
-        default: false
+        default: false,
+        required: false,
       },
       debug: {
         type: Boolean,
-        default: true
+        default: true,
+        required: false,
       },
       fixed: {
         type: Boolean,
-        default: false
+        default: false,
+        required: false,
       },
       processDragable: {
         type: Boolean,
-        default: false
+        default: false,
+        required: false,
       },
       useKeyboard: {
         type: Boolean,
-        default: false
+        default: false,
+        required: false,
       },
       actionsKeyboard: {
         type: Array,
         default() {
           return [(i) => i - 1, (i) => i + 1]
-        }
+        },
+        required: false,
       },
       tooltipMerge: {
         type: Boolean,
-        default: true
+        default: true,
+        required: false,
       },
       startAnimation: {
         type: Boolean,
-        default: false
+        default: false,
+        required: false,
       },
       enableCross: {
         type: Boolean,
-        default: true
+        default: true,
+        required: false,
       },
-      sliderStyle: [Array, Object, Function],
-      focusStyle: [Array, Object, Function],
-      tooltipDir: [Array, String],
-      formatter: [String, Function],
-      mergeFormatter: [String, Function],
-      piecewiseStyle: Object,
-      disabledStyle: Object,
-      piecewiseActiveStyle: Object,
-      processStyle: Object,
-      bgStyle: Object,
-      tooltipStyle: [Array, Object, Function],
-      disabledDotStyle: [Array, Object, Function],
-      labelStyle: Object,
-      labelActiveStyle: Object
+      sliderStyle: {
+        type: [Array, Object, Function],
+        default: undefined,
+        required: false,
+      },
+      focusStyle: {
+        type: [Array, Object, Function],
+        default: undefined,
+        required: false,
+      },
+      tooltipDir: {
+        type: [Array, String],
+        default: undefined,
+        required: false,
+      },
+      formatter: {
+        type: [String, Function],
+        default: undefined,
+        required: false,
+      },
+      mergeFormatter: {
+        type: [String, Function],
+        default: undefined,
+        required: false,
+      },
+      piecewiseStyle: {
+        type: Object,
+        default: undefined,
+        required: false,
+      },
+      disabledStyle: {
+        type: Object,
+        default: undefined,
+        required: false,
+      },
+      piecewiseActiveStyle: {
+        type: Object,
+        default: undefined,
+        required: false,
+      },
+      processStyle: {
+        type: Object,
+        default: undefined,
+        required: false,
+      },
+      bgStyle: {
+        type: Object,
+        default: undefined,
+        required: false,
+      },
+      tooltipStyle: {
+        type: [Array, Object, Function],
+        default: undefined,
+        required: false,
+      },
+      disabledDotStyle: {
+        type: [Array, Object, Function],
+        default: undefined,
+        required: false,
+      },
+      labelStyle: {
+        type: Object,
+        default: undefined,
+        required: false,
+      },
+      labelActiveStyle: {
+        type: Object,
+        default: undefined,
+        required: false,
+      }
     },
     data() {
       return {
@@ -599,7 +703,71 @@
         this.computedFixedValue()
       }
     },
+    mounted() {
+      //#region init
+
+      this._initEx();
+
+      //#endregion
+    },
+    beforeDestroy() {
+      //#region destroy
+
+      this._destroy();
+
+      //#endregion
+    },
     methods: {
+      //#region inner
+
+      //#region lifeCycle
+
+      _initEx: function () {
+        if (this.direction === "vertical") {
+          if (this.reverse) {
+            this.$refs.endtip.style.top = `${this.height - 5}px`;
+            this.$refs.starttip.style.top = `${-this.dotSize / 2 - 20}px`;
+          } else {
+            this.$refs.endtip.style.bottom = `${this.height + 15}px`;
+            this.$refs.starttip.style.bottom = `${-this.dotSize / 2 - 5}px`;
+          }
+        } else {
+          if (this.reverse) {
+            this.$refs.endtip.style.right = `${this.width + 50}px`;
+            this.$refs.starttip.style.right = `${-this.dotSize / 2 - 20}px`;
+          } else {
+            this.$refs.endtip.style.left = `${this.width}px`;
+            this.$refs.starttip.style.left = `${-this.dotSize / 2 - 35}px`;
+          }
+        }
+        this.isComponentExists = true;
+
+        if (typeof window === 'undefined' || typeof document === 'undefined') {
+          return this.printError('window or document is undefined, can not be initialization.')
+        }
+
+        this.$nextTick(() => {
+          if (this.isComponentExists) {
+            this.getStaticData()
+            this.setValue(this.limitValue(this.value), true, this.startAnimation ? this.speed : 0)
+            this.bindEvents()
+            if (this.isRange && this.tooltipMerge && !this.startAnimation) {
+              this.$nextTick(() => {
+                this.handleOverlapTooltip()
+              })
+            }
+          }
+        })
+
+        this.isMounted = true
+      },
+      _destroy: function () {
+        this.isComponentExists = false
+        this.unbindEvents()
+      },
+
+      //#endregion
+
       bindEvents() {
         document.addEventListener('touchmove', this.moving, {passive: false})
         document.addEventListener('touchend', this.moveEnd, {passive: false})
@@ -657,6 +825,7 @@
         if (this.keydownFlag) {
           this.keydownFlag = false
           this.flag = false
+          this.callback4Updated(this.val)
         }
       },
       changeFocusSlider(fn) {
@@ -725,6 +894,7 @@
           const timer = setInterval(() => this.handleOverlapTooltip(), 16.7)
           setTimeout(() => window.clearInterval(timer), this.speed * 1000)
         }
+        this.callback4DragEnd(this.val)
       },
       moveStart(e, index = 0, isProcess) {
         if (this.disabledArray[index]) {
@@ -756,7 +926,7 @@
           this.focusSlider = index
         }
         this.flag = true
-        this.$emit('drag-start', this)
+        this.callback4DragStart(this)
       },
       moving(e) {
         if (this.stopPropagation) {
@@ -786,7 +956,7 @@
           e.stopPropagation()
         }
         if (this.flag) {
-          this.$emit('drag-end', this)
+          this.callback4DragEnd(this.val)
           if (this.lazy && this.isDiff(this.val, this.value)) {
             this.syncValue()
           }
@@ -908,18 +1078,24 @@
         let slider = isIdleSlider ? this.idleSlider : this.currentSlider
         let value = roundToDPR((this.direction === 'vertical' ? ((this.dotHeightVal / 2) - val) : (val - (this.dotWidthVal / 2))) * (this.reverse ? -1 : 1))
         let translateValue = this.direction === 'vertical' ? `translateY(${value}px)` : `translateX(${value}px)`
-        let processSize = this.fixed ? `${this.fixedValue * this.gap}px` : `${slider === 0 ? this.position[1] - val : val - this.position[0]}px`
-        let processPos = this.fixed ? `${slider === 0 ? val : (val - this.fixedValue * this.gap)}px` : `${slider === 0 ? val : this.position[0]}px`
+        let processSize = this.fixed ? `${this.fixedValue * this.gap}` : `${slider === 0 ? this.position[1] - val : val - this.position[0]}`
+        let processPos = this.fixed ? `${slider === 0 ? val : (val - this.fixedValue * this.gap)}` : `${slider === 0 ? val : this.position[0]}`
+        let processEndPos = parseFloat(processSize) + parseFloat(processPos)
+        let processEndSize = this.direction === 'vertical' ? this.height - processEndPos - this.dotSize : this.width - processEndPos - this.dotSize
         if (this.isRange) {
           this.slider[slider].style.transform = translateValue
           this.slider[slider].style.WebkitTransform = translateValue
           this.slider[slider].style.msTransform = translateValue
           if (this.direction === 'vertical') {
-            this.$refs.process.style.height = processSize
-            this.$refs.process.style[this.reverse ? 'top' : 'bottom'] = processPos
+            this.$refs.process.style.height = processSize + 'px'
+            this.$refs.process.style[this.reverse ? 'top' : 'bottom'] = processPos + 'px'
+            this.$refs.processEnd.style[this.reverse ? 'top' : 'bottom'] = processEndPos + 'px'
+            this.$refs.processEnd.style.height = processEndSize + 'px'
           } else {
-            this.$refs.process.style.width = processSize
-            this.$refs.process.style[this.reverse ? 'right' : 'left'] = processPos
+            this.$refs.process.style.width = processSize + 'px'
+            this.$refs.process.style[this.reverse ? 'right' : 'left'] = processPos + 'px'
+            this.$refs.processEnd.style.width = processEndSize + 'px'
+            this.$refs.processEnd.style[this.reverse ? 'right' : 'left'] = processEndPos + 'px'
           }
         } else {
           this.slider.style.transform = translateValue
@@ -976,27 +1152,14 @@
       },
       syncValue(noCb) {
         let val = this.isRange ? this.val.concat() : this.val
-        this.$emit('input', val)
-        this.keydownFlag && this.$emit('on-keypress', val)
-        noCb || this.$emit('callback', val)
-      },
-      getValue() {
-        return this.val
-      },
-      getIndex() {
-        return this.currentIndex
+        this.callback4Input(val)
+        this.keydownFlag && this.callback4OnKeypress(val)
+        noCb || this.callback4callback(val);
       },
       getStaticData() {
         if (this.$refs.elem) {
           this.size = this.direction === 'vertical' ? this.$refs.elem.offsetHeight : this.$refs.elem.offsetWidth
           this.offset = this.direction === 'vertical' ? (this.$refs.elem.getBoundingClientRect().top + window.pageYOffset || document.documentElement.scrollTop) : this.$refs.elem.getBoundingClientRect().left
-        }
-      },
-      refresh() {
-        if (this.$refs.elem) {
-          this.getStaticData()
-          this.computedFixedValue()
-          this.setPosition()
         }
       },
       printError(msg) {
@@ -1043,35 +1206,50 @@
           tooltip1.style.visibility = 'visible'
           mergedTooltip.style.visibility = 'hidden'
         }
-      }
-    },
-    mounted() {
-      this.isComponentExists = true
+      },
 
-      if (typeof window === 'undefined' || typeof document === 'undefined') {
-        return this.printError('window or document is undefined, can not be initialization.')
-      }
+      //#endregion
+      //#region callback
 
-      this.$nextTick(() => {
-        if (this.isComponentExists) {
+      callback4Update: function (val) {
+        this.$emit('update', val)
+      },
+      callback4DragEnd: function (val) {
+        this.$emit('dragEnd', val)
+      },
+      callback4DragStart: function (oObj) {
+        this.$emit('dragStart', oObj)
+      },
+      callback4Input: function (val) {
+        this.$emit('input', val)
+      },
+      callback4OnKeypress: function (val) {
+        this.$emit('on-keypress', val)
+      },
+      callback4callback: function (val) {
+        this.$emit('callback', val)
+      },
+
+      //#endregion
+      //#region 3rd
+
+      refresh() {
+        if (this.$refs.elem) {
           this.getStaticData()
-          this.setValue(this.limitValue(this.value), true, this.startAnimation ? this.speed : 0)
-          this.bindEvents()
-
-          if (this.isRange && this.tooltipMerge && !this.startAnimation) {
-            this.$nextTick(() => {
-              this.handleOverlapTooltip()
-            })
-          }
+          this.computedFixedValue()
+          this.setPosition()
         }
-      })
+      },
+      getValue() {
+        return this.val
+      },
+      getIndex() {
+        return this.currentIndex
+      },
 
-      this.isMounted = true
+
+      //#endregion
     },
-    beforeDestroy() {
-      this.isComponentExists = false
-      this.unbindEvents()
-    }
   }
 </script>
 
@@ -1205,7 +1383,7 @@
 
   .vue-slider-component .vue-slider-tooltip {
     display: block;
-    font-size: 14px;
+    font-size: 12px;
     white-space: nowrap;
     padding: 2px 5px;
     min-width: 20px;
