@@ -58,8 +58,8 @@
           oAfterCallback && oAfterCallback(1);
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
-          //如果机框图片加载失败，使用默认机框图片再加载一次
-          var _productType = m_oOptions.produtType;
+          // 如果机框图片加载失败，使用默认机框图片再加载一次
+          var _productType = m_oOptions.productType;
           var nePanelChassisConfigs = NEPanelConfig.getNePanelChassisConfig();
           var _oParams = nePanelChassisConfigs[_productType];
           m_oOptions.imgUrl = URL_ROOT + "statics/devPanelEx/image/txt/" + _oParams.chassisBomCode + ".txt?_=" + CACHE_VERSION;

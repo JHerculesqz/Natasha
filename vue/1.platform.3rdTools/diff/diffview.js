@@ -193,4 +193,3 @@ or implied, of Chas Emerick.
     };
   }
 })(jQuery);
-

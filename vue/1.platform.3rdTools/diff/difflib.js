@@ -54,7 +54,7 @@
 
       var lines = str.split(linebreak);
       for (var i = 0; i < lines.length; i++) {
-        lines[i] = difflib.stripLinebreaks(lines[i]);
+        lines[i] = self.stripLinebreaks(lines[i]);
       }
 
       return lines;
@@ -170,8 +170,8 @@
           }
         }
 
-        this.isbjunk = difflib.__isindict(junkdict);
-        this.isbpopular = difflib.__isindict(populardict);
+        this.isbjunk = self.__isindict(junkdict);
+        this.isbpopular = self.__isindict(populardict);
       }
 
       this.find_longest_match = function (alo, ahi, blo, bhi) {
@@ -189,13 +189,13 @@
         var nothing = [];
         for (var i = alo; i < ahi; i++) {
           var newj2len = {};
-          var jdict = difflib.__dictget(b2j, a[i], nothing);
+          var jdict = self.__dictget(b2j, a[i], nothing);
           for (var jkey in jdict) {
             if (jdict.hasOwnProperty(jkey)) {
               j = jdict[jkey];
               if (j < blo) continue;
               if (j >= bhi) break;
-              newj2len[j] = k = difflib.__dictget(j2len, j - 1, 0) + 1;
+              newj2len[j] = k = self.__dictget(j2len, j - 1, 0) + 1;
               if (k > bestsize) {
                 besti = i - k + 1;
                 bestj = j - k + 1;
@@ -260,7 +260,7 @@
           }
         }
 
-        matching_blocks.sort(difflib.__ntuplecomp);
+        matching_blocks.sort(self.__ntuplecomp);
 
         var i1 = 0, j1 = 0, k1 = 0, block = 0;
         var i2, j2, k2;
@@ -377,12 +377,12 @@
       }
 
       this.ratio = function () {
-        matches = difflib.__reduce(
+        matches = self.__reduce(
           function (sum, triple) {
             return sum + triple[triple.length - 1];
           },
           this.get_matching_blocks(), 0);
-        return difflib.__calculate_ratio(matches, this.a.length + this.b.length);
+        return self.__calculate_ratio(matches, this.a.length + this.b.length);
       }
 
       this.quick_ratio = function () {
@@ -391,26 +391,26 @@
           this.fullbcount = fullbcount = {};
           for (var i = 0; i < this.b.length; i++) {
             elt = this.b[i];
-            fullbcount[elt] = difflib.__dictget(fullbcount, elt, 0) + 1;
+            fullbcount[elt] = self.__dictget(fullbcount, elt, 0) + 1;
           }
         }
         fullbcount = this.fullbcount;
 
         var avail = {};
-        var availhas = difflib.__isindict(avail);
+        var availhas = self.__isindict(avail);
         var matches = numb = 0;
         for (var i = 0; i < this.a.length; i++) {
           elt = this.a[i];
           if (availhas(elt)) {
             numb = avail[elt];
           } else {
-            numb = difflib.__dictget(fullbcount, elt, 0);
+            numb = self.__dictget(fullbcount, elt, 0);
           }
           avail[elt] = numb - 1;
           if (numb > 0) matches++;
         }
 
-        return difflib.__calculate_ratio(matches, this.a.length + this.b.length);
+        return self.__calculate_ratio(matches, this.a.length + this.b.length);
       }
 
       this.real_quick_ratio = function () {
@@ -419,10 +419,9 @@
         return _calculate_ratio(Math.min(la, lb), la + lb);
       }
 
-      this.isjunk = isjunk ? isjunk : difflib.defaultJunkFunction;
+      this.isjunk = isjunk ? isjunk : self.defaultJunkFunction;
       this.a = this.b = null;
       this.set_seqs(a, b);
     };
   }
 })(jQuery);
-
