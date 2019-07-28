@@ -398,8 +398,255 @@
     color: #fff;
   }
 
-  /*region dark theme*/
+  .preIcon:hover{
+    cursor: pointer;
+  }
 
+  .preIconNoClick{
+    line-height: 35px;
+    color: #878787;
+    pointer-events: none;
+  }
 
-  /*endregion*/
+  .preIconNoClick:hover{
+    cursor: not-allowed;
+  }
+
+  .nextStepArea{
+    float: right;
+    width: 20px;
+    height: 100%;
+    background-color: #3399ff;
+    margin-left: 10px;
+  }
+
+  .nextIcon:before{
+    color: #fff;
+    line-height: 35px;
+  }
+
+  .nextIconNoClick{
+    color:#878787;
+    line-height: 35px;
+    pointer-events: none;
+  }
+
+  .nextIcon:hover{
+    cursor: pointer;
+  }
+
+  .nextIconNoClick:hover{
+    cursor: not-allowed;
+  }
+
+  .wiazrdArea{
+    display: inline-block;
+    width: calc(100% - 60px);
+    height: 100%;
+  }
+
+  .wizardsItemContiner{
+    margin-right: 8px;
+    height: 30px;
+    line-height: 30px;
+    display: inline-block;
+    position: relative;
+  }
+
+  .decorationArea{
+    height: 100%;
+  }
+
+  .decorationLeft{
+    height: 100%;
+    background-color: rgba(0,0,0,0.0);
+    float: left;
+    box-sizing: border-box;
+    border-top: 15px solid #fff;
+    border-bottom: 15px solid #fff;
+    border-left: 17px solid transparent;
+  }
+
+  .decorationLeftActive{
+    height: 100%;
+    background-color: rgba(0,0,0,0.0);
+    float: left;
+    box-sizing: border-box;
+    border-top: 15px solid #3399ff;
+    border-bottom: 15px solid #3399ff;
+    border-left: 17px solid transparent;
+  }
+
+  .decorationCenter{
+    float: left;
+    width: calc(100% - 35px);
+    height: 100%;
+    background-color: #fff;
+    box-sizing: border-box;
+  }
+
+  .decorationCenterActive{
+    float: left;
+    width: calc(100% - 35px);
+    height: 100%;
+    background-color: #3399ff;
+    box-sizing: border-box;
+  }
+
+  .decorationRight{
+    float: left;
+    position: relative;
+    border-top: 15px solid transparent;
+    border-bottom: 15px solid transparent;
+    border-left: 17px solid #fff;
+  }
+
+  .decorationRightActive{
+    float: left;
+    position: relative;
+    border-left: 17px solid #3399ff;
+    border-top: 15px solid transparent;
+    border-bottom: 15px solid transparent;
+  }
+
+  .contArea{
+    height: 100%;
+    position: relative;
+    top: -30px;
+    margin-left: 19px;
+    margin-right: 19px;
+  }
+
+  .contArea:hover{
+    cursor: pointer;
+  }
+
+  .wizardsItemText{
+    float: left;
+    color: #000;
+    background-color: #fff;
+    margin-left: 8px;
+    margin-right: 8px;
+  }
+
+  .wizardsItemTextActive{
+    float: left;
+    color: #fff;
+    background-color: #3399ff;
+    margin-left: 8px;
+    margin-right: 8px;
+  }
+
+  .wizardsItemFinish{
+    float: left;
+    color: #000;
+    background-color: #fff;
+    margin-top: 6px;
+    margin-left: 5px;
+  }
+
+  .wizardsItemFinishActive{
+    float: left;
+    color: #fff;
+    background-color: #3399ff;
+    margin-top: 6px;
+    margin-left: 5px;
+  }
+
+  .wizardRightActive{
+    float: left;
+    width: 17px;
+    display: inline-block;
+    font-size: 16px;
+    line-height: 30px;
+    text-align: left;
+    color: #fff;
+  }
+
+  .wizardRightActive:hover{
+    cursor: pointer;
+  }
+
+  .wizardRight{
+    float: left;
+    width: 17px;
+    display: inline-block;
+    font-size: 16px;
+    line-height: 30px;
+    text-align: left;
+    color: #000;
+  }
+
+  .wizardRight:hover{
+    cursor: pointer;
+  }
+
+  .userInfoSubMenu{
+    position: absolute;
+    top: 30px;
+    z-index: 2;
+  }
+
+  .userInfoSubMenu .topTriangle{
+    width: 0;
+    border-right: 5px solid transparent;
+    border-left: 5px solid transparent;
+    border-bottom: 5px solid #f0f0f0;
+    margin: 0 auto;
+  }
+
+  .userInfoSubMenu .userInfoSubMenuCont{
+    padding: 9px;
+    border: 1px solid #ccc;
+    background-color: #ffffff;
+  }
+
+  .userInfoSubMenu .userInfoSubMenuCont .userInfoSubMenuItem{
+    height: 24px;
+    padding: 3px 10px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    white-space: nowrap;
+    box-sizing: border-box;
+  }
+
+  .userInfoSubMenu .userInfoSubMenuCont .userInfoSubMenuItem:hover{
+    background-color: #f5f6f7;
+  }
+
+  .userInfoSubMenu .userInfoSubMenuCont .userInfoSubMenuItem .userInfoSubMenuItemIcon{
+    display: inline-block;
+    height: 18px;
+    width: 18px;
+    color: #666666;
+  }
+
+  .userInfoSubMenu .userInfoSubMenuCont .userInfoSubMenuItem .userInfoSubMenuItemName{
+    display: inline-block;
+    position: relative;
+    top: -4px;
+    height: 18px;
+    line-height: 18px;
+    font-size: 14px;
+    color: #666666;
+    white-space: nowrap;
+  }
+
+  .wizardWarningDiv{
+    float: right;
+    width: 20px;
+    margin-top: -45px;
+  }
+
+  .wizardWarningNum{
+    background: red;
+    border-radius: 6px;
+    font-size: 12px;
+    line-height: 14px;
+    text-align: center;
+    color: #fff;
+    top: -14px;
+    position: relative;
+    padding: 0 5px;
+  }
 </style>
