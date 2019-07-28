@@ -1,16 +1,28 @@
-.leaflet-customer-label{
-    background-color: rgba(255,255,255,0.6);
-    border: none;
-    border-radius: 400px;
-    padding: 0px 4px;
-    box-shadow: none;
-    pointer-events: auto;
+.leaflet-customer-label {
+  background-color: rgba(255, 255, 255, 0.6);
+  border: none;
+  border-radius: 400px;
+  padding: 0px 4px;
+  box-shadow: none;
+  pointer-events: auto;
+  font-weight: 600;
 }
-.leaflet-customer-label:hover{
-    background-color: #2dcca6;
-    color: #ffffff;
-    z-index: 1000;
+
+.leaflet-customer-label-link {
+  background-color: rgba(255, 155, 155, 0.6);
+  border: none;
+  border-radius: 400px;
+  padding: 0px 4px;
+  box-shadow: none;
+  pointer-events: auto;
 }
-.leaflet-tooltip-bottom:before{
-    display: none !important;
+
+.leaflet-customer-label:hover {
+  background-color: #2dcca6;
+  color: #ffffff;
+  z-index: 1000;
+}
+
+.leaflet-tooltip-bottom:before {
+  display: none !important;
 }

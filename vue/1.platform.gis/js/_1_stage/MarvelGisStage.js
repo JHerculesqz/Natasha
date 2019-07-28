@@ -6,6 +6,8 @@
 
         var URL_GIS_MAP = 'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={token}';
         var URL_GIS_MAP2 = "https://api.mapbox.com/styles/v1/jherculesqz/cj99csbwi2bzy2qp3mhtqcrkx/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiamhlcmN1bGVzcXoiLCJhIjoiY2o4anNybjZqMDZnczMybXZxaHNhMDRlMyJ9.fR2DM7aypSp8q4AxE6uL5w";
+        var URL_GIS_LIGHT = "https://api.mapbox.com/styles/v1/carlliu/cjo8czrzh0pud2sqsxe3qunru/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiY2FybGxpdSIsImEiOiJjam84YzgzHUxNGK0M3NwYmVldWRvN2dmIn0.sw3qMKtgk7y_ODG6fKeWjw";
+        var URL_GIS_ICE_CREAM = "https://api.mapbox.com/styles/v1/jherculesqz/cjo8ckv1z0bwk2so2dy30o5z4/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiY2FybGxpdSIsImEiOiJjam84YzgzHUxNGK0M3NwYmVldWRvN2dmIn0.sw3qMKtgk7y_ODG6fKeWjw";
         this.MODEL_EMPTY = "";
         this.MODEL_CREATE_MARK = "createMark";
         //endregion

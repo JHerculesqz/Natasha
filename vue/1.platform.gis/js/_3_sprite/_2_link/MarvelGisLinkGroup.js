@@ -175,10 +175,26 @@
             oPolyline.buObj = oBuObj;
             oPolyline.children = [];
             //popup
-            var oPopup = L.popup({
+            if(oBuObj.uiTips != ""){
+              var oPopup = L.popup({
                 maxWidth: 99999999,
-            }).setContent(oBuObj.uiTips);
-            oPolyline.bindPopup(oPopup);
+              }).setContent(oBuObj.uiTips);
+              oPolyline.bindPopup(oPopup);
+            }
+
+            //label
+
+            if(oBuObj.uiLabel != ""){
+              var toolTip = L.tooltip({
+                direction: "bottom",
+                permanent: true,
+                sticky: true,
+                className: "leaflet-customer-label-link",
+                offset: [0, 0],
+              }).setContent(oBuObj.uiLabel);
+              oPolyline.bindTooltip(toolTip);
+            }
+
             oPolyline.addTo(oGis.Stage.mapObj);
 
             //单向

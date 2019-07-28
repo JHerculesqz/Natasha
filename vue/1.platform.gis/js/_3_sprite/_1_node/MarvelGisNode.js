@@ -125,10 +125,12 @@
             oMarker.id = strId;
             oMarker.buObj = oBuObj;
             //popup
-            var oPopup = L.popup({
+            if(oBuObj.uiTips != ""){
+              var oPopup = L.popup({
                 maxWidth: 99999999,
-            }).setContent(oBuObj.uiTips);
-            oMarker.bindPopup(oPopup);
+              }).setContent(oBuObj.uiTips);
+              oMarker.bindPopup(oPopup);
+            }
 
             //label
             if (oGis.Stage.config.showLabel && oBuObj.uiLabel !== "") {
@@ -203,6 +205,20 @@
                 oMarker.setIcon(oIcon);
             }
         };
+      this.setImgSize = function (strId, strImgUrl, iImgWidth, oGis) {
+        var oMarker = oGis.Layer.findById(strId, oGis);
+        if (oMarker) {
+          var oIcon = L.icon({
+            // html: "<div style='margin-top:" + iImgWidth + "px;'>" + oMarker.buObj.uiLabel + "</div>",
+            // className: strImgUrl,
+            iconUrl: strImgUrl,
+            iconSize: [iImgWidth, iImgWidth],
+            iconAnchor: [iImgWidth / 2, iImgWidth / 2],
+            popupAnchor: [0, -iImgWidth / 2]
+          });
+          oMarker.setIcon(oIcon);
+        }
+      };
 
         this.setOpacity4Marker = function (strId, iOpacity, oGis) {
             var oMarker = oGis.Layer.findById(strId, oGis);

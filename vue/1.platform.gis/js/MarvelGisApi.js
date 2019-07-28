@@ -25,6 +25,10 @@
             oGis.Stage.setConfig(oConfig);
         };
 
+        this.resize = function (oGis) {
+          oGis.Stage.resize();
+        };
+
         //endregion
 
         //region layer
@@ -43,6 +47,10 @@
         this.toGeoJSON = function (oGis) {
             var oRes = oGis.Layer.toGeoJSON(oGis);
             return oRes;
+        };
+
+        this.changeLayerUrl = function (strUrl,oGis) {
+          oGis.Layer.changeLayerUrl(strUrl,oGis);
         };
 
         //endregion
@@ -65,6 +73,22 @@
             });
             //drawLink
             oGis.Sprite.LinkGroup.drawLines(oTopoData.links, oGis);
+        };
+
+        this.clearPreviewTopo = function (oGis) {
+          var oTopoData = this.getTopoData(oGis);
+          //drawNode
+          oTopoData.nodes.forEach(function (oNode, index) {
+            oGis.Sprite.Node.delMarker(oNode.id, oGis);
+          });
+          //drawNodeGroup
+          oTopoData.nodeGroups.forEach(function (oNodeGroup, index) {
+            oGis.Sprite.NodeGroup.delGroup(oNodeGroup, oGis);
+          });
+          //drawLink
+          oTopoData.links.forEach(function (oLink, index) {
+            oGis.Sprite.LinkGroup.delPolyline(oLink.id, oGis);
+          });
         };
 
         this.getTopoData = function (oGis) {
@@ -107,6 +131,10 @@
 
         this.setImgUrl = function (strId, strImgClass, iImgWidth, oGis) {
             oGis.Sprite.Node.setImgUrl(strId, strImgClass, iImgWidth, oGis);
+        };
+
+        this.setImgSize = function (strId,strImgClass,iImgWidth, oGis) {
+          oGis.Sprite.Node.setImgSize(strId, strImgClass, iImgWidth, oGis);
         };
 
         this.setOpacity4Marker = function (strId, iOpacity, oGis) {

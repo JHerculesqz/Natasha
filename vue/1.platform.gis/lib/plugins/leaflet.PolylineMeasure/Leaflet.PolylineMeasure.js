@@ -1,7 +1,7 @@
 (function (factory) {
     if (typeof define === 'function' && define.amd) {
         // AMD
-        define(['leaflet'], factory);
+        define(['./../../leaflet.js'], factory);
     } else if (typeof module !== 'undefined') {
         // Node/CommonJS
         module.exports = factory(require('leaflet'));
