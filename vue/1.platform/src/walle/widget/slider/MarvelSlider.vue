@@ -1265,6 +1265,30 @@
 </script>
 
 <style>
+  /*region basic*/
+
+  * {
+    font-family: "Microsoft YaHei", "arial", sans-serif;
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    background-color: rgba(0, 0, 0, 0);
+  }
+
+  ::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #aaa;
+  }
+
+  /*endregion*/
+
   .vue-slider-component {
     position: relative;
     box-sizing: border-box;
@@ -1564,4 +1588,73 @@
     overflow: hidden;
     position: absolute !important;
   }
+
+  .vue-slider-component .endSideTip {
+    position: absolute;
+    white-space: nowrap;
+  }
+
+  .vue-slider-component.vue-slider-horizontal .endSideTip {
+    width: 0;
+    height: 100%;
+    top: 0;
+    left: 0;
+    will-change: width;
+  }
+
+  .vue-slider-component.vue-slider-vertical .endSideTip {
+    width: 100%;
+    height: 0;
+    bottom: 0;
+    left: -6px;
+    will-change: height;
+  }
+
+  .vue-slider-component.vue-slider-horizontal-reverse .endSideTip {
+    width: 0;
+    height: 100%;
+    top: 0;
+    right: 0;
+  }
+
+  .vue-slider-component.vue-slider-vertical-reverse .endSideTip {
+    width: 100%;
+    height: 0;
+    left: -6px;
+  }
+
+  .vue-slider-component .startSideTip {
+    position: absolute;
+    white-space: nowrap;
+  }
+
+  .vue-slider-component.vue-slider-horizontal .startSideTip {
+    width: 0;
+    height: 100%;
+    top: 0;
+    left: 0;
+    will-change: width;
+  }
+
+  .vue-slider-component.vue-slider-vertical .startSideTip {
+    width: 100%;
+    height: 0;
+    bottom: 0px;
+    left: -6px;
+    will-change: height;
+  }
+
+  .vue-slider-component.vue-slider-horizontal-reverse .startSideTip {
+    width: 0;
+    height: 100%;
+    top: 0;
+    right: 0;
+  }
+
+  .vue-slider-component.vue-slider-vertical-reverse .startSideTip {
+    width: 100%;
+    height: 0;
+    left: -6px;
+  }
+
 </style>
