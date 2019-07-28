@@ -1,0 +1,30 @@
+module YangDemo{
+    namespace "http://example.com/YangDemo";
+    prefix "YangDemo";
+
+    import huawei-ac-applications {
+        prefix app;
+    }
+    description
+        "The module for YangDemo example.";
+
+    revision 2018-06-09 {
+        description "Initial revision";
+    }
+
+    container system {
+        list user {
+            app:application-definition "YangDemo";
+            key "name"
+            leaf name{
+                type string;
+            }
+            leaf full-name{
+                type string;
+            }
+            leaf class{
+                type string;
+            }
+        }
+    }
+}

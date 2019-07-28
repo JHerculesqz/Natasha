@@ -184,7 +184,7 @@
 
             //label
 
-            if(oBuObj.uiLabel != ""){
+            if(oBuObj.uiLabel !== ""){
               var toolTip = L.tooltip({
                 direction: "bottom",
                 permanent: true,
