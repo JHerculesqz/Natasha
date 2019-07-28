@@ -302,11 +302,11 @@
           var oNextItem = this.arrItems[i];
           if (oPreItem.id == this.lastShowItem.id) {
             oNextItem.isShow = true;
-            iLastIndex = i - 1;
+            iLastIndex = i;
           }
           if (oPreItem.id == this.firstShowItem.id) {
             oPreItem.isShow = false;
-            iFirstIndex = i - 1;
+            iFirstIndex = i;
           }
         }
         this.firstShowItem = this.arrItems[iFirstIndex];

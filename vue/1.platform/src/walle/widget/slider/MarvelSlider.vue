@@ -374,7 +374,17 @@
         default: undefined,
         required: false,
       },
+      sideTipStyle: {
+        type: Object,
+        default: undefined,
+        required: false,
+      },
       processStyle: {
+        type: Object,
+        default: undefined,
+        required: false,
+      },
+      processEndStyle: {
         type: Object,
         default: undefined,
         required: false,
@@ -725,22 +735,23 @@
       _initEx: function () {
         if (this.direction === "vertical") {
           if (this.reverse) {
-            this.$refs.endtip.style.top = `${this.height - 5}px`;
-            this.$refs.starttip.style.top = `${-this.dotSize / 2 - 20}px`;
+            this.$refs.endtip.style.top = `${this.height - 5}px`
+            this.$refs.starttip.style.top = `${-this.dotSize / 2 - 20}px`
           } else {
-            this.$refs.endtip.style.bottom = `${this.height + 15}px`;
-            this.$refs.starttip.style.bottom = `${-this.dotSize / 2 - 5}px`;
+            this.$refs.endtip.style.bottom = `${this.height + 15}px`
+            this.$refs.starttip.style.bottom = `${-this.dotSize / 2 - 5}px`
           }
         } else {
           if (this.reverse) {
-            this.$refs.endtip.style.right = `${this.width + 50}px`;
-            this.$refs.starttip.style.right = `${-this.dotSize / 2 - 20}px`;
+            this.$refs.endtip.style.right = `${this.width + 50}px`
+            this.$refs.starttip.style.right = `${-this.dotSize / 2 - 20}px`
           } else {
-            this.$refs.endtip.style.left = `${this.width}px`;
-            this.$refs.starttip.style.left = `${-this.dotSize / 2 - 35}px`;
+            this.$refs.endtip.style.left = `${this.width}px`
+            this.$refs.starttip.style.left = `${-this.dotSize / 2 - 35}px`
           }
         }
-        this.isComponentExists = true;
+
+        this.isComponentExists = true
 
         if (typeof window === 'undefined' || typeof document === 'undefined') {
           return this.printError('window or document is undefined, can not be initialization.')
@@ -1154,7 +1165,7 @@
         let val = this.isRange ? this.val.concat() : this.val
         this.callback4Input(val)
         this.keydownFlag && this.callback4OnKeypress(val)
-        noCb || this.callback4callback(val);
+        noCb || this.callback4Callback(val)
       },
       getStaticData() {
         if (this.$refs.elem) {
@@ -1211,8 +1222,8 @@
       //#endregion
       //#region callback
 
-      callback4Update: function (val) {
-        this.$emit('update', val)
+      callback4Updated: function (val) {
+        this.$emit('updated', val)
       },
       callback4DragEnd: function (val) {
         this.$emit('dragEnd', val)
@@ -1226,7 +1237,7 @@
       callback4OnKeypress: function (val) {
         this.$emit('on-keypress', val)
       },
-      callback4callback: function (val) {
+      callback4Callback: function (val) {
         this.$emit('callback', val)
       },
 
