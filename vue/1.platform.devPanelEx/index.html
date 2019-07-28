@@ -8,7 +8,6 @@
     <script type="application/javascript" src="lib/svg.min.js"></script>
     <script type="application/javascript" src="lib/saveSvgAsPng.js"></script>
     <script type="application/javascript" src="lib/html2canvas.min.js"></script>
-    <script type="application/javascript" src="js/MarvelRackPanel.js"></script>
     <script type="application/javascript" src="js/MarvelRackCabinet.js"></script>
     <script>
         $(document).ready(function () {
@@ -38,7 +37,7 @@
                     callbackOnContextmenu: function (strBuObjId, strSubBuObjId, evt) {
                         console.log("callbackOnContextmenu");
                     },
-                    callbackOndblclick: function (strBuObjId, strSubBuObjId, evt) {
+                    callbackOndblclick(strBuObjId, strSubBuObjId, evt) {
                       console.log("callbackOndblclick");
                     }
                 };
@@ -59,10 +58,10 @@
             $("#id5").click(function () {
                 MarvelRackPanel.exportPng("nb.png", {scale: 5});
             });
-            $("#id5").click(function () {
+            $("#id6").click(function () {
                 MarvelRackPanel.setDisabledStyle("bd1");
             });
-            $("#id6").click(function () {
+            $("#id7").click(function () {
                 MarvelRackPanel.removeAllDisabledStyle();
             });
         });
@@ -74,8 +73,8 @@
 <button id="id3">设置选中样式</button>
 <button id="id4">清除所有选中样式</button>
 <button id="id5">导出png</button>
-<button id="id6">设置Disable样式</button>
-<button id="id7">清除所有Disable样式</button>
+<button id="id6">设置Disabled样式</button>
+<button id="id7">清除所有Disabled样式</button>
 <div id="rackPanel" style="width: 400px; height: 600px;"></div>
 </body>
 </html>

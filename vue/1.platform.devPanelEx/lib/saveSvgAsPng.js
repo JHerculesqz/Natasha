@@ -305,12 +305,12 @@
         clone.removeAttribute('height');
         clone.setAttribute('preserveAspectRatio', 'xMinYMin meet');
       } else {
-        //svg的宽度、高度使用option中传进来的值
+        //svg的宽度、高度使用option中传递进来的值
         clone.setAttribute("width", width * options.scale);
         clone.setAttribute("height", height * options.scale);
       }
 
-      clone.setAttribute('preserveAspectRatio', 'xMinYMin meet');
+      clone.setAttribute('preserveAspectRatio', 'xMidYMid meet');
       //viewbox的宽度、高度从svg元素中获取
       width = getDimension(el, clone, 'width');
       height = getDimension(el, clone, 'height');
@@ -434,7 +434,7 @@
     }
   }
 
-  out$.download = function(name, uri,callback) {
+  out$.download = function(name, uri,callBack) {
     if (navigator.msSaveOrOpenBlob) {
       navigator.msSaveOrOpenBlob(uriToBlob(uri), name);
     } else {
@@ -459,8 +459,8 @@
         }
         saveLink.click();
         document.body.removeChild(saveLink);
-        if(callback){
-          callback();
+        if(callBack){
+          callBack();
         }
       }
       else {

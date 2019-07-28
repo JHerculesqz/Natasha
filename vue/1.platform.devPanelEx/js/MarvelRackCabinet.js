@@ -32,7 +32,7 @@
     var arr_ActiveIds = [];
     var HOVER_CLASS_NAME = "devPanelEx-rect-hover";
     var arr_DisabledIds = [];
-    var DISABLED_CLASS_NAME = "devPanelEx-rect-disacled";
+    var DISABLED_CLASS_NAME = "devPanelEx-rect-disabled";
     var arr_NoPicIds = [];
     var arr_subCard_NoPicIds = [];
     var NOPIC_CLASS_NAME = "devPanelEx-rect-nopicture";
@@ -58,17 +58,17 @@
           oAfterCallback && oAfterCallback(1);
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
-          //如果机框图加载失败，使用默认机框图再加载一次
-          var _productType = m_oOptions.produceType;
-          var nePanelChassisConfig = NEPanelConfig.getNePanelChassisConfig();
-          var _oParams = nePanelChassisConfig[_productType];
-          m_oOptions.imgUrl = URL_ROOT + "static/devPanelEx/image/txt/" + _oParams.chassisBomCode + ".txt?_=" + CACHE_VERSION;
-          self.initDefaultPic(m_oOptions, oAfterCallback);
+          //如果机框图片加载失败，使用默认机框图片再加载一次
+          var _productType = m_oOptions.produtType;
+          var nePanelChassisConfigs = NEPanelConfig.getNePanelChassisConfig();
+          var _oParams = nePanelChassisConfigs[_productType];
+          m_oOptions.imgUrl = URL_ROOT + "statics/devPanelEx/image/txt/" + _oParams.chassisBomCode + ".txt?_=" + CACHE_VERSION;
+          self.initDefualtPic(m_oOptions, oAfterCallback);
         }
       });
     };
 
-    this.initDefaultPic = function (options, oAfterCallback) {
+    this.initDefualtPic = function (options, oAfterCallback) {
       $.ajax({
         type: 'GET',
         url: m_oOptions.imgUrl,
@@ -124,11 +124,11 @@
           _bindEventToMainSlot(oBD, strSubObjId);
         });
         var strSlotId = m_oOptions.id;
-        var chassisBd = SVG.get(strSlotId);
-        chassisBd.off("mousedown");
+        var chassisBD = SVG.get(strSlotId);
+        chassisBD.off("mousedown");
       } else {
         var strSlotId = m_oOptions.id;
-        var chassisBd = SVG.get(strSlotId);
+        var oBD = SVG.get(strSlotId);
 
         oBD.mousedown(function (evt) {
           if (_isLeftClick(evt)) {
@@ -161,11 +161,11 @@
       });
     };
 
-    var _removeEventToMainSlot = function (oDB) {
-      oDB.off("mousedown");
-      oDB.off("mouseover");
-      oDB.off("mouseout");
-      oDB.off("dblclick");
+    var _removeEventToMainSlot = function (oBD) {
+      oBD.off("mousedown");
+      oBD.off("mouseover");
+      oBD.off("mouseout");
+      oBD.off("dblclick");
     };
 
     var _isLeftClick = function (evt) {
@@ -206,7 +206,7 @@
       } else if (typeof oBuObj === "string") {
         strNodeImsgUrl = oBuObj;
       }
-      //当单板占多个槽位时，strSlotId需要传递所有的槽位号，第一个槽位表示起点位置。
+      //当单板占多个槽位时，strSlotId需要传递所有的槽位号，第一个槽位号表示起点位置。
       var slotNum = 1;
       if (toStr.call(strSlotId) === "[object Array]") {
         slotNum = strSlotId.length;
@@ -229,7 +229,7 @@
           //标记节点的插入槽位号
           var oElement = _setLastChildProp(m_Draw, startPos, strTargetId);
 
-          //判断是否需要旋转，slotNum表示槽位数量
+          //判断是否需要旋转, slotNum表示槽位的数量
           _rotateElement(strSlotId, slotPos, slotNum, oElement, isUp);
 
           //event
@@ -248,7 +248,7 @@
             evt.stopPropagation();
           });
 
-          _removeNoPictureColor(strSlotId);
+          // _removeNoPictureColor(strSlotId);
 
           //callback
           if (oAfterCallback) {
@@ -402,7 +402,7 @@
 
     this.removeAllDisabledStyle = function () {
       arr_DisabledIds.forEach(function (strSlotId) {
-        var strTargetId = _generateId.apply(self, arguments);
+        var strTargetId = _generateId(strSlotId);
         var oElement = SVG.get(strTargetId);
         if (oElement) {
           var oChild = oElement.children()[0];
@@ -414,8 +414,8 @@
 
     //region 母单板/子单板
     this.addMainNode = function (strSlotId, oBuObj, oAfterCallback, oEventCallback) {
-      var strSlotOrigin = strSlotId;
-      if (tostr.call(strSlotId) === "[object Array]") {
+      var strSlotIdOrigin = strSlotId;
+      if (toStr.call(strSlotId) === "[object Array]") {
         strSlotId = strSlotId[0];
       }
       var oHandleData = function (data, slotPos) {
@@ -472,12 +472,11 @@
         }
       };
 
-      _addNode(strSlotOrigin, oBuObj, oHandleData, oAfterCallbackEx, oEventCallback);
+      _addNode(strSlotIdOrigin, oBuObj, oHandleData, oAfterCallbackEx, oEventCallback);
     };
 
     this.addSubNode = function (strFirstSlotId, strSecondSlotId, oBuObj, oAfterCallback, oEventCallback) {
-      avr
-      isUp = true;
+      var isUp = true;
       if (typeof oBuObj === "object") {
         isUp = oBuObj.isUp;
       }
@@ -519,7 +518,7 @@
             }
             evt.stopPropagation();
           });
-          oElement.dblclick(function () {
+          oElement.dblclick(function (evt) {
             oEventOptions.callbackOndblclick(strFirstSlotId, strSecondSlotId, oBuObj, evt);
             evt.stopPropagation();
           });
@@ -592,25 +591,25 @@
       var svgDom = outerDom.firstElementChild;
       var newSvgDom = svgDom.cloneNode(true);
       var str = newSvgDom.innerHTML.replace("devPanelEx-rect-active", "");
-      newSvgDom.innerHtml = str;
-      saveSvgAsPng(document.getElementById(m_oOptions.id).firstElementChild, strPicName, oOptions);
+      newSvgDom.innerHTML = str;
+      saveSvgAsPng(newSvgDom, strPicName, oOptions);
     };
 
     this.getSVGDataUrl = function (callback) {
       if (m_Draw) {
         var oOptions = {};
-        oOptions = Object.assign({encoderOptions: 1, scale: 1,}, oOptions);
+        oOptions = Object.assign({encoderOptions: 1, scale: 1}, oOptions);
         var svgDom = document.getElementById(m_oOptions.id).firstElementChild;
         var newSvgDom = svgDom.cloneNode(true);
         var str = newSvgDom.innerHTML.replace("devPanelEx-rect-active", "");
-        newSvgDom.innerHtml = str;
+        newSvgDom.innerHTML = str;
         svgAsPngUri(newSvgDom, oOptions, function (url) {
           callback(url);
         });
       } else {
         callback("");
       }
-    }
+    };
     //endregion
 
     //endregion
