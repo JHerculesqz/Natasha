@@ -3,8 +3,17 @@
     <marvel-work-flow-mop ref="RenovationMOPView"
                           :title4MopLst="title4MopLst"
                           :row4MopLst="row4MopLst"
-                          :rowOriginData="rowOriginData"
-                          :arrLogs="logInfo"></marvel-work-flow-mop>
+                          :logs="arrLogs"
+                          :logFilterOptions="logFilterOptions"
+                          :customMopOptionIcons="customMopOptionIcons"
+                          :customTabs="customTabs"
+                          @onIconClickInMop4Skip="_onIconClickInMop"
+                          @onIconClickInMop4Pause="_onIconClickInMop"
+                          @onIconClickInMop4Custom="_onIconClickInMop4Custom"
+                          @onFilterBtnClick="_onFilterBtnClick"
+                          @onFilterCheckBoxChange="_onFilterCheckBoxChange">
+      <div slot="customTabSlot">customTabSlot</div>
+    </marvel-work-flow-mop>
   </div>
 </template>
 
@@ -37,14 +46,38 @@
           visible: false,
         }],
         row4MopLst:[],
-        rowOriginData:undefined,
-        logInfo:[{
-          name:"Process Output",
-          logInfo:"aaaaa",
-        }],
+        arrLogs:[],
+        logFilterOptions:[{
+          id:"logFilterId4Notice",
+          type:"checkbox",
+          name:"通知"
+        },{
+          id:"logFilterId4Warning",
+          type:"checkbox",
+          name:"警告"
+        },{
+          id:"logFilterId4Error",
+          type:"checkbox",
+          name:"错误"
+        },{
+          id:"logFilterId4Export",
+          type:"button",
+          name:"Export Output",
+          icon:"icon-download2"
+        },],
         //#endregion
         //#region mop
-        mopId:undefined
+        mopId:undefined,
+        customMopOptionIcons:[{
+          title: "自定义按钮",
+          value: "icon-cloud",
+          color: "#3dcca6"
+        }],
+        customTabs:[{
+          label:"Custom Tab",
+          slotId:"customTabSlot"
+        }],
+        logLevels:0,//0：全部；1：通知；2：告警；3：错误
         //#endregion
       }
     },
@@ -65,13 +98,22 @@
 
         this._creatMop(function (strId) {
           self.mopId = strId;
-          self._getStepCont(function (oRes) {
-            self._setStepCont(oRes);
+
+          //获取mop数据
+          self._getMopStepCont(function (oRes) {
+            self._setMopStepCont(oRes);
+          });
+
+          //获取log数据
+          self._getLogCont(function (oRes) {
+            self._setLogCont(oRes);
           });
         });
       },
 
       //#endregion
+
+      //#region mop data
 
       _creatMop: function(oAfterCallback){
         var storage=window.localStorage;
@@ -94,13 +136,13 @@
           });
         }
       },
-      _getStepCont: function (oAfterCallback) {
+      _getMopStepCont: function (oAfterCallback) {
         var oRes = undefined;
-        var storage=window.localStorage;
-        var oParams = {
-          insId: storage["insId"],
+        var reqBody = {
+          reqBuVoStr: JSON.stringify({
+            insId: this.mopId
+          })
         };
-        var reqBody = JSON.stringify(oParams);
         if (this.debug) {
           oRes = MockUtils.mock4GetComponentInfo("RenovationMOP").resultObj;
           oAfterCallback(oRes);
@@ -111,21 +153,27 @@
           });
         }
       },
-      _setStepCont: function (oRes) {
-        var oTree=[];
-        for(var i= 0; i< oRes.length; i++){
-          var oData = oRes[i];
-          var oTreeCell = {
-            business1: "business1" + oData.id,
-          };
-          oTree.push(oTreeCell);
-        }
-
-        this.rowOriginData = oRes;
-        this.row4MopLst = oTree;
+      _setMopStepCont: function (oRes) {
+        var oRows4MopLst = JSON.parse(JSON.stringify(oRes));
+        this._genRows(oRows4MopLst);
+        this.row4MopLst = oRows4MopLst;
       },
 
-      _onIconClick: function (oRow, oCell) {
+      _genRows: function (arrRows) {
+        for (var i = 0; i < arrRows.length; i++) {
+          //数据组装
+          arrRows[i].business1 = "business1";
+          if(arrRows[i].children.length > 0){
+            this._genRows(arrRows[i].children);
+          }
+        }
+      },
+
+      //#endregion
+
+      //#region mop action
+
+      _onIconClickInMop: function (oRow, oCell) {
         var self = this;
         var reqBody = {
           reqBuVoStr: JSON.stringify({
@@ -140,12 +188,102 @@
           this.logInfo = oRow;
         } else {
           HttpUtils.post("submitTask4MopWF", reqBody).then(res => {
-            self._getStepCont(function (oRes) {
-              self._setStepCont(oRes);
+            //获取mop数据
+            self._getMopStepCont(function (oRes) {
+              self._setMopStepCont(oRes);
+            });
+
+            //获取log数据
+            self._getLogCont(function (oRes) {
+              self._setLogCont(oRes);
             });
           });
         }
+      },
+      _onIconClickInMop4Custom: function(oRow, oCell){
+        console.log(oRow);
+      },
+
+
+      //#endregion
+
+      //#region log data
+
+      _getLogCont: function (oAfterCallback) {
+        var oRes = undefined;
+        var reqBody = {
+          reqBuVoStr: JSON.stringify({
+            insId: this.mopId,
+            level: this.logLevels
+          })
+        };
+        if (this.debug) {
+          oRes = MockUtils.mock4GetLog().resultObj;
+          oAfterCallback(oRes);
+        } else {
+          HttpUtils.post("getLogList4MopWF", reqBody).then(res => {
+            oRes = res.body.resultObj;
+            oAfterCallback(oRes);
+          });
+        }
+      },
+      _setLogCont: function (oRes) {
+        var oResLogs = JSON.parse(JSON.stringify(oRes.lstWFLogVo4Chg));
+        for(var i= 0; i< oResLogs.length; i++){
+          var oData = oResLogs[i];
+          oData.logId = oData.taskId;
+          if(oData.level == 0){
+            oData.status = "all";
+          }else if(oData.level == 1){
+            oData.status = "notice";
+          }else if(oData.level == 2){
+            oData.status = "warning";
+          }else if(oData.level == 3){
+            oData.status = "error";
+          }
+        }
+        this.arrLogs = JSON.parse(JSON.stringify(oResLogs))
+      },
+
+      //#endregion
+
+      //#region log action
+
+      _onFilterBtnClick: function (oCheckParams, oItem) {
+        console.log(oItem);
+        this.logLevels = this._genFilterParams(oCheckParams);
+        console.log(this.logLevels);
+        //to export
+      },
+      _onFilterCheckBoxChange: function (oCheckParams) {
+        this.logLevels = this._genFilterParams(oCheckParams);
+        console.log(this.logLevels);
+        //to up date log
+      },
+      _genFilterParams: function (oCheckParams) {
+        var arrLogLevels = [];
+        for(var i = 0; i< oCheckParams.length;i++){
+          var oCheck = oCheckParams[i];
+          if(oCheck.bIsChecked){
+            if(oCheck.oItem.name == "通知"){
+              arrLogLevels.push(1);
+            }else if(oCheck.oItem.name == "警告"){
+              arrLogLevels.push(2);
+            }else if(oCheck.oItem.name == "错误"){
+              arrLogLevels.push(3);
+            }
+          }
+        }
+        if(arrLogLevels.length>0){
+          return arrLogLevels;
+        }else{
+          return [0];
+        }
       }
+
+      //#endregion
+
+
 
       //#endregion
       //#region callback

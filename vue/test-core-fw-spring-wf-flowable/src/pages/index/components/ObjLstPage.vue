@@ -53,7 +53,7 @@
     data() {
       return {
         //#region const
-        debug: false,
+        debug: true,
         //#endregion
         //#region grid
         title4objLst: [{
@@ -76,7 +76,7 @@
           width: "20%"
         }],
         row4objLst: [],
-        rowOriginData: undefined,
+        rowOriginData: {},
         totalNum: 0,
         totalPage: 1,
         limit: 26,
