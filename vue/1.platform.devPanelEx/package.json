@@ -2,7 +2,7 @@
   "name": "natasha-devpanelex",
   "version": "1.0.0",
   "description": "natasha-devpanelex widget",
-  "author": "author",
+  "author": "Author",
   "private": false,
   "engines": {
     "node": ">= 6.0.0",

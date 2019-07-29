@@ -6,19 +6,19 @@ export default {
         "curTaskId": "351551b3-2d61-47e4-98a3-b107ae7e6ad6",
         "lstUIWFInsTaskVo": [{
           "id": "351551b3-2d61-47e4-98a3-b107ae7e6ad6",
-          "name": "待改造网元信息",
+          "name": "step1",
           "uiComponentName": "RenovationNEInfo"
         }, {
           "id": "bb3b45b8-71b5-4315-b9ba-6520db2ef57c",
-          "name": "改造前准备",
+          "name": "step2",
           "uiComponentName": "RenovationSetup"
         }, {
           "id": "4fc77e28-91d3-467e-84f3-709c17a26495",
-          "name": "改造分析报告",
+          "name": "step3",
           "uiComponentName": "RenovationReport"
         }, {
           "id": "8ee98632-1031-417c-a9cb-1065db481222",
-          "name": "MOP清单",
+          "name": "step4",
           "uiComponentName": "RenovationMOP"
         }],
         "startTime": "2019-07-26 11:07:56",
@@ -105,116 +105,27 @@ export default {
         ok: true
       }
     } else if (strComponentName == "RenovationMOP") {
-      var treeNodes = [];
-      for (var i = 0; i < 2; i++) {
-        var oNode = {
-          name: i,
-          id: i,
-          no: i,
-          operation: "operation" + i,
-          operationobj: "operationObj" + i,
-          progress: i + "%",
-          state: "ing...",
-          skip: [{
-            title: "跳过",
-            value: "icon-forward2"
-          }],
-          pause: [{
-            title: "暂停",
-            value: "icon-pause"
-          }],
-          viewdetails: [{
-            title: "查看详情",
-            value: "icon-file-text2"
-          }],
-          children: [],
-          nodeLevel: 1,
-          hasCheckbox: false,
-          hasRadiobox: false,
-          isInitCheck: false,
-          isInitExpand: true,
-          isLeafNode: false
-        };
-        for (var j = 0; j < 3; j++) {
-          var oNodeChild = {
-            name: oNode.id + "_" + j,
-            id: oNode.id + "_" + j,
-            no: oNode.id + "_" + j,
-            operation: "operation" + oNode.id + "_" + j,
-            operationobj: "operationObj" + oNode.id + "_" + j,
-            progress: j + "%",
-            state: "ing...",
-            skip: [{
-              title: "跳过",
-              value: "icon-forward2"
-            }],
-            pause: [{
-              title: "暂停",
-              value: "icon-pause"
-            }],
-            viewdetails: [{
-              title: "查看详情",
-              value: "icon-file-text2"
-            }],
-            children: [],
-            nodeLevel: 2,
-            hasCheckbox: false,
-            hasRadiobox: false,
-            isInitCheck: false,
-            isInitExpand: true,
-            isLeafNode: false
-          };
-          oNode.children.push(oNodeChild);
-          for (var k = 0; k < 7; k++) {
-            var oNodeChildEx = {
-              name: oNodeChild.id + "_" + k,
-              id: oNodeChild.id + "_" + k,
-              no: oNodeChild.id + "_" + k,
-              operation: "operation" + oNodeChild.id + "_" + k,
-              operationobj: "operationObj" + oNodeChild.id + "_" + k,
-              progress: k + "%",
-              state: "ing...",
-              skip: [{
-                title: "跳过",
-                value: "icon-forward2"
-              }],
-              pause: [{
-                title: "暂停",
-                value: "icon-pause"
-              }],
-              viewdetails: [{
-                title: "查看详情",
-                value: "icon-file-text2"
-              }],
-              children: [],
-              nodeLevel: 3,
-              hasCheckbox: false,
-              hasRadiobox: false,
-              isInitCheck: false,
-              isInitExpand: true,
-              isLeafNode: true
-            };
-            oNodeChild.children.push(oNodeChildEx);
-          }
-        }
-        treeNodes.push(oNode);
-      }
-
-
       return {
         "resultObj": [{
-          "id": "70de36ae-af7b-11e9-926e-aeb6d0d021b1",
+          "id": "aaaaa",
           "parentId": null,
-          "wfInsId": "70d6bc97-af7b-11e9-926e-aeb6d0d021b1",
+          "wfInsId": "aaaaa",
           "name": "STEP1.起床",
           "startTime": "2019-07-207 04:00:32",
           "endTime": ""
-        }, {
-          "id": "51ab14a5-af7d-11e9-9d05-aeb6d0d021b1",
+        },{
+          "id": "bbbbb",
           "parentId": null,
-          "wfInsId": "51a34c6e-af7d-11e9-9d05-aeb6d0d021b1",
-          "name": "STEP1.起床",
-          "startTime": "2019-07-207 04:13:58",
+          "wfInsId": "bbbbb",
+          "name": "STEP2.吃早饭",
+          "startTime": "2019-07-207 04:00:32",
+          "endTime": ""
+        },{
+          "id": "ccccc",
+          "parentId": "bbbbb",
+          "wfInsId": "ccccc",
+          "name": "STEP2.1.喝水",
+          "startTime": "2019-07-207 04:00:32",
           "endTime": ""
         }],
         "errorObj": null,

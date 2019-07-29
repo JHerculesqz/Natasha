@@ -1,0 +1,16 @@
+{
+  "name": "natasha-d3js",
+  "version": "1.0.0",
+  "description": "natasha-d3js widget",
+  "author": "Author",
+  "private": false,
+  "engines": {
+    "node": ">= 6.0.0",
+    "npm": ">= 3.0.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ]
+}

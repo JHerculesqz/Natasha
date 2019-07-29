@@ -1,13 +1,13 @@
 <template>
   <div class="userInfoWrapper" v-bind:style="{ height: height }">
     <div class="userInfoLabel">
-      <img class="labelIcon" :src="menus.mainMenu.icon">
+      <img class="labelIcon" :src="menus.mainMenu.icon" v-bind:style="{ top: iconTopPos }">
       <div class="mainMenu" v-on:click.stop="clickDropDownBtn">
-        <div class="labelText">{{menus.mainMenu.label}}</div>
-        <div class="labelDropDownIcon"></div>
+        <div class="labelText" v-bind:style="{ 'line-height': height }">{{menus.mainMenu.label}}</div>
+        <div class="labelDropDownIcon" v-bind:style="{ top: dropDownIconTop }"></div>
       </div>
     </div>
-    <div class="userInfoSubMenu" v-show="showSubMenu" v-click-outside="hideSubMenu">
+    <div class="userInfoSubMenu" v-show="showSubMenu" v-click-outside="hideSubMenu" v-bind:style="{ top: height }">
       <div class="topTriangle"></div>
       <div class="userInfoSubMenuCont">
         <div class="userInfoSubMenuItem" v-for="item in menus.subMenu">
@@ -45,6 +45,14 @@
       return {
         showSubMenu: false
       }
+    },
+    computed: {
+      iconTopPos: function () {
+        return (parseInt(this.height) - 34) / 2 + "px"
+      },
+      dropDownIconTop: function () {
+        return (parseInt(this.height) - 5) / 2 + "px"
+      },
     },
     methods: {
       //#region inner
@@ -96,19 +104,22 @@
 <style scoped>
   /*region basic*/
 
-  *{
-    font-family: "Microsoft YaHei", "arial",sans-serif;
+  * {
+    font-family: "Microsoft YaHei", "arial", sans-serif;
   }
-  ::-webkit-scrollbar{
-    width:8px;
-    height:8px;
-    background-color: rgba(0,0,0,0);
+
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    background-color: rgba(0, 0, 0, 0);
   }
-  ::-webkit-scrollbar-track{
+
+  ::-webkit-scrollbar-track {
     border-radius: 10px;
-    background-color: rgba(0,0,0,0);
+    background-color: rgba(0, 0, 0, 0);
   }
-  ::-webkit-scrollbar-thumb{
+
+  ::-webkit-scrollbar-thumb {
     border-radius: 10px;
     background-color: #aaa;
   }
@@ -129,12 +140,13 @@
 
   .userInfoWrapper .userInfoLabel .labelIcon {
     float: left;
-    height: 100%;
-    width: 48px;
-    margin-right: 4px;
-    padding: 13px 7px;
-    box-sizing: border-box;
+    height: 34px;
+    width: 34px;
+    margin-right: 11px;
+    margin-left: 7px;
     pointer-events: none;
+    border-radius: 100%;
+    position: relative;
   }
 
   .userInfoWrapper .userInfoLabel .labelIcon:before {
@@ -172,7 +184,7 @@
     float: left;
     height: 100%;
     color: #333;
-    line-height: 60px;
+    vertical-align: center;
     font-size: 12px;
     margin-right: 8px;
     pointer-events: none;
@@ -180,7 +192,7 @@
 
   .userInfoWrapper .userInfoLabel .labelDropDownIcon {
     float: left;
-    margin-top: 28px;
+    position: relative;
     border-right: 5px solid transparent;
     border-left: 5px solid transparent;
     border-top: 5px solid #cccccc;
@@ -188,8 +200,7 @@
 
   .userInfoWrapper .userInfoSubMenu {
     position: absolute;
-    top: 44px;
-    z-index: 2;
+    z-index: 1003;
   }
 
   .userInfoWrapper .userInfoSubMenu .topTriangle {
@@ -240,7 +251,7 @@
   /*region dark theme*/
 
   .dark .userInfoWrapper {
-    background-color: #1a1827;
+    background-color: transparent;
   }
 
   .dark .userInfoWrapper .userInfoLabel .labelIcon:before {

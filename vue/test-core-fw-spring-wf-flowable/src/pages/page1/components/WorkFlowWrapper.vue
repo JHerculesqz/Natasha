@@ -31,7 +31,7 @@
     data() {
       return {
         //#region const
-        debug: false,
+        debug: true,
         //#endregion
         //#region workFlow
         stepItems: [],
@@ -75,14 +75,14 @@
         var storage=window.localStorage;
         var reqBody = {
           reqBuVoStr: JSON.stringify({
-            wfInsId: storage["wfInsId"]
+            insId: storage["insId"]
           })
         };
         if (this.debug) {
           oRes = MockUtils.mock4TestWfModel().resultObj;
           oAfterCallback(oRes);
         } else {
-          HttpUtils.post("getWFIns4UIWF", reqBody).then(res => {
+          HttpUtils.post("getIns4UIWF", reqBody).then(res => {
             oRes = res.body.resultObj;
             oAfterCallback(oRes);
           });
@@ -124,7 +124,7 @@
         if(storage["finish"] == "false"){
           var reqBody = {
             reqBuVoStr: JSON.stringify({
-              wfInsId: storage["wfInsId"],
+              insId: storage["insId"],
               taskId: oItem.id
             })
           };

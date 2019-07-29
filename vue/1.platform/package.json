@@ -2,8 +2,12 @@
   "name": "natasha-vue",
   "version": "1.0.5",
   "description": "natasha-vue",
-  "author": "author",
+  "author": "Author",
   "private": false,
+  "files": [
+    "src",
+    "static"
+  ],
   "scripts": {
   },
   "dependencies": {
@@ -21,8 +25,7 @@
     "moment": "^2.18.1",
     "jquery": "^3.2.1"
   },
-  "devDependencies": {
-  },
+  "devDependencies": {},
   "engines": {
     "node": ">= 6.0.0",
     "npm": ">= 3.0.0"

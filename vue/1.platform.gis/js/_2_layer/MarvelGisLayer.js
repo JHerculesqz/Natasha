@@ -103,6 +103,14 @@
             return arrRes;
         };
 
+      this.changeLayerUrl = function (url,oGis) {
+        oGis.Stage.mapObj.eachLayer(function (layer) {
+          if(layer.setUrl){
+            layer.setUrl(url)
+          }
+        });
+      };
+
         //endregion
     }
 })(jQuery);

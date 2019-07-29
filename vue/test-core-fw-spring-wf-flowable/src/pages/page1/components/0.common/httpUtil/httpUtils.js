@@ -26,8 +26,8 @@ var D = "delete data";
 var T = "trigger";
 
 var API = {
-  getWFIns4UIWF:{
-    url: "/wf/flowable/getWFIns4UIWF",
+  getIns4UIWF:{
+    url: "/wf/flowable/getIns4UIWF",
     loading:true,
     checkRes:true,
     desc:R,
@@ -47,8 +47,8 @@ var API = {
     desc:R,
     errorAdvice:errorAdvice
   },
-  getTaskList4MopWF:{
-    url: "/wf/flowable/getTaskList4MopWF",
+  getHistoryTaskList4MopWF:{
+    url: "/wf/flowable/getHistoryTaskList4MopWF",
     loading:true,
     checkRes:true,
     desc:R,

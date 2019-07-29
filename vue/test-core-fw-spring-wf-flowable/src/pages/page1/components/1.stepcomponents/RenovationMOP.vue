@@ -1,28 +1,15 @@
 <template>
   <div class="componentWrapper">
-    <div class="mopLeft">
-      <marvel-grid-tree :hasFoot="false"
-                        ref="ref4MarvelGridTree"
-                        :titles="titles4GridTree"
-                        :treeNodes="treeNodes"
-                        :dynamicPaging="false"
-                        :isTree="false"
-                        @onIconClick="_onIconClick"></marvel-grid-tree>
-    </div>
-    <div class="mopRight">
-      <marvel-dashboard title="MOP Details Info">
-        <div slot="customArea"></div>
-        <div slot="contArea" class="mopRightCont">
-          <div v-html="detailsInfo"></div>
-        </div>
-      </marvel-dashboard>
-    </div>
+    <marvel-work-flow-mop ref="RenovationMOPView"
+                          :title4MopLst="title4MopLst"
+                          :row4MopLst="row4MopLst"
+                          :rowOriginData="rowOriginData"
+                          :arrLogs="logInfo"></marvel-work-flow-mop>
   </div>
 </template>
 
 <script>
-  import MarvelDashboard from '~~/widget/dashboard/MarvelDashboard';
-  import MarvelGridTree from "~~/widget/grid/MarvelGridTree";
+  import MarvelWorkFlowMop from "~~/widget/workflow/MarvelWorkFlowMop";
   import HttpUtils from "./../0.common/httpUtil/httpUtils";
   import MockUtils from "./../0.common/mock";
   /**
@@ -33,68 +20,28 @@
   export default {
     name: 'RenovationMOP',
     components: {
-      MarvelDashboard,
-      MarvelGridTree
+      MarvelWorkFlowMop
     },
     data() {
       return {
         //#region const
-        debug: false,
+        debug: true,
         modelKey:"MOPPTNLSRID",
         //#endregion
         //#region workFlow
-        titles4GridTree:[{
-          key:"id",
-          label:"ID",
-          width:"50px",
-          type:"text",
-          visible: true,
-        },{
-          key:"wfInsId",
-          label:"wfInsId",
-          width:"50px",
-          type:"text",
-          visible: true,
-        },{
-          key:"operationName",
-          label:"OperationName",
+        title4MopLst:[{
+          key:"business1",
+          label:"业务列1",
           width:"200px",
           type:"text",
-          visible: true,
-          isTreeNodeCell: true,
-        },{
-          key:"startTime",
-          label:"startTime",
-          width:"150px",
-          type:"text",
-          visible: true,
-        },{
-          key:"endTime",
-          label:"endTime",
-          width:"100px",
-          type:"text",
-          visible: true,
-        },{
-          key:"skip",
-          label:"Skip",
-          width:"100px",
-          type:"icon",
-          visible: true,
-        },{
-          key:"pause",
-          label:"Pause",
-          width:"100px",
-          type:"icon",
-          visible: true,
-        },{
-          key:"viewdetails",
-          label:"View Details",
-          width:"100px",
-          type:"icon",
-          visible: true,
+          visible: false,
         }],
-        treeNodes:[],
-        detailsInfo:"",
+        row4MopLst:[],
+        rowOriginData:undefined,
+        logInfo:[{
+          name:"Process Output",
+          logInfo:"aaaaa",
+        }],
         //#endregion
         //#region mop
         mopId:undefined
@@ -116,8 +63,8 @@
       _initEx: function () {
         var self = this;
 
-        this._creatMop(function (res) {
-          self.mopId = res.body.resultObj.id;
+        this._creatMop(function (strId) {
+          self.mopId = strId;
           self._getStepCont(function (oRes) {
             self._setStepCont(oRes);
           });
@@ -130,8 +77,8 @@
         var storage=window.localStorage;
         var reqBody = {
           reqBuVoStr: JSON.stringify({
-            wfInsId: storage["wfInsId"],
-            wfModelKey: this.modelKey,
+            insId: storage["insId"],
+            modelKey: this.modelKey,
             mapParams: {
               a:1,
               b:2
@@ -140,9 +87,10 @@
         };
         if (this.debug) {
           console.log(reqBody);
+          oAfterCallback("resId");
         } else {
           HttpUtils.post("createIns4MopWF", reqBody).then(res => {
-            oAfterCallback(res);
+            oAfterCallback(res.body.resultObj.id);
           });
         }
       },
@@ -150,14 +98,14 @@
         var oRes = undefined;
         var storage=window.localStorage;
         var oParams = {
-          wfInsId: storage["wfInsId"],
+          insId: storage["insId"],
         };
         var reqBody = JSON.stringify(oParams);
         if (this.debug) {
-          oRes = MockUtils.mock4GetComponentInfo(oParams.componentName).resultObj;
+          oRes = MockUtils.mock4GetComponentInfo("RenovationMOP").resultObj;
           oAfterCallback(oRes);
         } else {
-          HttpUtils.post("getTaskList4MopWF", reqBody).then(res => {
+          HttpUtils.post("getHistoryTaskList4MopWF", reqBody).then(res => {
             oRes = res.body.resultObj;
             oAfterCallback(oRes);
           });
@@ -168,62 +116,20 @@
         for(var i= 0; i< oRes.length; i++){
           var oData = oRes[i];
           var oTreeCell = {
-            name: oData.id,
-            id:  oData.id,
-            wfInsId: oData.wfInsId,
-            operationName: oData.name,
-            startTime: oData.startTime,
-            endTime: oData.endTime,
-            skip: [{
-              title: "跳过",
-              value: "icon-forward2"
-            }],
-            pause: [{
-              title: "暂停",
-              value: "icon-pause"
-            }],
-            viewdetails: [{
-              title: "查看详情",
-              value: "icon-file-text2"
-            }],
-            children: [],
-            nodeLevel: 0,
-            hasCheckbox: false,
-            hasRadiobox: false,
-            isInitCheck: false,
-            isInitExpand: true,
-            isLeafNode: false
+            business1: "business1" + oData.id,
           };
           oTree.push(oTreeCell);
         }
 
-        this.treeNodes = oTree;
-      },
-
-      _getLevel: function(arrNodes, oNode){
-        //todo
-      },
-      _isLeafNode: function(arrNodes, oNode){
-        var bIsLeafNode = true;
-        for(var i = 0; i<arrNodes.length; i++){
-          if (arrNodes[i].parentId == oNode.id) {
-            bIsLeafNode = false;
-            break;
-          }
-        }
-
-        if (oNode.parentId != null && bIsLeafNode){
-          return true;
-        }else{
-          return false;
-        }
+        this.rowOriginData = oRes;
+        this.row4MopLst = oTree;
       },
 
       _onIconClick: function (oRow, oCell) {
         var self = this;
         var reqBody = {
           reqBuVoStr: JSON.stringify({
-            wfInsId: this.mopId,
+            insId: this.mopId,
             mapParams: {
               a:1,
               b:2
@@ -231,7 +137,7 @@
           })
         };
         if (this.debug) {
-          this.detailsInfo = oRow;
+          this.logInfo = oRow;
         } else {
           HttpUtils.post("submitTask4MopWF", reqBody).then(res => {
             self._getStepCont(function (oRes) {
@@ -255,26 +161,6 @@
   .componentWrapper{
     width: 100%;
     height: 100%;
-  }
-
-  .mopLeft{
-    width: calc(80% - 20px);
-    height: 100%;
-    float: left;
-  }
-
-  .mopRight{
-    float: left;
-    width: 20%;
-    margin-left:20px;
-    background-color: #ffffff;
-    height: 100%;
-  }
-
-  .mopRightCont{
-    height: 100%;
-    background-color: #ffffff;
-    overflow: auto;
   }
 
 </style>

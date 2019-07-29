@@ -54,8 +54,10 @@
       },
       dropDownItems: {
         type: Array,
-        default: undefined,
-        required: true,
+        default: function () {
+          return [];
+        },
+        required: false,
       },
       showSelectIcon: {
         type: Boolean,

@@ -1,9 +1,9 @@
 <template>
-  <div class="dashboard2Wrapper" v-bind:style="[{ 'z-index': zIndex }, {'left' : leftValue}]">
+  <div class="dashboard2Wrapper" v-bind:style="[{ 'z-index': zIndex}, {'left' : leftValue}]">
     <div class="dashboardExpandFolderIcon"
          v-on:click="onExpandBtnClick4Legend"
          :title="title">
-      <div v-bind:class="listIcon"></div>
+      <div v-bind:class="iConCustom"></div>
       <div class="legendTxt">{{title}}</div>
     </div>
   </div>
@@ -28,7 +28,7 @@
       return {
         isExpand: false,
         zIndex: 998,
-        iConCustom: "icon-arrow-up-right2",
+        iConCustom: "icon-arrow-down-left2",
         leftValue: "0px",
       }
     },
@@ -130,7 +130,7 @@
     display: none;
   }
 
-  .expand .dashboardExpandFolderIcon .legendTxt {
+  .dashboard2Wrapper .dashboardExpandFolderIcon .legendTxt {
     height: 25px;
     line-height: 25px;
     width: 100%;

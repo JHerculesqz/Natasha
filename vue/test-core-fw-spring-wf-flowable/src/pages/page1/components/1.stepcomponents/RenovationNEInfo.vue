@@ -117,7 +117,7 @@
 
   .componentDashBoardWrapper{
     width: 100%;
-    height: 35%;
+    height: 240px;
     margin-top: 20px;
     margin-bottom: 30px;
   }

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 21.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="图层_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="80px" height="80px" viewBox="0 0 80 80" enable-background="new 0 0 80 80" xml:space="preserve">
+<g>
+	<g>
+		<circle fill="#848484" cx="40.004" cy="4" r="4"/>
+		<circle fill="#848484" cx="40.004" cy="76" r="4"/>
+	</g>
+	<g>
+		<circle fill="#848484" cx="76.004" cy="40" r="4"/>
+		<circle fill="#848484" cx="4.004" cy="40" r="4"/>
+	</g>
+</g>
+<g>
+	<g>
+		<ellipse transform="matrix(0.7071 -0.7071 0.7071 0.7071 8.8884 50.5467)" fill="#848484" cx="65.46" cy="14.544" rx="4" ry="4"/>
+		
+			<ellipse transform="matrix(0.7071 -0.7071 0.7071 0.7071 -42.0233 29.4584)" fill="#848484" cx="14.548" cy="65.456" rx="4" ry="4"/>
+	</g>
+	<g>
+		
+			<ellipse transform="matrix(0.7071 -0.7071 0.7071 0.7071 -27.1116 65.4584)" fill="#848484" cx="65.46" cy="65.456" rx="4" ry="4"/>
+		
+			<ellipse transform="matrix(0.7071 -0.7071 0.7071 0.7071 -6.0233 14.5467)" fill="#848484" cx="14.548" cy="14.544" rx="4" ry="4"/>
+	</g>
+</g>
+</svg>
