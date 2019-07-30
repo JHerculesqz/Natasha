@@ -1,29 +1,27 @@
 <template>
   <div class="widgetShowSession">
     <!--1级 start-->
-    <div class="title level1">工作流向导MOP</div>
+    <div class="title level1">日志控件</div>
     <div class="describe">
-      工作流向导MOP
+      日志控件
     </div>
     <!--1级 end-->
     <!--2级 start-->
-    <div class="title level2">工作流向导MOP</div>
+    <div class="title level2">日志控件</div>
     <div class="describe">
-      工作流向导MOP
+      日志控件
     </div>
     <div class="showArea">
       <marvel-tab :tabItems="tabItems1">
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner" style="height: 100%;">
             <!--2级DemoView start-->
-            <div style="width:100%; height: 100%;">
-              <marvel-grid-tree :hasFoot="false"
-                                ref="ref4MarvelGridTree"
-                                :titles="titles4GridTree"
-                                :treeNodes="treeNodes"
-                                :dynamicPaging="false"
-                                :isTree="false"
-                                @onIconClick="onIconClick"></marvel-grid-tree>
+            <div style="height: 100%; background-color: #f0f0f0;">
+              <marvel-log-view ref="logRef"
+                               :logItems="logs"
+                               :filterOptions="logFilterOptions"
+                               @onBtnClick="_callback4OnFilterBtnClick"
+                               @onCheckBoxChange="_callback4OnFilterCheckBoxChange"></marvel-log-view>
             </div>
             <!--2级DemoView end-->
           </div>
@@ -44,12 +42,12 @@
 <script>
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
-  import MarvelGridTree from "~~/widget/grid/MarvelGridTree";
+  import MarvelLogView from "~~/widget/log/MarvelLogView";
 
   export default {
-    name: 'page4WorkFlowMop',
+    name: 'page4LogView',
     components: {
-      MarvelGridTree,
+      MarvelLogView,
       MarvelTab,
       MarvelTabItem,
     },
@@ -65,57 +63,35 @@
         }],
         //#endregion
         //#region workFlow
-        titles4GridTree:[{
-          key:"no",
-          label:"No.",
-          width:"50px",
-          type:"text",
-          visible: true,
-        },{
-          key:"operation",
-          label:"Operation",
-          width:"200px",
-          type:"text",
-          visible: true,
-          isTreeNodeCell: true,
-        },{
-          key:"operationobj",
-          label:"Operation Object",
-          width:"150px",
-          type:"text",
-          visible: true,
-        },{
-          key:"progress",
-          label:"Progress",
-          width:"150px",
-          type:"text",
-          visible: true,
-        },{
-          key:"state",
-          label:"State",
-          width:"150px",
-          type:"text",
-          visible: true,
-        },{
-          key:"skip",
-          label:"Skip",
-          width:"150px",
-          type:"icon",
-          visible: true,
-        },{
-          key:"pause",
-          label:"Pause",
-          width:"150px",
-          type:"icon",
-          visible: true,
-        },{
-          key:"viewdetails",
-          label:"View Details",
-          width:"150px",
-          type:"icon",
-          visible: true,
+        logs:[{
+          content:"【创建工作流】业务数据保存成功..",
+          createTime:"2019-07-29 08:36:54",
+          id:"ab302dcd-82ac-42b3-a247-1bc44236bdb8",
+          insId:"04fbe84d-b1dc-11e9-af47-000ec6c62bf6",
+          level:1,
+          logId:"sdadasd",
+          status:"notice",
+          taskId:"sdadasd",
+          userId:"asdasdasdaa",
         }],
-        treeNodes:[],
+        logFilterOptions:[{
+          id: "logFilterId4Notice",
+          type: "checkbox",
+          name: "通知"
+        }, {
+          id: "logFilterId4Warning",
+          type: "checkbox",
+          name: "警告"
+        }, {
+          id: "logFilterId4Error",
+          type: "checkbox",
+          name: "错误"
+        }, {
+          id: "logFilterId4Export",
+          type: "button",
+          name: "Export Output",
+          icon: "icon-download2"
+        }],
         //#endregion
       }
     },
@@ -132,107 +108,17 @@
       //#region lifeCycle
 
       _initEx: function () {
-        this.treeNodes = [];
-        for(var i = 0; i< 2;i++){
-          var oNode={
-            name:i,
-            id:i,
-            no:i,
-            operation:"operation" + i,
-            operationobj:"operationObj" + i,
-            progress:i + "%",
-            state:"ing...",
-            skip:[{
-              title:"跳过",
-              value:"icon-forward2"
-            }],
-            pause:[{
-              title:"暂停",
-              value:"icon-pause"
-            }],
-            viewdetails:[{
-              title:"查看详情",
-              value:"icon-file-text2"
-            }],
-            children:[],
-            nodeLevel:1,
-            hasCheckbox: false,
-            hasRadiobox: false,
-            isInitCheck: false,
-            isInitExpand: true,
-            isLeafNode: false
-          };
-          for(var j = 0; j<1;j++){
-            var oNodeChild = {
-              name:oNode.id + "_" + j,
-              id:oNode.id + "_" + j,
-              no:oNode.id + "_" + j,
-              operation:"operation" + oNode.id + "_" + j,
-              operationobj:"operationObj" + oNode.id + "_" + j,
-              progress:j + "%",
-              state:"ing...",
-              skip:[{
-                title:"跳过",
-                value:"icon-forward2"
-              }],
-              pause:[{
-                title:"暂停",
-                value:"icon-pause"
-              }],
-              viewdetails:[{
-                title:"查看详情",
-                value:"icon-file-text2"
-              }],
-              children:[],
-              nodeLevel:2,
-              hasCheckbox: false,
-              hasRadiobox: false,
-              isInitCheck: false,
-              isInitExpand: true,
-              isLeafNode: false
-            };
-            oNode.children.push(oNodeChild);
-            for(var k = 0; k<3;k++){
-              var oNodeChildEx = {
-                name:oNodeChild.id + "_" + k,
-                id:oNodeChild.id + "_" + k,
-                no:oNodeChild.id + "_" + k,
-                operation:"operation" + oNodeChild.id + "_" + k,
-                operationobj:"operationObj" + oNodeChild.id + "_" + k,
-                progress:k + "%",
-                state:"ing...",
-                skip:[{
-                  title:"跳过",
-                  value:"icon-forward2"
-                }],
-                pause:[{
-                  title:"暂停",
-                  value:"icon-pause"
-                }],
-                viewdetails:[{
-                  title:"查看详情",
-                  value:"icon-file-text2"
-                }],
-                children:[],
-                nodeLevel:3,
-                hasCheckbox: false,
-                hasRadiobox: false,
-                isInitCheck: false,
-                isInitExpand: true,
-                isLeafNode: true
-              };
-              oNodeChild.children.push(oNodeChildEx);
-            }
-          }
-          this.treeNodes.push(oNode);
-        }
+
       },
 
       //#endregion
-      onIconClick:function (oRow, oCell) {
-        console.log(oRow);
-        console.log(oCell);
-      }
+      _callback4OnFilterBtnClick: function (oCheckParams, oItem) {
+        console.log(oCheckParams);
+        console.log(oItem);
+      },
+      _callback4OnFilterCheckBoxChange: function (oCheckParams) {
+        console.log(oCheckParams);
+      },
 
       //#endregion
       //#region callback

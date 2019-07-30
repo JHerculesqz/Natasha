@@ -14,16 +14,23 @@
     <div class="showArea">
       <marvel-tab :tabItems="tabItems1">
         <marvel-tab-item :isActive="tabItems1[0].isActive">
-          <div class="showAreaInner" style="height: 100%;">
+          <div class="showAreaInner" style="height: 100%;overflow:auto;">
             <!--2级DemoView start-->
-            <div style="width:100%; height: 100%;">
-              <marvel-grid-tree :hasFoot="false"
-                                ref="ref4MarvelGridTree"
-                                :titles="titles4GridTree"
-                                :treeNodes="treeNodes"
-                                :dynamicPaging="false"
-                                :isTree="false"
-                                @onIconClick="onIconClick"></marvel-grid-tree>
+            <div style="width:1800px; height: 100%;">
+              <marvel-work-flow-mop ref="RenovationMOPView"
+                                    :title4MopLst="title4MopLst"
+                                    :row4MopLst="row4MopLst"
+                                    :logs="arrLogs"
+                                    :logFilterOptions="logFilterOptions"
+                                    :customMopOptionIcons="customMopOptionIcons"
+                                    :customTabs="customTabs"
+                                    @onIconClickInMop4Skip="_onIconClickInMop"
+                                    @onIconClickInMop4Pause="_onIconClickInMop"
+                                    @onIconClickInMop4Custom="_onIconClickInMop4Custom"
+                                    @onFilterBtnClick="_onFilterBtnClick"
+                                    @onFilterCheckBoxChange="_onFilterCheckBoxChange">
+                <div slot="customTabSlot">customTabSlot</div>
+              </marvel-work-flow-mop>
             </div>
             <!--2级DemoView end-->
           </div>
@@ -44,12 +51,12 @@
 <script>
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
-  import MarvelGridTree from "~~/widget/grid/MarvelGridTree";
+  import MarvelWorkFlowMop from "~~/widget/workflow/MarvelWorkFlowMop";
 
   export default {
     name: 'page4WorkFlowMop',
     components: {
-      MarvelGridTree,
+      MarvelWorkFlowMop,
       MarvelTab,
       MarvelTabItem,
     },
@@ -65,57 +72,42 @@
         }],
         //#endregion
         //#region workFlow
-        titles4GridTree:[{
-          key:"no",
-          label:"No.",
-          width:"50px",
-          type:"text",
-          visible: true,
-        },{
-          key:"operation",
-          label:"Operation",
-          width:"200px",
-          type:"text",
-          visible: true,
-          isTreeNodeCell: true,
-        },{
-          key:"operationobj",
-          label:"Operation Object",
-          width:"150px",
-          type:"text",
-          visible: true,
-        },{
-          key:"progress",
-          label:"Progress",
-          width:"150px",
-          type:"text",
-          visible: true,
-        },{
-          key:"state",
-          label:"State",
-          width:"150px",
-          type:"text",
-          visible: true,
-        },{
-          key:"skip",
-          label:"Skip",
-          width:"150px",
-          type:"icon",
-          visible: true,
-        },{
-          key:"pause",
-          label:"Pause",
-          width:"150px",
-          type:"icon",
-          visible: true,
-        },{
-          key:"viewdetails",
-          label:"View Details",
-          width:"150px",
-          type:"icon",
-          visible: true,
+        title4MopLst: [{
+          key: "business1",
+          label: "业务列1",
+          width: "200px",
+          type: "text",
+          visible: false,
         }],
-        treeNodes:[],
+        row4MopLst: [],
+        arrLogs: [],
+        logFilterOptions: [{
+          id: "logFilterId4Notice",
+          type: "checkbox",
+          name: "通知"
+        }, {
+          id: "logFilterId4Warning",
+          type: "checkbox",
+          name: "警告"
+        }, {
+          id: "logFilterId4Error",
+          type: "checkbox",
+          name: "错误"
+        }, {
+          id: "logFilterId4Export",
+          type: "button",
+          name: "Export Output",
+          icon: "icon-download2"
+        },],
+        customMopOptionIcons: [{
+          title: "自定义按钮",
+          value: "icon-cloud",
+          color: "#3dcca6"
+        }],
+        customTabs: [{
+          label: "Custom Tab",
+          slotId: "customTabSlot"
+        }],
         //#endregion
       }
     },
@@ -132,107 +124,119 @@
       //#region lifeCycle
 
       _initEx: function () {
-        this.treeNodes = [];
-        for(var i = 0; i< 2;i++){
-          var oNode={
-            name:i,
-            id:i,
-            no:i,
-            operation:"operation" + i,
-            operationobj:"operationObj" + i,
-            progress:i + "%",
-            state:"ing...",
-            skip:[{
-              title:"跳过",
-              value:"icon-forward2"
-            }],
-            pause:[{
-              title:"暂停",
-              value:"icon-pause"
-            }],
-            viewdetails:[{
-              title:"查看详情",
-              value:"icon-file-text2"
-            }],
-            children:[],
-            nodeLevel:1,
-            hasCheckbox: false,
-            hasRadiobox: false,
-            isInitCheck: false,
-            isInitExpand: true,
-            isLeafNode: false
-          };
-          for(var j = 0; j<1;j++){
-            var oNodeChild = {
-              name:oNode.id + "_" + j,
-              id:oNode.id + "_" + j,
-              no:oNode.id + "_" + j,
-              operation:"operation" + oNode.id + "_" + j,
-              operationobj:"operationObj" + oNode.id + "_" + j,
-              progress:j + "%",
-              state:"ing...",
-              skip:[{
-                title:"跳过",
-                value:"icon-forward2"
-              }],
-              pause:[{
-                title:"暂停",
-                value:"icon-pause"
-              }],
-              viewdetails:[{
-                title:"查看详情",
-                value:"icon-file-text2"
-              }],
-              children:[],
-              nodeLevel:2,
-              hasCheckbox: false,
-              hasRadiobox: false,
-              isInitCheck: false,
-              isInitExpand: true,
-              isLeafNode: false
-            };
-            oNode.children.push(oNodeChild);
-            for(var k = 0; k<3;k++){
-              var oNodeChildEx = {
-                name:oNodeChild.id + "_" + k,
-                id:oNodeChild.id + "_" + k,
-                no:oNodeChild.id + "_" + k,
-                operation:"operation" + oNodeChild.id + "_" + k,
-                operationobj:"operationObj" + oNodeChild.id + "_" + k,
-                progress:k + "%",
-                state:"ing...",
-                skip:[{
-                  title:"跳过",
-                  value:"icon-forward2"
-                }],
-                pause:[{
-                  title:"暂停",
-                  value:"icon-pause"
-                }],
-                viewdetails:[{
-                  title:"查看详情",
-                  value:"icon-file-text2"
-                }],
-                children:[],
-                nodeLevel:3,
-                hasCheckbox: false,
-                hasRadiobox: false,
-                isInitCheck: false,
-                isInitExpand: true,
-                isLeafNode: true
-              };
-              oNodeChild.children.push(oNodeChildEx);
-            }
-          }
-          this.treeNodes.push(oNode);
-        }
+        var self = this;
+        //获取mop数据
+        this._getMopStepCont(function (oRes) {
+          self._setMopStepCont(oRes);
+        });
+
+        //获取log数据
+        this._getLogCont(function (oRes) {
+          self._setLogCont(oRes);
+        });
       },
 
       //#endregion
-      onIconClick:function (oRow, oCell) {
+
+      _getMopStepCont: function (oAfterCallback) {
+        var oRes = [{
+          "id": "be0e27cb-b1e0-11e9-a6ea-000ec6c62bf6",
+          "wfInsId": "be0b4194-b1e0-11e9-a6ea-000ec6c62bf6",
+          "name": "STEP1.起床",
+          "startTime": "2019-07-210 05:10:43",
+          "endTime": "2019-07-210 05:11:05",
+          "children": [{
+            "id": "be0e27cb-b1e0-11e9-a6ea-000ec6c62bf6aaa",
+            "wfInsId": "be0b4194-b1e0-11e9-a6ea-000ec6c62bf6aaa",
+            "name": "STEP1.1 起床",
+            "startTime": "2019-07-210 05:10:43",
+            "endTime": "2019-07-210 05:11:05",
+            "children": [{
+              "id": "be0e27cb-b1e0-11e9-a6ea-000ec6c62bf6aaabbb",
+              "wfInsId": "be0b4194-b1e0-11e9-a6ea-000ec6c62bf6aaabbb",
+              "name": "STEP1.1.1 起床",
+              "startTime": "2019-07-210 05:10:43",
+              "endTime": "2019-07-210 05:11:05",
+              "children": []
+            }]
+          }]
+        }, {
+          "id": "cb5f1f1e-b1e0-11e9-a6ea-000ec6c62bf6",
+          "wfInsId": "be0b4194-b1e0-11e9-a6ea-000ec6c62bf6",
+          "name": "STEP2.吃饭",
+          "startTime": "2019-07-210 05:11:05",
+          "endTime": "2019-07-210 05:21:34",
+          "children": []
+        }, {
+          "id": "427cc8e1-b1e2-11e9-a6ea-000ec6c62bf6",
+          "wfInsId": "be0b4194-b1e0-11e9-a6ea-000ec6c62bf6",
+          "name": "STEP3.出发",
+          "startTime": "2019-07-210 05:21:34",
+          "endTime": "",
+          "children": []
+        }];
+        oAfterCallback(oRes);
+      },
+      _setMopStepCont: function (oRes) {
+        var oRows4MopLst = JSON.parse(JSON.stringify(oRes));
+        this._genRows(oRows4MopLst);
+        this.row4MopLst = oRows4MopLst;
+      },
+      _genRows: function (arrRows) {
+        for (var i = 0; i < arrRows.length; i++) {
+          //数据组装
+          arrRows[i].business1 = "business1";
+          if (arrRows[i].children.length > 0) {
+            this._genRows(arrRows[i].children);
+          }
+        }
+      },
+      _getLogCont: function (oAfterCallback) {
+        var oRes = {
+          "count": 1,
+          "lstWFLogVo4Chg": [{
+            "id": "ab302dcd-82ac-42b3-a247-1bc44236bdb8",
+            "insId": "04fbe84d-b1dc-11e9-af47-000ec6c62bf6",
+            "taskId": "",
+            "userId": "",
+            "level": 1,
+            "content": "【创建工作流】业务数据保存成功..",
+            "createTime": "2019-07-29 08:36:54"
+          }]
+        };
+        oAfterCallback(oRes);
+      },
+      _setLogCont: function (oRes) {
+        var oResLogs = JSON.parse(JSON.stringify(oRes.lstWFLogVo4Chg));
+        for (var i = 0; i < oResLogs.length; i++) {
+          var oData = oResLogs[i];
+          oData.logId = oData.taskId;
+          if (oData.level == 0) {
+            oData.status = "all";
+          } else if (oData.level == 1) {
+            oData.status = "notice";
+          } else if (oData.level == 2) {
+            oData.status = "warning";
+          } else if (oData.level == 3) {
+            oData.status = "error";
+          }
+        }
+        this.arrLogs = JSON.parse(JSON.stringify(oResLogs))
+      },
+
+      _onFilterBtnClick: function (oCheckParams, oItem) {
+        console.log(oItem);
+        console.log(oCheckParams);
+      },
+      _onFilterCheckBoxChange: function (oCheckParams) {
+        console.log(oCheckParams);
+      },
+      _onIconClickInMop: function (oRow, oCell) {
         console.log(oRow);
-        console.log(oCell);
-      }
+      },
+      _onIconClickInMop4Custom: function (oRow, oCell) {
+        console.log(oRow);
+      },
 
       //#endregion
       //#region callback

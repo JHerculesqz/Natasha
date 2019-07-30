@@ -19,20 +19,16 @@
             <marvel-work-flow-obj-lst ref="ObjLst"
                                       :title4objLst="title4objLst"
                                       :row4objLst="row4objLst"
+                                      :rowOriginData="rowOriginData"
                                       :totalNum="totalNum"
                                       :totalPage="totalPage"
                                       :limit="limit"
-                                      :title4objLstFinished="title4objLst"
-                                      :row4objLstFinished="row4objLstFinished"
-                                      :totalNumFinished="totalNumFinished"
-                                      :totalPageFinished="totalPageFinished"
-                                      :limitFinished="limitFinished"
                                       @onClickToCreate="_onClickToCreate"
                                       @onClickToBatchCreate="_onClickToBatchCreate"
                                       @onPageChange="_onPageChange"
-                                      @onPageChange4Finished="_onPageChange4Finished"
                                       @onIconClick4Delete="_onIconClick4Delete"
-                                      @onIconClick4View="_onIconClick4View">
+                                      @onIconClick4View="_onIconClick4View"
+                                      @onCustomIconClick="_onCustomIconClick">
               <div slot="btnArea" class="slotBtnArea">
                 <marvel-button ref="objLstPageCreateBtn4" label="XXX"
                                classCustom="classCustom4Btn"
@@ -86,71 +82,30 @@
         //#endregion
         //#region workFlow
         title4objLst: [{
-          label: "序号",
-          key: "id",
-          type: "text",
-          visible: true,
-          width: "8%"
-        }, {
-          label: "Lst1",
-          key: "nodeName",
+          label: "业务列1",
+          key: "business1",
           type: "text",
           visible: true,
           width: "20%"
         }, {
-          label: "Lst2",
-          key: "LSRIDBefore",
+          label: "业务列2",
+          key: "business2",
           type: "text",
           visible: true,
           width: "20%"
         }, {
-          label: "Lst3",
-          key: "tergetLSRID",
-          type: "text",
-          visible: true,
-          width: "20%"
-        }, {
-          label: "Lst4",
-          key: "nodeType",
-          type: "text",
-          visible: true,
-          width: "20%"
-        }, {
-          label: "创建时间",
-          key: "createTime",
-          type: "text",
-          visible: true,
-          width: "20%"
-        }, {
-          label: "执行时间",
-          key: "executionTime",
-          type: "text",
-          visible: true,
-          width: "20%"
-        }, {
-          label: "执行状态",
-          key: "executionStatus",
-          type: "text",
-          visible: true,
-          width: "20%"
-        }, {
-          label: "创建人",
-          key: "userName",
+          label: "业务列N",
+          key: "businessN",
           type: "text",
           visible: true,
           width: "20%"
         }],
         row4objLst: [],
+        rowOriginData: {},
         totalNum: 0,
         totalPage: 1,
         limit: 26,
         currentPage: 1,
-
-        row4objLstFinished: [],
-        totalNumFinished: 0,
-        totalPageFinished: 1,
-        limitFinished: 26,
-        currentPageFinished: 1
         //#endregion
       }
     },
@@ -173,10 +128,6 @@
         this._getWfModelGrid(function (oRes) {
           self._setWfModelGrid(oRes);
         });
-
-        this._getWfModelFinishedGrid(function (oRes) {
-          self._setWfModelFinishedGrid(oRes);
-        });
       },
 
       //#endregion
@@ -184,81 +135,138 @@
       //#region grid
 
       _getWfModelGrid: function (oAfterCallback) {
-        var oRes = this.mock4GetObjLst(this.currentPage, this.limit).resultObj;
-
-        oAfterCallback(oRes);
-      },
-      _setWfModelGrid: function (oRes) {
-        this.row4objLst = oRes.arrRows;
-        this.totalNum = oRes.totalNum;
-        this.totalPage = oRes.totalPage
-      },
-
-      _getWfModelFinishedGrid: function (oAfterCallback) {
-        var oRes = this.mock4GetObjLst(this.currentPageFinished, this.limitFinished).resultObj;
-
-        oAfterCallback(oRes);
-      },
-      _setWfModelFinishedGrid: function (oRes) {
-        this.row4objLstFinished = oRes.arrRows;
-        this.totalNumFinished = oRes.totalNum;
-        this.totalPageFinished = oRes.totalPage
-      },
-      mock4GetObjLst: function (iCurentPage, iLimit) {
         var oRes = {
-          "resultObj": {
-            arrRows: [],
-            totalNum: 1000,
-            totalPage: 20,
-          },
-          "errorObj": null,
-          "ok": true
+          "count": 4,
+          "lstUIWFInsVo": [{
+            "id": "7c71a4e5-6b1f-49ff-adb2-a43930f95405",
+            "curTaskId": "c6cb52f6-0acd-439b-ab4c-5c8cbcc48243",
+            "lstUIWFInsTaskVo": [{
+              "id": "c6cb52f6-0acd-439b-ab4c-5c8cbcc48243",
+              "name": "Step1",
+              "uiComponentName": "RenovationNEInfo"
+            }, {
+              "id": "aa18bb85-134a-4ea5-b837-0fa6ed0696cf",
+              "name": "Step2",
+              "uiComponentName": "RenovationSetup"
+            }, {
+              "id": "51759d71-035e-4386-a4b8-b139903653af",
+              "name": "Step3",
+              "uiComponentName": "RenovationReport"
+            }, {"id": "3dcbaaf5-5bf3-44a0-a6f4-cf5d65c89805", "name": "Step4", "uiComponentName": "RenovationMOP"}],
+            "startTime": "2019-07-27 10:30:38",
+            "endTime": null,
+            "userId": "jdl",
+            "finish": false
+          }, {
+            "id": "a0362706-ab66-4185-8b9d-4fb73c3750bb",
+            "curTaskId": "5ae98821-354a-4752-9a3b-52059036acd1",
+            "lstUIWFInsTaskVo": [{
+              "id": "5ae98821-354a-4752-9a3b-52059036acd1",
+              "name": "Step1",
+              "uiComponentName": "RenovationNEInfo"
+            }, {
+              "id": "b18e94e5-9346-40b9-b251-135c06686290",
+              "name": "Step2",
+              "uiComponentName": "RenovationSetup"
+            }, {
+              "id": "44d1397a-8b86-4f7e-9d6f-2003a1f8feac",
+              "name": "Step3",
+              "uiComponentName": "RenovationReport"
+            }, {"id": "cd77a173-3368-4494-94ec-f5b76e8fcded", "name": "Step4", "uiComponentName": "RenovationMOP"}],
+            "startTime": "2019-07-27 10:30:39",
+            "endTime": null,
+            "userId": "jdl",
+            "finish": false
+          }, {
+            "id": "9c29ceda-5316-45e3-a07e-3437f1083042",
+            "curTaskId": "833fbd7f-921f-41fb-93aa-2d2d2ed6cc4d",
+            "lstUIWFInsTaskVo": [{
+              "id": "833fbd7f-921f-41fb-93aa-2d2d2ed6cc4d",
+              "name": "Step1",
+              "uiComponentName": "RenovationNEInfo"
+            }, {
+              "id": "28538fa3-c485-4e9a-a1c8-c8861ba1eee4",
+              "name": "Step2",
+              "uiComponentName": "RenovationSetup"
+            }, {
+              "id": "8402da15-6265-48e4-a160-ba384e2d344c",
+              "name": "Step3",
+              "uiComponentName": "RenovationReport"
+            }, {"id": "906d4556-845f-43d8-a1fc-43c069f44c68", "name": "Step4", "uiComponentName": "RenovationMOP"}],
+            "startTime": "2019-07-27 10:30:40",
+            "endTime": null,
+            "userId": "jdl",
+            "finish": false
+          }, {
+            "id": "c5785c22-b888-49be-a008-e9906994f522",
+            "curTaskId": "b337f52f-65a3-40e3-8ba6-5d5e78e8397a",
+            "lstUIWFInsTaskVo": [{
+              "id": "b337f52f-65a3-40e3-8ba6-5d5e78e8397a",
+              "name": "Step1",
+              "uiComponentName": "RenovationNEInfo"
+            }, {
+              "id": "ad95b397-9e3f-4197-80ec-ad0c049fdf98",
+              "name": "Step2",
+              "uiComponentName": "RenovationSetup"
+            }, {
+              "id": "f9c245aa-fbe8-432d-9abf-206dd4486e2a",
+              "name": "Step3",
+              "uiComponentName": "RenovationReport"
+            }, {"id": "5caa97c7-1440-4ae1-94f5-6666a9834d04", "name": "Step4", "uiComponentName": "RenovationMOP"}],
+            "startTime": "2019-07-27 10:30:41",
+            "endTime": null,
+            "userId": "jdl",
+            "finish": false
+          }]
         };
 
-        for (var i = iCurentPage; i < iCurentPage + iLimit; i++) {
-          let oRow = [];
-          oRow.push({
-            key:"id",
-            value:i
-          });
-          oRow.push({
-            key:"nodeName",
-            value:"nodeName" + i
-          });
-          oRow.push({
-            key:"LSRIDBefore",
-            value:"LSRIDBefore" + i
-          });
-          oRow.push({
-            key:"tergetLSRID",
-            value:"tergetLSRID" + i
-          });
-          oRow.push({
-            key:"nodeType",
-            value:"nodeType" + i
-          });
-          oRow.push({
-            key:"createTime",
-            value:"createTime" + i
-          });
-          oRow.push({
-            key:"executionTime",
-            value:"executionTime" + i
-          });
-          oRow.push({
-            key:"executionStatus",
-            value:"executionStatus" + i
-          });
-          oRow.push({
-            key:"userName",
-            value:"userName" + i
-          });
-
-          oRes.resultObj.arrRows.push(oRow);
-        }
-
-        return oRes;
+        oAfterCallback(oRes);
       },
+      _setWfModelGrid: function (oData) {
+        var oRes = oData.lstUIWFInsVo;
+        var arrRows = [];
+        for (var i = 0; i < oRes.length; i++) {
+          let oRow = [];
+
+          //#region 业务侧列数据
+          oRow.push({
+            key: "business1",
+            value: '1' + i
+          });
+          oRow.push({
+            key: "business2",
+            value: '2' + i
+          });
+          oRow.push({
+            key: "businessN",
+            value: 'N' + i
+          });
+          //endregion
+
+          //#region 自定义添加 操作按钮
+          oRow.push({
+            key: "operation",
+            value: [{
+              value: "icon-marvelIcon_2-13",
+              color: "#3dcca6",
+              title: "自定义操作1"
+            }, {
+              value: "icon-marvelIcon_2-14",
+              color: "#3dcca6",
+              title: "自定义操作2"
+            }],
+          });
+          //#endrregion
+
+          arrRows.push(oRow);
+        }
+        this.rowOriginData = oData;
+        this.row4objLst = JSON.parse(JSON.stringify(arrRows));
+        this.totalNum = oData.count;
+        this.totalPage = Math.ceil(this.totalNum / this.limit);
+      },
+
+
 
       //#endregion
 
@@ -284,13 +292,8 @@
           self._setWfModelGrid(oRes);
         });
       },
-      _onPageChange4Finished: function (iPageIndex, perPageNum) {
-        var self = this;
-        this.currentPageFinished = iPageIndex;
-        //get wf
-        this._getWfModelFinishedGrid(function (oRes) {
-          self._setWfModelFinishedGrid(oRes);
-        });
+      _onCustomIconClick: function () {
+        console.log("onclick custom btn")
       },
       _onIconClick4Delete: function () {
         console.log("onclick Delete")

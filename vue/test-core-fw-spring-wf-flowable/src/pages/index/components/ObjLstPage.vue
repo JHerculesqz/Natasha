@@ -204,7 +204,6 @@
 
           arrRows.push(oRow);
         }
-
         this.rowOriginData = oData;
         this.row4objLst = JSON.parse(JSON.stringify(arrRows));
         this.totalNum = oData.count;

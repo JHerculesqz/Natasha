@@ -25,6 +25,7 @@
   import page4WorkFlowUI from './demo4widgets/3.workflow/page4WorkFlowUI'
   import page4WorkFlowMOP from './demo4widgets/3.workflow/page4WorkFlowMop'
   import Page4WorkFlowObjLst from './demo4widgets/3.workflow/Page4WorkFlowObjLst'
+  import Page4LogView from './demo4widgets/3.workflow/Page4LogView'
 
   export default {
     components: {
@@ -33,6 +34,7 @@
       page4WorkFlowUI,
       page4WorkFlowMOP,
       Page4WorkFlowObjLst,
+      Page4LogView,
     },
     name: 'page1',
     data: function () {
@@ -274,6 +276,9 @@
           },{
             id: "Page4WorkFlowObjLst",
             label: "workFlow-实例列表"
+          },{
+            id: "Page4LogView",
+            label: "日志"
           }]
         }, {
           label: "典型页面",
