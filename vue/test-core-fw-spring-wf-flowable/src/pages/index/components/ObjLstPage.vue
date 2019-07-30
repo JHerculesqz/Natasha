@@ -7,6 +7,8 @@
                               :totalNum="totalNum"
                               :totalPage="totalPage"
                               :limit="limit"
+                              @onTitleCheckOrUncheck="_onTitleCheckOrUncheck"
+                              @onRowCheckOrUnCheck="_onRowCheckOrUnCheck"
                               @onClickToCreate="_onClickToCreate"
                               @onClickToBatchCreate="_onClickToBatchCreate"
                               @onPageChange="_onPageChange"
@@ -278,6 +280,12 @@
         }
         return targetCell;
       },
+      _onRowCheckOrUnCheck: function (arrRows) {
+        console.log(arrRows);
+      },
+      _onTitleCheckOrUncheck: function (bIsCheck) {
+        console.log(bIsCheck);
+      }
 
       //#endregion
 
