@@ -29,7 +29,6 @@
 </template>
 
 <script>
-  import MarvelWizard from "../wizard/MarvelWizard";
   import MarvelGridTree from "../grid/MarvelGridTree";
   import MarvelLogView from "../log/MarvelLogView";
   import MarvelTab from "../tab/MarvelTab";
@@ -46,7 +45,6 @@
     components: {
       MarvelLogView,
       MarvelGridTree,
-      MarvelWizard,
       MarvelTab,
       MarvelTabItem,
       StrUtils,
@@ -120,6 +118,8 @@
 
       //#endregion
 
+      //#region gen data
+
       _genTabs: function(){
         for(var i = 0; i< this.customTabs.length; i++){
           var oCustomTab = this.customTabs[i];
@@ -135,12 +135,6 @@
         var arrTitles = JSON.parse(JSON.stringify(this.title4MopLst));
         this.title4MopLstInner = this._genTitles(arrTitles);
       },
-      _genRows4Grid: function () {
-        var arrRows = JSON.parse(JSON.stringify(this.row4MopLst));
-        this._genRows(arrRows, 1);
-        this.treeNode4MopLstInner = JSON.parse(JSON.stringify(arrRows));
-      },
-
       _genTitles: function (arrTitles) {
         var oLeftBasicTitle = [{
           key: "id",
@@ -180,6 +174,11 @@
 
         return arrNewTitleV2;
       },
+      _genRows4Grid: function () {
+        var arrRows = JSON.parse(JSON.stringify(this.row4MopLst));
+        this._genRows(arrRows, 1);
+        this.treeNode4MopLstInner = JSON.parse(JSON.stringify(arrRows));
+      },
       _genRows: function (arrRows, iNodeLevel) {
         for (var i = 0; i < arrRows.length; i++) {
           //基础操作按钮
@@ -215,63 +214,11 @@
           }
         }
       },
-      _isLeafNode: function (arrNodes, oNode) {
-        var bIsLeafNode = true;
-        for (var i = 0; i < arrNodes.length; i++) {
-          if (arrNodes[i].parentId == oNode.id) {
-            bIsLeafNode = false;
-            break;
-          }
-        }
 
-        if (oNode.parentId != null && bIsLeafNode) {
-          return true;
-        } else {
-          return false;
-        }
-      },
-      _genTreeNode: function (arrRows) {
-        var arrRows4Tree = JSON.parse(JSON.stringify(arrRows));
-        var isNotAllRoot = false;
-        for (; isNotAllRoot;) {
-          isNotAllRoot = true;
-          for (var i = 0; i < arrRows4Tree.length; i++) {
-            var oRow = arrRows4Tree[i];
-            if (oRow.parentId != null) {
-              isNotAllRoot = false;
-              this._addNodeToParent(arrRows4Tree, oRow);
-              arrRows4Tree.splice(i, 1);
-              break;
-            }
-          }
-        }
+      //#endregion
 
-        return arrRows4Tree;
-      },
-      _addNodeToParent: function (arrRows4Tree, oRow) {
-        for (var i = 0; i < arrRows4Tree.length; i++) {
-          var oCurrentRow = arrRows4Tree[i];
-          if (oCurrentRow.id == oRow.parentId) {
-            oCurrentRow.children.push(oRow);
-            break;
-          } else if (oCurrentRow.children.length > 0) {
-            this._addNodeToParent(oCurrentRow.children, oRow);
-          }
-        }
-      },
-      _getRowCellByKey: function (oRow, strKey) {
-        var targetCell = undefined;
-        for (var i = 0; i < oRow.length; i++) {
-          var oCell = oRow[i];
-          if (strKey == oCell.key) {
-            targetCell = oCell;
-            break;
-          } else {
-            continue;
-          }
-        }
-        return targetCell;
-      },
+      //#region mop action
+
       _onIconClick: function (oRow, oCell) {
         if (oCell.value == "icon-forward2") {
           //skip
@@ -290,7 +237,10 @@
       },
 
       //#endregion
+
+      //#endregion
       //#region callback
+
       _callback4OnFilterBtnClick: function (oCheckParams, oItem) {
         this.$emit("onFilterBtnClick", oCheckParams, oItem)
       },
@@ -307,10 +257,8 @@
         this.$emit("onIconClickInMop4Custom", oRow, oCell)
       },
 
-
       //#endregion
       //#region 3rd
-
       //#endregion
     },
     watch: {

@@ -114,9 +114,9 @@
         //get current step
 
       },
-      onWizardClick: function (oItem) {
+      onWizardClick: function (targetItem, sourceItem) {
         //if can switch
-        this.$refs.refWorkFlow.setProgress(oItem);
+        this.$refs.refWorkFlow.setProgress(targetItem);
 
         //updateWorkflow
         var oRes = undefined;

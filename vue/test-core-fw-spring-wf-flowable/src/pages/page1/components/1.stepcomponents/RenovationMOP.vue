@@ -21,6 +21,7 @@
   import MarvelWorkFlowMop from "~~/widget/workflow/MarvelWorkFlowMop";
   import HttpUtils from "./../0.common/httpUtil/httpUtils";
   import MockUtils from "./../0.common/mock";
+
   /**
    * RenovationMOP component description
    * @vuedoc
@@ -35,49 +36,49 @@
       return {
         //#region const
         debug: true,
-        modelKey:"MOPPTNLSRID",
+        modelKey: "MOPPTNLSRID",
         //#endregion
         //#region workFlow
-        title4MopLst:[{
-          key:"business1",
-          label:"业务列1",
-          width:"200px",
-          type:"text",
+        title4MopLst: [{
+          key: "business1",
+          label: "业务列1",
+          width: "200px",
+          type: "text",
           visible: false,
         }],
-        row4MopLst:[],
-        arrLogs:[],
-        logFilterOptions:[{
-          id:"logFilterId4Notice",
-          type:"checkbox",
-          name:"通知"
-        },{
-          id:"logFilterId4Warning",
-          type:"checkbox",
-          name:"警告"
-        },{
-          id:"logFilterId4Error",
-          type:"checkbox",
-          name:"错误"
-        },{
-          id:"logFilterId4Export",
-          type:"button",
-          name:"Export Output",
-          icon:"icon-download2"
+        row4MopLst: [],
+        arrLogs: [],
+        logFilterOptions: [{
+          id: "logFilterId4Notice",
+          type: "checkbox",
+          name: "通知"
+        }, {
+          id: "logFilterId4Warning",
+          type: "checkbox",
+          name: "警告"
+        }, {
+          id: "logFilterId4Error",
+          type: "checkbox",
+          name: "错误"
+        }, {
+          id: "logFilterId4Export",
+          type: "button",
+          name: "Export Output",
+          icon: "icon-download2"
         },],
         //#endregion
         //#region mop
-        mopId:undefined,
-        customMopOptionIcons:[{
+        mopId: undefined,
+        customMopOptionIcons: [{
           title: "自定义按钮",
           value: "icon-cloud",
           color: "#3dcca6"
         }],
-        customTabs:[{
-          label:"Custom Tab",
-          slotId:"customTabSlot"
+        customTabs: [{
+          label: "Custom Tab",
+          slotId: "customTabSlot"
         }],
-        logLevels:0,//0：全部；1：通知；2：告警；3：错误
+        logLevels: 0,//0：全部；1：通知；2：告警；3：错误
         //#endregion
       }
     },
@@ -115,15 +116,15 @@
 
       //#region mop data
 
-      _creatMop: function(oAfterCallback){
-        var storage=window.localStorage;
+      _creatMop: function (oAfterCallback) {
+        var storage = window.localStorage;
         var reqBody = {
           reqBuVoStr: JSON.stringify({
             insId: storage["insId"],
             modelKey: this.modelKey,
             mapParams: {
-              a:1,
-              b:2
+              a: 1,
+              b: 2
             },
           })
         };
@@ -158,12 +159,11 @@
         this._genRows(oRows4MopLst);
         this.row4MopLst = oRows4MopLst;
       },
-
       _genRows: function (arrRows) {
         for (var i = 0; i < arrRows.length; i++) {
           //数据组装
           arrRows[i].business1 = "business1";
-          if(arrRows[i].children.length > 0){
+          if (arrRows[i].children.length > 0) {
             this._genRows(arrRows[i].children);
           }
         }
@@ -179,8 +179,8 @@
           reqBuVoStr: JSON.stringify({
             insId: this.mopId,
             mapParams: {
-              a:1,
-              b:2
+              a: 1,
+              b: 2
             },
           })
         };
@@ -200,7 +200,7 @@
           });
         }
       },
-      _onIconClickInMop4Custom: function(oRow, oCell){
+      _onIconClickInMop4Custom: function (oRow, oCell) {
         console.log(oRow);
       },
 
@@ -229,16 +229,16 @@
       },
       _setLogCont: function (oRes) {
         var oResLogs = JSON.parse(JSON.stringify(oRes.lstWFLogVo4Chg));
-        for(var i= 0; i< oResLogs.length; i++){
+        for (var i = 0; i < oResLogs.length; i++) {
           var oData = oResLogs[i];
           oData.logId = oData.taskId;
-          if(oData.level == 0){
+          if (oData.level == 0) {
             oData.status = "all";
-          }else if(oData.level == 1){
+          } else if (oData.level == 1) {
             oData.status = "notice";
-          }else if(oData.level == 2){
+          } else if (oData.level == 2) {
             oData.status = "warning";
-          }else if(oData.level == 3){
+          } else if (oData.level == 3) {
             oData.status = "error";
           }
         }
@@ -262,28 +262,26 @@
       },
       _genFilterParams: function (oCheckParams) {
         var arrLogLevels = [];
-        for(var i = 0; i< oCheckParams.length;i++){
+        for (var i = 0; i < oCheckParams.length; i++) {
           var oCheck = oCheckParams[i];
-          if(oCheck.bIsChecked){
-            if(oCheck.oItem.name == "通知"){
+          if (oCheck.bIsChecked) {
+            if (oCheck.oItem.name == "通知") {
               arrLogLevels.push(1);
-            }else if(oCheck.oItem.name == "警告"){
+            } else if (oCheck.oItem.name == "警告") {
               arrLogLevels.push(2);
-            }else if(oCheck.oItem.name == "错误"){
+            } else if (oCheck.oItem.name == "错误") {
               arrLogLevels.push(3);
             }
           }
         }
-        if(arrLogLevels.length>0){
+        if (arrLogLevels.length > 0) {
           return arrLogLevels;
-        }else{
+        } else {
           return [0];
         }
-      }
+      },
 
       //#endregion
-
-
 
       //#endregion
       //#region callback
@@ -296,7 +294,7 @@
 
 <style scoped>
 
-  .componentWrapper{
+  .componentWrapper {
     width: 100%;
     height: 100%;
   }

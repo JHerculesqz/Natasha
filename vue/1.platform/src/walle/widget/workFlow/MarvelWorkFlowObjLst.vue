@@ -28,8 +28,6 @@
 
 <script>
   import MarvelButton from '../../widget/button/MarvelButton';
-  import MarvelTab from '../../widget/tab/MarvelTab';
-  import MarvelTabItem from '../../widget/tab/MarvelTabItem';
   import MarvelGridEx from '../../widget/grid/MarvelGridEx';
 
   /**
@@ -41,9 +39,7 @@
     name: 'MarvelWorkFlowObjLst',
     components: {
       MarvelButton,
-      MarvelGridEx,
-      MarvelTab,
-      MarvelTabItem
+      MarvelGridEx
     },
     props: {
       title4objLst: {
@@ -108,11 +104,6 @@
         var arrTitles = JSON.parse(JSON.stringify(this.title4objLst));
         this.title4objLstInner = this._genTitles(arrTitles);
       },
-      _genRows4Grid: function () {
-        var arrRows = JSON.parse(JSON.stringify(this.row4objLst));
-        this.row4objLstInner = this._genRows(arrRows);
-      },
-
       _genTitles: function (arrTitles) {
         var oCheckTitle = [{
           label: "",
@@ -162,6 +153,10 @@
         var arrNewTitleV2 = arrNewTitleV1.concat(oOptionTitle);
 
         return arrNewTitleV2;
+      },
+      _genRows4Grid: function () {
+        var arrRows = JSON.parse(JSON.stringify(this.row4objLst));
+        this.row4objLstInner = this._genRows(arrRows);
       },
       _genRows: function (arrRows) {
         var oRes = this.rowOriginData.lstUIWFInsVo;
@@ -275,7 +270,6 @@
 
       //#endregion
       //#region 3rd
-
       //#endregion
     },
     watch: {
