@@ -1,7 +1,7 @@
 <template>
   <div class="workFlowWrapper">
     <div class="topArea">
-      <div class="title4objListPageWrapper">TITLE</div>
+      <div class="title4objListPageWrapper">{{title}}</div>
       <div class="btnAreaWrapper">
         <slot name="btnArea"></slot>
         <marvel-button ref="objLstPageCreateBtn2" label="批量创建" classCustom="classCustom4Btn"
@@ -20,6 +20,8 @@
                       :totalPage="totalPage"
                       :canDrag="true"
                       :hasFoot="true"
+                      v-on:onTitleCheckOrUncheck="_onTitleCheckOrUncheck"
+                      v-on:onRowCheckOrUnCheck="_onRowCheckOrUnCheck"
                       v-on:onIconClick="_onIconClick"
                       v-on:onPageChange="callback4OnPageChange"></marvel-grid-ex>
     </div>
@@ -28,8 +30,6 @@
 
 <script>
   import MarvelButton from '../../widget/button/MarvelButton';
-  import MarvelTab from '../../widget/tab/MarvelTab';
-  import MarvelTabItem from '../../widget/tab/MarvelTabItem';
   import MarvelGridEx from '../../widget/grid/MarvelGridEx';
 
   /**
@@ -41,11 +41,14 @@
     name: 'MarvelWorkFlowObjLst',
     components: {
       MarvelButton,
-      MarvelGridEx,
-      MarvelTab,
-      MarvelTabItem
+      MarvelGridEx
     },
     props: {
+      title: {
+        type: String,
+        default: "TITLE",
+        required: false,
+      },
       title4objLst: {
         type: Array,
         default: undefined,
@@ -108,11 +111,6 @@
         var arrTitles = JSON.parse(JSON.stringify(this.title4objLst));
         this.title4objLstInner = this._genTitles(arrTitles);
       },
-      _genRows4Grid: function () {
-        var arrRows = JSON.parse(JSON.stringify(this.row4objLst));
-        this.row4objLstInner = this._genRows(arrRows);
-      },
-
       _genTitles: function (arrTitles) {
         var oCheckTitle = [{
           label: "",
@@ -162,6 +160,10 @@
         var arrNewTitleV2 = arrNewTitleV1.concat(oOptionTitle);
 
         return arrNewTitleV2;
+      },
+      _genRows4Grid: function () {
+        var arrRows = JSON.parse(JSON.stringify(this.row4objLst));
+        this.row4objLstInner = this._genRows(arrRows);
       },
       _genRows: function (arrRows) {
         var oRes = this.rowOriginData.lstUIWFInsVo;
@@ -250,6 +252,13 @@
         }
         return targetCell;
       },
+      _onRowCheckOrUnCheck: function(oRow, isCheck){
+        var arrSelectRows = this.$refs.objLstGrid.getSelectRows4Checkbox();
+        this.callback4OnRowCheckOrUnCheck(arrSelectRows);
+      },
+      _onTitleCheckOrUncheck: function(isCheck){
+        this.callback4OnTitleCheckOrUncheck(isCheck);
+      },
 
       //#endregion
       //#region callback
@@ -272,10 +281,15 @@
       callback4OnIconClick4View: function (oRow) {
         this.$emit("onIconClick4View", oRow);
       },
+      callback4OnRowCheckOrUnCheck: function (arrRows) {
+        this.$emit("onRowCheckOrUnCheck", arrRows);
+      },
+      callback4OnTitleCheckOrUncheck: function (arrRows) {
+        this.$emit("onTitleCheckOrUncheck", arrRows);
+      },
 
       //#endregion
       //#region 3rd
-
       //#endregion
     },
     watch: {

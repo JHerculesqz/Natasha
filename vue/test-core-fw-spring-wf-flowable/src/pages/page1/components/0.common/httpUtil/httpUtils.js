@@ -61,6 +61,13 @@ var API = {
     desc:R,
     errorAdvice:errorAdvice
   },
+  getLogList4MopWF:{
+    url: "/wf/flowable/getLogList4MopWF",
+    loading:true,
+    checkRes:true,
+    desc:R,
+    errorAdvice:errorAdvice
+  },
 };
 
 export default {

@@ -7,6 +7,8 @@
                               :totalNum="totalNum"
                               :totalPage="totalPage"
                               :limit="limit"
+                              @onTitleCheckOrUncheck="_onTitleCheckOrUncheck"
+                              @onRowCheckOrUnCheck="_onRowCheckOrUnCheck"
                               @onClickToCreate="_onClickToCreate"
                               @onClickToBatchCreate="_onClickToBatchCreate"
                               @onPageChange="_onPageChange"
@@ -53,7 +55,7 @@
     data() {
       return {
         //#region const
-        debug: false,
+        debug: true,
         //#endregion
         //#region grid
         title4objLst: [{
@@ -76,7 +78,7 @@
           width: "20%"
         }],
         row4objLst: [],
-        rowOriginData: undefined,
+        rowOriginData: {},
         totalNum: 0,
         totalPage: 1,
         limit: 26,
@@ -204,7 +206,6 @@
 
           arrRows.push(oRow);
         }
-
         this.rowOriginData = oData;
         this.row4objLst = JSON.parse(JSON.stringify(arrRows));
         this.totalNum = oData.count;
@@ -279,6 +280,12 @@
         }
         return targetCell;
       },
+      _onRowCheckOrUnCheck: function (arrRows) {
+        console.log(arrRows);
+      },
+      _onTitleCheckOrUncheck: function (bIsCheck) {
+        console.log(bIsCheck);
+      }
 
       //#endregion
 

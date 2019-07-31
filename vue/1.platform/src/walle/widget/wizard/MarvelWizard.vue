@@ -31,7 +31,7 @@
         default: undefined,
         required: true,
       },
-      hasJudgeBeforeWizardSwitch:{
+      hasJudgeBeforeWizardSwitch: {
         type: Boolean,
         default: false,
         required: false,
@@ -43,15 +43,17 @@
       },
     },
     data: function () {
-      return {}
+      return {
+        currentItem: undefined
+      }
     },
     methods: {
       //#region inner
 
       onWizardClick: function (oItem) {
-        if(this.hasJudgeBeforeWizardSwitch){
+        if (this.hasJudgeBeforeWizardSwitch) {
           this.callback4OnWizardClick(oItem);
-        }else{
+        } else {
           this.setProgress(oItem.index);
           this.callback4OnWizardClick(oItem);
         }
@@ -61,7 +63,7 @@
       //#region callback
 
       callback4OnWizardClick: function (oItem) {
-        this.$emit("onWizardClick", oItem);
+        this.$emit("onWizardClick", oItem, this.currentItem);
       },
 
       //#endregion
@@ -70,6 +72,9 @@
       setProgress: function (iIndex) {
         for (var i = 0; i < this.items.length; i++) {
           var oItem = this.items[i];
+          if(oItem.index == iIndex){
+            this.currentItem = oItem;
+          }
           if (oItem.index > iIndex) {
             var strTmp = oItem.label;
             oItem.label = " ";
@@ -97,19 +102,22 @@
 <style scoped>
   /*region basic*/
 
-  *{
-    font-family: "Microsoft YaHei", "arial",sans-serif;
+  * {
+    font-family: "Microsoft YaHei", "arial", sans-serif;
   }
-  ::-webkit-scrollbar{
-    width:8px;
-    height:8px;
-    background-color: rgba(0,0,0,0);
+
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    background-color: rgba(0, 0, 0, 0);
   }
-  ::-webkit-scrollbar-track{
+
+  ::-webkit-scrollbar-track {
     border-radius: 10px;
-    background-color: rgba(0,0,0,0);
+    background-color: rgba(0, 0, 0, 0);
   }
-  ::-webkit-scrollbar-thumb{
+
+  ::-webkit-scrollbar-thumb {
     border-radius: 10px;
     background-color: #aaa;
   }

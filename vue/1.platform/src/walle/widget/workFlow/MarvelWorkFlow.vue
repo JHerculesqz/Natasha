@@ -50,15 +50,15 @@
     methods: {
       //#region inner
 
-      onWizardClick: function (oItem) {
-        this.callback4OnWizardClick(oItem);
+      onWizardClick: function (targetItem, sourceItem) {
+        this.callback4OnWizardClick(targetItem, sourceItem);
       },
 
       //#endregion
       //#region callback
 
-      callback4OnWizardClick: function (oItem) {
-        return this.$emit("onWizardClick", oItem);
+      callback4OnWizardClick: function (targetItem, sourceItem) {
+        return this.$emit("onWizardClick", targetItem, sourceItem);
       },
 
       //#endregion

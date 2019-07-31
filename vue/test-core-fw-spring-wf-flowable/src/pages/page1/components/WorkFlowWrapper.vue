@@ -114,9 +114,11 @@
         //get current step
 
       },
-      onWizardClick: function (oItem) {
+      onWizardClick: function (targetItem, sourceItem) {
         //if can switch
-        this.$refs.refWorkFlow.setProgress(oItem);
+        console.log(sourceItem);
+        console.log(targetItem);
+        this.$refs.refWorkFlow.setProgress(targetItem);
 
         //updateWorkflow
         var oRes = undefined;
@@ -125,7 +127,7 @@
           var reqBody = {
             reqBuVoStr: JSON.stringify({
               insId: storage["insId"],
-              taskId: oItem.id
+              taskId: targetItem.id
             })
           };
           if (this.debug) {

@@ -1,7 +1,7 @@
 <template>
   <div class="inputWrapper" v-bind:class="[status, size]">
     <div class="placeHolder" v-show="inputMsg === '' || inputMsg == undefined">{{placeHolder}}</div>
-    <input class="inputDefault" type="text"
+    <input class="inputDefault" :type="inputType"
            :title="placeHolder"
            :disabled="bDisabled"
            v-model="inputMsg"
@@ -23,6 +23,11 @@
   export default {
     name: 'MarvelInput',
     props: {
+      inputType: {
+        type: String,
+        default: "text",
+        required: false,
+      },
       status: {
         type: String,
         default: "",
@@ -116,19 +121,22 @@
 <style scoped>
   /*region basic*/
 
-  *{
-    font-family: "Microsoft YaHei", "arial",sans-serif;
+  * {
+    font-family: "Microsoft YaHei", "arial", sans-serif;
   }
-  ::-webkit-scrollbar{
-    width:8px;
-    height:8px;
-    background-color: rgba(0,0,0,0);
+
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    background-color: rgba(0, 0, 0, 0);
   }
-  ::-webkit-scrollbar-track{
+
+  ::-webkit-scrollbar-track {
     border-radius: 10px;
-    background-color: rgba(0,0,0,0);
+    background-color: rgba(0, 0, 0, 0);
   }
-  ::-webkit-scrollbar-thumb{
+
+  ::-webkit-scrollbar-thumb {
     border-radius: 10px;
     background-color: #aaa;
   }

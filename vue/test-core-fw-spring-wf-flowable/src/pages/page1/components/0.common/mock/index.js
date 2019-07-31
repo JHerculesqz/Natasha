@@ -107,31 +107,61 @@ export default {
     } else if (strComponentName == "RenovationMOP") {
       return {
         "resultObj": [{
-          "id": "aaaaa",
-          "parentId": null,
-          "wfInsId": "aaaaa",
+          "id": "be0e27cb-b1e0-11e9-a6ea-000ec6c62bf6",
+          "wfInsId": "be0b4194-b1e0-11e9-a6ea-000ec6c62bf6",
           "name": "STEP1.起床",
-          "startTime": "2019-07-207 04:00:32",
-          "endTime": ""
-        },{
-          "id": "bbbbb",
-          "parentId": null,
-          "wfInsId": "bbbbb",
-          "name": "STEP2.吃早饭",
-          "startTime": "2019-07-207 04:00:32",
-          "endTime": ""
-        },{
-          "id": "ccccc",
-          "parentId": "bbbbb",
-          "wfInsId": "ccccc",
-          "name": "STEP2.1.喝水",
-          "startTime": "2019-07-207 04:00:32",
-          "endTime": ""
+          "startTime": "2019-07-210 05:10:43",
+          "endTime": "2019-07-210 05:11:05",
+          "children": [{
+            "id": "be0e27cb-b1e0-11e9-a6ea-000ec6c62bf6aaa",
+            "wfInsId": "be0b4194-b1e0-11e9-a6ea-000ec6c62bf6aaa",
+            "name": "STEP1.1 起床",
+            "startTime": "2019-07-210 05:10:43",
+            "endTime": "2019-07-210 05:11:05",
+            "children": [{
+              "id": "be0e27cb-b1e0-11e9-a6ea-000ec6c62bf6aaabbb",
+              "wfInsId": "be0b4194-b1e0-11e9-a6ea-000ec6c62bf6aaabbb",
+              "name": "STEP1.1.1 起床",
+              "startTime": "2019-07-210 05:10:43",
+              "endTime": "2019-07-210 05:11:05",
+              "children": []
+            }]
+          }]
+        }, {
+          "id": "cb5f1f1e-b1e0-11e9-a6ea-000ec6c62bf6",
+          "wfInsId": "be0b4194-b1e0-11e9-a6ea-000ec6c62bf6",
+          "name": "STEP2.吃饭",
+          "startTime": "2019-07-210 05:11:05",
+          "endTime": "2019-07-210 05:21:34",
+          "children": []
+        }, {
+          "id": "427cc8e1-b1e2-11e9-a6ea-000ec6c62bf6",
+          "wfInsId": "be0b4194-b1e0-11e9-a6ea-000ec6c62bf6",
+          "name": "STEP3.出发",
+          "startTime": "2019-07-210 05:21:34",
+          "endTime": "",
+          "children": []
         }],
         "errorObj": null,
         "ok": true
       }
     }
 
+  },
+  mock4GetLog: function () {
+    return {
+      "resultObj": {
+        "count": 1,
+        "lstWFLogVo4Chg": [{
+          "id": "ab302dcd-82ac-42b3-a247-1bc44236bdb8",
+          "insId": "04fbe84d-b1dc-11e9-af47-000ec6c62bf6",
+          "taskId": "",
+          "userId": "",
+          "level": 1,
+          "content": "【创建工作流】业务数据保存成功..",
+          "createTime": "2019-07-29 08:36:54"
+        }]
+      }, "errorObj": null, "ok": true
+    }
   }
 }

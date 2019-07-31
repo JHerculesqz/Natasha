@@ -10,19 +10,30 @@
                         @onIconClick="_onIconClick"></marvel-grid-tree>
     </div>
     <div class="mopRight">
-      <marvel-log-view :arrLogs="arrLogs"
-                       @onChange4Notice="_callback4OnChange4Notice"
-                       @onChange4Warning="_callback4OnChange4Warning"
-                       @onChange4Error="_callback4OnChange4Error"
-                       @onExport="_callback4OnExport"></marvel-log-view>
+      <marvel-tab ref="tab4LogView" :tabItems="tabItemsInner" :hide-border="true">
+        <marvel-tab-item v-for="tabItem in tabItemsInner" :key="tabItem.id" :isActive="tabItem.isActive">
+          <div v-if="tabItem.isDefault" class="tabCont logTabCont">
+            <marvel-log-view :ref="logRef"
+                             :logItems="logs"
+                             :filterOptions="logFilterOptions"
+                             @onBtnClick="_callback4OnFilterBtnClick"
+                             @onCheckBoxChange="_callback4OnFilterCheckBoxChange"></marvel-log-view>
+          </div>
+          <div v-else class="tabCont">
+            <slot :name="tabItem.slotId"></slot>
+          </div>
+        </marvel-tab-item>
+      </marvel-tab>
     </div>
   </div>
 </template>
 
 <script>
-  import MarvelWizard from "../wizard/MarvelWizard";
   import MarvelGridTree from "../grid/MarvelGridTree";
-  import MarvelLogView from "../logView/MarvelLogView";
+  import MarvelLogView from "../log/MarvelLogView";
+  import MarvelTab from "../tab/MarvelTab";
+  import MarvelTabItem from "../tab/MarvelTabItem";
+  import StrUtils from "../../component/str";
 
   /**
    *  MarvelWorkFlowMop widget description
@@ -34,7 +45,9 @@
     components: {
       MarvelLogView,
       MarvelGridTree,
-      MarvelWizard
+      MarvelTab,
+      MarvelTabItem,
+      StrUtils,
     },
     props: {
       title4MopLst: {
@@ -47,20 +60,40 @@
         default: undefined,
         required: true,
       },
-      rowOriginData: {
+      customMopOptionIcons: {
+        type: Array,
         default: undefined,
-        required: true,
+        required: false,
       },
-      arrLogs: {
+      logs: {
         type: Array,
         default: undefined,
         required: true,
+      },
+      logFilterOptions: {
+        type: Array,
+        default: undefined,
+        required: true,
+      },
+      customTabs:{
+        type: Array,
+        default: function () {
+          return [];
+        },
+        required: false,
       }
     },
     data: function () {
       return {
+        logRef: undefined,
+        tabItemsInner: [{
+          id: StrUtils.uuid(),
+          label: "Process Output",
+          isActive: true,
+          logInfo: undefined,
+          isDefault: true
+        }],
         title4MopLstInner: [],
-        row4MopLstInner: [],
         treeNode4MopLstInner: [],
       }
     },
@@ -77,21 +110,31 @@
       //#region lifeCycle
 
       _initEx: function () {
+        this.logRef = StrUtils.uuid();
+        this._genTabs();
         this._genTitles4Grid();
         this._genRows4Grid();
       },
 
       //#endregion
 
+      //#region gen data
+
+      _genTabs: function(){
+        for(var i = 0; i< this.customTabs.length; i++){
+          var oCustomTab = this.customTabs[i];
+          this.tabItemsInner.push({
+            id: StrUtils.uuid(),
+            label: oCustomTab.label,
+            slotId: oCustomTab.slotId,
+            isDefault: false
+          });
+        }
+      },
       _genTitles4Grid: function () {
         var arrTitles = JSON.parse(JSON.stringify(this.title4MopLst));
         this.title4MopLstInner = this._genTitles(arrTitles);
       },
-      _genRows4Grid: function () {
-        var arrRows = JSON.parse(JSON.stringify(this.row4MopLst));
-        this.row4MopLstInner = this._genRows(arrRows);
-      },
-
       _genTitles: function (arrTitles) {
         var oLeftBasicTitle = [{
           key: "id",
@@ -120,20 +163,8 @@
           type: "text",
           visible: true,
         }, {
-          key: "skip",
-          label: "Skip",
-          width: "100px",
-          type: "icon",
-          visible: true,
-        }, {
-          key: "pause",
-          label: "Pause",
-          width: "100px",
-          type: "icon",
-          visible: true,
-        }, {
-          key: "viewdetails",
-          label: "View Details",
+          key: "operation",
+          label: "Operation",
           width: "100px",
           type: "icon",
           visible: true,
@@ -143,125 +174,91 @@
 
         return arrNewTitleV2;
       },
-      _genRows: function (arrRows) {
-        var oRes = this.rowOriginData;
-        var arrMopRows = [];
+      _genRows4Grid: function () {
+        var arrRows = JSON.parse(JSON.stringify(this.row4MopLst));
+        this._genRows(arrRows, 1);
+        this.treeNode4MopLstInner = JSON.parse(JSON.stringify(arrRows));
+      },
+      _genRows: function (arrRows, iNodeLevel) {
         for (var i = 0; i < arrRows.length; i++) {
-          var oData = oRes[i];
-          var oMopRowsCell = {
-            id: oData.id,
-            parentId: oData.parentId,
-            name: oData.name,
-            startTime: oData.startTime,
-            endTime: oData.endTime,
-            skip: [{
-              title: "跳过",
-              value: "icon-forward2"
-            }],
-            pause: [{
-              title: "暂停",
-              value: "icon-pause"
-            }],
-            viewdetails: [{
-              title: "查看详情",
-              value: "icon-file-text2"
-            }],
-            children: [],
-            nodeLevel: 0,
-            hasCheckbox: false,
-            hasRadiobox: false,
-            isInitCheck: false,
-            isInitExpand: true,
-            isLeafNode: this._isLeafNode(arrRows, oData),
-          };
-          Object.assign(oMopRowsCell, arrRows[i]);
-          arrMopRows.push(oMopRowsCell);
-        }
-
-        this.row4MopLstInner = arrMopRows;
-        this.treeNode4MopLstInner = this._genTreeNode(this.row4MopLstInner);
-      },
-      _isLeafNode: function (arrNodes, oNode) {
-        var bIsLeafNode = true;
-        for (var i = 0; i < arrNodes.length; i++) {
-          if (arrNodes[i].parentId == oNode.id) {
-            bIsLeafNode = false;
-            break;
-          }
-        }
-
-        if (oNode.parentId != null && bIsLeafNode) {
-          return true;
-        } else {
-          return false;
-        }
-      },
-      _genTreeNode: function (arrRows) {
-        var arrRows4Tree = JSON.parse(JSON.stringify(arrRows));
-        var isNotAllRoot = false;
-        for(;isNotAllRoot;){
-          isNotAllRoot = true;
-          for(var i = 0; i< arrRows4Tree.length; i++){
-            var oRow = arrRows4Tree[i];
-            if (oRow.parentId != null) {
-              isNotAllRoot = false;
-              this._addNodeToParent(arrRows4Tree, oRow);
-              arrRows4Tree.splice(i,1);
-              break;
+          //基础操作按钮
+          var oOperations = [{
+            title: "跳过",
+            value: "icon-forward2",
+            color: "#3399ff"
+          },{
+            title: "暂停",
+            value: "icon-pause",
+            color: "#3399ff"
+          },{
+            title: "查看详情",
+            value: "icon-file-text2",
+            color: "#3399ff"
+          }];
+          //添加自定义按钮
+          if(this.customMopOptionIcons!=undefined && this.customMopOptionIcons.length>0){
+            for(var j = 0; j<this.customMopOptionIcons.length; j++){
+              oOperations.push(this.customMopOptionIcons[j])
             }
           }
+          //数据组装
+          arrRows[i].operation = JSON.parse(JSON.stringify(oOperations));
+          arrRows[i].nodeLevel = iNodeLevel;
+          arrRows[i].hasCheckbox = false;
+          arrRows[i].hasRadiobox = false;
+          arrRows[i].isInitCheck = false;
+          arrRows[i].isInitExpand = true;
+          arrRows[i].isLeafNode = arrRows[i].children.length==0 && iNodeLevel!=1;
+          if(arrRows[i].children.length > 0){
+            this._genRows(arrRows[i].children, iNodeLevel + 1);
+          }
         }
+      },
 
-        return arrRows4Tree;
-      },
-      _addNodeToParent:function(arrRows4Tree, oRow){
-        for(var i = 0; i< arrRows4Tree.length; i++){
-          var oCurrentRow = arrRows4Tree[i];
-          if(oCurrentRow.id == oRow.parentId){
-            oCurrentRow.children.push(oRow);
-            break;
-          }else if(oCurrentRow.children.length>0){
-            this._addNodeToParent(oCurrentRow.children, oRow);
-          }
+      //#endregion
+
+      //#region mop action
+
+      _onIconClick: function (oRow, oCell) {
+        if (oCell.value == "icon-forward2") {
+          //skip
+          this._callback4OnIconClick4Skip(oRow, oCell);
+        } else if (oCell.value == "icon-pause") {
+          //pause
+          this._callback4OnIconClick4Pause(oRow, oCell);
+        } else if (oCell.value == "icon-file-text2") {
+          //anchorLogTo
+          //mop一行的id 与 log的taskId相对应
+          var logId = oRow.id;
+          this.$refs[this.logRef][0].anchorTo(logId);
+        }else{
+          this._callback4OnIconClick4Custom(oRow, oCell);
         }
       },
-      _onIconClick: function (oRow, oCell, oIcon) {
-        //todo
-      },
-      _getRowCellByKey: function (oRow, strKey) {
-        var targetCell = undefined;
-        for (var i = 0; i < oRow.length; i++) {
-          var oCell = oRow[i];
-          if (strKey == oCell.key) {
-            targetCell = oCell;
-            break;
-          } else {
-            continue;
-          }
-        }
-        return targetCell;
-      },
+
+      //#endregion
 
       //#endregion
       //#region callback
 
-      _callback4OnChange4Notice: function (bIsChecked) {
-        this.$emit("onChange4Notice", bIsChecked)
+      _callback4OnFilterBtnClick: function (oCheckParams, oItem) {
+        this.$emit("onFilterBtnClick", oCheckParams, oItem)
       },
-      _callback4OnChange4Warning: function (bIsChecked) {
-        this.$emit("onChange4Warning", bIsChecked)
+      _callback4OnFilterCheckBoxChange: function (oCheckParams) {
+        this.$emit("onFilterCheckBoxChange", oCheckParams)
       },
-      _callback4OnChange4Error: function (bIsChecked) {
-        this.$emit("onChange4Error", bIsChecked)
+      _callback4OnIconClick4Skip: function (oRow, oCell) {
+        this.$emit("onIconClickInMop4Skip", oRow, oCell)
       },
-      _callback4OnExport: function (oParams) {
-        this.$emit("onExport", oParams)
+      _callback4OnIconClick4Pause: function (oRow, oCell) {
+        this.$emit("onIconClickInMop4Pause", oRow, oCell)
+      },
+      _callback4OnIconClick4Custom: function (oRow, oCell) {
+        this.$emit("onIconClickInMop4Custom", oRow, oCell)
       },
 
       //#endregion
       //#region 3rd
-
-
       //#endregion
     },
     watch: {
@@ -306,22 +303,33 @@
 
   /*endregion*/
 
-  .workFlowMopWrapper{
+  .workFlowMopWrapper {
     width: 100%;
     height: 100%;
   }
 
-  .mopLeft{
+  .mopLeft {
     width: 1200px;
     float: left;
     height: 100%;
   }
 
-  .mopRight{
+  .mopRight {
     width: calc(100% - 1220px);
     float: left;
     height: 100%;
     margin-left: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+  }
+
+  .tabCont {
+    width: 100%;
+    height: 100%;
+  }
+
+  .logTabCont {
+    background-color: #f0f0f0;
   }
 
 </style>
