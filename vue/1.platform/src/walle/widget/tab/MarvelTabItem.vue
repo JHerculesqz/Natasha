@@ -92,6 +92,8 @@
     opacity: 0;
     position: absolute;
     z-index: -1;
+    top: 0;
+    left: 0;
   }
 
   .theme1 .headArea .headItem {

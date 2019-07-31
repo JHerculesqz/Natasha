@@ -230,6 +230,7 @@
     height: calc(100% - 30px);
     clear: both;
     background-color: #ffffff;
+    position: relative;
   }
 
   .tabWrapper .contArea .cont {
