@@ -172,12 +172,12 @@
   }
 
   .defaultBtn {
-    border: 1px solid #ccc;
+    border: 1px solid #3399ff;
     color: #333;
   }
 
   .defaultBtn:hover {
-    border: 1px solid #60b0ff;
+    color: #3399ff;
   }
 
   .defaultBtnMouseDown {
