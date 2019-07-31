@@ -12,7 +12,7 @@
   },
   "recurseDepth": 10,
   "source": {
-    "include": ["src/pages"],
+    "include": ["../1.platform/src/walle/widget"],
     "includePattern": ".+\\.(js|vue)$",
     "excludePattern": "(^|\\/|\\\\)_"
   },

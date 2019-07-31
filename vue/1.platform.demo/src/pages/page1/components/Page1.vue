@@ -21,6 +21,7 @@
   //#region fui
   import MarvelAccordion from "~~/widget/accordion/MarvelAccordion";
   //#endregion
+  import Page4MarvelFrame from './demo4widgets/2.basic/Page4MarvelFrame'
   import Page4Date from './demo4widgets/2.widget/Page4Date'
   import Page4LogView from './demo4widgets/3.log/Page4LogView'
 
@@ -29,6 +30,7 @@
       MarvelAccordion,
       Page4Date,
       Page4LogView,
+      Page4MarvelFrame,
     },
     name: 'page1',
     data: function () {
@@ -75,7 +77,7 @@
             id: "",
             label: "图标"
           }, {
-            id: "",
+            id: "Page4MarvelFrame",
             label: "布局1"
           }, {
             id: "",
