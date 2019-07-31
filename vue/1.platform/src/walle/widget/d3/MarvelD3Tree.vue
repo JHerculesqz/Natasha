@@ -3,7 +3,7 @@
 </template>
 
 <script>
-  import "natasha-d3js/d3.v3.min"
+  import "d3"
 
   /**
    *  MarvelD3Tree widget description
@@ -400,6 +400,47 @@
     }
   }
 </script>
+
+<style>
+  .node {
+    cursor: pointer;
+  }
+
+  .overlay{
+    background-color:#EEE;
+  }
+
+  .node circle {
+    fill: #fff;
+    stroke: steelblue;
+    stroke-width: 1.5px;
+  }
+
+  .node text {
+    font-size:10px;
+    font-family:sans-serif;
+  }
+
+  .link {
+    fill: none;
+    stroke: #ccc;
+    stroke-width: 1.5px;
+  }
+
+  .templink {
+    fill: none;
+    stroke: red;
+    stroke-width: 3px;
+  }
+
+  .ghostCircle.show{
+    display:block;
+  }
+
+  .ghostCircle, .activeDrag .ghostCircle{
+    display: none;
+  }
+</style>
 
 <style scoped>
   /*region basic*/

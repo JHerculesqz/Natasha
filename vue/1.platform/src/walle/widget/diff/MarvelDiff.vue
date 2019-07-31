@@ -3,10 +3,7 @@
 </template>
 
 <script>
-  import "natasha-diff/diffview.css";
-
-  require('natasha-diff/diffview.js');
-  require('natasha-diff/difflib.js');
+  import "jsdifflib/index.css";
 
   /**
    *  MarvelDiff widget description
@@ -29,13 +26,12 @@
       //#region 3rd
 
       compareDiff: function (strOriginalText, strNewText, strLeftTitle, strRightTitle) {
-        var difflib = new $.difflib();
-        var diffview = new $.diffview();
+        var difflib = require('jsdifflib');
         let base = difflib.stringAsLines(strOriginalText),
           newtxt = difflib.stringAsLines(strNewText),
           sm = new difflib.SequenceMatcher(base, newtxt),
           opcodes = sm.get_opcodes();
-        const outData = diffview.buildView({
+        const outData = difflib.buildView({
           baseTextLines: base,
           newTextLines: newtxt,
           opcodes: opcodes,
