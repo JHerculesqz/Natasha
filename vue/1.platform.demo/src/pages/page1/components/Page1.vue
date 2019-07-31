@@ -22,18 +22,12 @@
   import MarvelAccordion from "~~/widget/accordion/MarvelAccordion";
   //#endregion
   import Page4Date from './demo4widgets/2.widget/Page4Date'
-  import page4WorkFlowUI from './demo4widgets/3.workflow/page4WorkFlowUI'
-  import page4WorkFlowMOP from './demo4widgets/3.workflow/page4WorkFlowMop'
-  import Page4WorkFlowObjLst from './demo4widgets/3.workflow/Page4WorkFlowObjLst'
-  import Page4LogView from './demo4widgets/3.workflow/Page4LogView'
+  import Page4LogView from './demo4widgets/3.log/Page4LogView'
 
   export default {
     components: {
       MarvelAccordion,
       Page4Date,
-      page4WorkFlowUI,
-      page4WorkFlowMOP,
-      Page4WorkFlowObjLst,
       Page4LogView,
     },
     name: 'page1',
@@ -264,19 +258,10 @@
             label: "DevPanel"
           }]
         },{
-          label: "控件(工作流)",
+          label: "日志",
           icon: "icon-pacman",
           expand: false,
           subItems: [{
-            id: "page4WorkFlowUI",
-            label: "workFlow-UI"
-          },{
-            id: "page4WorkFlowMOP",
-            label: "workFlow-MOP"
-          },{
-            id: "Page4WorkFlowObjLst",
-            label: "workFlow-实例列表"
-          },{
             id: "Page4LogView",
             label: "日志"
           }]
