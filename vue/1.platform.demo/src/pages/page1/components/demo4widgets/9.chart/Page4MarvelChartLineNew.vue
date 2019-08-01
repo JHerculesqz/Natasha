@@ -1,7 +1,7 @@
 <template>
   <div class="widgetShowSession">
     <!--1级 start-->
-    <div class="title level1">MarvelFrame</div>
+    <div class="title level1">MarvelChartLineNew</div>
     <div class="describe">
       界面框架
     </div>
@@ -35,7 +35,7 @@
     <!--endregion-->
     <!--region doc area-->
     <div class="docArea">
-      <marvel-i-frame ref="IFrame" id="IFrame" src="static/jsdoc/module-MarvelFrame.html"></marvel-i-frame>
+      <marvel-i-frame ref="IFrame" id="IFrame" src="static/jsdoc/module-MarvelChartLineNew.html"></marvel-i-frame>
     </div>
     <!--endregion-->
   </div>
@@ -49,7 +49,7 @@
   import MarvelChartLineNew from "~~/widget/echart/MarvelChartLineNew";
 
   export default {
-    name: 'page4MarvelFrame',
+    name: 'page4MarvelChartLineNew',
     components: {
       MarvelChartLineNew,
       MarvelIFrame,

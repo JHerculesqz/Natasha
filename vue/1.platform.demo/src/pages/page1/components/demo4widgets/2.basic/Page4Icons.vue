@@ -9847,7 +9847,7 @@
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
 
   export default {
-    name: 'page4MarvelFrame',
+    name: 'page4Icons',
     components: {
       MarvelIFrame,
       MarvelAceEditor,

@@ -1,7 +1,7 @@
 <template>
   <div class="widgetShowSession">
     <!--1级 start-->
-    <div class="title level1">MarvelFrame</div>
+    <div class="title level1">MarvelChartPie2</div>
     <div class="describe">
       界面框架
     </div>
@@ -33,7 +33,7 @@
     <!--endregion-->
     <!--region doc area-->
     <div class="docArea">
-      <marvel-i-frame ref="IFrame" id="IFrame" src="static/jsdoc/module-MarvelFrame.html"></marvel-i-frame>
+      <marvel-i-frame ref="IFrame" id="IFrame" src="static/jsdoc/module-MarvelChartPie2.html"></marvel-i-frame>
     </div>
     <!--endregion-->
   </div>
@@ -47,7 +47,7 @@
   import MarvelChartPie2 from "~~/widget/echart/MarvelChartPie2";
 
   export default {
-    name: 'page4MarvelFrame',
+    name: 'page4MarvelChartPie2',
     components: {
       MarvelChartPie2,
       MarvelIFrame,
