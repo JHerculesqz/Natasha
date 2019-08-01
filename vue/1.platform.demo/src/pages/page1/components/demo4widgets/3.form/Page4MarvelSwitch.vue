@@ -41,7 +41,7 @@
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
-  import MarvelIFrame from "~~/widget/iframe/MarvelIFrame";
+  import MarvelIFrame from "../../../../../components/MarvelIFrame";
 
   export default {
     name: 'page4MarvelFrame',

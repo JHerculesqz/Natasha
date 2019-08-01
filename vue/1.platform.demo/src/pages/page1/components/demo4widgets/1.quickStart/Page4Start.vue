@@ -1,9 +1,9 @@
 <template>
   <div class="widgetShowSession">
     <!--1级 start-->
-    <div class="title level1">MarvelFrame</div>
+    <div class="title level1">控件使用入门</div>
     <div class="describe">
-      界面框架
+      控件使用入门
     </div>
     <!--1级 end-->
     <!--region widget show area-->
@@ -41,7 +41,8 @@
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
-  import MarvelIFrame from "~~/widget/iframe/MarvelIFrame";
+  import MarvelIFrame from "../../../../../components/MarvelIFrame";
+
 
   export default {
     name: 'page4MarvelFrame',

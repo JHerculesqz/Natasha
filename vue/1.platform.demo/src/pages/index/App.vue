@@ -49,7 +49,7 @@
     data: function () {
       return {
         //#region logo
-        logo: "Fuck UI 2.0",
+        logo: "Fuck UI 3.0",
         //#endregion
       }
     },

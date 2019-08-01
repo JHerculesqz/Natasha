@@ -278,7 +278,7 @@
         accordionItems: [{
           label: "开发指南",
           icon: "icon-paint-format",
-          expand: false,
+          expand: true,
           subItems: [{
             id: "Page4Install",
             label: "安装"
@@ -312,7 +312,7 @@
         }, {
           label: "控件(表单)",
           icon: "icon-pacman",
-          expand: true,
+          expand: false,
           subItems: [{id: "Page4MarvelBidirectionalSelect", label: "Page4MarvelBidirectionalSelect"},
             {id: "Page4MarvelButton", label: "Page4MarvelButton"},
             {id: "Page4MarvelCheckBox", label: "Page4MarvelCheckBox"},

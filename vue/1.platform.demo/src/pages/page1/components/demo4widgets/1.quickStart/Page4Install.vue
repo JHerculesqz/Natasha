@@ -1,39 +1,18 @@
 <template>
   <div class="widgetShowSession">
     <!--1级 start-->
-    <div class="title level1">MarvelFrame</div>
+    <div class="title level1">Install</div>
     <div class="describe">
-      界面框架
+      安装
     </div>
     <!--1级 end-->
     <!--region widget show area-->
     <!--2级 start-->
 
-    <div class="showArea">
-      <marvel-tab :tabItems="tabItems1">
-        <marvel-tab-item :isActive="tabItems1[0].isActive">
-          <div class="showAreaInner">
-            <!--2级DemoView start-->
-
-            <!--2级DemoView end-->
-          </div>
-        </marvel-tab-item>
-        <marvel-tab-item :isActive="tabItems1[1].isActive">
-          <div class="codeArea">
-            <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-
-            '></marvel-ace-editor>
-          </div>
-        </marvel-tab-item>
-      </marvel-tab>
+    <div class="title" style="font-size: 20px; font-weight: bolder">安装</div>
+    <div class="describe" style="font-size: 16px; font-weight: bolder;color: #808080">
+      npm i natasha-vue --save
     </div>
-    <!--2级 end-->
-    <!--endregion-->
-    <!--region doc area-->
-    <div class="docArea">
-      <marvel-i-frame ref="IFrame" id="IFrame" src="static/jsdoc/module-MarvelFrame.html"></marvel-i-frame>
-    </div>
-    <!--endregion-->
   </div>
 </template>
 
@@ -41,7 +20,7 @@
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
-  import MarvelIFrame from "~~/widget/iframe/MarvelIFrame";
+  import MarvelIFrame from "../../../../../components/MarvelIFrame";
 
   export default {
     name: 'page4MarvelFrame',
@@ -129,11 +108,11 @@
     box-sizing: border-box;
   }
 
-  .docArea{
+  .docArea {
     width: 100%;
   }
 
-  .docArea iframe{
+  .docArea iframe {
     width: 100%;
     height: 100%;
     border: none;
