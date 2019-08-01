@@ -14,7 +14,9 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <div style="width:1200px; height:350px">
+              <marvel-chart-pie2 ref="ref4Pie2" id="ref4Pie2" width="330" height="260"></marvel-chart-pie2>
+            </div>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -42,10 +44,12 @@
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
+  import MarvelChartPie2 from "~~/widget/echart/MarvelChartPie2";
 
   export default {
     name: 'page4MarvelFrame',
     components: {
+      MarvelChartPie2,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -81,6 +85,26 @@
 
       _initEx: function () {
         this.$refs.IFrame.setIframe4DemoPage();
+
+        var oData = {
+          radius:["35%", "45%"],
+          tip: "tip",
+          color:['#66d3bb', '#0CAEFF'],
+          totalNum:50,
+          data:[{
+            value:7,
+            name:"high"
+          },{
+            value:20,
+            name:"middle"
+          },{
+            value:10,
+            name:"low"
+          },{
+            value:13,
+            name:"no data"
+          }]
+        };
       },
 
       //#endregion

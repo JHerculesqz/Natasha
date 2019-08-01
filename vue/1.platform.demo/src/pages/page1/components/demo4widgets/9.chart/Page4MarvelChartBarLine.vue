@@ -14,14 +14,22 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <div style="width: 1200px; height: 350px">
+              <marvel-chart-bar-line ref="ref4FirstHistogram"
+                                     id="isFirstHistogram"
+                                     v-on:onItemClick="onItemClick"></marvel-chart-bar-line>
+            </div>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
         <marvel-tab-item :isActive="tabItems1[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-
+            <div style="width: 1200px; height: 350px">
+              <marvel-chart-bar-line ref="ref4FirstHistogram"
+                                     id="isFirstHistogram"
+                                     v-on:onItemClick="onItemClick"></marvel-chart-bar-line>
+            </div>
             '></marvel-ace-editor>
           </div>
         </marvel-tab-item>
@@ -42,10 +50,12 @@
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
+  import MarvelChartBarLine from "~~/widget/echart/MarvelChartBarLine";
 
   export default {
     name: 'page4MarvelFrame',
     components: {
+      MarvelChartBarLine,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -81,9 +91,60 @@
 
       _initEx: function () {
         this.$refs.IFrame.setIframe4DemoPage();
+
+        var oData = {
+          colors: ['#66d3bb', '#0CAEFF'],
+          yAxis: [{
+            title: "业务量",
+            isShow: true,
+          }],
+          canSelect:false,
+          customerTip:true,
+          tip:"aaa",
+          isSlide:true,
+          sliderConfig:{
+            sliderConfig:35,
+            end:35,
+            bottom:0
+          },
+          xAxisName:"业务速率",
+          category:["aaa", "bbb", "ccc"],
+          xAxisValue:["x1x1x1x1", "x2x2x2x2x2", "x3x3x3x3x3"],
+          axisLabel:{
+            interval:0,
+            formatter: function (value) {
+              //横坐标文字拼接处理
+              return value
+            }
+          },
+          series:[{
+            name:"aaa",
+            type:"bar",
+            stack: "firstHistogram",
+            barWidth:20,
+            data:[10,20,30]
+          },{
+            name:"bbb",
+            type:"bar",
+            stack: "firstHistogram",
+            barWidth:20,
+            data:[20,30,40]
+          },{
+            name:"ccc",
+            type:"bar",
+            stack: "firstHistogram",
+            barWidth:20,
+            data:[30,40,50]
+          }]
+        };
+        this.$refs.ref4FirstHistogram.setData(oData);
       },
 
       //#endregion
+
+      onItemClick: function (params) {
+        console.log(params);
+      }
 
       //#endregion
       //#region callback
@@ -125,15 +186,14 @@
   }
 
   .showAreaInner {
-    padding-top: 36px;
     box-sizing: border-box;
   }
 
-  .docArea{
+  .docArea {
     width: 100%;
   }
 
-  .docArea iframe{
+  .docArea iframe {
     width: 100%;
     height: 100%;
     border: none;
@@ -142,7 +202,7 @@
   /*document fix  style end*/
   /*document custom style start*/
   .showArea {
-    height: 400px;
+    height: 450px;
   }
 
   /*document custom style end*/

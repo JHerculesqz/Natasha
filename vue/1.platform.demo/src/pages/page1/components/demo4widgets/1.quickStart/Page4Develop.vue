@@ -1,39 +1,16 @@
 <template>
   <div class="widgetShowSession">
     <!--1级 start-->
-    <div class="title level1">MarvelFrame</div>
+    <div class="title level1">控件使用入门</div>
     <div class="describe">
-      界面框架
+      控件使用入门
     </div>
     <!--1级 end-->
-    <!--region widget show area-->
-    <!--2级 start-->
 
-    <div class="showArea">
-      <marvel-tab :tabItems="tabItems1">
-        <marvel-tab-item :isActive="tabItems1[0].isActive">
-          <div class="showAreaInner">
-            <!--2级DemoView start-->
-
-            <!--2级DemoView end-->
-          </div>
-        </marvel-tab-item>
-        <marvel-tab-item :isActive="tabItems1[1].isActive">
-          <div class="codeArea">
-            <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-
-            '></marvel-ace-editor>
-          </div>
-        </marvel-tab-item>
-      </marvel-tab>
+    <div class="title level2">
+      在对应的文件下新建vue文件，文件内容按照以下格式进行编写
+      控件开发完成后需要提供对应的demo页面进行控件效果展示，同时也是为了方便进行自测试，以及提供使用样式供使用者进行参考
     </div>
-    <!--2级 end-->
-    <!--endregion-->
-    <!--region doc area-->
-    <div class="docArea">
-      <marvel-i-frame ref="IFrame" id="IFrame" src="static/jsdoc/module-MarvelFrame.html"></marvel-i-frame>
-    </div>
-    <!--endregion-->
   </div>
 </template>
 
@@ -43,8 +20,9 @@
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
 
+
   export default {
-    name: 'page4MarvelFrame',
+    name: 'page4Page4Develop',
     components: {
       MarvelIFrame,
       MarvelAceEditor,
@@ -80,7 +58,6 @@
       //#region lifeCycle
 
       _initEx: function () {
-        this.$refs.IFrame.setIframe4DemoPage();
       },
 
       //#endregion

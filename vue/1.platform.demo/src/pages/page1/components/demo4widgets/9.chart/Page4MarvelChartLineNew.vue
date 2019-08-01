@@ -14,14 +14,18 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <div style="width:1200px; height:350px">
+              <marvel-chart-line-new ref="ref4ChartLineNew" id="ref4ChartLineNew"></marvel-chart-line-new>
+            </div>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
         <marvel-tab-item :isActive="tabItems1[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-
+            <div class="width:1200px; height:350px">
+              <marvel-chart-line-new ref="ref4ChartLineNew" id="ref4ChartLineNew"></marvel-chart-line-new>
+            </div>
             '></marvel-ace-editor>
           </div>
         </marvel-tab-item>
@@ -42,10 +46,12 @@
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
+  import MarvelChartLineNew from "~~/widget/echart/MarvelChartLineNew";
 
   export default {
     name: 'page4MarvelFrame',
     components: {
+      MarvelChartLineNew,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -81,6 +87,31 @@
 
       _initEx: function () {
         this.$refs.IFrame.setIframe4DemoPage();
+
+        var oData = {
+          yName:"yName",
+          isSlide: false,
+          title:"title",
+          xAxisName:"xAxisName",
+          colors:['#66d3bb', '#0CAEFF'],
+          category:["category1", "category2"],
+          xAxisValue:['x1','x2', 'x3', 'x4'],
+          series:[{
+            name:"series1",
+            type:"line",
+            symbol:"circle",//circle, rect , roundRect, triangle, diamond, pin, arrow, none
+            symbolSize:15,
+            data:[1,2,3,4]
+          },{
+            name:"series2",
+            type:"line",
+            symbol:"rect",//circle, rect , roundRect, triangle, diamond, pin, arrow, none
+            symbolSize:15,
+            data:[7,2,8,6]
+          }]
+        };
+
+        this.$refs.ref4ChartLineNew.setData(oData);
       },
 
       //#endregion

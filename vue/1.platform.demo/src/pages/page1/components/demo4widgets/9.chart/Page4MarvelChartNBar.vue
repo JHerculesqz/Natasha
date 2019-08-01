@@ -14,14 +14,18 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <div style="width:1200px; height:350px">
+              <marvel-chart-n-bar ref="ref4ChartNBar" id="ref4ChartNBar" width="330" height="260"></marvel-chart-n-bar>
+            </div>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
         <marvel-tab-item :isActive="tabItems1[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-
+            <div style="width:1200px; height:350px">
+              <marvel-chart-n-bar ref="ref4ChartNBar" id="ref4ChartNBar" width="330" height="260"></marvel-chart-n-bar>
+            </div>
             '></marvel-ace-editor>
           </div>
         </marvel-tab-item>
@@ -42,10 +46,12 @@
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
+  import MarvelChartNBar from "~~/widget/echart/MarvelChartNBar";
 
   export default {
     name: 'page4MarvelFrame',
     components: {
+      MarvelChartNBar,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -81,6 +87,31 @@
 
       _initEx: function () {
         this.$refs.IFrame.setIframe4DemoPage();
+
+        var oData = {
+          title:"",
+          colors:['#66d3bb', '#0CAEFF'],
+          yAxis:[{
+            title:"yAxisTitle",
+            isShow:true,
+          }],
+          rotate:40,
+          xAxisName:"xAxisName",
+          showYLabel:true,
+          category:["category1", "category2"],
+          arrAxis:[["category1_1", "category1_2", "category1_3"],["category2_1", "category2_2", "category2_3"]],
+          series:[{
+            name:"category1",
+            barWidth:30,
+            data:[1,2,3]
+          },{
+            name:"category2",
+            barWidth:30,
+            data:[3,2,1]
+          }]
+        };
+
+        this.$refs.ref4ChartNBar.setData(oData);
       },
 
       //#endregion
@@ -125,7 +156,6 @@
   }
 
   .showAreaInner {
-    padding-top: 36px;
     box-sizing: border-box;
   }
 

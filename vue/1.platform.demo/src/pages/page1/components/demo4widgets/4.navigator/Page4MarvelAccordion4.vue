@@ -14,14 +14,18 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <button v-on:click="_setActiveItem">setActiveItem(item1)</button>
+            <marvel-accordion4 ref="marvelAccordion4" :items="items"
+                               @onClickItem="_onClickItem"></marvel-accordion4>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
         <marvel-tab-item :isActive="tabItems1[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-
+            <button v-on:click="_setActiveItem">setActiveItem(item1)</button>
+            <marvel-accordion4 ref="marvelAccordion4" :items="items"
+                               @onClickItem="_onClickItem"></marvel-accordion4>
             '></marvel-ace-editor>
           </div>
         </marvel-tab-item>
@@ -42,10 +46,12 @@
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
+  import MarvelAccordion4 from "~~/widget/accordion/MarvelAccordion4";
 
   export default {
     name: 'page4MarvelFrame',
     components: {
+      MarvelAccordion4,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -63,7 +69,16 @@
         }],
         //#endregion
         //#region custom data
-
+        items:[{
+          label:"item1",
+          active:true,
+        },{
+          label:"item2",
+          active:false,
+        },{
+          label:"item3",
+          active:false,
+        },],
         //#endregion
       }
     },
@@ -84,6 +99,13 @@
       },
 
       //#endregion
+      
+      _onClickItem: function (oItem) {
+        console.log(oItem);
+      },
+      _setActiveItem: function () {
+        this.$refs.marvelAccordion4.setActiveItem("item1");
+      }
 
       //#endregion
       //#region callback

@@ -23,7 +23,7 @@
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
 
   export default {
-    name: 'page4MarvelFrame',
+    name: 'page4Page4Install',
     components: {
       MarvelIFrame,
       MarvelAceEditor,
@@ -59,7 +59,6 @@
       //#region lifeCycle
 
       _initEx: function () {
-        this.$refs.IFrame.setIframe4DemoPage();
       },
 
       //#endregion

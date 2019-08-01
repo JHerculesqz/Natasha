@@ -14,14 +14,26 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <button v-on:click="toShowDragHelp">toShowDragHelp</button>
+            <button v-on:click="toHideDragHelp">toHideDragHelp</button>
+            <marvel-drag-help :width=1100 :height=300 :right=200 :top=210 :showDragHelp="showDragHelp" title="dragHelp">
+              <div slot="dragHelpCont">
+                此处放置自定义内容
+              </div>
+            </marvel-drag-help>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
         <marvel-tab-item :isActive="tabItems1[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-
+            <button v-on:click="toShowDragHelp">toShowDragHelp</button>
+            <button v-on:click="toHideDragHelp">toHideDragHelp</button>
+            <marvel-drag-help :width=1100 :height=300 :right=20 :top=300 :showDragHelp="showDragHelp" title="dragHelp">
+              <div slot="dragHelpCont">
+                此处放置自定义内容
+              </div>
+            </marvel-drag-help>
             '></marvel-ace-editor>
           </div>
         </marvel-tab-item>
@@ -42,10 +54,12 @@
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
+  import MarvelDragHelp from "~~/widget/button/MarvelDragHelp";
 
   export default {
     name: 'page4MarvelFrame',
     components: {
+      MarvelDragHelp,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -63,7 +77,7 @@
         }],
         //#endregion
         //#region custom data
-
+        showDragHelp:true,
         //#endregion
       }
     },
@@ -84,6 +98,13 @@
       },
 
       //#endregion
+      
+      toShowDragHelp: function () {
+        this.showDragHelp = true;
+      },
+      toHideDragHelp: function () {
+        this.showDragHelp = false;
+      },
 
       //#endregion
       //#region callback

@@ -6,34 +6,12 @@
       控件使用入门
     </div>
     <!--1级 end-->
-    <!--region widget show area-->
-    <!--2级 start-->
 
-    <div class="showArea">
-      <marvel-tab :tabItems="tabItems1">
-        <marvel-tab-item :isActive="tabItems1[0].isActive">
-          <div class="showAreaInner">
-            <!--2级DemoView start-->
-
-            <!--2级DemoView end-->
-          </div>
-        </marvel-tab-item>
-        <marvel-tab-item :isActive="tabItems1[1].isActive">
-          <div class="codeArea">
-            <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-
-            '></marvel-ace-editor>
-          </div>
-        </marvel-tab-item>
-      </marvel-tab>
+    <div class="title level2">
+      安装完控件后，引入并进行控件声明
+      在HTML标签中写入控件标签进行使用
+      在代码中定义控件所依赖的参数和需要实现的回调事件
     </div>
-    <!--2级 end-->
-    <!--endregion-->
-    <!--region doc area-->
-    <div class="docArea">
-      <marvel-i-frame ref="IFrame" id="IFrame" src="static/jsdoc/module-MarvelFrame.html"></marvel-i-frame>
-    </div>
-    <!--endregion-->
   </div>
 </template>
 
@@ -45,7 +23,7 @@
 
 
   export default {
-    name: 'page4MarvelFrame',
+    name: 'page4Page4Start',
     components: {
       MarvelIFrame,
       MarvelAceEditor,
@@ -81,7 +59,6 @@
       //#region lifeCycle
 
       _initEx: function () {
-        this.$refs.IFrame.setIframe4DemoPage();
       },
 
       //#endregion

@@ -1,39 +1,17 @@
 <template>
   <div class="widgetShowSession">
     <!--1级 start-->
-    <div class="title level1">MarvelFrame</div>
+    <div class="title level1">控件使用入门</div>
     <div class="describe">
-      界面框架
+      控件使用入门
     </div>
     <!--1级 end-->
-    <!--region widget show area-->
-    <!--2级 start-->
 
-    <div class="showArea">
-      <marvel-tab :tabItems="tabItems1">
-        <marvel-tab-item :isActive="tabItems1[0].isActive">
-          <div class="showAreaInner">
-            <!--2级DemoView start-->
-
-            <!--2级DemoView end-->
-          </div>
-        </marvel-tab-item>
-        <marvel-tab-item :isActive="tabItems1[1].isActive">
-          <div class="codeArea">
-            <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-
-            '></marvel-ace-editor>
-          </div>
-        </marvel-tab-item>
-      </marvel-tab>
+    <div class="title level2">
+      安装完控件后，在全局的js文件入口处引入国际化依赖文件（index.js）
+      语言切换方式
+      涉及国际化的内容写法
     </div>
-    <!--2级 end-->
-    <!--endregion-->
-    <!--region doc area-->
-    <div class="docArea">
-      <marvel-i-frame ref="IFrame" id="IFrame" src="static/jsdoc/module-MarvelFrame.html"></marvel-i-frame>
-    </div>
-    <!--endregion-->
   </div>
 </template>
 
@@ -43,8 +21,9 @@
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
 
+
   export default {
-    name: 'page4MarvelFrame',
+    name: 'page4Page4Lan',
     components: {
       MarvelIFrame,
       MarvelAceEditor,
@@ -80,7 +59,6 @@
       //#region lifeCycle
 
       _initEx: function () {
-        this.$refs.IFrame.setIframe4DemoPage();
       },
 
       //#endregion

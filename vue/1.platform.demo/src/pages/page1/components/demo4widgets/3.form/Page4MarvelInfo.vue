@@ -14,7 +14,7 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <marvel-info label="info content"></marvel-info>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -42,10 +42,12 @@
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
+  import MarvelInfo from "~~/widget/button/MarvelInfo";
 
   export default {
     name: 'page4MarvelFrame',
     components: {
+      MarvelInfo,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
