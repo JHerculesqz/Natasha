@@ -14,7 +14,12 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <div style="width:200px;">
+              <button v-on:click="onClick4SlideInLeft">slideInLeft</button>
+              <button v-on:click="onClick4SlideInRight">slideInRight</button>
+              <button v-on:click="onClick4FadeInAndFadeOut">fadeInAndFadeOut</button>
+              <marvel-animate ref="animate"><div>animate</div></marvel-animate>
+            </div>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -41,11 +46,13 @@
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
+  import MarvelAnimate from "~~/widget/animate/MarvelAnimate";
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
 
   export default {
     name: 'page4MarvelAnimate',
     components: {
+      MarvelAnimate,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -84,6 +91,16 @@
       },
 
       //#endregion
+
+      onClick4SlideInLeft: function () {
+        this.$refs.animate.doAnimate("slideInLeft");
+      },
+      onClick4SlideInRight: function () {
+        this.$refs.animate.doAnimate("slideInRight");
+      },
+      onClick4FadeInAndFadeOut: function () {
+        this.$refs.animate.doAnimate("fadeInAndFadeOut");
+      },
 
       //#endregion
       //#region callback
@@ -125,7 +142,6 @@
   }
 
   .showAreaInner {
-    padding-top: 36px;
     box-sizing: border-box;
   }
 

@@ -12,9 +12,15 @@
     <div class="showArea">
       <marvel-tab :tabItems="tabItems1">
         <marvel-tab-item :isActive="tabItems1[0].isActive">
-          <div class="showAreaInner">
+          <div class="showAreaInner" style="height: 280px">
             <!--2级DemoView start-->
-
+            <button v-on:click="getBidirectionalSelectLeftItems">getLeftItems</button>
+            <button v-on:click="getBidirectionalSelectRightItems">getRightItems</button>
+            <button v-on:click="getBidirectionalSelectLeftSelectItems">getSelectLeftItems</button>
+            <button v-on:click="getBidirectionalSelectRightSelectItems">getSelectRightItems</button>
+            <marvel-bidirectional-select :options="bidirectional"
+                                         ref="ref13"
+                                         v-on:onItemSelectStatusChange="onChange4BidirectionalSelect"></marvel-bidirectional-select>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -41,11 +47,13 @@
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
+  import MarvelBidirectionalSelect from "^/widget/select/MarvelBidirectionalSelect";
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
 
   export default {
     name: 'page4MarvelBidirectionalSelect',
     components: {
+      MarvelBidirectionalSelect,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -63,7 +71,30 @@
         }],
         //#endregion
         //#region custom data
-
+        bidirectional: {
+          id: "bidirectionalSelectTest",
+          leftTitle: "可选项",
+          rightTitle: "已选项",
+          items: [{
+            label: "option1"
+          }, {
+            label: "option2"
+          }, {
+            label: "option3"
+          }, {
+            label: "option4"
+          }, {
+            label: "option5"
+          }, {
+            label: "option6"
+          }, {
+            label: "option7"
+          }, {
+            label: "option8"
+          }, {
+            label: "option9"
+          }]
+        }
         //#endregion
       }
     },
@@ -84,6 +115,22 @@
       },
 
       //#endregion
+
+      getBidirectionalSelectLeftItems: function () {
+        console.log(this.$refs.ref13.getItemsInLeft());
+      },
+      getBidirectionalSelectRightItems: function () {
+        console.log(this.$refs.ref13.getItemsInRight());
+      },
+      getBidirectionalSelectLeftSelectItems: function () {
+        console.log(this.$refs.ref13.getSelectItemsInLeft());
+      },
+      getBidirectionalSelectRightSelectItems: function () {
+        console.log(this.$refs.ref13.getSelectItemsInRight());
+      },
+      onChange4BidirectionalSelect: function (oItem) {
+        console.log(oItem);
+      }
 
       //#endregion
       //#region callback
@@ -125,7 +172,6 @@
   }
 
   .showAreaInner {
-    padding-top: 36px;
     box-sizing: border-box;
   }
 

@@ -111,7 +111,6 @@
     float: left;
   }
   .showAreaInner {
-    padding-top: 36px;
     box-sizing: border-box;
   }
   ::-webkit-scrollbar {

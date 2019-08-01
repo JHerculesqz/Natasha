@@ -149,6 +149,10 @@
   import Page4MarvelDevPanel from './demo4widgets/12.devPanel/Page4MarvelDevPanel'
   import Page4MarvelDevPanelEx from './demo4widgets/12.devPanel/Page4MarvelDevPanelEx'
 
+
+  import Page4MarvelLayout1 from './demo4widgets/2.basic/Page4MarvelLayout1'
+  import Page4MarvelLayout2 from './demo4widgets/2.basic/Page4MarvelLayout2'
+
   export default {
     components: {
       MarvelAccordion,
@@ -166,6 +170,8 @@
       Page4Icons,
       Page4MarvelAnimate,
       Page4MarvelFrame,
+      Page4MarvelLayout1,
+      Page4MarvelLayout2,
       Page4MarvelBidirectionalSelect,
       Page4MarvelButton,
       Page4MarvelCheckBox,
@@ -457,7 +463,18 @@
           expand: false,
           subItems: [{id: "Page4MarvelDevPanel", label: "Page4MarvelDevPanel"},
             {id: "Page4MarvelDevPanelEx", label: "Page4MarvelDevPanelEx"},]
-        }],
+        },{
+          label: "典型页面",
+          icon: "icon-book",
+          expand: false,
+          subItems: [{
+            id: "Page4MarvelLayout1",
+            label: "布局1"
+          }, {
+            id: "Page4MarvelLayout2",
+            label: "布局2"
+          }]
+        },],
         isContainerFold: "",
         //#endregion
         //#region right

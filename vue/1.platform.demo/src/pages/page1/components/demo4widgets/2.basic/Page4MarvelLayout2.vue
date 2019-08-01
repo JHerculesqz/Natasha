@@ -14,7 +14,14 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <marvel-layout2 :hasMargin=false
+                            media1="4,4,4,0" media2="16,16,16,24" media3="4,4,4,0"
+                            classCustom1="classCustom1" classCustom2="classCustom2" classCustom3="classCustom3">
+              <div slot="head">head</div>
+              <div slot="left">left</div>
+              <div slot="content">content</div>
+              <div slot="right">right</div>
+            </marvel-layout2>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -41,11 +48,13 @@
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
+  import MarvelLayout2 from "^/widget/layout/MarvelLayout2";
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
 
   export default {
     name: 'page4MarvelLayout2',
     components: {
+      MarvelLayout2,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -125,7 +134,6 @@
   }
 
   .showAreaInner {
-    padding-top: 36px;
     box-sizing: border-box;
   }
 
