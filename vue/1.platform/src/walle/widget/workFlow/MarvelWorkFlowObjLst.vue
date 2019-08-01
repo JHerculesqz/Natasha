@@ -8,7 +8,7 @@
                                         :selectItems="searchSelectItems"></marvel-search-with-drop-down>
         </div>
         <slot name="btnArea"></slot>
-        <marvel-button ref="objLstPageCreateBtn2" label="批量删除" classCustom="classCustom4Btn"
+        <marvel-button ref="objLstPageCreateBtn3" label="批量删除" classCustom="classCustom4Btn"
                        v-on:onClick="callback4OnClickToBatchDelete"></marvel-button>
         <marvel-button ref="objLstPageCreateBtn2" label="批量创建" classCustom="classCustom4Btn"
                        v-on:onClick="callback4OnClickToBatchCreate"></marvel-button>
@@ -94,6 +94,8 @@
         searchSelectItems: [],
         title4objLstInner: [],
         row4objLstInner: [],
+        arrSelectRows:[],
+        isSelectAll:false
         //#endregion
       }
     },
@@ -115,6 +117,8 @@
           self._genSearchData();
         });
         this._genRows4Grid();
+
+        this._updateBtnStatus();
       },
 
       //#endregion
@@ -279,11 +283,21 @@
         return targetCell;
       },
       _onRowCheckOrUnCheck: function (oRow, isCheck) {
-        var arrSelectRows = this.$refs.objLstGrid.getSelectRows4Checkbox();
-        this.callback4OnRowCheckOrUnCheck(arrSelectRows);
+        this.arrSelectRows = this.$refs.objLstGrid.getSelectRows4Checkbox();
+        this._updateBtnStatus();
+        this.callback4OnRowCheckOrUnCheck(this.arrSelectRows);
       },
       _onTitleCheckOrUncheck: function (isCheck) {
+        this.isSelectAll = isCheck;
+        this._updateBtnStatus();
         this.callback4OnTitleCheckOrUncheck(isCheck);
+      },
+      _updateBtnStatus:function(){
+        if(this.arrSelectRows.length>0 || this.isSelectAll){
+          this.$refs.objLstPageCreateBtn3.setBtnDisable(false);
+        }else{
+          this.$refs.objLstPageCreateBtn3.setBtnDisable(true);
+        }
       },
 
       //#endregion
