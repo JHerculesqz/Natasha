@@ -3,7 +3,13 @@
     <div class="topArea">
       <div class="title4objListPageWrapper">{{title}}</div>
       <div class="btnAreaWrapper">
+        <div class="searchArea4objList">
+          <marvel-search-with-drop-down @search="callback4OnSearch" width="120px"
+                                        :selectItems="searchSelectItems"></marvel-search-with-drop-down>
+        </div>
         <slot name="btnArea"></slot>
+        <marvel-button ref="objLstPageCreateBtn2" label="批量删除" classCustom="classCustom4Btn"
+                       v-on:onClick="callback4OnClickToBatchDelete"></marvel-button>
         <marvel-button ref="objLstPageCreateBtn2" label="批量创建" classCustom="classCustom4Btn"
                        v-on:onClick="callback4OnClickToBatchCreate"></marvel-button>
         <marvel-button ref="objLstPageCreateBtn1" label="创建" classCustom="classCustom4Btn"
@@ -31,6 +37,7 @@
 <script>
   import MarvelButton from '../../widget/button/MarvelButton';
   import MarvelGridEx from '../../widget/grid/MarvelGridEx';
+  import MarvelSearchWithDropDown from "../search/MarvelSearchWithDropDown";
 
   /**
    *  MarvelWorkFlow widget description
@@ -40,6 +47,7 @@
   export default {
     name: 'MarvelWorkFlowObjLst',
     components: {
+      MarvelSearchWithDropDown,
       MarvelButton,
       MarvelGridEx
     },
@@ -83,8 +91,9 @@
     data: function () {
       return {
         //#region grid
+        searchSelectItems: [],
         title4objLstInner: [],
-        row4objLstInner: []
+        row4objLstInner: [],
         //#endregion
       }
     },
@@ -101,15 +110,32 @@
       //#region lifeCycle
 
       _initEx: function () {
-        this._genTitles4Grid();
+        var self = this;
+        this._genTitles4Grid(function () {
+          self._genSearchData();
+        });
         this._genRows4Grid();
       },
 
       //#endregion
 
-      _genTitles4Grid: function () {
+      _genSearchData: function () {
+        var arrSearchItem = [];
+        for (var i = 0; i < this.title4objLstInner.length; i++) {
+          var oTitle = this.title4objLstInner[i];
+          if (oTitle.key != "id" && oTitle.key != "checkBox" && oTitle.key != "operation" && oTitle.visible) {
+            arrSearchItem.push({
+              label: oTitle.label
+            })
+          }
+        }
+        arrSearchItem[0].selected = true;
+        this.searchSelectItems = JSON.parse(JSON.stringify(arrSearchItem));
+      },
+      _genTitles4Grid: function (oAfterCallback) {
         var arrTitles = JSON.parse(JSON.stringify(this.title4objLst));
         this.title4objLstInner = this._genTitles(arrTitles);
+        oAfterCallback();
       },
       _genTitles: function (arrTitles) {
         var oCheckTitle = [{
@@ -252,11 +278,11 @@
         }
         return targetCell;
       },
-      _onRowCheckOrUnCheck: function(oRow, isCheck){
+      _onRowCheckOrUnCheck: function (oRow, isCheck) {
         var arrSelectRows = this.$refs.objLstGrid.getSelectRows4Checkbox();
         this.callback4OnRowCheckOrUnCheck(arrSelectRows);
       },
-      _onTitleCheckOrUncheck: function(isCheck){
+      _onTitleCheckOrUncheck: function (isCheck) {
         this.callback4OnTitleCheckOrUncheck(isCheck);
       },
 
@@ -268,6 +294,12 @@
       },
       callback4OnClickToBatchCreate: function () {
         this.$emit("onClickToBatchCreate");
+      },
+      callback4OnClickToBatchDelete: function () {
+        this.$emit("onClickToBatchDelete");
+      },
+      callback4OnSearch: function (strKey, strValue, oKeyObj) {
+        this.$emit("onSearch", strKey, strValue, oKeyObj);
       },
       callback4OnPageChange: function (iPageIndex, perPageNum) {
         this.$emit("onPageChange", iPageIndex, perPageNum);
@@ -355,6 +387,12 @@
   .btnAreaWrapper {
     position: relative;
     top: 0px;
+  }
+
+  .searchArea4objList{
+    width: 320px;
+    float: right;
+    margin-left: 20px;
   }
 
   .classCustom4Btn {
