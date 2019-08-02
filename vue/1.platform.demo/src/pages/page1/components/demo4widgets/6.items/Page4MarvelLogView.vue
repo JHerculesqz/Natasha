@@ -14,7 +14,15 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <div class="showArea">
+              <div style="height: 100%; background-color: #f0f0f0;">
+                <marvel-log-view ref="logRef"
+                                 :logItems="logs"
+                                 :filterOptions="logFilterOptions"
+                                 @onBtnClick="_callback4OnFilterBtnClick"
+                                 @onCheckBoxChange="_callback4OnFilterCheckBoxChange"></marvel-log-view>
+              </div>
+            </div>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -41,11 +49,13 @@
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
+  import MarvelLogView from "~~/widget/log/MarvelLogView";
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
 
   export default {
     name: 'page4MarvelLogView',
     components: {
+      MarvelLogView,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -63,7 +73,35 @@
         }],
         //#endregion
         //#region custom data
-
+        logs:[{
+          content:"【创建工作流】业务数据保存成功..",
+          createTime:"2019-07-29 08:36:54",
+          id:"ab302dcd-82ac-42b3-a247-1bc44236bdb8",
+          insId:"04fbe84d-b1dc-11e9-af47-000ec6c62bf6",
+          level:1,
+          logId:"sdadasd",
+          status:"notice",
+          taskId:"sdadasd",
+          userId:"asdasdasdaa",
+        }],
+        logFilterOptions:[{
+          id: "logFilterId4Notice",
+          type: "checkbox",
+          name: "通知"
+        }, {
+          id: "logFilterId4Warning",
+          type: "checkbox",
+          name: "警告"
+        }, {
+          id: "logFilterId4Error",
+          type: "checkbox",
+          name: "错误"
+        }, {
+          id: "logFilterId4Export",
+          type: "button",
+          name: "Export Output",
+          icon: "icon-download2"
+        }],
         //#endregion
       }
     },
@@ -84,6 +122,14 @@
       },
 
       //#endregion
+
+      _callback4OnFilterBtnClick: function (oCheckParams, oItem) {
+        console.log(oCheckParams);
+        console.log(oItem);
+      },
+      _callback4OnFilterCheckBoxChange: function (oCheckParams) {
+        console.log(oCheckParams);
+      },
 
       //#endregion
       //#region callback

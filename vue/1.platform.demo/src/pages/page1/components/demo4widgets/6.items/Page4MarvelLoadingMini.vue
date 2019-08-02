@@ -14,7 +14,10 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <button v-on:click="showEx">show</button>
+            <button v-on:click="setProgress">setProgress</button>
+            <button v-on:click="hideEx">hide</button>
+            <marvel-loading-mini ref="ref0" v-on:onCancel="loadingOnCancel"></marvel-loading-mini>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -41,11 +44,13 @@
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
+  import MarvelLoadingMini from "^/widget/loading/MarvelLoadingMini";
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
 
   export default {
     name: 'page4MarvelLoadingMini',
     components: {
+      MarvelLoadingMini,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -84,6 +89,31 @@
       },
 
       //#endregion
+
+      showEx: function(){
+        this.$refs.ref0.showEx("取消");
+      },
+      setProgress: function(){
+        var self = this;
+        self.$refs.ref0.setProgress(10, "step1...");
+        setTimeout(function(){
+          self.$refs.ref0.setProgress(30, "step2...");
+          setTimeout(function(){
+            self.$refs.ref0.setProgress(60, "step3...");
+            setTimeout(function(){
+              self.$refs.ref0.setProgress(100, "step4...");
+            },1000);
+          },1000);
+        },1000);
+      },
+      hideEx: function(){
+        this.$refs.ref0.hideEx();
+      },
+      //#endregion
+      //#region callback
+      loadingOnCancel:function(){
+        console.log("loadingCancel");
+      }
 
       //#endregion
       //#region callback

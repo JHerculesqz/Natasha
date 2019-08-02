@@ -14,7 +14,9 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <div style="height:300px;">
+              <marvel-diff ref="textDiff"></marvel-diff>
+            </div>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -41,11 +43,13 @@
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
+  import MarvelDiff from "~~/widget/diff/MarvelDiff";
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
 
   export default {
     name: 'page4MarvelDiff',
     components: {
+      MarvelDiff,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -81,6 +85,34 @@
 
       _initEx: function () {
         this.$refs.IFrame.setIframe4DemoPage();
+
+        var strOriginalText = "policy-map aaa\n" +
+          "  class class-default\n" +
+          "    shape average 100\n" +
+          "  !\n" +
+          "!\n" +
+          "interface GigabitEthernet0/8.88\n" +
+          "  description Link to PE / pe0 - GigabitEthernet0/0/0/3\n" +
+          "  encapsulation dot1q 88\n" +
+          "  ip address 192.168.1.1 255.255.255.252\n" +
+          "  service-policy output aaa\n" +
+          "  no shutdown\n";
+        var strNewText = "policy-map aaa\n" +
+          "  class class-default\n" +
+          "    shape average 100\n" +
+          "  !\n" +
+          "!\n" +
+          "exit\n" +
+          "router bgp 100\n" +
+          "  neighbor 192.168.1.2 remote-as 100\n" +
+          "  neighbor 192.168.1.2 activate\n" +
+          "  address-family ipv4 unicast\n" +
+          "    neighbor 192.168.1.2 activate\n" +
+          "\tnetwork 10.1.1.0 mask 255.255.255.128\n" +
+          "    exit-address-family\n" +
+          "  !\n" +
+          "!";
+        this.$refs.textDiff.compareDiff(strOriginalText, strNewText, "leftTitle", "rightTitle");
       },
 
       //#endregion

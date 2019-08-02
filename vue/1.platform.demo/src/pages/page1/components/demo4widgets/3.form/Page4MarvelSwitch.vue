@@ -14,7 +14,16 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <button v-on:click="getSwitch">getStatus</button>
+            <br>
+            <marvel-switch ref="ref4" id="id5" :check="false" v-on:onClick="onSwitchClick"></marvel-switch>
+            <marvel-switch ref="ref5" id="id6"
+                           buObj="buObj..."
+                           v-on:onClick="onSwitchClick"
+                           v-on:onChange="onChange4Switch"></marvel-switch>
+            <br>
+            <marvel-switch ref="ref6" id="id7" v-on:onClick="onSwitchClick"></marvel-switch>
+            <marvel-switch ref="ref7" id="id8" v-on:onClick="onSwitchClick"></marvel-switch>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -41,11 +50,13 @@
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
+  import MarvelSwitch from "^/widget/select/MarvelSwitch";
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
 
   export default {
     name: 'page4MarvelSwitch',
     components: {
+      MarvelSwitch,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -84,6 +95,19 @@
       },
 
       //#endregion
+
+      getSwitch: function () {
+        console.log("[Switch]getStatus..." +
+          this.$refs.ref4.getCheckItem() + "," +
+          this.$refs.ref5.getCheckItem());
+      },
+      onChange4Switch: function(strOldVal, strNewVal, buObj){
+        console.log("[Switch]change..." + strNewVal + "," + buObj);
+      },
+      onSwitchClick: function(bChecked){
+        console.log("onSwitchClick");
+        console.log(bChecked);
+      },
 
       //#endregion
       //#region callback

@@ -14,7 +14,18 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <button v-on:click="onClickConfirmShowEx">show</button>
+            <marvel-confirm-ex :showConfirm="showConfirmEx"
+                               :showOkBtn="showOkBtn4ConfirmEx"
+                               :showCancelBtn="showCancelBtn4ConfirmEx"
+                               :confirmTitle="confirmTitle4ConfirmEx"
+                               :confirmIcon="confirmIcon4ConfirmEx"
+                               :confirmIconColor="confirmIconColor4ConfirmEx"
+                               :confirmSubTitle="confirmSubTitle4ConfirmEx"
+                               :confirmCont="confirmExContent4ConfirmEx"
+                               :canDrag="true"
+                               v-on:onClickOK="onClickConfirmExOK"
+                               v-on:onClickCancel="onClickConfirmExCancel"></marvel-confirm-ex>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -41,11 +52,13 @@
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
+  import MarvelConfirmEx from "^/widget/dialog/MarvelConfirmEx";
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
 
   export default {
     name: 'page4MarvelConfirmEx',
     components: {
+      MarvelConfirmEx,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -63,7 +76,26 @@
         }],
         //#endregion
         //#region custom data
-
+        showConfirmEx:false,
+        showOkBtn4ConfirmEx:true,
+        showCancelBtn4ConfirmEx:true,
+        confirmTitle4ConfirmEx:"ConfirmEx",
+        confirmIcon4ConfirmEx:"icon-cancel-circle",
+        confirmIconColor4ConfirmEx:"#ff4040",
+        confirmSubTitle4ConfirmEx:"Operation Failed",
+        confirmExContent4ConfirmEx:[{
+          key:"Description:",
+          value:"Failed to create services."
+        },{
+          key:"Reason:",
+          value:"Failed to create services."
+        },{
+          key:"Detail:",
+          value:"Failed to create services."
+        },{
+          key:"Repair advice:",
+          value:"Please contact technical support."
+        },]
         //#endregion
       }
     },
@@ -84,6 +116,16 @@
       },
 
       //#endregion
+
+      onClickConfirmShowEx: function () {
+        this.showConfirmEx = true;
+      },
+      onClickConfirmExOK: function(){
+        this.showConfirmEx = false;
+      },
+      onClickConfirmExCancel: function(){
+        this.showConfirmEx = false;
+      },
 
       //#endregion
       //#region callback

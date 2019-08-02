@@ -14,7 +14,15 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
+            <button v-on:click="onClickDialogShow">show</button>
+            <marvel-dialog :showDialog="showDialog" :canDrag="true"
+                           title="上传" :width="500" :height="300"
+                           v-on:onClickDialogClose="onClickDialogClose">
+              <div slot="dialogCont">111111</div>
+              <div slot="dialogFoot">
 
+              </div>
+            </marvel-dialog>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -41,11 +49,13 @@
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
+  import MarvelDialog from "^/widget/dialog/MarvelDialog";
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
 
   export default {
     name: 'page4MarvelDialog',
     components: {
+      MarvelDialog,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -63,7 +73,7 @@
         }],
         //#endregion
         //#region custom data
-
+        showDialog: false,
         //#endregion
       }
     },
@@ -84,6 +94,13 @@
       },
 
       //#endregion
+
+      onClickDialogShow: function () {
+        this.showDialog = true;
+      },
+      onClickDialogClose: function(){
+        this.showDialog = false;
+      },
 
       //#endregion
       //#region callback

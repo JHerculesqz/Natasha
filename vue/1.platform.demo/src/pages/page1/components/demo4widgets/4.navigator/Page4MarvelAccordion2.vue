@@ -14,7 +14,11 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <div style="width: 120px;height:100%;">
+              <marvel-accordion2 v-bind:items="items2"
+                                 v-on:onClickItem="onClickItem"
+                                 v-on:onClickSubItem="onClickSubItem"></marvel-accordion2>
+            </div>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -41,11 +45,13 @@
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
+  import MarvelAccordion2 from "^/widget/accordion/MarvelAccordion2";
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
 
   export default {
     name: 'page4MarvelAccordion2',
     components: {
+      MarvelAccordion2,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -63,7 +69,23 @@
         }],
         //#endregion
         //#region custom data
-
+        items2: [{
+          label: "完整路径",
+          icon: "icon-podcast",
+          fold: true,
+          children: [{
+            label: "路由信息",
+            active: true
+          }, {
+            label: "业务局向"
+          }]
+        }, {
+          label: "不完整路径",
+          icon: "icon-feed"
+        }, {
+          label: "离散交叉",
+          icon: "icon-mic"
+        }],
         //#endregion
       }
     },
@@ -84,6 +106,13 @@
       },
 
       //#endregion
+
+      onClickItem: function(oItem){
+        alert(oItem.label);
+      },
+      onClickSubItem: function(oItem, oSubItem){
+        alert(oItem.label + " " + oSubItem.label);
+      }
 
       //#endregion
       //#region callback

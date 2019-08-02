@@ -14,7 +14,8 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <marvel-link label="导航链接" classCustom="classCustom1"
+                         v-on:onClick="onClick"></marvel-link>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -41,11 +42,13 @@
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
+  import MarvelLink from "^/widget/link/MarvelLink"
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
 
   export default {
     name: 'page4MarvelLink',
     components: {
+      MarvelLink,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -84,6 +87,10 @@
       },
 
       //#endregion
+
+      onClick: function(e){
+        console.log(e);
+      }
 
       //#endregion
       //#region callback

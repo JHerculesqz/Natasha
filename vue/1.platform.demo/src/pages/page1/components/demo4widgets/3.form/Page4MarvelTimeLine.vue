@@ -14,7 +14,9 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <div style="width:100%; height: 100%;">
+              <MarvelTimeLine :title="title" :items="items"></MarvelTimeLine>
+            </div>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -41,11 +43,13 @@
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
+  import MarvelTimeLine from '^/widget/timeline/MarvelTimeLine'
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
 
   export default {
     name: 'page4MarvelTimeLine',
     components: {
+      MarvelTimeLine,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -63,7 +67,54 @@
         }],
         //#endregion
         //#region custom data
-
+        title: 'Fast UI大事记',
+        items: [
+          {
+            left: {
+              title: 'Success',
+              content: '2012-5-1'
+            },
+            status: '0',
+            right: {
+              title: '横空出世',
+              content: 'Fast UI开源项目启动'
+            }
+          },
+          {
+            left: {
+              title: 'Fail',
+              content: '2013-5-1'
+            },
+            status: '1',
+            right: {
+              title: '项目解体',
+              content: '由于遇到全球经济危机，项目组由于资金链断裂，项目组创始人落魄宣布项目组解散'
+            }
+          },
+          {
+            left: {
+              title: 'Success',
+              content: '2014-5-1'
+            },
+            status: '0',
+            right: {
+              title: '出任CEO',
+              content: '项目创始人出任Google大中华区总裁'
+            }
+          },
+          {
+            left: {
+              title: 'Fail',
+              content: '2015-5-1'
+            },
+            status: '1',
+            right: {
+              title: '牢狱之灾',
+              content: '出任Google大中华区总裁项目组创始人，最近被媒体爆料出与xxx女明星的绯闻。Google发表声明称此行为严重影响了Google的全球形象，解除项目创始人的总裁职务，同时由于' +
+                '触犯了公司的法规，Google将起诉该项目创始人'
+            }
+          }
+        ]
         //#endregion
       }
     },

@@ -14,7 +14,18 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <marvel-fold-panel
+              :item="foldPanel[0]" class="customClass" v-on:onTitleClick="onTitleClick">
+              <slot>aa</slot>
+            </marvel-fold-panel>
+            <marvel-fold-panel
+              :item="foldPanel[1]" class="customClass" v-on:onTitleClick="onTitleClick">
+              <slot>bb</slot>
+            </marvel-fold-panel>
+            <marvel-fold-panel
+              :item="foldPanel[2]" class="customClass" v-on:onTitleClick="onTitleClick">
+              <slot>cc</slot>
+            </marvel-fold-panel>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -41,11 +52,13 @@
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
+  import MarvelFoldPanel from "^/widget/foldPanel/MarvelFoldPanel";
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
 
   export default {
     name: 'page4MarvelFoldPanel',
     components: {
+      MarvelFoldPanel,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -63,7 +76,19 @@
         }],
         //#endregion
         //#region custom data
-
+        foldPanel:[{
+          name:"aaa",
+          height:"calc(100% - 84px)",
+          bIsExpand:true
+        },{
+          name:"bbb",
+          height:"300px",
+          bIsExpand:false
+        },{
+          name:"ccc",
+          height:"100%",
+          bIsExpand:false
+        }]
         //#endregion
       }
     },
@@ -84,6 +109,16 @@
       },
 
       //#endregion
+
+      onTitleClick:function(oItem, bIsExpand){
+        console.log(oItem);
+        console.log(bIsExpand);
+        for(var i=0;i<this.foldPanel.length;i++){
+          if(this.foldPanel[i].name != oItem.name){
+            this.foldPanel[i].bIsExpand = false;
+          }
+        }
+      }
 
       //#endregion
       //#region callback

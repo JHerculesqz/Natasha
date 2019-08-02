@@ -14,7 +14,25 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <div style="width: 500px;height: 400px;">
+              <button @click="setActiveTabItem">setActiveTabItem</button>
+              <button @click="setTabItemHide">hideItem Profile</button>
+              <button @click="setTabItemShow">showItem Profile</button>
+              <marvel-tab ref="ref4Tab" :tabItems="tabItems">
+                <marvel-tab-item :isActive="tabItems[0].isActive">
+                  1
+                </marvel-tab-item>
+                <marvel-tab-item :isActive="tabItems[1].isActive">
+                  2
+                </marvel-tab-item>
+                <marvel-tab-item :isActive="tabItems[2].isActive">
+                  3
+                </marvel-tab-item>
+                <marvel-tab-item :isActive="tabItems[3].isActive">
+                  4
+                </marvel-tab-item>
+              </marvel-tab>
+            </div>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -63,7 +81,19 @@
         }],
         //#endregion
         //#region custom data
-
+        tabItems: [{
+          label: "Home",
+          isActive: false
+        }, {
+          label: "Profile",
+          isActive: true
+        }, {
+          label: "Messages",
+          isActive: false
+        }, {
+          label: "Settings",
+          isActive: false
+        }]
         //#endregion
       }
     },
@@ -84,6 +114,16 @@
       },
 
       //#endregion
+
+      setActiveTabItem() {
+        this.$refs.ref4Tab.setActiveTabItem("Messages");
+      },
+      setTabItemHide() {
+        this.$refs.ref4Tab.setTabItemHide("Profile");
+      },
+      setTabItemShow() {
+        this.$refs.ref4Tab.setTabItemShow("Profile");
+      }
 
       //#endregion
       //#region callback

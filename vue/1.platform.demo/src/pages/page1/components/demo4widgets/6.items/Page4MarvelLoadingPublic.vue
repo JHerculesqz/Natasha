@@ -14,7 +14,15 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <div class="showArea">
+              <button v-on:click="showLoading('key1')" class="loadingControlBtn">showLoading key1</button>
+              <button v-on:click="showLoading('key2')" class="loadingControlBtn">showLoading key2</button>
+              <button v-on:click="showLoading('key3')" class="loadingControlBtn">showLoading key3</button>
+              <button v-on:click="hideLoading('key1')" class="loadingControlBtn">hideLoading key1</button>
+              <button v-on:click="hideLoading('key2')" class="loadingControlBtn">hideLoading key2</button>
+              <button v-on:click="hideLoading('key3')" class="loadingControlBtn">hideLoading key3</button>
+              <marvel-loading-public ref="ref0"></marvel-loading-public>
+            </div>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -41,11 +49,13 @@
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
+  import MarvelLoadingPublic from "^/widget/loading/MarvelLoadingPublic";
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
 
   export default {
     name: 'page4MarvelLoadingPublic',
     components: {
+      MarvelLoadingPublic,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -84,6 +94,13 @@
       },
 
       //#endregion
+
+      showLoading: function (strKey) {
+        this.$refs.ref0.imsgMarvelLoadingPublicShow(strKey, "public loading " + strKey);
+      },
+      hideLoading: function (strKey) {
+        this.$refs.ref0.imsgMarvelLoadingPublicHide(strKey);
+      },
 
       //#endregion
       //#region callback
@@ -141,7 +158,12 @@
   /*document fix  style end*/
   /*document custom style start*/
   .showArea {
-    height: 400px;
+    height: 250px;
+  }
+
+  .loadingControlBtn {
+    z-index: 999999;
+    position: relative;
   }
 
   /*document custom style end*/

@@ -14,7 +14,12 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <div style="width: 180px;height:100%">
+              <marvel-accordion :isFolder="false" :hasShadow="true"
+                                title="abc" titleIcon="icon-calculator"
+                                defaultSelectLabel="item1"
+                                :items="items"></marvel-accordion>
+            </div>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -41,11 +46,13 @@
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
+  import MarvelAccordion from "^/widget/accordion/MarvelAccordion";
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
 
   export default {
     name: 'page4MarvelAccordion',
     components: {
+      MarvelAccordion,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -63,7 +70,19 @@
         }],
         //#endregion
         //#region custom data
-
+        items: [{
+          label: "item1",
+          icon: "icon-office",
+          expand: false,
+          subItems: [{
+            label: "subItem1"
+          }, {
+            label: "subItem2"
+          }]
+        }, {
+          label: "item2",
+          icon: "icon-office"
+        }],
         //#endregion
       }
     },

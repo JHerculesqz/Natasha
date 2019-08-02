@@ -14,7 +14,14 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <div style="width:200px;">
+              <button v-on:click="onClick4Input4">获取</button>
+              <marvel-multi-input ref="ref1" :status="status4" placeHolder="please..."
+                                  :inputMsg="inputMsg2" size="mini"
+                                  @onBlur="onBlur2"
+                                  @onInput="onInput2">
+              </marvel-multi-input>
+            </div>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -41,11 +48,13 @@
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
+  import MarvelMultiInput from "^/widget/input/MarvelMultiInput";
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
 
   export default {
     name: 'page4MarvelMultiInput',
     components: {
+      MarvelMultiInput,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -63,7 +72,8 @@
         }],
         //#endregion
         //#region custom data
-
+        inputMsg2: "",
+        status4: "",
         //#endregion
       }
     },
@@ -84,6 +94,19 @@
       },
 
       //#endregion
+
+      onClick4Input4: function () {
+        console.log(this.$refs.ref1.getInputMsg());
+      },
+
+      onInput2: function (strMsg) {
+        console.log(strMsg);
+      },
+
+      onBlur2: function (strMsg) {
+        console.log("onBlur:");
+        console.log(strMsg);
+      },
 
       //#endregion
       //#region callback

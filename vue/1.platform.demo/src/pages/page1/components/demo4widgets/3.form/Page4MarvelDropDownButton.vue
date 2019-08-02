@@ -14,7 +14,13 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <button v-on:click="initDropDown">initDropDown</button>
+            <button v-on:click="onClick4GetSelectItem">getSelectItem</button>
+            <button v-on:click="onClick4GetSelectItemObj">getSelectItemObj</button>
+            <button v-on:click="onClick4setSelectItem">setSelectItem Item1</button>
+            <marvel-drop-down-button ref="ref14" width="100%" status="error" errMsg="error"
+                                     maxHeight="100px" :dropDownItems="items" :showSelectIcon="false"
+                                     v-on:onOptionSelect="onOptionSelect"></marvel-drop-down-button>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -41,11 +47,13 @@
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
+  import MarvelDropDownButton from "^/widget/button/MarvelDropDownButton";
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
 
   export default {
     name: 'page4MarvelDropDownButton',
     components: {
+      MarvelDropDownButton,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -63,7 +71,7 @@
         }],
         //#endregion
         //#region custom data
-
+        items: [],
         //#endregion
       }
     },
@@ -84,6 +92,33 @@
       },
 
       //#endregion
+
+      initDropDown: function () {
+        this.items=[{
+          label: "Item1",
+          active: true
+//          icon: "icon-pencil"
+        }, {
+          label: "Item2",
+//          icon: "icon-pen"
+          icon: ""
+        }, {
+          label: "Item3",
+          icon: "icon-droplet"
+        }]
+      },
+      onClick4GetSelectItem: function () {
+        console.log(this.$refs.ref14.getSelectItem());
+      },
+      onClick4GetSelectItemObj: function () {
+        console.log(this.$refs.ref14.getSelectItemObj());
+      },
+      onClick4setSelectItem: function () {
+        this.$refs.ref14.setSelectItem(this.items[0].label)
+      },
+      onOptionSelect: function (oItem) {
+        console.log(oItem);
+      },
 
       //#endregion
       //#region callback

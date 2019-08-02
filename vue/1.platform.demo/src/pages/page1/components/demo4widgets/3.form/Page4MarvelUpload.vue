@@ -14,7 +14,11 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <div style="width:200px;">
+              <button v-on:click="onTestBtnClick">Test</button>
+              <button v-on:click="onClearBtnClick">Clear</button>
+              <marvel-upload ref="ref0" placeHolder="请选择文件"></marvel-upload>
+            </div>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -41,11 +45,13 @@
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
+  import MarvelUpload from "^/widget/upload/MarvelUpload";
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
 
   export default {
     name: 'page4MarvelUpload',
     components: {
+      MarvelUpload,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -84,6 +90,13 @@
       },
 
       //#endregion
+
+      onTestBtnClick: function () {
+        console.log(this.$refs.ref0.getFile());
+      },
+      onClearBtnClick: function () {
+        this.$refs.ref0.clearCache()
+      },
 
       //#endregion
       //#region callback

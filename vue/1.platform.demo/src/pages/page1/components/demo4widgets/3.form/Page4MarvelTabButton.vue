@@ -14,7 +14,8 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <marvel-tab-button ref="ref4TabBtn" label="点我" :isWarn=true
+                               v-on:onClick="onClick4TabBtn"></marvel-tab-button>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -41,11 +42,13 @@
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
+  import MarvelTabButton from "^/widget/button/MarvelTabButton";
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
 
   export default {
     name: 'page4MarvelTabButton',
     components: {
+      MarvelTabButton,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -84,6 +87,11 @@
       },
 
       //#endregion
+
+      onClick4TabBtn: function () {
+        this.$refs.ref4TabBtn.setActive(true);
+        console.log("onClick4TabBtn");
+      },
 
       //#endregion
       //#region callback

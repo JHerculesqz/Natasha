@@ -14,7 +14,12 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <div style="width:100%; height: 100%;">
+              <button v-on:click="onClick">设置</button>
+              <marvel-prompt-ex ref="ref0"
+                                label="用户日志"
+                                icon="icon-mail4"></marvel-prompt-ex>
+            </div>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -41,11 +46,13 @@
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
+  import MarvelPromptEx from "^/widget/prompt/MarvelPromptEx";
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
 
   export default {
     name: 'page4MarvelPromptEx',
     components: {
+      MarvelPromptEx,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -63,7 +70,7 @@
         }],
         //#endregion
         //#region custom data
-
+        hasNotify: false,
         //#endregion
       }
     },
@@ -84,6 +91,11 @@
       },
 
       //#endregion
+
+      onClick: function () {
+        this.hasNotify = !this.hasNotify;
+        this.$refs.ref0.setNotify(this.hasNotify);
+      },
 
       //#endregion
       //#region callback

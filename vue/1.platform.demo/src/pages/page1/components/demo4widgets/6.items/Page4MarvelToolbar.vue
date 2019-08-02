@@ -14,7 +14,14 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <div style="height: 100%;">
+              <button v-on:click="disableItem">disableItem</button>
+              <button v-on:click="hideItem">hideItem</button>
+              <marvel-toolbar v-bind:items="items"
+                              v-on:onToolbarItemClick="onToolbarItemClick" v-on:onToolbarSubItemClick="onToolbarSubItemClick" >
+                <div slot="保存">保存自定义子菜单</div>
+              </marvel-toolbar>
+            </div>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -41,11 +48,13 @@
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
+  import MarvelToolbar from '^/widget/toolbar/MarvelToolbar';
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
 
   export default {
     name: 'page4MarvelToolbar',
     components: {
+      MarvelToolbar,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -63,7 +72,72 @@
         }],
         //#endregion
         //#region custom data
-
+        items: [{
+          id: 1,
+          label: "拓扑还原",
+          icon: "icon-drawer",
+          visible:true,
+          disable:false,
+          subMenu:[{
+            id:"a",
+            label:"aaaaaaaaaaaaaaa",
+            icon:"icon-drawer",
+            visible:true,
+            disable:false
+          },{
+            id:"b",
+            label:"bbb",
+            icon:"icon-drawer",
+            visible:false,
+            disable:true
+          }]
+        }, {
+          id: 2,
+          label: "保存",
+          icon: "icon-drawer",
+          visible:true,
+          disable:true,
+          hasCustomSubPanel:true
+        }, {
+          type:"bar"
+        },{
+          id: 3,
+          label: "重置",
+          visible:true,
+          disable:false,
+          icon: "icon-drawer"
+        }, {
+          id: 4,
+          label: "导出",
+          visible:true,
+          disable:false,
+          icon: "icon-drawer",
+          subMenu:[{
+            id:"c",
+            label:"ccc",
+            icon:"icon-drawer",
+            visible:true,
+            disable:true
+          },{
+            id:"d",
+            label:"ddd",
+            icon:"icon-drawer"
+          }]
+        }, {
+          type:"bar"
+        },{
+          id: 5,
+          label: "布局对齐",
+          visible:true,
+          disable:false,
+          icon: "icon-drawer"
+        }, {
+          id: 6,
+          label: "显示设置",
+          visible:true,
+          disable:false,
+          icon: "icon-drawer"
+        }]
         //#endregion
       }
     },
@@ -84,6 +158,19 @@
       },
 
       //#endregion
+
+      onToolbarItemClick: function (oItem) {
+        console.log(oItem);
+      },
+      onToolbarSubItemClick:function(oItem, oParent){
+        console.log(oItem);
+      },
+      disableItem:function(){
+        this.items[2].disable = true;
+      },
+      hideItem:function(){
+        this.items[2].visible = false;
+      }
 
       //#endregion
       //#region callback

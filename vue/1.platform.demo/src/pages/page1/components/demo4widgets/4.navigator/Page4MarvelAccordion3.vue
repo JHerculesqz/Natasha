@@ -14,7 +14,10 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <div style="width: 200px;height:100%;">
+              <marvel-accordion3 :items="items3" title="fuck"
+                                 v-on:onClickItem="onClickItem"></marvel-accordion3>
+            </div>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -41,11 +44,13 @@
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
+  import MarvelAccordion3 from "^/widget/accordion/MarvelAccordion3";
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
 
   export default {
     name: 'page4MarvelAccordion3',
     components: {
+      MarvelAccordion3,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -63,7 +68,16 @@
         }],
         //#endregion
         //#region custom data
-
+        items3:[{
+          active: true,
+          label: "方案1"
+        }, {
+          active: false,
+          label: "方案2"
+        }, {
+          active: false,
+          label: "方案3"
+        }]
         //#endregion
       }
     },
@@ -84,6 +98,10 @@
       },
 
       //#endregion
+
+      onClickItem: function(oItem){
+        alert(oItem.label);
+      },
 
       //#endregion
       //#region callback

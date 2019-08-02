@@ -14,7 +14,8 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <button v-on:click="onClick4SelectCard">获取</button><br>
+            <marvel-select-card ref="ref12" :items="items" size="mini"></marvel-select-card>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -41,11 +42,13 @@
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
+  import MarvelSelectCard from "^/widget/select/MarvelSelectCard";
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
 
   export default {
     name: 'page4MarvelSelectCard',
     components: {
+      MarvelSelectCard,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -63,7 +66,7 @@
         }],
         //#endregion
         //#region custom data
-
+        items: ["100M", "200M", "300M", "400M"],
         //#endregion
       }
     },
@@ -84,6 +87,10 @@
       },
 
       //#endregion
+
+      onClick4SelectCard: function(){
+        console.log("[SelectCard]..." + this.$refs.ref12.getSelectItem());
+      },
 
       //#endregion
       //#region callback

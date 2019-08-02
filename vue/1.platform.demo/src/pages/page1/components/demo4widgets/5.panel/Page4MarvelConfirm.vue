@@ -14,7 +14,15 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <button v-on:click="onClickConfirmShow">show</button>
+            <marvel-confirm :showConfirm="showConfirm"
+                            :showOkBtn="false"
+                            :showCancelBtn="true"
+                            confirmCont="这是一个提示确认框"
+                            tipType="tip"
+                            :canDrag="true"
+                            v-on:onClickOK="onClickConfirmOK"
+                            v-on:onClickCancel="onClickConfirmCancel"></marvel-confirm>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -41,11 +49,13 @@
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
+  import MarvelConfirm from "^/widget/dialog/MarvelConfirm";
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
 
   export default {
     name: 'page4MarvelConfirm',
     components: {
+      MarvelConfirm,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -63,7 +73,7 @@
         }],
         //#endregion
         //#region custom data
-
+        showConfirm: false,
         //#endregion
       }
     },
@@ -84,6 +94,16 @@
       },
 
       //#endregion
+
+      onClickConfirmShow: function () {
+        this.showConfirm = true;
+      },
+      onClickConfirmOK: function(){
+        this.showConfirm = false;
+      },
+      onClickConfirmCancel: function(){
+        this.showConfirm = false;
+      },
 
       //#endregion
       //#region callback

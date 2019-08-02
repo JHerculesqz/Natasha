@@ -14,7 +14,17 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <button v-on:click="onClick4Radio">getStatus</button>
+            <br>
+            <marvel-radio-box ref="ref0" id="id1" group="group1"
+                              label="x1" :showLabel=false></marvel-radio-box>
+            <marvel-radio-box ref="ref1" id="id2" group="group1"
+                              label="x2" :showLabel=true v-on:onChange="onChange4Radio"></marvel-radio-box>
+            <br>
+            <marvel-radio-box ref="ref2" id="id3" group="group2"
+                              label="x3" :showLabel="true"></marvel-radio-box>
+            <marvel-radio-box ref="ref3" id="id4" group="group2"
+                              label="x4" :showLabel="true"></marvel-radio-box>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -41,11 +51,13 @@
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
+  import MarvelRadioBox from "^/widget/select/MarvelRadioBox";
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
 
   export default {
     name: 'page4MarvelRadioBox',
     components: {
+      MarvelRadioBox,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -84,6 +96,15 @@
       },
 
       //#endregion
+
+      onClick4Radio: function(){
+        console.log("[Radio]getStatus..." +
+          this.$refs.ref0.getCheckItem() + "," +
+          this.$refs.ref1.getCheckItem());
+      },
+      onChange4Radio: function(strOldVal, strNewVal){
+        console.log("[Radio]change..." + strNewVal);
+      },
 
       //#endregion
       //#region callback

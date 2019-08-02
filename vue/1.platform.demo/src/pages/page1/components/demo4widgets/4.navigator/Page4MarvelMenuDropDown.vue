@@ -14,7 +14,13 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <div class="chart">
+              <div style="width: 500px; height: 350px;">
+                <marvel-menu-drop-down :menus="menus"
+                                       height="50px"
+                                       v-on:clickSubMenu="clickSubMenu"></marvel-menu-drop-down>
+              </div>
+            </div>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -41,11 +47,13 @@
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
+  import MarvelMenuDropDown from "^/widget/menudropdown/MarvelMenuDropDown";
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
 
   export default {
     name: 'page4MarvelMenuDropDown',
     components: {
+      MarvelMenuDropDown,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -63,7 +71,31 @@
         }],
         //#endregion
         //#region custom data
-
+        menus: {
+          mainMenu: {
+            icon: "icon-user",
+            label: "s00290253"
+          },
+          subMenu: [{
+            icon: "icon-user",
+            label: "我的工作台"
+          }, {
+            icon: "icon-user",
+            label: "日志"
+          }, {
+            icon: "icon-user",
+            label: "上次打开"
+          }, {
+            icon: "icon-user",
+            label: "我的意见"
+          }, {
+            icon: "icon-user",
+            label: "English"
+          }, {
+            icon: "icon-user",
+            label: "注销"
+          }]
+        }
         //#endregion
       }
     },
@@ -84,6 +116,10 @@
       },
 
       //#endregion
+
+      clickSubMenu: function (strLabel) {
+        console.log(strLabel);
+      }
 
       //#endregion
       //#region callback
@@ -146,6 +182,11 @@
 
   /*document custom style end*/
   /*custom style start*/
+
+  .chart {
+    height: 100%;
+    overflow-y: scroll;
+  }
 
   /*custom style end*/
 

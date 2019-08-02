@@ -14,7 +14,11 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <button v-on:click="onClick4GetInputDropDownSelectItem">getSelectItem</button>
+            <button v-on:click="onClick4GetInputDropDownSelectItemObj">getSelectItemObj</button>
+            <button v-on:click="onClick4setInputDropDownSelectItem">setSelectItem Item6</button>
+            <marvel-input-drop-down ref="ref15" status="error" errMsg="error" :dropDownItems="inputItems"
+                                    maxHeight="120px"></marvel-input-drop-down>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -41,11 +45,13 @@
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
+  import MarvelInputDropDown from "^/widget/button/MarvelInputDropDown";
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
 
   export default {
     name: 'page4MarvelInputDropDown',
     components: {
+      MarvelInputDropDown,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -63,7 +69,20 @@
         }],
         //#endregion
         //#region custom data
-
+        inputItems:[{
+          label: "Item1Name",
+          active: true,
+        }, {
+          label: "Item2Name"
+        }, {
+          label: "Item3Name"
+        },{
+          label: "aaaaaaaaaaa"
+        }, {
+          label: "bbbbbbbbbbb"
+        }, {
+          label: "ccccccccccc"
+        }],
         //#endregion
       }
     },
@@ -84,6 +103,16 @@
       },
 
       //#endregion
+
+      onClick4GetInputDropDownSelectItem:function(){
+        console.log(this.$refs.ref15.getSelectItem());
+      },
+      onClick4GetInputDropDownSelectItemObj:function(){
+        console.log(this.$refs.ref15.getSelectItemObj());
+      },
+      onClick4setInputDropDownSelectItem:function(){
+        this.$refs.ref15.setSelectItem(this.inputItems[5].label);
+      },
 
       //#endregion
       //#region callback

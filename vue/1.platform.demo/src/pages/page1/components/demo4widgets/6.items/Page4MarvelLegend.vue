@@ -14,7 +14,10 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <div style="width:500px;height: 150px; background-color: #f0f0f0;">
+              <marvel-legend :legendItems="items"
+                             v-on:onLegendItemClick="onLegendItemClick"></marvel-legend>
+            </div>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -41,11 +44,13 @@
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
+  import MarvelLegend from "^/widget/legend/MarvelLegend";
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
 
   export default {
     name: 'page4MarvelLegend',
     components: {
+      MarvelLegend,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -63,7 +68,19 @@
         }],
         //#endregion
         //#region custom data
-
+        items: [{
+          label: "在线",
+          level: "level5",
+          isHide:false
+        }, {
+          label: "待机",
+          level: "level3",
+          isHide:false
+        }, {
+          label: "离线",
+          level: "level6",
+          isHide:false
+        }],
         //#endregion
       }
     },
@@ -84,6 +101,10 @@
       },
 
       //#endregion
+
+      onLegendItemClick: function(){
+        console.log(this.items);
+      },
 
       //#endregion
       //#region callback

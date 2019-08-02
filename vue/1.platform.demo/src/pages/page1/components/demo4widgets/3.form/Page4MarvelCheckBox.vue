@@ -14,7 +14,23 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <button v-on:click="getCheckBox">getStatus</button>
+            <br>
+            <marvel-check-box ref="ref8" id="id9"
+                              label="x1" :showLabel=false v-on:onClick="onCheckBoxClick"></marvel-check-box>
+            <marvel-check-box ref="ref9" id="id10"
+                              label="x2" :showLabel=true
+                              buObj="buObj..."
+                              v-bind:check="true"
+                              v-on:onChange="onChange4Check"
+                              v-on:onClick="onCheckBoxClick"></marvel-check-box>
+            <br>
+            <marvel-check-box ref="ref10" id="id11"
+                              label="x3" :showLabel=true
+                              v-on:onClick="onCheckBoxClick"></marvel-check-box>
+            <marvel-check-box ref="ref11" id="id12"
+                              label="x4" :showLabel=true
+                              v-on:onClick="onCheckBoxClick"></marvel-check-box>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -41,11 +57,13 @@
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
+  import MarvelCheckBox from "^/widget/select/MarvelCheckBox";
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
 
   export default {
     name: 'page4MarvelCheckBox',
     components: {
+      MarvelCheckBox,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -84,6 +102,19 @@
       },
 
       //#endregion
+
+      getCheckBox: function(){
+        console.log("[CheckBox]getStatus..." +
+          this.$refs.ref8.getCheckItem() + "," +
+          this.$refs.ref9.getCheckItem());
+      },
+      onChange4Check: function(strOldVal, strNewVal, oBuObj){
+        console.log("[CheckBox]change..." + strNewVal + "," + oBuObj);
+      },
+      onCheckBoxClick: function(bChecked){
+        console.log("onCheckBoxClick");
+        console.log(bChecked);
+      },
 
       //#endregion
       //#region callback

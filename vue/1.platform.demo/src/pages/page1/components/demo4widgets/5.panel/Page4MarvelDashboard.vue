@@ -14,7 +14,12 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <div style="height: 200px;width:500px;background-color: #fafafa;padding: 20px;">
+              <marvel-dashboard title="Shit">
+                <div slot="customArea">customArea...</div>
+                <div slot="contArea">cont...</div>
+              </marvel-dashboard>
+            </div>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -41,11 +46,13 @@
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
+  import MarvelDashboard from "^/widget/dashboard/MarvelDashboard";
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
 
   export default {
     name: 'page4MarvelDashboard',
     components: {
+      MarvelDashboard,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,

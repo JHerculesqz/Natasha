@@ -14,7 +14,20 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <div class="showArea">
+              <button v-on:click="showGlobal">showGlobal</button>
+              <button v-on:click="showLeft">showLeft</button>
+              <button v-on:click="hideLeft">hideLeft</button>
+              <button v-on:click="showRight">showRight</button>
+              <button v-on:click="hideRight">hideRight</button>
+              <marvel-loading ref="ref0" :isGlobal="true" v-on:onCancel="loadingOnCancel"></marvel-loading>
+              <div class="loadingArea1">
+                <marvel-loading ref="ref1" :isGlobal="false" v-on:onCancel="loadingOnCancel"></marvel-loading>
+              </div>
+              <div class="loadingArea2">
+                <marvel-loading ref="ref2" :isGlobal="false" v-on:onCancel="loadingOnCancel"></marvel-loading>
+              </div>
+            </div>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -41,11 +54,13 @@
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
+  import MarvelLoading from "^/widget/loading/MarvelLoading";
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
 
   export default {
     name: 'page4MarvelLoading',
     components: {
+      MarvelLoading,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -84,6 +99,25 @@
       },
 
       //#endregion
+
+      showGlobal: function(){
+        this.$refs.ref0.imsgMarvelLoadingShow("global loading...");
+      },
+      showLeft: function(){
+        this.$refs.ref1.imsgMarvelLoadingShow("loading");
+      },
+      hideLeft: function(){
+        this.$refs.ref1.imsgMarvelLoadingHide();
+      },
+      showRight: function(){
+        this.$refs.ref2.imsgMarvelLoadingShow("加载中");
+      },
+      hideRight: function(){
+        this.$refs.ref2.imsgMarvelLoadingHide();
+      },
+      loadingOnCancel:function(){
+        console.log("loadingCancel");
+      }
 
       //#endregion
       //#region callback

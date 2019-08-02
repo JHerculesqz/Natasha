@@ -14,7 +14,14 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <button v-on:click="onClick4GetInputDropDownWithTipSelectItem">getSelectItem</button>
+            <button v-on:click="onClick4setInputDropDownWithTipSelectItem">setSelectItem aaa</button>
+            <marvel-input-drop-down-with-tip ref="ref16"
+                                             maxHeight="120px"
+                                             :dropDownItems="inputItemsWithTip"
+                                             :status="inputDropDownStatus"
+                                             :errMsg="inputDropDownErrMsg"
+                                             v-on:onOptionSelect="onOptionSelectInDropDownWithTip"></marvel-input-drop-down-with-tip>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -41,11 +48,13 @@
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
+  import MarvelInputDropDownWithTip from "^/widget/button/MarvelInputDropDownWithTip";
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
 
   export default {
     name: 'page4MarvelInputDropDownWithTip',
     components: {
+      MarvelInputDropDownWithTip,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -63,7 +72,21 @@
         }],
         //#endregion
         //#region custom data
-
+        inputItemsWithTip:{
+          tipItems:[{
+            tip:"0~100",
+          }],
+          optionItems:[{
+            label: "Item1Name",
+            active:true
+          }, {
+            label: "Item2Name"
+          }, {
+            label: "Item3Name"
+          }]
+        },
+        inputDropDownStatus:"",
+        inputDropDownErrMsg:"",
         //#endregion
       }
     },
@@ -84,6 +107,25 @@
       },
 
       //#endregion
+
+      onClick4GetInputDropDownWithTipSelectItem:function () {
+        console.log(this.$refs.ref16.getDropDownCurrentLabel());
+      },
+      onClick4setInputDropDownWithTipSelectItem:function () {
+        this.$refs.ref16.setSelectItem("aaa");
+      },
+      onOptionSelectInDropDownWithTip:function (strCurrentLabel) {
+        console.log(strCurrentLabel);
+        var bIsItem = strCurrentLabel == "Item1Name" || strCurrentLabel == "Item2Name" || strCurrentLabel == "Item3Name"
+        if(!bIsItem || parseInt(strCurrentLabel)>100 || parseInt(strCurrentLabel)<0){
+          this.inputDropDownStatus = "error";
+          this.inputDropDownErrMsg = "输入错误...";
+        }
+        else{
+          this.inputDropDownStatus = "";
+          this.inputDropDownErrMsg = "";
+        }
+      },
 
       //#endregion
       //#region callback

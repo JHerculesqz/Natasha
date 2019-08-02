@@ -14,7 +14,13 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <div>
+              <button v-on:click="setWarn">setWarn</button>
+              <button v-on:click="setNotWarn">setNotWarn</button>
+              <button v-on:click="setItemActive">setItemActive</button>
+              <marvel-wizard-tab ref="ref4WizardTabs"
+                                 :wizardTabs="wizardTabs" v-on:onClick="onClickWizardTab"></marvel-wizard-tab>
+            </div>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -41,11 +47,13 @@
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
+  import MarvelWizardTab from "^/widget/wizard/MarvelWizardTab";
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
 
   export default {
     name: 'page4MarvelWizardTab',
     components: {
+      MarvelWizardTab,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -63,7 +71,22 @@
         }],
         //#endregion
         //#region custom data
-
+        wizardTabs: [{
+          index: 1,
+          label: "拓扑还原",
+          isActive: true,
+          isWarn: false
+        }, {
+          index: 2,
+          label: "业务还原",
+          isActive: false,
+          isWarn: true
+        },{
+          index: 3,
+          label: "业务还原",
+          isActive: false,
+          isWarn: false
+        }]
         //#endregion
       }
     },
@@ -84,6 +107,19 @@
       },
 
       //#endregion
+
+      onClickWizardTab: function (oItem) {
+        console.log(oItem.index);
+      },
+      setWarn: function () {
+        this.$refs.ref4WizardTabs.setItemWarnOrNot([1], true);
+      },
+      setNotWarn: function () {
+        this.$refs.ref4WizardTabs.setItemWarnOrNot([1], false);
+      },
+      setItemActive: function(){
+        this.$refs.ref4WizardTabs.setItemActive([3]);
+      }
 
       //#endregion
       //#region callback

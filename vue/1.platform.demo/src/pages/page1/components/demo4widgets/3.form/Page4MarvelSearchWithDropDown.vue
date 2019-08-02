@@ -14,7 +14,11 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <div class="panel">
+              <button @click="upDateSearchOption">updateSelectOption</button>
+              <MarvelSearchWithDropDown placeholder="请输入关键字..." @search="search2"
+                                        :selectItems="selectItems"></MarvelSearchWithDropDown>
+            </div>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -41,11 +45,13 @@
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
+  import MarvelSearchWithDropDown from '^/widget/search/MarvelSearchWithDropDown';
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
 
   export default {
     name: 'page4MarvelSearchWithDropDown',
     components: {
+      MarvelSearchWithDropDown,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -63,7 +69,17 @@
         }],
         //#endregion
         //#region custom data
-
+        selectItems: [
+          {
+            label: "ip"
+          },
+          {
+            label: "网元名称",
+            selected: true
+          },
+          {
+            label: "组名"
+          }]
         //#endregion
       }
     },
@@ -84,6 +100,18 @@
       },
 
       //#endregion
+
+      search2: function (strSearchKey, strSearchValue) {
+        console.log(strSearchKey);
+        console.log(strSearchValue);
+      },
+      upDateSearchOption: function () {
+        this.selectItems[1].selected = false;
+        this.selectItems.push({
+          label: "others",
+          selected: true
+        })
+      }
 
       //#endregion
       //#region callback
@@ -128,11 +156,11 @@
     box-sizing: border-box;
   }
 
-  .docArea{
+  .docArea {
     width: 100%;
   }
 
-  .docArea iframe{
+  .docArea iframe {
     width: 100%;
     height: 100%;
     border: none;
@@ -148,6 +176,11 @@
   /*custom style start*/
 
   /*custom style end*/
+  .panel {
+    padding: 10px;
+    width: 400px;
+    height: 50px;
+  }
 
   /*region dark theme*/
 

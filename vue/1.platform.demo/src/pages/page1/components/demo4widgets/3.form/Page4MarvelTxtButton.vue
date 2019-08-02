@@ -14,7 +14,10 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <marvel-txt-button classCustom="classCustom1" label="warning"
+                               v-on:onClick="onClick" :isWarn=true></marvel-txt-button>
+            <marvel-txt-button classCustom="classCustom1" label="normal"
+                               v-on:onClick="onClick"></marvel-txt-button>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -41,11 +44,13 @@
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
+  import MarvelTxtButton from "^/widget/button/MarvelTxtButton";
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
 
   export default {
     name: 'page4MarvelTxtButton',
     components: {
+      MarvelTxtButton,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -84,6 +89,10 @@
       },
 
       //#endregion
+
+      onClick: function () {
+        console.log(1);
+      },
 
       //#endregion
       //#region callback

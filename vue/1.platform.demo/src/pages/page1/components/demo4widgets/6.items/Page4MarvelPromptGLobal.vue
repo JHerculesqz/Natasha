@@ -14,7 +14,10 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <button v-on:click="onClickAddError">添加一条错误提示</button>
+            <button v-on:click="onClickAddWarning">添加一条警告提示</button>
+            <button v-on:click="onClickAddTip">添加一条普通提示</button>
+            <MarvelPromptGlobal :oPrompts="oGlobalPrompts" :disposeTimeOut='3000'></MarvelPromptGlobal>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -41,11 +44,13 @@
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
+  import MarvelPromptGlobal from "^/widget/prompt/MarvelPromptGlobal";
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
 
   export default {
     name: 'page4MarvelPromptGLobal',
     components: {
+      MarvelPromptGlobal,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -63,7 +68,7 @@
         }],
         //#endregion
         //#region custom data
-
+        oGlobalPrompts:[]
         //#endregion
       }
     },
@@ -84,6 +89,25 @@
       },
 
       //#endregion
+
+      onClickAddError:function(){
+        this.oGlobalPrompts.push({
+          status: '2',
+          content: '中华人民共和国解放了'
+        });
+      },
+      onClickAddWarning:function(){
+        this.oGlobalPrompts.push({
+          status: '1',
+          content: 'xxx共和国快倒闭了'
+        });
+      },
+      onClickAddTip:function(){
+        this.oGlobalPrompts.push({
+          status: '0',
+          content: 'xxx共和国倒闭了，xxx共和国倒闭了，xxx共和国倒闭了, xxx共和国倒闭了'
+        });
+      }
 
       //#endregion
       //#region callback

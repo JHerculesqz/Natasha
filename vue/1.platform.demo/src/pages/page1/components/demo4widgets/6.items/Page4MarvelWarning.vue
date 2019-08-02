@@ -14,7 +14,8 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <button v-on:click="onClick">update Data</button>
+            <marvel-warning :items="items"></marvel-warning>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -41,11 +42,13 @@
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
+  import MarvelWarning from "^/widget/warning/MarvelWarning";
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
 
   export default {
     name: 'page4MarvelWarning',
     components: {
+      MarvelWarning,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -63,7 +66,19 @@
         }],
         //#endregion
         //#region custom data
-
+        items: [{
+          label: "运行:1",
+          level: "level1"
+        }, {
+          label: "待机:40",
+          level: "level2"
+        }, {
+          label: "离线:20",
+          level: "level3"
+        }, {
+          label: "告警:30",
+          level: "level4"
+        }]
         //#endregion
       }
     },
@@ -84,6 +99,10 @@
       },
 
       //#endregion
+      onClick: function(){
+        this.items[0].label = "运行:100";
+        this.items[0].level = "level2";
+      }
 
       //#endregion
       //#region callback

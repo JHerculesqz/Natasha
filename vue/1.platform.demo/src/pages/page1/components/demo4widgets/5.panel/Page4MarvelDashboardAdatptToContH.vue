@@ -14,7 +14,14 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <div style="width:500px;background-color: #fafafa;padding: 20px;">
+              <marvel-dashboard-adapt-to-cont-h title="MarvelDashboardAdaptToCont">
+                <div slot="customArea">customArea...</div>
+                <div slot="contArea">
+                  <div style="height: 200px; background: #eee;">cont高度200px</div>
+                </div>
+              </marvel-dashboard-adapt-to-cont-h>
+            </div>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -41,11 +48,13 @@
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
+  import MarvelDashboardAdaptToContH from "^/widget/dashboard/MarvelDashboardAdatptToContH";
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
 
   export default {
     name: 'page4MarvelDashboardAdatptToContH',
     components: {
+      MarvelDashboardAdaptToContH,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,

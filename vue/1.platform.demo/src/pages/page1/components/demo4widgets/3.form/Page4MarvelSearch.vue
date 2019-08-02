@@ -14,7 +14,9 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <div class="panel">
+              <MarvelSearch placeholder="请输入关键字..." v-on:search="search1"></MarvelSearch>
+            </div>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -41,12 +43,14 @@
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
+  import MarvelSearch from '^/widget/search/MarvelSearch';
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
 
   export default {
     name: 'page4MarvelSearch',
     components: {
       MarvelIFrame,
+      MarvelSearch,
       MarvelAceEditor,
       MarvelTab,
       MarvelTabItem,
@@ -84,6 +88,10 @@
       },
 
       //#endregion
+
+      search1: function (strSearchValue) {
+        console.log(strSearchValue);
+      },
 
       //#endregion
       //#region callback
@@ -148,7 +156,11 @@
   /*custom style start*/
 
   /*custom style end*/
-
+  .panel {
+    padding: 10px;
+    width: 400px;
+    height: 50px;
+  }
   /*region dark theme*/
 
   .dark .title {

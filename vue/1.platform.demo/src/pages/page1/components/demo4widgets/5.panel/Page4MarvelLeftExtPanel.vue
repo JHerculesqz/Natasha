@@ -14,7 +14,18 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <div style="background-color: #f0f0f0;position: relative;height: 100%;">
+              <button v-on:click="expandLeft" style="float: right">expand</button>
+              <button v-on:click="foldLeft" style="float: right">fold</button>
+              <marvel-left-ext-panel
+                ref="ref1"
+                :width="100"
+                :show="true"
+                :canDrag="true"
+                @onExpandBtnClick="onExpandBtnClick2">
+                <div slot="content" style="color: #fff">hello world</div>
+              </marvel-left-ext-panel>
+            </div>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -41,11 +52,13 @@
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
+  import MarvelLeftExtPanel from "^/widget/extPanel/MarvelLeftExtPanel";
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
 
   export default {
     name: 'page4MarvelLeftExtPanel',
     components: {
+      MarvelLeftExtPanel,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -84,6 +97,16 @@
       },
 
       //#endregion
+
+      expandLeft: function () {
+        this.$refs.ref1.expand(true);
+      },
+      foldLeft: function () {
+        this.$refs.ref1.expand(false);
+      },
+      onExpandBtnClick2: function (bShow) {
+        console.log(bShow);
+      },
 
       //#endregion
       //#region callback
@@ -125,6 +148,7 @@
   }
 
   .showAreaInner {
+    height: 100%;
     box-sizing: border-box;
   }
 

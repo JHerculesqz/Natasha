@@ -14,7 +14,10 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <div>
+            <button v-on:click="setProgress">setProgress</button>
+            <marvel-wizard ref="ref0" :items="items" :isClickable="true"></marvel-wizard>
+          </div>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -41,11 +44,13 @@
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
+  import MarvelWizard from "^/widget/wizard/MarvelWizard";
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
 
   export default {
     name: 'page4MarvelWizard',
     components: {
+      MarvelWizard,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -63,7 +68,16 @@
         }],
         //#endregion
         //#region custom data
-
+        items: [{
+          label: "Basic Information",
+          index: 1
+        }, {
+          label: "Condition",
+          index: 2
+        }, {
+          label: "Action",
+          index: 3
+        }],
         //#endregion
       }
     },
@@ -84,6 +98,11 @@
       },
 
       //#endregion
+
+      setProgress: function () {
+        this.$refs.ref0.setProgress(1);
+        this.$refs.ref0.setProgress(2);
+      },
 
       //#endregion
       //#region callback

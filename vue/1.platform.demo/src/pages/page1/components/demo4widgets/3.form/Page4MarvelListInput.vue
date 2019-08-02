@@ -14,7 +14,13 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <div style="width:360px;">
+              <button v-on:click="setLisInputData">设置值</button>
+              <button v-on:click="getLisInputData">获取值</button>
+              <button v-on:click="setLisInputError">设置报错状态</button>
+              <button v-on:click="clearLisInputError">清除报错状态</button>
+              <marvel-list-input ref="ref2" @onValueChange="onListInputValueChange"></marvel-list-input>
+            </div>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -41,11 +47,13 @@
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
+  import MarvelListInput from "^/widget/input/MarvelListInput";
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
 
   export default {
     name: 'page4MarvelListInput',
     components: {
+      MarvelListInput,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -84,6 +92,31 @@
       },
 
       //#endregion
+
+      setLisInputData: function () {
+        this.$refs.ref2.setListInputMsg([{
+          value:"nameD"
+        },{
+          value:"nameE"
+        },]);
+      },
+
+      getLisInputData: function () {
+        var oData = this.$refs.ref2.getListInputMsg();
+        console.log(oData);
+      },
+
+      setLisInputError: function () {
+        this.$refs.ref2.setErrStatus([1,3], "error tip");
+      },
+
+      clearLisInputError: function () {
+        this.$refs.ref2.clearErrorStatus();
+      },
+
+      onListInputValueChange: function () {
+        this.getLisInputData();
+      }
 
       //#endregion
       //#region callback

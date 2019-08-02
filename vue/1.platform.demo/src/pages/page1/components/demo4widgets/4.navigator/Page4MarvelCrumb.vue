@@ -14,7 +14,9 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <div>
+              <marvel-crumb :items="items" v-on:onCrumbItemClick="onItemClick" customSeparateSymbol="/" size="large"></marvel-crumb>
+            </div>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -38,6 +40,7 @@
 </template>
 
 <script>
+  import MarvelCrumb from "^/widget/crumb/MarvelCrumb"
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
@@ -46,6 +49,7 @@
   export default {
     name: 'page4MarvelCrumb',
     components: {
+      MarvelCrumb,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -63,7 +67,13 @@
         }],
         //#endregion
         //#region custom data
-
+        items: [{
+          label: "system"
+        }, {
+          label: "notify"
+        }, {
+          label: "settings"
+        }]
         //#endregion
       }
     },
@@ -84,6 +94,11 @@
       },
 
       //#endregion
+
+      onItemClick: function(strItemLabel, iItemIndex){
+        console.log(strItemLabel);
+        console.log(iItemIndex);
+      }
 
       //#endregion
       //#region callback

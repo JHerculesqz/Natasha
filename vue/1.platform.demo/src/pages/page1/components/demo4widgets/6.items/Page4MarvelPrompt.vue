@@ -14,7 +14,17 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <div style="width:100%; height: 100%;">
+              <div class="panel">
+                <MarvelPrompt :status="items[0].status" :content="items[0].content" :disposeTimeOut='2000'></MarvelPrompt>
+              </div>
+              <div class="panel">
+                <MarvelPrompt :status="items[1].status" :content="items[1].content"></MarvelPrompt>
+              </div>
+              <div class="panel">
+                <MarvelPrompt :status="items[2].status" :content="items[2].content"></MarvelPrompt>
+              </div>
+            </div>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -41,11 +51,13 @@
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
+  import MarvelPrompt from '^/widget/prompt/MarvelPrompt'
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
 
   export default {
     name: 'page4MarvelPrompt',
     components: {
+      MarvelPrompt,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -63,7 +75,20 @@
         }],
         //#endregion
         //#region custom data
-
+        items: [
+          {
+            status: '0',
+            content: 'prompt1'
+          },
+          {
+            status: '1',
+            content: 'prompt2'
+          },
+          {
+            status: '2',
+            content: 'prompt3'
+          }
+        ],
         //#endregion
       }
     },

@@ -14,7 +14,10 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <div style="width: 400px;">
+              <marvel-date yearStart="2014" yearEnd="2030" yearSelect="2017"
+                           monthSelect="2" daySelect="3"></marvel-date>
+            </div>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -41,11 +44,13 @@
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
+  import MarvelDate from "~~/widget/date/MarvelDate";
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
 
   export default {
     name: 'page4MarvelDate',
     components: {
+      MarvelDate,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,

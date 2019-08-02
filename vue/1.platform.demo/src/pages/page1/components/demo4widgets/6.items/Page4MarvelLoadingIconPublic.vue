@@ -14,7 +14,15 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <div class="showArea">
+              <button v-on:click="showLoading2('key1')" class="loadingControlBtn">showLoading key1</button>
+              <button v-on:click="showLoading2('key2')" class="loadingControlBtn">showLoading key2</button>
+              <button v-on:click="showLoading2('key3')" class="loadingControlBtn">showLoading key3</button>
+              <button v-on:click="hideLoading2('key1')" class="loadingControlBtn">hideLoading key1</button>
+              <button v-on:click="hideLoading2('key2')" class="loadingControlBtn">hideLoading key2</button>
+              <button v-on:click="hideLoading2('key3')" class="loadingControlBtn">hideLoading key3</button>
+              <marvel-loading-icon-public ref="ref1"></marvel-loading-icon-public>
+            </div>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -41,11 +49,13 @@
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
+  import MarvelLoadingIconPublic from "~~/widget/loading/MarvelLoadingIconPublic";
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
 
   export default {
     name: 'page4MarvelLoadingIconPublic',
     components: {
+      MarvelLoadingIconPublic,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -84,6 +94,13 @@
       },
 
       //#endregion
+
+      showLoading2: function (strKey) {
+        this.$refs.ref1.imsgMarvelLoadingPublicShow(strKey, "public loading " + strKey);
+      },
+      hideLoading2: function (strKey) {
+        this.$refs.ref1.imsgMarvelLoadingPublicHide(strKey);
+      }
 
       //#endregion
       //#region callback
@@ -146,7 +163,14 @@
 
   /*document custom style end*/
   /*custom style start*/
+  .showArea {
+    height: 250px;
+  }
 
+  .loadingControlBtn {
+    z-index: 999999;
+    position: relative;
+  }
   /*custom style end*/
 
   /*region dark theme*/

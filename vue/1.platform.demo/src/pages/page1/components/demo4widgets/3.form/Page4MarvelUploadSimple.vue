@@ -14,7 +14,10 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <div style="width:200px;">
+              <marvel-upload-simple btnName="文件上传"
+                                    @onUploadFile="onUploadFile"></marvel-upload-simple>
+            </div>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -41,11 +44,13 @@
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
+  import MarvelUploadSimple from "^/widget/upload/MarvelUploadSimple";
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
 
   export default {
     name: 'page4MarvelUploadSimple',
     components: {
+      MarvelUploadSimple,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -84,6 +89,18 @@
       },
 
       //#endregion
+
+      onUploadFile: function (oFile) {
+        console.log(oFile);
+        var formData = new FormData();
+        formData.append('file',oFile);
+        this.$http.post('/mvc/upload/test2', formData, {
+          headers:{
+            "Content-Type" :'multipart/form-data'
+          }
+        }).then(res => {
+        });
+      },
 
       //#endregion
       //#region callback

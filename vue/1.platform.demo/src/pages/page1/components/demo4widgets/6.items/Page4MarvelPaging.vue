@@ -14,7 +14,10 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <div style="width:500px;height: 150px; background-color: #000000;">
+              <button @click="resetCurPageIndex">resetCurPageIndex</button>
+              <marvel-paging ref="ref4Paging" :totalNum="100" :pages="50" @onPageChange="onPageChange"></marvel-paging>
+            </div>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -41,11 +44,13 @@
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
+  import MarvelPaging from "^/widget/paging/MarvelPaging";
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
 
   export default {
     name: 'page4MarvelPaging',
     components: {
+      MarvelPaging,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -84,6 +89,13 @@
       },
 
       //#endregion
+
+      onPageChange: function (iPageIndex) {
+        console.log(iPageIndex);
+      },
+      resetCurPageIndex() {
+        this.$refs.ref4Paging.resetCurPageIndex();
+      }
 
       //#endregion
       //#region callback

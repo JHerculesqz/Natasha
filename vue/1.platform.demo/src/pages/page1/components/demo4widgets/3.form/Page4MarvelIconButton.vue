@@ -14,7 +14,12 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <marvel-icon-button classCustom="classCustom1" label="normal"
+                                icon="icon-home3" :isWarn=true
+                                v-on:onClick="onClick"></marvel-icon-button>
+            <marvel-icon-button classCustom="classCustom1" label="disable" status="disable"
+                                icon="icon-home3"
+                                v-on:onClick="onClick"></marvel-icon-button>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -41,11 +46,13 @@
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
+  import MarvelIconButton from "^/widget/button/MarvelIconButton";
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
 
   export default {
     name: 'page4MarvelIconButton',
     components: {
+      MarvelIconButton,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -84,6 +91,9 @@
       },
 
       //#endregion
+      onClick: function () {
+        console.log(1);
+      },
 
       //#endregion
       //#region callback

@@ -14,7 +14,14 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <button v-on:click="getMultiDropValue">getSelectItem</button>
+            <marvel-multi-drop-down :items="multiItems"
+                                    ref="multiDrop"
+                                    maxHeight="150px"
+                                    status="error" errMsg="error"
+                                    :needCheckAll="true"
+                                    @onAllCheckChangeEvent="onAllCheckChangeEvent"
+                                    @onItemCheckChangeEvent="onItemCheckChangeEvent"></marvel-multi-drop-down>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -41,11 +48,13 @@
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
+  import MarvelMultiDropDown from "^/widget/button/MarvelMultiDropDown";
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
 
   export default {
     name: 'page4MarvelMultiDropDown',
     components: {
+      MarvelMultiDropDown,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -63,7 +72,7 @@
         }],
         //#endregion
         //#region custom data
-
+        multiItems: [],
         //#endregion
       }
     },
@@ -81,9 +90,28 @@
 
       _initEx: function () {
         this.$refs.IFrame.setIframe4DemoPage();
+
+        for (let i = 0; i < 20; i++) {
+          this.multiItems.push({
+            label: "abcdEFG" + i,
+            // checked: i % 2 == 0 ? true : false,
+            checked: false
+          });
+        }
       },
 
       //#endregion
+
+      getMultiDropValue: function(){
+        var value = this.$refs.multiDrop.getCheckedItems();
+        console.log(value);
+      },
+      onAllCheckChangeEvent: function (bCheck) {
+        console.log(bCheck);
+      },
+      onItemCheckChangeEvent: function (oItem) {
+        console.log(oItem);
+      },
 
       //#endregion
       //#region callback

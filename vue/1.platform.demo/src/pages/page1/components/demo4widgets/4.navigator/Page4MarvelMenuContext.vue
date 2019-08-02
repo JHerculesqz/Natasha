@@ -14,7 +14,10 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <button v-on:click.stop="onClick">show</button>
+            <marvel-menu-context ref="ref0"
+                                 :items="items"
+                                 v-on:onMenuItemClick="onMenuItemClick"></marvel-menu-context>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -41,11 +44,13 @@
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
+  import MarvelMenuContext from "^/widget/menu/MarvelMenuContext"
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
 
   export default {
     name: 'page4MarvelMenuContext',
     components: {
+      MarvelMenuContext,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -63,7 +68,15 @@
         }],
         //#endregion
         //#region custom data
-
+        items: [{
+          icon: "icon-cancel-circle",
+          color: "#ff4c4c",
+          label: "删除"
+        }, {
+          icon: "icon-pencil",
+          color: "",
+          label: "编辑"
+        }],
         //#endregion
       }
     },
@@ -84,6 +97,14 @@
       },
 
       //#endregion
+
+      onClick: function(){
+        console.log("1");
+        this.$refs.ref0.showSubMenu(500,200);
+      },
+      onMenuItemClick: function(strMenuItemLabel){
+        alert(strMenuItemLabel);
+      },
 
       //#endregion
       //#region callback
