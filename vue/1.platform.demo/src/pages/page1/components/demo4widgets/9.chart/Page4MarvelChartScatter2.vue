@@ -14,7 +14,10 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <div style="width: 850px; height: 350px;">
+              <marvel-chart-scatter2 ref="ref4" id="id4" theme="dark"
+                                     v-on:onScatterItemClick="onScatterItemClick"></marvel-chart-scatter2>
+            </div>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -38,6 +41,7 @@
 </template>
 
 <script>
+  import MarvelChartScatter2 from "^/widget/echart/MarvelChartScatter2";
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
@@ -46,6 +50,7 @@
   export default {
     name: 'page4MarvelChartScatter2',
     components: {
+      MarvelChartScatter2,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -63,7 +68,32 @@
         }],
         //#endregion
         //#region custom data
-
+        scatterData2: {
+          title: "机床利用率",
+          name: "usage",
+          subtxt: "",
+          sublink: "",
+          geoType: "world",
+          geoZoom: 0.9,
+          topN: 5,
+          topNEx: 10,
+          data: [{
+            name: "机床1",
+            value: [121.15, 31.89, 100]
+          }, {
+            name: "机床2",
+            value: [120.38, 37.35, 50]
+          }, {
+            name: "机床3",
+            value: [122.207216, 29.985295, 20]
+          }, {
+            name: "机床4",
+            value: [123.97, 47.33, 10]
+          }, {
+            name: "机床5",
+            value: [120.33, 36.07, 1]
+          }]
+        },
         //#endregion
       }
     },
@@ -81,9 +111,15 @@
 
       _initEx: function () {
         this.$refs.IFrame.setIframe4DemoPage();
+
+        this.$refs.ref4.setData(this.scatterData2);
       },
 
       //#endregion
+
+      onScatterItemClick: function (oItem) {
+        console.log(oItem);
+      },
 
       //#endregion
       //#region callback

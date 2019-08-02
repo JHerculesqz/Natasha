@@ -14,7 +14,10 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <div style="height: 350px">
+              <marvel-list3 :listItems="listItems"
+                            v-on:onBtnClick4List="onBtnClick4List"></marvel-list3>
+            </div>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -38,6 +41,7 @@
 </template>
 
 <script>
+  import MarvelList3 from "^/widget/list/MarvelList3";
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
@@ -46,6 +50,7 @@
   export default {
     name: 'page4MarvelList3',
     components: {
+      MarvelList3,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -63,7 +68,27 @@
         }],
         //#endregion
         //#region custom data
-
+        listItems: [{
+          title: "Test",
+          desc: "你想说啥就说啥你想说啥就说啥你想说啥就说啥你想说啥就说啥",
+          img: "/static/image/others/node1.svg",
+          btnName: "添加",
+        }, {
+          title: "Test",
+          desc: "你想说啥就说啥你想说啥就说啥你想说啥就说啥你想说啥就说啥",
+          img: "/static/image/others/node1.svg",
+          btnName: "添加",
+        }, {
+          title: "Test",
+          desc: "你想说啥就说啥你想说啥就说啥你想说啥就说啥你想说啥就说啥",
+          img: "/static/image/others/node1.svg",
+          btnName: "添加",
+        }, {
+          title: "Test",
+          desc: "你想说啥就说啥你想说啥就说啥你想说啥就说啥你想说啥就说啥",
+          img: "/static/image/others/node1.svg",
+          btnName: "添加",
+        }]
         //#endregion
       }
     },
@@ -84,6 +109,10 @@
       },
 
       //#endregion
+
+      onBtnClick4List: function (oListItem) {
+        console.log(oListItem);
+      },
 
       //#endregion
       //#region callback

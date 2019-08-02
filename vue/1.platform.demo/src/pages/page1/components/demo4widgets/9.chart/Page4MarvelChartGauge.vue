@@ -14,7 +14,11 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <div class="chart">
+              <div style="width: 500px; height: 350px;">
+                <marvel-chart-gauge ref="ref1" id="id1" theme="dark"></marvel-chart-gauge>
+              </div>
+            </div>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -38,6 +42,7 @@
 </template>
 
 <script>
+  import MarvelChartGauge from "^/widget/echart/MarvelChartGauge";
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
@@ -46,6 +51,7 @@
   export default {
     name: 'page4MarvelChartGauge',
     components: {
+      MarvelChartGauge,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -63,7 +69,12 @@
         }],
         //#endregion
         //#region custom data
-
+        interval1: null,
+        gaugeData: {
+          title: "新产生告警",
+          key: "产生率",
+          value: 0
+        },
         //#endregion
       }
     },
@@ -74,6 +85,13 @@
 
       //#endregion
     },
+    beforeDestroy: function () {
+      //#region custom
+      if (this.interval1 != null) {
+        clearInterval(this.interval1);
+      }
+      //#endregion
+    },
     methods: {
       //#region inner
 
@@ -81,6 +99,12 @@
 
       _initEx: function () {
         this.$refs.IFrame.setIframe4DemoPage();
+
+        var self = this;
+        this.interval1 = setInterval(function () {
+          self.gaugeData.value = (Math.random() * 100).toFixed(2) - 0;
+          self.$refs.ref1.setData(self.gaugeData);
+        }, 2000);
       },
 
       //#endregion
@@ -142,6 +166,11 @@
   /*document custom style start*/
   .showArea {
     height: 400px;
+  }
+
+  .chart {
+    height: 100%;
+    overflow-y: scroll;
   }
 
   /*document custom style end*/

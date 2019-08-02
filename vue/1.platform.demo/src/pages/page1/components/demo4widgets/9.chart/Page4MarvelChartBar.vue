@@ -14,7 +14,11 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <div style="width: 500px; height: 350px">
+              <marvel-chart-bar ref="ref8" id="id8" theme="dark"
+                                v-on:onBarItemClick="onBarItemClick">
+              </marvel-chart-bar>
+            </div>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -38,6 +42,7 @@
 </template>
 
 <script>
+  import MarvelChartBar from "^/widget/echart/MarvelChartBar";
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
@@ -46,6 +51,7 @@
   export default {
     name: 'page4MarvelChartBar',
     components: {
+      MarvelChartBar,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -63,7 +69,12 @@
         }],
         //#endregion
         //#region custom data
-
+        barData: {
+          title: "分数",
+          xData: ["张三", "李四", "王五", "麻子六"],
+          yData: [100, 70, 40, 10],
+          lstBuObj: ["张三ID", "李四ID", "王五ID", "麻子六ID"],
+        },
         //#endregion
       }
     },
@@ -81,9 +92,16 @@
 
       _initEx: function () {
         this.$refs.IFrame.setIframe4DemoPage();
+
+        this.$refs.ref8.setData(this.barData);
       },
 
       //#endregion
+
+      onBarItemClick: function (oItem, oBuObj) {
+        console.log(oItem);
+        console.log(oBuObj);
+      },
 
       //#endregion
       //#region callback

@@ -14,7 +14,9 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <div style="width: 500px; height: 350px">
+              <marvel-chart-force ref="ref9" id="id9" @onItemClick="onGraphForceItemClick"></marvel-chart-force>
+            </div>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -38,6 +40,7 @@
 </template>
 
 <script>
+  import MarvelChartForce from "^/widget/echart/MarvelChartForce";
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
@@ -46,6 +49,7 @@
   export default {
     name: 'page4MarvelChartForce',
     components: {
+      MarvelChartForce,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -63,7 +67,67 @@
         }],
         //#endregion
         //#region custom data
-
+        graphForceData:{
+          nodes:[{
+            id:"n0",
+            symbolSize:10,
+            name:"this is n0",
+            category:0,
+            label:{
+              show:true,
+            },
+            draggable:true
+          },{
+            id:"n1",
+            symbolSize:5,
+            name:"this is n1",
+            category:1,
+            label:{
+              show:false,
+            },
+            draggable:true
+          },{
+            id:"n2",
+            symbolSize:5,
+            name:"this is n2",
+            category:2,
+            label:{
+              show:true,
+            },
+            draggable:true
+          }],
+          links:[{
+            id:"L1",
+            source:"n0",
+            target:"n1"
+          },{
+            id:"L2",
+            source:"n0",
+            target:"n2"
+          }]
+        },
+        graphForceCategories:[{
+          name:"类目1",
+          itemStyle:{
+            normal:{
+              color:"#ff0000"
+            }
+          }
+        },{
+          name:"类目2",
+          itemStyle:{
+            normal:{
+              color:"#00ff00"
+            }
+          }
+        },{
+          name:"类目3",
+          itemStyle:{
+            normal:{
+              color:"#0000ff"
+            }
+          }
+        }],
         //#endregion
       }
     },
@@ -81,9 +145,15 @@
 
       _initEx: function () {
         this.$refs.IFrame.setIframe4DemoPage();
+
+        this.$refs.ref9.setData(this.graphForceData, this.graphForceCategories, true);
       },
 
       //#endregion
+
+      onGraphForceItemClick: function (params) {
+        console.log(params);
+      },
 
       //#endregion
       //#region callback

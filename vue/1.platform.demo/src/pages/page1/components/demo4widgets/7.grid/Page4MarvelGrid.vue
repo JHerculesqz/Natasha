@@ -14,7 +14,15 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <div style="width:500px;height:300px;">
+              <marvel-grid :titles="titles" :rows="rows" :inputMsgs="inputMsgs" gridId="demo"
+                           v-on:onClickRow="onClickRow"
+                           v-on:onIconClick="onIconClick"
+                           v-on:onTitleCheckOrUncheck="onTitleCheckOrUncheck"
+                           v-on:onRowCheckOrUnCheck="onRowCheckOrUnCheck"
+                           v-on:updateRow="updateRow"
+                           v-on:onRowRadionCheckOrUnCheck="onRowRadionCheckOrUnCheck"></marvel-grid>
+            </div>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -38,6 +46,7 @@
 </template>
 
 <script>
+  import MarvelGrid from "^/widget/grid/MarvelGrid";
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
@@ -46,6 +55,7 @@
   export default {
     name: 'page4MarvelGrid',
     components: {
+      MarvelGrid,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -63,7 +73,24 @@
         }],
         //#endregion
         //#region custom data
-
+        titles: [{
+          label: "列1",
+          width: "25%",
+          type: "checkBox"
+        }, {
+          label: "列2",
+          width: "25%"
+        }, {
+          label: "列3",
+          width: "25%"
+        }, {
+          label: "列4",
+          width: "25%"
+        }],
+        skip: 0,
+        limit: 10,
+        rows: [],
+        inputMsgs: [],
         //#endregion
       }
     },
@@ -81,9 +108,60 @@
 
       _initEx: function () {
         this.$refs.IFrame.setIframe4DemoPage();
+
+        this.rows = [];
+        //1.
+        for (var i = 0; i < 2; i++) {
+          var oRow = [];
+          for (var j = 0; j < 4; j++) {
+            if (j == 0) {
+              var oCell = {
+                value: "value" + i,
+                type: "checkBox",
+                isCheck: false
+              };
+            }
+            else if (j == 1) {
+              var oCell = {
+                value: "value" + i,
+                type: "input"
+              };
+              this.inputMsgs.push(oCell.value);
+            }
+            else {
+              var oCell = {
+                value: "value" + i,
+                type: "text"
+              };
+            }
+            oRow.push(oCell);
+          }
+          this.rows.push(oRow);
+        }
       },
 
       //#endregion
+
+      onClickRow: function (oRow) {
+        console.log(oRow);
+      },
+      onIconClick: function (oRow, oCell) {
+        console.log(oRow);
+        console.log(oCell);
+      },
+      onTitleCheckOrUncheck: function (oRow) {
+        console.log("onTitleCheckOrUncheck" + oRow);
+      },
+      onRowCheckOrUnCheck: function (oRow) {
+        console.log("onRowCheckOrUnCheck");
+      },
+      updateRow: function (oRow, oCallBack) {
+        console.log("updateRow");
+        oCallBack(true);
+      },
+      onRowRadionCheckOrUnCheck: function (oRow) {
+        console.log(oRow);
+      },
 
       //#endregion
       //#region callback

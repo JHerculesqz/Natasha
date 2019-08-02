@@ -38,6 +38,7 @@
 </template>
 
 <script>
+  import MarvelList4 from "^/widget/list/MarvelList4";
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
@@ -46,6 +47,7 @@
   export default {
     name: 'page4MarvelList4',
     components: {
+      MarvelList4,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,

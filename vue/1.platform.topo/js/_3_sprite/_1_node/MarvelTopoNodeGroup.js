@@ -526,7 +526,7 @@
             //2.expand
             for (var i = 0; i < arrCollapseGroupExists.length; i++) {
                 var oCollapseGroupExists = arrCollapseGroupExists[i];
-                _expandOneNodeGroup(oCollapseGroupExists);
+                _expandOneNodeGroup(oCollapseGroupExists, oTopo);
             }
         };
 

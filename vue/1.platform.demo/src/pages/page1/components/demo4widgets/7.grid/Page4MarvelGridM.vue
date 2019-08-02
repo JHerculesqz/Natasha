@@ -14,7 +14,11 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <div style="height:300px; background-color: #fafafa;">
+              <marvel-grid-m :titles="titles4GridM"
+                             :rows="rows4GridM"
+                             v-on:onClickMore="onClickMore"></marvel-grid-m>
+            </div>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -38,6 +42,7 @@
 </template>
 
 <script>
+  import MarvelGridM from "^/widget/grid/MarvelGridM";
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
@@ -46,6 +51,7 @@
   export default {
     name: 'page4MarvelGridM',
     components: {
+      MarvelGridM,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -63,7 +69,8 @@
         }],
         //#endregion
         //#region custom data
-
+        titles4GridM: ["故障设备", "告警ID"],
+        rows4GridM: [],
         //#endregion
       }
     },
@@ -81,9 +88,25 @@
 
       _initEx: function () {
         this.$refs.IFrame.setIframe4DemoPage();
+
+        for (var i = 0; i < 100; i++) {
+          var oRow = {
+            item0: "#ff0022",
+            item1: "ZY201711081707" + i,
+            item2: "Process",
+            item3: "SDN9900" + i,
+            item4: "102/205/220/300/299/2876",
+            item5: "2017-11-08 17:07",
+          };
+          this.rows4GridM.push(oRow);
+        }
       },
 
       //#endregion
+
+      onClickMore: function (oRow) {
+        console.log(oRow);
+      },
 
       //#endregion
       //#region callback

@@ -14,7 +14,8 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <button @click="changeZIndex">changeZIndex to -1</button>
+            <marvel-list5 :bargeCount="listBargeCount" title="Shit" ref="bbb"></marvel-list5>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -38,6 +39,7 @@
 </template>
 
 <script>
+  import MarvelList5 from "^/widget/list/MarvelList5";
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
@@ -46,6 +48,7 @@
   export default {
     name: 'page4MarvelList5',
     components: {
+      MarvelList5,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -63,7 +66,7 @@
         }],
         //#endregion
         //#region custom data
-
+        listBargeCount: 10
         //#endregion
       }
     },
@@ -84,6 +87,10 @@
       },
 
       //#endregion
+
+      changeZIndex: function(){
+        this.$refs.bbb.setZIndex(-1);
+      }
 
       //#endregion
       //#region callback

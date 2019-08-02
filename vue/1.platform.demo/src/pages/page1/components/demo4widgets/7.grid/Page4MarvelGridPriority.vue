@@ -14,7 +14,11 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <div style="height:300px;">
+              <button @click="getPriorityList">getPriorityList</button>
+              <marvel-grid-priority :list="list4Priority" col1Title="col1Title" col2Title="col2Title"
+              ></marvel-grid-priority>
+            </div>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -38,6 +42,7 @@
 </template>
 
 <script>
+  import MarvelGridPriority from "^/widget/grid/MarvelGridPriority";
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
@@ -46,6 +51,7 @@
   export default {
     name: 'page4MarvelGridPriority',
     components: {
+      MarvelGridPriority,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -63,7 +69,43 @@
         }],
         //#endregion
         //#region custom data
-
+        list4Priority: [
+          {
+            name: "aaa",
+            id: "aaa",
+            priority: 1
+          },
+          {
+            name: "bbb",
+            id: "bbb",
+            priority: 2
+          },
+          {
+            name: "ccc",
+            id: "ccc",
+            priority: 3
+          },
+          {
+            name: "ddd",
+            id: "ddd",
+            priority: 4
+          },
+          {
+            name: "eee",
+            id: "eee",
+            priority: 5
+          },
+          {
+            name: "fff",
+            id: "fff",
+            priority: 6
+          },
+          {
+            name: "ggg",
+            id: "ggg",
+            priority: 7
+          }
+        ]
         //#endregion
       }
     },
@@ -84,6 +126,10 @@
       },
 
       //#endregion
+
+      getPriorityList: function () {
+        console.log(this.list4Priority);
+      }
 
       //#endregion
       //#region callback

@@ -14,7 +14,21 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <button @click="getCheckNodes">getCheckNodes</button>
+            <button @click="getCheckLeafNodes">getCheckLeafNodes</button>
+            <button @click="foldOrUnfoldNode">foldOrUnfoldNode</button>
+            <button @click="getActiveNodes">getActiveNodes</button>
+            <button @click="setIconColor">setIconColor</button>
+            <button @click="expandTree">expandTree</button>
+            <button @click="folderTree">folderTree</button>
+            <div class="treeArea">
+              <marvel-z-tree ref="tree"
+                             :treeData="treeData"
+                             :options="options"
+                             @onCheckboxClick="onCheckboxClick"
+                             @onTreeNodeClick="onTreeNodeClick">
+              </marvel-z-tree>
+            </div>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -38,6 +52,7 @@
 </template>
 
 <script>
+  import MarvelZTree from "^/widget/tree/MarvelZTree";
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
@@ -46,6 +61,7 @@
   export default {
     name: 'page4MarvelZTree',
     components: {
+      MarvelZTree,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -63,7 +79,84 @@
         }],
         //#endregion
         //#region custom data
-
+        options: {
+          hasCheckbox: true,
+          hasActiveStyle: true
+        },
+        treeData: [{
+          name: 'Root1',
+          subName:"'Root1SubName'",
+          icon: "icon-address-book",
+          open: true,
+          show: true,
+          check: true,
+          children: [{
+            name: 'ne5001',
+            subName: 'ne5001',
+            icon: "icon-address-book",
+            check: true,
+            canClick: false
+          }, {
+            name: 'ne5002',
+            subName: 'ne5002',
+            icon: "icon-address-book",
+            open: true,
+            check: false,
+            children: [{
+              name: 'ne50021',
+              subName: 'ne50021',
+              icon: "icon-address-book",
+              iconColor: "#000000"
+            }, {
+              name: 'ne50022',
+              subName: 'ne50022',
+              icon: "icon-address-book"
+            }]
+          }, {
+            name: 'ne5003',
+            subName: 'ne5003',
+            icon: "icon-address-book",
+            open: false,
+            children: [{
+              name: 'ne50031',
+              subName: 'ne50031',
+              icon: "icon-address-book"
+            }, {
+              name: 'ne50032',
+              subName: 'ne50032',
+              icon: "icon-address-book"
+            }, {
+              name: 'ne50033',
+              subName: 'ne50033',
+              icon: "icon-address-book"
+            }]
+          }]
+        }, {
+          name: 'Root2',
+          subName: 'Root2',
+          icon: "icon-address-book",
+          show: true,
+          children: [{
+            name: "ne6001",
+            subName: "ne6001",
+            icon: "icon-address-book"
+          }, {
+            name: "ne6002",
+            subName: "ne6002",
+            icon: "icon-address-book",
+            show: false,
+          }]
+        }, {
+          name: 'Root3',
+          subName: 'Root3',
+          icon: "icon-address-book",
+          show: false,
+          children: [{
+            name: "ne7001",
+            subName: "ne7001",
+            icon: "icon-address-book"
+          }]
+        }],
         //#endregion
       }
     },
@@ -84,6 +177,40 @@
       },
 
       //#endregion
+
+      onCheckboxClick: function (oTreeNode) {
+        console.log(oTreeNode.name);
+      },
+      onTreeNodeClick: function (oTreeNode) {
+        console.log(oTreeNode.name);
+      },
+      getCheckNodes: function () {
+        var arrRes = this.$refs.tree.getCheckNodes();
+        console.log(arrRes);
+      },
+      getCheckLeafNodes: function () {
+        var arrRes = this.$refs.tree.getCheckLeafNodes();
+        console.log(arrRes);
+      },
+      foldOrUnfoldNode: function () {
+        this.treeData[0].open = !this.treeData[0].open;
+      },
+      getActiveNodes: function () {
+        var arrRes = this.$refs.tree.getActiveNodes();
+        console.log(arrRes);
+      },
+      setIconColor: function () {
+        var arrCheckNodes = this.$refs.tree.getCheckLeafNodes();
+        arrCheckNodes.forEach(function(oNode){
+          oNode.iconColor = "#F7921E";
+        });
+      },
+      expandTree: function () {
+        this.$refs.tree.expandAllNodes();
+      },
+      folderTree: function () {
+        this.$refs.tree.folderAllNodes();
+      },
 
       //#endregion
       //#region callback

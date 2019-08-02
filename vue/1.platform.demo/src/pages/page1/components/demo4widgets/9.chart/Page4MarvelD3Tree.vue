@@ -14,7 +14,9 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <div style="height: 350px">
+              <marvel-d3-tree ref="ref10" id="id10"></marvel-d3-tree>
+            </div>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -38,6 +40,7 @@
 </template>
 
 <script>
+  import MarvelD3Tree from "^/widget/d3/MarvelD3Tree";
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
@@ -46,6 +49,7 @@
   export default {
     name: 'page4MarvelD3Tree',
     components: {
+      MarvelD3Tree,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -63,7 +67,31 @@
         }],
         //#endregion
         //#region custom data
-
+        treeMap:{
+          "name": "flare",
+          "nodeId": "flare",
+          "children": [{
+            "name": "analytics",
+            "nodeId": "flareanalytics",
+            "children": [{
+              "name": "cluster",
+              "nodeId": "flareanalytics",
+              "children": [{
+                "name": "AgglomerativeCluster",
+                "nodeId": "flareanalyticsAgglomerativeCluster",
+              }, {
+                "name": "CommunityStructure",
+                "nodeId": "flareanalyticsCommunityStructure",
+              }, {
+                "name": "HierarchicalCluster",
+                "nodeId": "flareanalyticsHierarchicalCluster",
+              }, {
+                "name": "MergeEdge",
+                "nodeId": "flareanalyticsMergeEdge",
+              }]
+            }]
+          }]
+        },
         //#endregion
       }
     },
@@ -81,9 +109,15 @@
 
       _initEx: function () {
         this.$refs.IFrame.setIframe4DemoPage();
+
+        this.$refs.ref10.setData(this.treeMap, this.onTreeMapClick);
       },
 
       //#endregion
+
+      onTreeMapClick: function ( node) {
+        console.log(node);
+      }
 
       //#endregion
       //#region callback

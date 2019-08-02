@@ -14,7 +14,9 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <div style="width: 500px; height: 350px">
+              <marvel-chart-line ref="ref6" id="id6" theme="dark"></marvel-chart-line>
+            </div>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -38,6 +40,7 @@
 </template>
 
 <script>
+  import MarvelChartLine from "^/widget/echart/MarvelChartLine";
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
@@ -46,6 +49,7 @@
   export default {
     name: 'page4MarvelChartLine',
     components: {
+      MarvelChartLine,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -63,7 +67,11 @@
         }],
         //#endregion
         //#region custom data
-
+        interval3: null,
+        lineData: {
+          title: "温度",
+          data: []
+        },
         //#endregion
       }
     },
@@ -74,6 +82,13 @@
 
       //#endregion
     },
+    beforeDestroy: function () {
+      //#region custom
+      if (this.interval3 != null) {
+        clearInterval(this.interval3);
+      }
+      //#endregion
+    },
     methods: {
       //#region inner
 
@@ -81,6 +96,18 @@
 
       _initEx: function () {
         this.$refs.IFrame.setIframe4DemoPage();
+
+        var i = 1;
+        var self = this;
+        this.interval3 = setInterval(function () {
+          var oNow = new Date();
+          var oTime = new Date(+oNow + i * 1000 * 60 * 60 * 24);
+          var strTime = [oTime.getFullYear(), oTime.getMonth() + 1, oTime.getDate()].join('-');
+          var oValue = Math.random();
+          self.lineData.data.push({name: strTime, value: [strTime, oValue]});
+          i++;
+          self.$refs.ref6.setData(self.lineData);
+        }, 2000);
       },
 
       //#endregion

@@ -14,7 +14,12 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <div style="width: 800px; height: 400px;">
+              <marvel-topo-arbor ref="ref4TopoArbor"
+                                 id="ref4TopoArbor"
+                                 theme="dark">
+              </marvel-topo-arbor>
+            </div>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -38,6 +43,7 @@
 </template>
 
 <script>
+  import MarvelTopoArbor from "^/widget/topo/MarvelTopoArbor";
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
@@ -46,6 +52,7 @@
   export default {
     name: 'page4MarvelTopoArbor',
     components: {
+      MarvelTopoArbor,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -81,9 +88,67 @@
 
       _initEx: function () {
         this.$refs.IFrame.setIframe4DemoPage();
+
+        this.initTopoArbor();
       },
 
       //#endregion
+
+      initTopoArbor: function () {
+        //init
+        this.$refs.ref4TopoArbor.init(function (e) {
+          console.log(e);
+        });
+
+        //setData
+        var N = 100;
+        var TYPES = ["container", "list", "key", "description", "leaf", "type", "leaf-list"];
+        var arrNodes = [];
+        for (var i = 0; i < N; i++) {
+          arrNodes.push({
+            id: 'n' + i,
+            label: 'Node ' + i,
+            x: Math.random(),
+            y: Math.random(),
+            size: 0 == i ? 3 : 1.2,
+            type: TYPES[(Math.random() * 6 | 0)]
+          });
+        }
+        var arrLinks = [];
+        for (var i = 0; i < N; i++) {
+          arrLinks.push({
+            id: 'e' + i,
+            source: 'n' + (Math.random() * N | 0),
+            target: 'n' + (Math.random() * N | 0)
+          });
+        }
+        this.$refs.ref4TopoArbor.setData(arrNodes, arrLinks);
+
+        //updateData
+        this.$refs.ref4TopoArbor.updateData(function (oNode) {
+          if (oNode.type == "container") {
+            oNode.color = "#243f6a";
+          }
+          else if (oNode.type == "list") {
+            oNode.color = "#487ed4";
+          }
+          else if (oNode.type == "key") {
+            oNode.color = "#6cbe3f";
+          }
+          else if (oNode.type == "description") {
+            oNode.color = "#90fda9";
+          }
+          else if (oNode.type == "leaf") {
+            oNode.color = "#b53d13";
+          }
+          else if (oNode.type == "type") {
+            oNode.color = "#d97c7e";
+          }
+          else if (oNode.type == "leaf-list") {
+            oNode.color = "#fdbbe8";
+          }
+        });
+      },
 
       //#endregion
       //#region callback

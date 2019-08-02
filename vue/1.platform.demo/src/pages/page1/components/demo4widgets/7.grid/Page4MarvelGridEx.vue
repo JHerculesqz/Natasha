@@ -38,6 +38,7 @@
 </template>
 
 <script>
+  import MarvelGridEx from "^/widget/grid/MarvelGridEx";
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
@@ -46,6 +47,7 @@
   export default {
     name: 'page4MarvelGridEx',
     components: {
+      MarvelGridEx,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,

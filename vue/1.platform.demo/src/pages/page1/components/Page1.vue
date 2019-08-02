@@ -109,7 +109,6 @@
   import Page4MarvelGrid from './demo4widgets/7.grid/Page4MarvelGrid'
   import Page4MarvelGridEx from './demo4widgets/7.grid/Page4MarvelGridEx'
   import Page4MarvelGridExFilter from './demo4widgets/7.grid/Page4MarvelGridExFilter'
-  import Page4MarvelGridExFreeze from './demo4widgets/7.grid/Page4MarvelGridExFreeze'
   import Page4MarvelGridExWithFreezeColumn from './demo4widgets/7.grid/Page4MarvelGridExWithFreezeColumn'
   import Page4MarvelGridM from './demo4widgets/7.grid/Page4MarvelGridM'
   import Page4MarvelGridPriority from './demo4widgets/7.grid/Page4MarvelGridPriority'
@@ -246,7 +245,6 @@
       Page4MarvelGrid,
       Page4MarvelGridEx,
       Page4MarvelGridExFilter,
-      Page4MarvelGridExFreeze,
       Page4MarvelGridExWithFreezeColumn,
       Page4MarvelGridM,
       Page4MarvelGridPriority,
@@ -409,7 +407,6 @@
           subItems: [{id: "Page4MarvelGrid", label: "Page4MarvelGrid"},
             {id: "Page4MarvelGridEx", label: "Page4MarvelGridEx"},
             {id: "Page4MarvelGridExFilter", label: "Page4MarvelGridExFilter"},
-            {id: "Page4MarvelGridExFreeze", label: "Page4MarvelGridExFreeze"},
             {id: "Page4MarvelGridExWithFreezeColumn", label: "Page4MarvelGridExWithFreezeColumn"},
             {id: "Page4MarvelGridM", label: "Page4MarvelGridM"},
             {id: "Page4MarvelGridPriority", label: "Page4MarvelGridPriority"},

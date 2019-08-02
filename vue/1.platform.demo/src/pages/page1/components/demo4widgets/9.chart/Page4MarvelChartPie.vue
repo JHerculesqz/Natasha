@@ -14,7 +14,9 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <div style="width: 500px; height: 350px">
+              <marvel-chart-pie ref="ref7" id="id7" theme="dark"></marvel-chart-pie>
+            </div>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -38,6 +40,7 @@
 </template>
 
 <script>
+  import MarvelChartPie from "^/widget/echart/MarvelChartPie";
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
@@ -46,6 +49,7 @@
   export default {
     name: 'page4MarvelChartPie',
     components: {
+      MarvelChartPie,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -63,7 +67,19 @@
         }],
         //#endregion
         //#region custom data
-
+        pieData: {
+          title: "性别",
+          subTitle: "联合国出品",
+          radius: "50%",
+          legendItems: ["男", "女", "不男不女", "伪娘", "女汉子"],
+          data: [
+            {name: "男", value: 10},
+            {name: "女", value: 20},
+            {name: "不男不女", value: 10},
+            {name: "伪娘", value: 30},
+            {name: "女汉子", value: 30},
+          ],
+        },
         //#endregion
       }
     },
@@ -81,6 +97,8 @@
 
       _initEx: function () {
         this.$refs.IFrame.setIframe4DemoPage();
+
+        this.$refs.ref7.setData(this.pieData);
       },
 
       //#endregion

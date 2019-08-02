@@ -14,7 +14,17 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <div style="width: 100%;height: 500px;">
+              <button @click="onClickRemoveNode">removeNode</button>
+              <button @click="onClickSetActiveStyle">设置选中样式</button>
+              <button @click="onClickRemoveAllActiveStyle">清除所有选中样式</button>
+              <button @click="onClickExportPng">导出png</button>
+              <div style="width: 400px; height: 450px">
+                <marvel-dev-panel-ex ref="ref4DevPanelEx" domId="rackPanel"
+                                     @callbackOnClick="callbackOnClick"
+                                     @callbackOnContextmenu="callbackOnContextmenu"></marvel-dev-panel-ex>
+              </div>
+            </div>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -38,6 +48,7 @@
 </template>
 
 <script>
+  import MarvelDevPanelEx from "^/widget/devPanelEx/MarvelDevPanelEx";
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
@@ -46,6 +57,7 @@
   export default {
     name: 'page4MarvelDevPanelEx',
     components: {
+      MarvelDevPanelEx,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -81,9 +93,70 @@
 
       _initEx: function () {
         this.$refs.IFrame.setIframe4DemoPage();
+
+        var options = {
+          buObjId: "jigui_1",
+          imgUrl: "static/image/devPanelEx/rack1.txt",
+          subBuObjs: [{id: "bd0", dir: 0}, {id: "bd1", dir: 0}, {id: "bd2", dir: 0}, {id: "bd3", dir: 0}, {
+            id: "bd4",
+            dir: 0
+          }]
+        };
+        this.$refs.ref4DevPanelEx.init(options);
       },
 
       //#endregion
+
+      callbackOnClick: function (strBuObjId, strSubBuObjId, evt) {
+        if (strSubBuObjId == "bd1") {
+          this.$refs.ref4DevPanelEx.addNode(strSubBuObjId, {imgUrl: "static/image/devPanelEx/dev1.txt"}, function () {
+            console.log("add successfully");
+          }, {
+            callbackOnClick: function (strSlotId, oBuObj, evt) {
+              console.log("callbackOnClick" + strSlotId);
+            },
+            callbackOndblClick: function (strSlotId, oBuObj, evt) {
+              console.log("callbackOndblClick" + strSlotId);
+            },
+            callbackOnContextmenu: function (strSlotId, oBuObj, evt) {
+              console.log("callbackOnContextmenu" + strSlotId);
+            }
+          });
+        }
+        else if (strSubBuObjId == "bd3") {
+          this.$refs.ref4DevPanelEx.addNode(strSubBuObjId, {imgUrl: "static/image/devPanelEx/dev1.txt"}, function () {
+            console.log("add successfully");
+          }, {
+            callbackOnClick: function (strSlotId, oBuObj, evt) {
+              console.log("callbackOnClick" + strSlotId);
+            },
+            callbackOndblClick: function (strSlotId, oBuObj, evt) {
+              console.log("callbackOndblClick" + strSlotId);
+            },
+            callbackOnContextmenu: function (strSlotId, oBuObj, evt) {
+              console.log("callbackOnContextmenu" + strSlotId);
+            }
+          });
+        }
+      },
+      callbackOnContextmenu: function (strBuObjId, strSubBuObjId, evt) {
+        console.log(strSubBuObjId);
+      },
+      callbackOndblClick: function (strBuObjId, strSubBuObjId, evt) {
+        console.log("callbackOndblClick:" + strSubBuObjId);
+      },
+      onClickRemoveNode: function () {
+        this.$refs.ref4DevPanelEx.removeNode("bd1");
+      },
+      onClickSetActiveStyle: function () {
+        this.$refs.ref4DevPanelEx.setActiveStyle("bd1");
+      },
+      onClickRemoveAllActiveStyle: function () {
+        this.$refs.ref4DevPanelEx.removeAllActiveStyle();
+      },
+      onClickExportPng: function () {
+        this.$refs.ref4DevPanelEx.exportPng("nb.png");
+      }
 
       //#endregion
       //#region callback

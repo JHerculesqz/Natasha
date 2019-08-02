@@ -14,7 +14,9 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <button @click="changeZIndex">changeZIndex to -1</button>
+            <marvel-list1 :items="listItems" :bargeCount="listBargeCount" ref="aaa"
+                          v-on:onListItemClick="onListItemClick"></marvel-list1>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -38,6 +40,7 @@
 </template>
 
 <script>
+  import MarvelList1 from "^/widget/list/MarvelList1";
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
@@ -46,6 +49,7 @@
   export default {
     name: 'page4MarvelList1',
     components: {
+      MarvelList1,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -63,7 +67,12 @@
         }],
         //#endregion
         //#region custom data
-
+        listItems: [{
+          icon: "/static/image/others/deviceIcon-04.png",
+          devId: "110",
+          devName: "11111111111111111111"
+        }],
+        listBargeCount: 10
         //#endregion
       }
     },
@@ -81,9 +90,25 @@
 
       _initEx: function () {
         this.$refs.IFrame.setIframe4DemoPage();
+
+        for(var i=0;i<100;i++){
+          this.listItems.push({
+            icon: "/static/image/others/deviceIcon-04.png",
+            devId: i,
+            devName: i
+          });
+        }
+        this.bargeCount = this.listItems.length;
       },
 
       //#endregion
+
+      onListItemClick: function(oItem){
+        console.log(oItem);
+      },
+      changeZIndex: function(){
+        this.$refs.aaa.setZIndex(-1);
+      }
 
       //#endregion
       //#region callback

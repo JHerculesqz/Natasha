@@ -14,7 +14,9 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <div style="width: 500px; height: 350px">
+              <marvel-chart-stack-line ref="ref5" id="id5" theme="dark"></marvel-chart-stack-line>
+            </div>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -38,6 +40,7 @@
 </template>
 
 <script>
+  import MarvelChartStackLine from "^/widget/echart/MarvelChartStackLine";
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
@@ -46,6 +49,7 @@
   export default {
     name: 'page4MarvelChartStackLine',
     components: {
+      MarvelChartStackLine,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -63,7 +67,36 @@
         }],
         //#endregion
         //#region custom data
-
+        stackLineData: {
+          y1Title: "机床状态用时(小时)",
+          y2Title: "机床在线率(%)",
+          category: ["加工", "待机", "离线", "机床在线率"],
+          data: [{
+            label: "2017-7-1",
+            value: [12, 3, 9, 50]
+          }, {
+            label: "2017-7-2",
+            value: [8, 4, 12, 33]
+          }, {
+            label: "2017-7-3",
+            value: [6, 10, 8, 25]
+          }, {
+            label: "2017-7-4",
+            value: [4, 10, 10, 17]
+          }, {
+            label: "2017-7-5",
+            value: [18, 3, 3, 75]
+          }, {
+            label: "2017-7-6",
+            value: [20, 3, 1, 83]
+          }, {
+            label: "2017-7-7",
+            value: [16, 3, 5, 66]
+          }, {
+            label: "2017-7-8",
+            value: [12, 6, 6, 50]
+          }]
+        },
         //#endregion
       }
     },
@@ -81,6 +114,8 @@
 
       _initEx: function () {
         this.$refs.IFrame.setIframe4DemoPage();
+
+        this.$refs.ref5.setData(this.stackLineData);
       },
 
       //#endregion

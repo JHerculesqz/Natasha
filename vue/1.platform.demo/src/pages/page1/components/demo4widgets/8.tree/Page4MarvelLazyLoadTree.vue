@@ -14,7 +14,15 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <button @click="expandNode4LazyNodeTree(lazyLoadTreeData[2])">expandNode9</button>
+            <button @click="folderNode4LazyNodeTree(lazyLoadTreeData[2])">folderNode9</button>
+            <div class="treeArea">
+              <marvel-lazy-load-tree
+                :treeData="lazyLoadTreeData"
+                ref="lazyLoadTree"
+                id="lazyLoadTree"
+                @onTreeNodeClick="onLazyLoadTreeNodeClick"></marvel-lazy-load-tree>
+            </div>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -42,10 +50,13 @@
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
+  import StringUtilsEx from "^/component/str"
+  import MarvelLazyLoadTree from "^/widget/tree/MarvelLazyLoadTree";
 
   export default {
     name: 'page4MarvelLazyLoadTree',
     components: {
+      MarvelLazyLoadTree,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -62,8 +73,80 @@
           isActive: false
         }],
         //#endregion
-        //#region custom data
-
+        //#region custom data\
+        lazyLoadTreeData: [{
+          icon:"icon-jar lazyTreeIconColor",
+          id:StringUtilsEx.uuid(),
+          name:"node1",
+          subName:"node1",
+          children:[{
+            icon:"icon-jar lazyTreeIconColor",
+            id:StringUtilsEx.uuid(),
+            name:"node2",
+            subName:"node2",
+            children:[]
+          },{
+            icon:"icon-jar lazyTreeIconColor",
+            id:StringUtilsEx.uuid(),
+            name:"node3",
+            subName:"node3",
+            children:[]
+          },{
+            icon:"icon-jar lazyTreeIconColor",
+            id:StringUtilsEx.uuid(),
+            name:"node4",
+            subName:"node4",
+            children:[]
+          },]
+        },{
+          icon:"icon-jar lazyTreeIconColor",
+          id:StringUtilsEx.uuid(),
+          name:"node5",
+          subName:"node5",
+          children:[{
+            icon:"icon-jar lazyTreeIconColor",
+            id:StringUtilsEx.uuid(),
+            name:"node6",
+            subName:"node6",
+            children:[{
+              icon:"icon-jar lazyTreeIconColor",
+              id:StringUtilsEx.uuid(),
+              name:"node7",
+              subName:"node7",
+              children:[]
+            },{
+              icon:"icon-jar lazyTreeIconColor",
+              id:StringUtilsEx.uuid(),
+              name:"node8",
+              subName:"node8",
+              children:[]
+            },]
+          }]
+        },{
+          icon:"icon-jar lazyTreeIconColor",
+          id:StringUtilsEx.uuid(),
+          name:"node9",
+          subName:"node9",
+          children:[{
+            icon:"icon-jar lazyTreeIconColor",
+            id:StringUtilsEx.uuid(),
+            name:"node10",
+            subName:"node10",
+            children:[{
+              icon:"icon-jar lazyTreeIconColor",
+              id:StringUtilsEx.uuid(),
+              name:"node11",
+              subName:"node11",
+              children:[{
+                icon:"icon-jar lazyTreeIconColor",
+                id:StringUtilsEx.uuid(),
+                name:"node12",
+                subName:"node12",
+                children:[]
+              }]
+            }]
+          }]
+        },]
         //#endregion
       }
     },
@@ -81,9 +164,23 @@
 
       _initEx: function () {
         this.$refs.IFrame.setIframe4DemoPage();
+
+        this.$refs.lazyLoadTree.init();
       },
 
       //#endregion
+
+      expandNode4LazyNodeTree: function(oNode){
+        this.$refs.lazyLoadTree.expandAllNodes(oNode);
+      },
+
+      folderNode4LazyNodeTree: function(oNode){
+        this.$refs.lazyLoadTree.folderAllNodes(oNode);
+      },
+
+      onLazyLoadTreeNodeClick: function (oNode) {
+        console.log(oNode);
+      }
 
       //#endregion
       //#region callback
@@ -125,6 +222,7 @@
   }
 
   .showAreaInner {
+    height: 100%;
     box-sizing: border-box;
   }
 
@@ -142,6 +240,10 @@
   /*document custom style start*/
   .showArea {
     height: 400px;
+  }
+
+  .treeArea {
+    height: calc(100% - 25px);
   }
 
   /*document custom style end*/
