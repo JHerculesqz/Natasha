@@ -3,7 +3,7 @@
     <!--1级 start-->
     <div class="title level1">MarvelLoadingPublic</div>
     <div class="describe">
-      界面框架
+
     </div>
     <!--1级 end-->
     <!--region widget show area-->
@@ -21,7 +21,7 @@
               <button v-on:click="hideLoading('key1')" class="loadingControlBtn">hideLoading key1</button>
               <button v-on:click="hideLoading('key2')" class="loadingControlBtn">hideLoading key2</button>
               <button v-on:click="hideLoading('key3')" class="loadingControlBtn">hideLoading key3</button>
-              <marvel-loading-public ref="ref0"></marvel-loading-public>
+              <marvel-loading-public ref="ref0" :showList="showList"></marvel-loading-public>
             </div>
             <!--2级DemoView end-->
           </div>
@@ -73,7 +73,7 @@
         }],
         //#endregion
         //#region custom data
-
+        showList:[],
         //#endregion
       }
     },
@@ -96,11 +96,30 @@
       //#endregion
 
       showLoading: function (strKey) {
-        this.$refs.ref0.imsgMarvelLoadingPublicShow(strKey, "public loading " + strKey);
+        if(this.getIndexInList(strKey) == -1){
+          this.showList.push({
+            key:strKey,
+            strMsg:"public loading " + strKey
+          })
+        }
       },
       hideLoading: function (strKey) {
-        this.$refs.ref0.imsgMarvelLoadingPublicHide(strKey);
+        var iIndexInList = this.getIndexInList(strKey);
+        if(iIndexInList != -1){
+          this.showList.splice(iIndexInList, 1);
+        }
       },
+      getIndexInList: function (strKey) {
+        var iIndex = -1;
+        for(var i = 0; i<this.showList.length; i++){
+          if(this.showList[i].key == strKey){
+            iIndex = i;
+            break
+          }
+        }
+
+        return iIndex;
+      }
 
       //#endregion
       //#region callback

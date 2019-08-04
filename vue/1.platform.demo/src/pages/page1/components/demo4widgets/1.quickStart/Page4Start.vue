@@ -8,9 +8,13 @@
     <!--1级 end-->
 
     <div class="title level2">
-      安装完控件后，引入并进行控件声明
-      在HTML标签中写入控件标签进行使用
-      在代码中定义控件所依赖的参数和需要实现的回调事件
+      安装完控件后，引入并进行控件声明<br>
+      <img src="../../../../../../static/image/page4Start/1.png"><br>
+      <img src="../../../../../../static/image/page4Start/2.png"><br>
+      在HTML标签中写入控件标签进行使用<br>
+      <img src="../../../../../../static/image/page4Start/3.png"><br>
+      在代码中定义控件所依赖的参数和需要实现的回调事件<br>
+      <img src="../../../../../../static/image/page4Start/4.png"><br>
     </div>
   </div>
 </template>

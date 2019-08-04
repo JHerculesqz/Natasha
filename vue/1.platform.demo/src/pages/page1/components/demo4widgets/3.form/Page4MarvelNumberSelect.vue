@@ -3,7 +3,7 @@
     <!--1级 start-->
     <div class="title level1">MarvelNumberSelect</div>
     <div class="describe">
-      界面框架
+
     </div>
     <!--1级 end-->
     <!--region widget show area-->
@@ -14,7 +14,11 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <div style="width: 180px;">
+              <button v-on:click="updateInitValue">update</button>
+              <button v-on:click="getInputValue">get</button>
+              <marvel-number-select ref="numSelect" :limit-min="0" :limitMax="31" :initValue="0"></marvel-number-select>
+            </div>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -42,10 +46,12 @@
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
+  import MarvelNumberSelect from "~~/widget/select/MarvelNumberSelect";
 
   export default {
     name: 'page4MarvelNumberSelect',
     components: {
+      MarvelNumberSelect,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -84,6 +90,13 @@
       },
 
       //#endregion
+      
+      updateInitValue: function () {
+        this.$refs.numSelect.updateInitValue(22);
+      },
+      getInputValue: function () {
+        console.log(this.$refs.numSelect.getInputValue());
+      }
 
       //#endregion
       //#region callback

@@ -3,7 +3,7 @@
     <!--1级 start-->
     <div class="title level1">MarvelProgress</div>
     <div class="describe">
-      界面框架
+
     </div>
     <!--1级 end-->
     <!--region widget show area-->
@@ -14,7 +14,9 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <div style="width: 100%; height: 12px;">
+              <marvel-progress label="进度" :percent="percent" :showLabel="true" :width="100"></marvel-progress>
+            </div>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -42,10 +44,12 @@
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
+  import MarvelProgress from "~~/widget/progress/MarvelProgress";
 
   export default {
     name: 'page4MarvelProgress',
     components: {
+      MarvelProgress,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -63,7 +67,7 @@
         }],
         //#endregion
         //#region custom data
-
+        percent: 0
         //#endregion
       }
     },
@@ -81,6 +85,13 @@
 
       _initEx: function () {
         this.$refs.IFrame.setIframe4DemoPage();
+
+        var oInterval = setInterval(()=>{
+          this.percent = this.percent + 1;
+          if(this.percent >= 100){
+            clearInterval(oInterval);
+          }
+        }, 500)
       },
 
       //#endregion

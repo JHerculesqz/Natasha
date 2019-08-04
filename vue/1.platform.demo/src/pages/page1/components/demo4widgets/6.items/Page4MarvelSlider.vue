@@ -3,7 +3,7 @@
     <!--1级 start-->
     <div class="title level1">MarvelSlider</div>
     <div class="describe">
-      界面框架
+
     </div>
     <!--1级 end-->
     <!--region widget show area-->
@@ -14,7 +14,11 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <div style="padding-top: 30px; padding-left: 60px;box-sizing: border-box">
+              <marvel-slider v-bind="sliderData"
+                             ref="ref4slider"
+                             @dragEnd="dragEnd"></marvel-slider>
+            </div>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -42,10 +46,12 @@
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
+  import MarvelSlider from "~~/widget/slider/MarvelSlider";
 
   export default {
     name: 'page4MarvelSlider',
     components: {
+      MarvelSlider,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -63,7 +69,43 @@
         }],
         //#endregion
         //#region custom data
-
+        sliderData:{
+          value:[1,55],
+          width:8,
+          height:200,
+          dotSize:12,
+          min:0,
+          max:100,
+          debug: true,
+          reverse:false,
+          tooltip:"always",
+          formatter:"{value} M",
+          enableCross: false,
+          mergeFormatter: "{value1} M ~ {value2} M",
+          direction:"vertical",
+          clickable: false,
+          bgStyle: {
+            backgroundColor: "#00b050",
+            boxShadow:"inset 0.5px, 0.5px 3px 1px rgba(0,0,0,0.36)",
+            borderRadius:"5px"
+          },
+          tooltipStyle: [
+            {
+              backgroundColor:"#00b050",
+              borderColor:"#00b050"
+            },{
+              backgroundColor:"#d78b3d",
+              borderColor:"#d78b3d"
+            }
+          ],
+          processEndStyle: {
+            backgroundColor: "#c00000",
+            borderRadius:"5px"
+          },
+          processStyle: {
+            backgroundColor:"#d78b3d",
+          }
+        }
         //#endregion
       }
     },
@@ -84,6 +126,10 @@
       },
 
       //#endregion
+      
+      dragEnd: function (newValue) {
+        console.log(newValue);
+      }
 
       //#endregion
       //#region callback

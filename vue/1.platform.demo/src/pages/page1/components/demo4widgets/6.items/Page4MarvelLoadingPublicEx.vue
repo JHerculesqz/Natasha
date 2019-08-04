@@ -3,7 +3,7 @@
     <!--1级 start-->
     <div class="title level1">MarvelLoadingPublicEx</div>
     <div class="describe">
-      界面框架
+
     </div>
     <!--1级 end-->
     <!--region widget show area-->
@@ -14,7 +14,12 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <div class="showArea">
+              <marvel-loading-public-ex ref="ref0"
+                                        :showList="showList"
+                                        :hasCancelBtn="true"
+                                        @onCancel="onCancel"></marvel-loading-public-ex>
+            </div>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -42,10 +47,12 @@
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
+  import MarvelLoadingPublicEx from "~~/widget/loading/MarvelLoadingPublicEx";
 
   export default {
     name: 'page4MarvelLoadingPublicEx',
     components: {
+      MarvelLoadingPublicEx,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -63,7 +70,15 @@
         }],
         //#endregion
         //#region custom data
-
+        showList:[{
+          strMsg:"loading 1"
+        },{
+          strMsg:"loading 2"
+        },{
+          strMsg:"loading 3"
+        },{
+          strMsg:"loading 4"
+        }]
         //#endregion
       }
     },
@@ -84,6 +99,20 @@
       },
 
       //#endregion
+      
+      onCancel: function (currentLoading) {
+        var targetIndex = null;
+        for (var i = 0; i<this.showList.length; i++){
+          if(this.showList[i].strMsg == currentLoading){
+            targetIndex = i;
+            break;
+          }
+        }
+
+        if(targetIndex != null){
+          this.showList.splice(targetIndex, 1);
+        }
+      }
 
       //#endregion
       //#region callback

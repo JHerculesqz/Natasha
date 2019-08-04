@@ -3,7 +3,7 @@
     <!--1级 start-->
     <div class="title level1">MarvelMenuContext2</div>
     <div class="describe">
-      界面框架
+
     </div>
     <!--1级 end-->
     <!--region widget show area-->
@@ -12,9 +12,15 @@
     <div class="showArea">
       <marvel-tab :tabItems="tabItems1">
         <marvel-tab-item :isActive="tabItems1[0].isActive">
-          <div class="showAreaInner">
+          <div class="showAreaInner" style="width: 100%;height: 100%">
             <!--2级DemoView start-->
-
+            <div id="contextMenuWrapper" style="width: 100%; height: 100%;" @contextmenu.prevent="showContextMenu">
+              <marvel-menu-context2 ref="refContextMenu"
+                                    :items="items" 
+                                    containerId="contextMenuWrapper"
+                                    contextMenuItemId="contextMenuWrapperInner"
+                                    v-on:onMenuItemClick="onMenuItemClick"></marvel-menu-context2>
+            </div>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -42,10 +48,12 @@
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
+  import MarvelMenuContext2 from "~~/widget/menu/MarvelMenuContext2";
 
   export default {
     name: 'page4MarvelMenuContext2',
     components: {
+      MarvelMenuContext2,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -63,7 +71,20 @@
         }],
         //#endregion
         //#region custom data
-
+        items:[{
+          label:"contextMenu1",
+          subMenu:[{
+            label:"contextSubMenu1"
+          },{
+            label:"contextSubMenu2"
+          },{
+            label:"contextSubMenu3"
+          },{
+            label:"contextSubMenu4"
+          }]
+        },{
+          label:"contextMenu2",
+        }]
         //#endregion
       }
     },
@@ -84,6 +105,17 @@
       },
 
       //#endregion
+
+      showContextMenu: function (e) {
+        console.log(e);
+        var x = e.clientX;
+        var y = e.clientY;
+        this.$refs.refContextMenu.showSubMenu(x,y);
+      },
+      
+      onMenuItemClick: function (strMenuItemLabel) {
+        console.log(strMenuItemLabel);
+      }
 
       //#endregion
       //#region callback

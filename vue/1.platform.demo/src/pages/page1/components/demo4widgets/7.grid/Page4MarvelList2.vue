@@ -3,7 +3,7 @@
     <!--1级 start-->
     <div class="title level1">MarvelList2</div>
     <div class="describe">
-      界面框架
+
     </div>
     <!--1级 end-->
     <!--region widget show area-->
@@ -14,7 +14,8 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <button @click="changeZIndex">changeZIndex to -1</button>
+            <marvel-list2 :bargeCount="listBargeCount" title="Test" ref="test" :oStyle="oStyle"></marvel-list2>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -65,7 +66,12 @@
         }],
         //#endregion
         //#region custom data
-
+        listBargeCount: 10,
+        oStyle: {
+          top:'20px',
+          left:'400px',
+          'box-shadow':'0 0 3px rgba(0,0,0,1)'
+        }
         //#endregion
       }
     },
@@ -86,6 +92,10 @@
       },
 
       //#endregion
+
+      changeZIndex: function(){
+        this.$refs.test.setZIndex(-1);
+      }
 
       //#endregion
       //#region callback

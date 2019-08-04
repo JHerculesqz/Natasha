@@ -3,7 +3,7 @@
     <!--1级 start-->
     <div class="title level1">MarvelDevPanelEx</div>
     <div class="describe">
-      界面框架
+
     </div>
     <!--1级 end-->
     <!--region widget show area-->
@@ -18,7 +18,7 @@
               <button @click="onClickRemoveNode">removeNode</button>
               <button @click="onClickSetActiveStyle">设置选中样式</button>
               <button @click="onClickRemoveAllActiveStyle">清除所有选中样式</button>
-              <button @click="onClickExportPng">导出png</button>
+<!--              <button @click="onClickExportPng">导出png</button>-->
               <div style="width: 400px; height: 450px">
                 <marvel-dev-panel-ex ref="ref4DevPanelEx" domId="rackPanel"
                                      @callbackOnClick="callbackOnClick"

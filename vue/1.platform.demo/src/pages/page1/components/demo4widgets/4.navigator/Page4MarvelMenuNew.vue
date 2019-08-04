@@ -3,7 +3,7 @@
     <!--1级 start-->
     <div class="title level1">MarvelMenuNew</div>
     <div class="describe">
-      界面框架
+
     </div>
     <!--1级 end-->
     <!--region widget show area-->
@@ -14,7 +14,10 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <marvel-menu-new ref="ref4SubMenu"
+                             :items="items"
+                             v-on:menuItemClick="menuItemClick"
+                             v-on:subMenuItemClick="subMenuItemClick"></marvel-menu-new>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -42,10 +45,12 @@
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
+  import MarvelMenuNew from "~~/widget/menu/MarvelMenuNew";
 
   export default {
     name: 'page4MarvelMenuNew',
     components: {
+      MarvelMenuNew,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -63,7 +68,54 @@
         }],
         //#endregion
         //#region custom data
+        items:[{
+          label:"所有结果",
+          groups:[{
+            name:"groupSummary",
+            sessions:[{
+              label:"汇总",
+              iconVal:"icon-marvelIcon-2",
+              items:[{
+                label:"aaa",
+                onClick: function () {
 
+                }
+              },{
+                label:"bbb",
+                onClick: function () {
+
+                }
+              }]
+            }]
+          },{
+            name:"groupDevice",
+            sessions:[{
+              label:"ccc",
+              iconVal:"icon-marvelIcon-83",
+              items:[{
+                label:"cc1",
+                onClick: function () {
+
+                }
+              },{
+                label:"cc2",
+                onClick: function () {
+
+                }
+              },{
+                label:"cc3",
+                onClick: function () {
+
+                }
+              },{
+                label:"cc4",
+                onClick: function () {
+
+                }
+              }]
+            }]
+          }]
+        }],
         //#endregion
       }
     },
@@ -84,6 +136,16 @@
       },
 
       //#endregion
+
+      menuItemClick: function (oMenuItem) {
+        console.log(oMenuItem);
+      },
+      subMenuItemClick: function (oMenuItem, oGroup, oSession, oSubItem) {
+        console.log(oMenuItem);
+        console.log(oGroup);
+        console.log(oSession);
+        console.log(oSubItem);
+      },
 
       //#endregion
       //#region callback

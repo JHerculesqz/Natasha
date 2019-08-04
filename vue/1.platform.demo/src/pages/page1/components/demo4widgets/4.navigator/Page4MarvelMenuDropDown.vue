@@ -3,7 +3,7 @@
     <!--1级 start-->
     <div class="title level1">MarvelMenuDropDown</div>
     <div class="describe">
-      界面框架
+
     </div>
     <!--1级 end-->
     <!--region widget show area-->
@@ -73,7 +73,7 @@
         //#region custom data
         menus: {
           mainMenu: {
-            icon: "icon-user",
+            icon: "./static/image/others/2.png",
             label: "s00290253"
           },
           subMenu: [{

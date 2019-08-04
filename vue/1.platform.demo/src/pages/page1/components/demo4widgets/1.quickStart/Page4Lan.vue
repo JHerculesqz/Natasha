@@ -8,9 +8,12 @@
     <!--1级 end-->
 
     <div class="title level2">
-      安装完控件后，在全局的js文件入口处引入国际化依赖文件（index.js）
-      语言切换方式
-      涉及国际化的内容写法
+      安装完控件后，在全局的js文件入口处引入国际化依赖文件（index.js）<br>
+      <img src="../../../../../../static/image/page4Lan/1.png"><br>
+      语言切换方式<br>
+      <img src="../../../../../../static/image/page4Lan/2.png"><br>
+      涉及国际化的内容写法<br>
+      <img src="../../../../../../static/image/page4Lan/3.png"><br>
     </div>
   </div>
 </template>

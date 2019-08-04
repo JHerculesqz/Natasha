@@ -1,9 +1,9 @@
 <template>
   <div class="widgetShowSession">
     <!--1级 start-->
-    <div class="title level1">MarvelPromptGLobal</div>
+    <div class="title level1">MarvelPromptGlobal</div>
     <div class="describe">
-      界面框架
+
     </div>
     <!--1级 end-->
     <!--region widget show area-->
@@ -34,7 +34,7 @@
     <!--endregion-->
     <!--region doc area-->
     <div class="docArea">
-      <marvel-i-frame ref="IFrame" id="IFrame" src="static/jsdoc/module-MarvelPromptGLobal.html"></marvel-i-frame>
+      <marvel-i-frame ref="IFrame" id="IFrame" src="static/jsdoc/module-MarvelPromptGlobal.html"></marvel-i-frame>
     </div>
     <!--endregion-->
   </div>
@@ -48,7 +48,7 @@
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
 
   export default {
-    name: 'page4MarvelPromptGLobal',
+    name: 'page4MarvelPromptGlobal',
     components: {
       MarvelPromptGlobal,
       MarvelIFrame,

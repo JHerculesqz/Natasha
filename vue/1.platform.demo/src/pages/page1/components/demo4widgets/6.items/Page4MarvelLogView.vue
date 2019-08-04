@@ -3,7 +3,7 @@
     <!--1级 start-->
     <div class="title level1">MarvelLogView</div>
     <div class="describe">
-      界面框架
+
     </div>
     <!--1级 end-->
     <!--region widget show area-->

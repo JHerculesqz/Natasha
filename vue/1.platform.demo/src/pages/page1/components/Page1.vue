@@ -84,7 +84,7 @@
   import Page4MarvelConfirm from './demo4widgets/5.panel/Page4MarvelConfirm'
   import Page4MarvelConfirmEx from './demo4widgets/5.panel/Page4MarvelConfirmEx'
   import Page4MarvelDashboard from './demo4widgets/5.panel/Page4MarvelDashboard'
-  import Page4MarvelDashboardAdatptToContH from './demo4widgets/5.panel/Page4MarvelDashboardAdatptToContH'
+  import Page4MarvelDashboardAdaptToContH from './demo4widgets/5.panel/Page4MarvelDashboardAdaptToContH'
   import Page4MarvelDialog from './demo4widgets/5.panel/Page4MarvelDialog'
   import Page4MarvelFoldPanel from './demo4widgets/5.panel/Page4MarvelFoldPanel'
   import Page4MarvelLeftExtPanel from './demo4widgets/5.panel/Page4MarvelLeftExtPanel'
@@ -141,7 +141,6 @@
   import Page4MarvelD3Tree from './demo4widgets/9.chart/Page4MarvelD3Tree'
 
   import Page4MarvelTopo from './demo4widgets/10.topo/Page4MarvelTopo'
-  import Page4MarvelTopoArbor from './demo4widgets/10.topo/Page4MarvelTopoArbor'
 
   import Page4MarvelLeaflet from './demo4widgets/11.gis/Page4MarvelLeaflet'
 
@@ -162,7 +161,6 @@
       Page4Start,
       Page4Theme,
       Page4MarvelTopo,
-      Page4MarvelTopoArbor,
       Page4MarvelLeaflet,
       Page4MarvelDevPanel,
       Page4MarvelDevPanelEx,
@@ -222,7 +220,7 @@
       Page4MarvelConfirm,
       Page4MarvelConfirmEx,
       Page4MarvelDashboard,
-      Page4MarvelDashboardAdatptToContH,
+      Page4MarvelDashboardAdaptToContH,
       Page4MarvelDialog,
       Page4MarvelFoldPanel,
       Page4MarvelLeftExtPanel,
@@ -376,7 +374,7 @@
             {id: "Page4MarvelConfirm", label: "Page4MarvelConfirm"},
             {id: "Page4MarvelConfirmEx", label: "Page4MarvelConfirmEx"},
             {id: "Page4MarvelDashboard", label: "Page4MarvelDashboard"},
-            {id: "Page4MarvelDashboardAdatptToContH", label: "Page4MarvelDashboardAdatptToContH"},
+            {id: "Page4MarvelDashboardAdaptToContH", label: "Page4MarvelDashboardAdaptToContH"},
             {id: "Page4MarvelDialog", label: "Page4MarvelDialog"},
             {id: "Page4MarvelFoldPanel", label: "Page4MarvelFoldPanel"},
             {id: "Page4MarvelLeftExtPanel", label: "Page4MarvelLeftExtPanel"},
@@ -447,8 +445,7 @@
           label: "控件(topo)",
           icon: "icon-pacman",
           expand: false,
-          subItems: [{id: "Page4MarvelTopo", label: "Page4MarvelTopo"},
-            {id: "Page4MarvelTopoArbor", label: "Page4MarvelTopoArbor"},]
+          subItems: [{id: "Page4MarvelTopo", label: "Page4MarvelTopo"},]
         }, {
           label: "控件(gis)",
           icon: "icon-pacman",

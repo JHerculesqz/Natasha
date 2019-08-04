@@ -1,9 +1,12 @@
 {
   "name": "natasha-ace",
-  "version": "1.0.7",
+  "main": "./ace-custom/build/src-noconflict/ace.js",
+  "typings": "ace.d.ts",
+  "version": "1.0.12",
   "description": "natasha-ace widget",
   "author": "Author",
   "private": false,
+  "files": ["ace-custom/build"],
   "engines": {
     "node": ">= 6.0.0",
     "npm": ">= 3.0.0"

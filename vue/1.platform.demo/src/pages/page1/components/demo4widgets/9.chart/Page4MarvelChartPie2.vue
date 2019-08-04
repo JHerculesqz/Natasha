@@ -3,7 +3,7 @@
     <!--1级 start-->
     <div class="title level1">MarvelChartPie2</div>
     <div class="describe">
-      界面框架
+
     </div>
     <!--1级 end-->
     <!--region widget show area-->
@@ -105,6 +105,7 @@
             name:"no data"
           }]
         };
+        this.$refs.ref4Pie2.setData(oData);
       },
 
       //#endregion

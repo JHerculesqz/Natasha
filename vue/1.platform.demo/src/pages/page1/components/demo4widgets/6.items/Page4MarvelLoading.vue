@@ -3,7 +3,7 @@
     <!--1级 start-->
     <div class="title level1">MarvelLoading</div>
     <div class="describe">
-      界面框架
+
     </div>
     <!--1级 end-->
     <!--region widget show area-->
@@ -19,7 +19,7 @@
               <button v-on:click="showLeft">showLeft</button>
               <button v-on:click="hideLeft">hideLeft</button>
               <button v-on:click="showRight">showRight</button>
-              <button v-on:click="hideRight">hideRight</button>
+              <button v-on:click="hideRight">hideRight</button><br>
               <marvel-loading ref="ref0" :isGlobal="true" v-on:onCancel="loadingOnCancel"></marvel-loading>
               <div class="loadingArea1">
                 <marvel-loading ref="ref1" :isGlobal="false" v-on:onCancel="loadingOnCancel"></marvel-loading>
@@ -178,6 +178,22 @@
     height: 400px;
   }
 
+  .loadingArea1{
+    width: 50%;
+    height: 300px;
+    background-color: #ffccce;
+    position: relative;
+    float: left;
+  }
+
+  .loadingArea2{
+    width: 50%;
+    height: 300px;
+    background-color: #c1d9ff;
+    position: relative;
+    float: left;
+  }
+
   /*document custom style end*/
   /*custom style start*/
 
@@ -194,4 +210,10 @@
   }
 
   /*endregion*/
+</style>
+
+<style>
+  .maskLoading .loadingBoard{
+    top: 45% !important;
+  }
 </style>

@@ -3,7 +3,7 @@
     <!--1级 start-->
     <div class="title level1">MarvelDate2</div>
     <div class="describe">
-      界面框架
+
     </div>
     <!--1级 end-->
     <!--region widget show area-->
@@ -14,7 +14,20 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <button v-on:click="setFormat(`YYYY`)">setFormat: YYYY</button>
+            <button v-on:click="setFormat(`YYYY-MM`)">setFormat: YYYY-MM</button>
+            <button v-on:click="setFormat(`YYYY-MM-DD`)">setFormat: YYYY-MM-DD</button>
+            <button v-on:click="setFormat(`YYYY-MM-DD HH:mm:ss`)">setFormat: YYYY-MM-DD HH:mm:ss</button>
+            <button v-on:click="setFormat(`YYYY-MM-DD HH:mm`)">setFormat: YYYY-MM-DD HH:mm</button>
+            <button v-on:click="setFormat(`YYYY-MM-DD HH`)">setFormat: YYYY-MM-DD HH</button>
+            <button v-on:click="getDate">getDate</button>
+            <button v-on:click="setDate">setDate</button>
+            <button v-on:click="setRangeDate">setRangeDate</button>
+            <button v-on:click="disable">disable</button>
+            <button v-on:click="active">active</button>
+            <button v-on:click="clearDates">clearDates</button>
+            <br>
+            <marvel-date2 ref="ref0" v-model="time" :format="format" :disabled="disabled" @input="input"></marvel-date2>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -42,10 +55,12 @@
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
+  import MarvelDate2 from "~~/widget/date/MarvelDate2";
 
   export default {
     name: 'page4MarvelDate2',
     components: {
+      MarvelDate2,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -63,7 +78,9 @@
         }],
         //#endregion
         //#region custom data
-
+        format:"YYYY-MM-DD HH:mm:ss",
+        time: new Date(),
+        disabled: false
         //#endregion
       }
     },
@@ -84,6 +101,42 @@
       },
 
       //#endregion
+      
+      setFormat: function (strFormat) {
+        this.format = strFormat;
+      },
+      
+      getDate: function () {
+        var strValue = this.$refs.ref0.getValue();
+        console.log(strValue);
+      },
+
+      setDate: function () {
+        this.time = new Date();
+      },
+
+      setRangeDate: function () {
+        var startTime = new Date();
+        var endTime = new Date();
+        endTime = endTime.setDate(endTime.getDate() + 10);
+        this.time = [startTime, endTime];
+      },
+      
+      disable: function () {
+        this.disabled = true;
+      },
+      
+      active: function () {
+        this.disabled = false;
+      },
+      
+      clearDates: function () {
+        this.$refs.ref0.clearDates();
+      },
+      
+      input: function (startDate) {
+        console.log(startDate);
+      }
 
       //#endregion
       //#region callback

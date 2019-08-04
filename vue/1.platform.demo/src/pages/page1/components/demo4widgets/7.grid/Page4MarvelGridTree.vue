@@ -3,7 +3,7 @@
     <!--1级 start-->
     <div class="title level1">MarvelGridTree</div>
     <div class="describe">
-      界面框架
+
     </div>
     <!--1级 end-->
     <!--region widget show area-->
@@ -14,7 +14,7 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-            <div style="width: 100%;height: 350px">
+            <div style="width: 100%; height: 350px">
               <marvel-grid-tree :hasFoot="false"
                                 ref="ref4MarvelGridTree"
                                 :titles="titles"

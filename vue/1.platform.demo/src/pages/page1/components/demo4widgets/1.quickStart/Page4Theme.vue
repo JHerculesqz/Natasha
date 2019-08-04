@@ -8,7 +8,9 @@
     <!--1级 end-->
 
     <div class="title level2">
-      安装完控件后，在需要进行主题切换控制的地方定义切换函数，当前已提供两种主题
+      安装完控件后，在需要进行主题切换控制的地方定义切换函数，当前已提供两种主题<br>
+      <img src="../../../../../../static/image/page4Theme/1.png"><br>
+      <img src="../../../../../../static/image/page4Theme/2.png"><br>
     </div>
   </div>
 </template>

@@ -8,8 +8,9 @@
     <!--1级 end-->
 
     <div class="title level2">
-      在对应的文件下新建vue文件，文件内容按照以下格式进行编写
-      控件开发完成后需要提供对应的demo页面进行控件效果展示，同时也是为了方便进行自测试，以及提供使用样式供使用者进行参考
+      在对应的文件下新建vue文件，文件内容按照以下格式进行编写<br>
+      <img src="../../../../../../static/image/page4Develop/1.png"><br>
+      注意：控件开发完成后需要提供对应的demo页面进行控件效果展示，同时也是为了方便进行自测试，以及提供使用样式供使用者进行参考
     </div>
   </div>
 </template>
@@ -19,7 +20,6 @@
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
-
 
   export default {
     name: 'page4Page4Develop',

@@ -3,7 +3,7 @@
     <!--1级 start-->
     <div class="title level1">MarvelSearchAdvance</div>
     <div class="describe">
-      界面框架
+
     </div>
     <!--1级 end-->
     <!--region widget show area-->
@@ -14,7 +14,13 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <marvel-search-advance labelHand="高级搜索"
+                                   :width=800
+                                   :height=200
+                                   position="right"
+                                   :searchItems="searchItems4Advance"
+                                   labelFoot="搜索"
+                                   @onClickSearch="search"></marvel-search-advance>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -42,10 +48,12 @@
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
+  import MarvelSearchAdvance from "~~/widget/search/MarvelSearchAdvance";
 
   export default {
     name: 'page4MarvelSearchAdvance',
     components: {
+      MarvelSearchAdvance,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -63,7 +71,36 @@
         }],
         //#endregion
         //#region custom data
-
+        searchItems4Advance:[{
+          label:'分区',
+          type:'input',
+        },{
+          label:'选项1',
+          type:'dropdown',
+          value:[{
+            label:"选项1",
+            active: true,
+          },{
+            label:"选项2",
+            active: false,
+          },{
+            label:"选项3",
+            active: false,
+          }]
+        },{
+          label:'选项2',
+          type:'dropdown',
+          value:[{
+            label:"选项1",
+            active: false,
+          },{
+            label:"选项2",
+            active: true,
+          },{
+            label:"选项3",
+            active: false,
+          }]
+        }]
         //#endregion
       }
     },
@@ -84,6 +121,11 @@
       },
 
       //#endregion
+      
+      search: function (searchObj, callback) {
+        console.log(searchObj);
+        callback(false);
+      }
 
       //#endregion
       //#region callback

@@ -3,7 +3,7 @@
     <!--1级 start-->
     <div class="title level1">MarvelWizardAdvance</div>
     <div class="describe">
-      界面框架
+
     </div>
     <!--1级 end-->
     <!--region widget show area-->
@@ -14,7 +14,9 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <div style="height: 40px; width: 630px; background-color: rgba(65, 71, 90, 1)">
+              <marvel-wizard-advance :wizardsItems="wizardsItems" @onClickSubMenu = "onClickSubMenu"></marvel-wizard-advance>
+            </div>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -42,10 +44,12 @@
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
+  import MarvelWizardAdvance from "~~/widget/wizard/MarvelWizardAdvance";
 
   export default {
     name: 'page4MarvelWizardAdvance',
     components: {
+      MarvelWizardAdvance,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -63,7 +67,52 @@
         }],
         //#endregion
         //#region custom data
-
+        wizardsItems:[{
+          label:"Step1",
+          isActive:true,
+          isFinish: false,
+          isShowSubItem: false,
+          isShowSubIcon: false,
+          subItems:[{
+            label:'abc',
+          }],
+          id:"123"
+        },{
+          label:"Step2",
+          isActive:true,
+          isFinish: true,
+          id:"234"
+        },{
+          label:"Step3",
+          isActive:false,
+          isFinish: false,
+          isShowSubItem: false,
+          isShowSubIcon: true,
+          subItems:[{
+            label:'abc',
+          },{
+            label:'abcabcabcabc',
+          }],
+          id:"345"
+        },{
+          label:"Step4",
+          isActive:false,
+          isFinish: false,
+          isShowSubItem: false,
+          id:"567"
+        },{
+          label:"Step5",
+          isActive:false,
+          isFinish: false,
+          isShowSubItem: false,
+          id:"578"
+        },{
+          label:"Step6",
+          isActive:false,
+          isFinish: false,
+          isShowSubItem: false,
+          id:"789"
+        }]
         //#endregion
       }
     },
@@ -84,6 +133,11 @@
       },
 
       //#endregion
+      
+      onClickSubMenu: function (oWizardItem, strLabel) {
+        console.log(oWizardItem);
+        console.log(strLabel);
+      }
 
       //#endregion
       //#region callback

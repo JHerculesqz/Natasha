@@ -3,7 +3,7 @@
     <!--1级 start-->
     <div class="title level1">MarvelMenuHelp</div>
     <div class="describe">
-      界面框架
+
     </div>
     <!--1级 end-->
     <!--region widget show area-->
@@ -14,7 +14,12 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-
+            <div style="width: 100%;height: 100%;box-sizing: border-box;padding-left: 100px">
+              <marvel-menu-help ref="ref4MenuHelp"
+                                :items="menuHelp.menuHelpItems"
+                                :title="menuHelp.title"
+                                v-on:showSubHelpItem="showSubHelpItem"></marvel-menu-help>
+            </div>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -42,10 +47,12 @@
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
+  import MarvelMenuHelp from "~~/widget/menu/MarvelMenuHelp";
 
   export default {
     name: 'page4MarvelMenuHelp',
     components: {
+      MarvelMenuHelp,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -63,7 +70,39 @@
         }],
         //#endregion
         //#region custom data
-
+        menuHelp:{
+          title:"帮助",
+          menuHelpItems:[{
+            type:"textIcon",
+            icon:"icon-marvelIcon-10",
+            url:"https://www.baidu.com/",
+            label:"反馈"
+          },{
+            type:"itemEspace",
+            icon:"icon-marvelIcon-11",
+            label:"咨询",
+            title:"咨询",
+            subItems:[{
+              label:"咨询师1",
+              userId:"XXXXXXXX",
+            },{
+              label:"咨询师2",
+              userId:"XXXXXXXX",
+            }],
+          },{
+            type:"itemEspace",
+            icon:"icon-marvelIcon-11",
+            label:"专家",
+            title:"专家",
+            subItems:[{
+              label:"专家1",
+              userId:"XXXXXXXX",
+            },{
+              label:"专家2",
+              userId:"XXXXXXXX",
+            }],
+          }]
+        }
         //#endregion
       }
     },
@@ -84,6 +123,10 @@
       },
 
       //#endregion
+
+      showSubHelpItem: function () {
+        console.log("showSubHelpItem");
+      }
 
       //#endregion
       //#region callback
