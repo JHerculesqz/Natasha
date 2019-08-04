@@ -6,8 +6,15 @@
 
 ``` bash
 # build
+cd ace-custom
 npm install
 node ./Makefile.dryice.js -nc
+
+# publish
+cd 1.platform.ace
+npm publish
+
+
 
 ```
 
