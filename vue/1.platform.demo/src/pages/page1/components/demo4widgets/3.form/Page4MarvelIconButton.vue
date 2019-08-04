@@ -26,7 +26,12 @@
         <marvel-tab-item :isActive="tabItems1[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-
+            <marvel-icon-button classCustom="classCustom1" label="normal"
+                                icon="icon-home3" :isWarn=true
+                                v-on:onClick="onClick"></marvel-icon-button>
+            <marvel-icon-button classCustom="classCustom1" label="disable" status="disable"
+                                icon="icon-home3"
+                                v-on:onClick="onClick"></marvel-icon-button>
             '></marvel-ace-editor>
           </div>
         </marvel-tab-item>

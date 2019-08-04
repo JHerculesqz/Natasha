@@ -27,7 +27,13 @@
         <marvel-tab-item :isActive="tabItems1[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-
+            marvel-search-advance labelHand="高级搜索"
+                                   :width=800
+                                   :height=200
+                                   position="right"
+                                   :searchItems="searchItems4Advance"
+                                   labelFoot="搜索"
+                                   @onClickSearch="search"></marvel-search-advance>
             '></marvel-ace-editor>
           </div>
         </marvel-tab-item>

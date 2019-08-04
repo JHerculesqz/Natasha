@@ -28,7 +28,14 @@
         <marvel-tab-item :isActive="tabItems1[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-
+            <div style="width:200px;">
+              <button v-on:click="onClick4Input4">获取</button>
+              <marvel-multi-input ref="ref1" :status="status4" placeHolder="please..."
+                                  :inputMsg="inputMsg2" size="mini"
+                                  @onBlur="onBlur2"
+                                  @onInput="onInput2">
+              </marvel-multi-input>
+            </div>
             '></marvel-ace-editor>
           </div>
         </marvel-tab-item>

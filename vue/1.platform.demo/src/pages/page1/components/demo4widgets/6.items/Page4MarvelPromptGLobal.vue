@@ -17,14 +17,17 @@
             <button v-on:click="onClickAddError">添加一条错误提示</button>
             <button v-on:click="onClickAddWarning">添加一条警告提示</button>
             <button v-on:click="onClickAddTip">添加一条普通提示</button>
-            <MarvelPromptGlobal :oPrompts="oGlobalPrompts" :disposeTimeOut='3000'></MarvelPromptGlobal>
+            <MarvelPromptGlobal :oPrompts="oGlobalPrompts" :disposeTimeOut="3000"></MarvelPromptGlobal>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
         <marvel-tab-item :isActive="tabItems1[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-
+            <button v-on:click="onClickAddError">添加一条错误提示</button>
+            <button v-on:click="onClickAddWarning">添加一条警告提示</button>
+            <button v-on:click="onClickAddTip">添加一条普通提示</button>
+            <MarvelPromptGlobal :oPrompts="oGlobalPrompts" :disposeTimeOut="3000"></MarvelPromptGlobal>
             '></marvel-ace-editor>
           </div>
         </marvel-tab-item>
@@ -93,19 +96,19 @@
       onClickAddError:function(){
         this.oGlobalPrompts.push({
           status: '2',
-          content: '中华人民共和国解放了'
+          content: 'prompt1'
         });
       },
       onClickAddWarning:function(){
         this.oGlobalPrompts.push({
           status: '1',
-          content: 'xxx共和国快倒闭了'
+          content: 'prompt2'
         });
       },
       onClickAddTip:function(){
         this.oGlobalPrompts.push({
           status: '0',
-          content: 'xxx共和国倒闭了，xxx共和国倒闭了，xxx共和国倒闭了, xxx共和国倒闭了'
+          content: 'prompt3'
         });
       }
 

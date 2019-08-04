@@ -24,7 +24,10 @@
         <marvel-tab-item :isActive="tabItems1[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-
+            <div style="width:200px;">
+              <marvel-upload-simple btnName="文件上传"
+                                    @onUploadFile="onUploadFile"></marvel-upload-simple>
+            </div>
             '></marvel-ace-editor>
           </div>
         </marvel-tab-item>

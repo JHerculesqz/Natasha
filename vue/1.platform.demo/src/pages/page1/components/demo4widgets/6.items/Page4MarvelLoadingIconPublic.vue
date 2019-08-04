@@ -15,12 +15,12 @@
           <div class="showAreaInner">
             <!--2级DemoView start-->
             <div class="showArea">
-              <button v-on:click="showLoading2('key1')" class="loadingControlBtn">showLoading key1</button>
-              <button v-on:click="showLoading2('key2')" class="loadingControlBtn">showLoading key2</button>
-              <button v-on:click="showLoading2('key3')" class="loadingControlBtn">showLoading key3</button>
-              <button v-on:click="hideLoading2('key1')" class="loadingControlBtn">hideLoading key1</button>
-              <button v-on:click="hideLoading2('key2')" class="loadingControlBtn">hideLoading key2</button>
-              <button v-on:click="hideLoading2('key3')" class="loadingControlBtn">hideLoading key3</button>
+              <button v-on:click="showLoading2(`key1`)" class="loadingControlBtn">showLoading key1</button>
+              <button v-on:click="showLoading2(`key2`)" class="loadingControlBtn">showLoading key2</button>
+              <button v-on:click="showLoading2(`key3`)" class="loadingControlBtn">showLoading key3</button>
+              <button v-on:click="hideLoading2(`key1`)" class="loadingControlBtn">hideLoading key1</button>
+              <button v-on:click="hideLoading2(`key2`)" class="loadingControlBtn">hideLoading key2</button>
+              <button v-on:click="hideLoading2(`key3`)" class="loadingControlBtn">hideLoading key3</button>
               <marvel-loading-icon-public ref="ref1"></marvel-loading-icon-public>
             </div>
             <!--2级DemoView end-->
@@ -29,7 +29,15 @@
         <marvel-tab-item :isActive="tabItems1[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-
+           <div class="showArea">
+              <button v-on:click="showLoading2(`key1`)" class="loadingControlBtn">showLoading key1</button>
+              <button v-on:click="showLoading2(`key2`)" class="loadingControlBtn">showLoading key2</button>
+              <button v-on:click="showLoading2(`key3`)" class="loadingControlBtn">showLoading key3</button>
+              <button v-on:click="hideLoading2(`key1`)" class="loadingControlBtn">hideLoading key1</button>
+              <button v-on:click="hideLoading2(`key2`)" class="loadingControlBtn">hideLoading key2</button>
+              <button v-on:click="hideLoading2(`key3`)" class="loadingControlBtn">hideLoading key3</button>
+              <marvel-loading-icon-public ref="ref1"></marvel-loading-icon-public>
+            </div>
             '></marvel-ace-editor>
           </div>
         </marvel-tab-item>

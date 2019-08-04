@@ -26,7 +26,12 @@
         <marvel-tab-item :isActive="tabItems1[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-
+            <div style="width: 100%;height: 500px;">
+              <marvel-dev-panel ref="refDevPanel" id="idDevPanel" resourceUrl="static"
+                                v-on:afterInitPlugin="afterInitPlugin"
+                                v-on:onClickBD="onClickBD"
+                                v-on:onContextMenuClickBD="onContextMenuClickBD"></marvel-dev-panel>
+            </div>
             '></marvel-ace-editor>
           </div>
         </marvel-tab-item>

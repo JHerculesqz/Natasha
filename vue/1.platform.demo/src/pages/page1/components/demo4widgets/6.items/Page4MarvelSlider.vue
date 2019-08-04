@@ -25,7 +25,11 @@
         <marvel-tab-item :isActive="tabItems1[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-
+            <div style="padding-top: 30px; padding-left: 60px;box-sizing: border-box">
+              <marvel-slider v-bind="sliderData"
+                             ref="ref4slider"
+                             @dragEnd="dragEnd"></marvel-slider>
+            </div>
             '></marvel-ace-editor>
           </div>
         </marvel-tab-item>

@@ -24,7 +24,10 @@
         <marvel-tab-item :isActive="tabItems1[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-
+            <div style="width:500px;height: 150px; background-color: #f0f0f0;">
+              <marvel-legend :legendItems="items"
+                             v-on:onLegendItemClick="onLegendItemClick"></marvel-legend>
+            </div>
             '></marvel-ace-editor>
           </div>
         </marvel-tab-item>

@@ -35,7 +35,21 @@
         <marvel-tab-item :isActive="tabItems1[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-
+            <button @click="getCheckNodes">getCheckNodes</button>
+            <button @click="getCheckLeafNodes">getCheckLeafNodes</button>
+            <button @click="foldOrUnfoldNode">foldOrUnfoldNode</button>
+            <button @click="getActiveNodes">getActiveNodes</button>
+            <button @click="setIconColor">setIconColor</button>
+            <button @click="expandTree">expandTree</button>
+            <button @click="folderTree">folderTree</button>
+            <div class="treeArea">
+              <marvel-z-tree ref="tree"
+                             :treeData="treeData"
+                             :options="options"
+                             @onCheckboxClick="onCheckboxClick"
+                             @onTreeNodeClick="onTreeNodeClick">
+              </marvel-z-tree>
+            </div>
             '></marvel-ace-editor>
           </div>
         </marvel-tab-item>

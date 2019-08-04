@@ -25,7 +25,11 @@
         <marvel-tab-item :isActive="tabItems1[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-
+            <div style="height:300px;">
+              <button @click="getPriorityList">getPriorityList</button>
+              <marvel-grid-priority :list="list4Priority" col1Title="col1Title" col2Title="col2Title"
+              ></marvel-grid-priority>
+            </div>
             '></marvel-ace-editor>
           </div>
         </marvel-tab-item>

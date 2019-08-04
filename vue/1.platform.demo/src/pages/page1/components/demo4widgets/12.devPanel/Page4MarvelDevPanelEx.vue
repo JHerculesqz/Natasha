@@ -31,7 +31,16 @@
         <marvel-tab-item :isActive="tabItems1[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-
+            <div style="width: 100%;height: 500px;">
+              <button @click="onClickRemoveNode">removeNode</button>
+              <button @click="onClickSetActiveStyle">设置选中样式</button>
+              <button @click="onClickRemoveAllActiveStyle">清除所有选中样式</button>
+              <div style="width: 400px; height: 450px">
+                <marvel-dev-panel-ex ref="ref4DevPanelEx" domId="rackPanel"
+                                     @callbackOnClick="callbackOnClick"
+                                     @callbackOnContextmenu="callbackOnContextmenu"></marvel-dev-panel-ex>
+              </div>
+            </div>
             '></marvel-ace-editor>
           </div>
         </marvel-tab-item>

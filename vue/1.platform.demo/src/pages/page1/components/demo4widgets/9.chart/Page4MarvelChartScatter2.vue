@@ -24,7 +24,10 @@
         <marvel-tab-item :isActive="tabItems1[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-
+            <div style="width: 850px; height: 350px;">
+              <marvel-chart-scatter2 ref="ref4" id="id4" theme="dark"
+                                     v-on:onScatterItemClick="onScatterItemClick"></marvel-chart-scatter2>
+            </div>
             '></marvel-ace-editor>
           </div>
         </marvel-tab-item>

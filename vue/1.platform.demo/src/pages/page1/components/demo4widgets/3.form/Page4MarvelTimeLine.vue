@@ -23,7 +23,9 @@
         <marvel-tab-item :isActive="tabItems1[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-
+            <div style="width:100%; height: 100%;">
+              <MarvelTimeLine :title="title" :items="items"></MarvelTimeLine>
+            </div>
             '></marvel-ace-editor>
           </div>
         </marvel-tab-item>
@@ -67,7 +69,7 @@
         }],
         //#endregion
         //#region custom data
-        title: 'Fast UI大事记',
+        title: 'time line',
         items: [
           {
             left: {
@@ -76,8 +78,8 @@
             },
             status: '0',
             right: {
-              title: '横空出世',
-              content: 'Fast UI开源项目启动'
+              title: 'title1',
+              content: 'content content content'
             }
           },
           {
@@ -87,8 +89,8 @@
             },
             status: '1',
             right: {
-              title: '项目解体',
-              content: '由于遇到全球经济危机，项目组由于资金链断裂，项目组创始人落魄宣布项目组解散'
+              title: 'title2',
+              content: 'content content content'
             }
           },
           {
@@ -98,8 +100,8 @@
             },
             status: '0',
             right: {
-              title: '出任CEO',
-              content: '项目创始人出任Google大中华区总裁'
+              title: 'title3',
+              content: 'content content content'
             }
           },
           {
@@ -109,9 +111,8 @@
             },
             status: '1',
             right: {
-              title: '牢狱之灾',
-              content: '出任Google大中华区总裁项目组创始人，最近被媒体爆料出与xxx女明星的绯闻。Google发表声明称此行为严重影响了Google的全球形象，解除项目创始人的总裁职务，同时由于' +
-                '触犯了公司的法规，Google将起诉该项目创始人'
+              title: 'title4',
+              content: 'content content content'
             }
           }
         ]

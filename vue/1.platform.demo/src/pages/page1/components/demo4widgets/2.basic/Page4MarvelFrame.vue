@@ -24,7 +24,7 @@
               <marvel-frame ref="pageframe"></marvel-frame>
               <div v-for="(oBlock, index) in blockItems"
                    :class="itemStyle"
-                   style="background-color: #d5d5d5; height: 32px;margin-bottom: 10px;" >{{index}}</div>
+                   style="background-color: #d5d5d5; height: 32px;margin-bottom: 10px;" v-html="index"></div>
             </div>
             <!--2级DemoView end-->
           </div>
@@ -32,7 +32,18 @@
         <marvel-tab-item :isActive="tabItems1[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-
+            <div ref="parent" class="page4Frame hasMargin">
+              <marvel-button size="small" label="setItemNum(20)"
+                                     v-on:onClick="setItemNum(20)"></marvel-button>
+              <marvel-button size="small" label="setItemNum(8)"
+                                     v-on:onClick="setItemNum(8)"></marvel-button>
+              <marvel-button size="small" label="setItemNum(3)"
+                                     v-on:onClick="setItemNum(3)" style="clear:both;"></marvel-button>
+              <marvel-frame ref="pageframe"></marvel-frame>
+              <div v-for="(oBlock, index) in blockItems"
+                   :class="itemStyle"
+                   style="background-color: #d5d5d5; height: 32px;margin-bottom: 10px;" v-html="index"></div>
+            </div>
             '></marvel-ace-editor>
           </div>
         </marvel-tab-item>

@@ -28,7 +28,14 @@
         <marvel-tab-item :isActive="tabItems1[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-
+            <button v-on:click="getMultiDropValue">getSelectItem</button>
+            <marvel-multi-drop-down :items="multiItems"
+                                    ref="multiDrop"
+                                    maxHeight="150px"
+                                    status="error" errMsg="error"
+                                    :needCheckAll="true"
+                                    @onAllCheckChangeEvent="onAllCheckChangeEvent"
+                                    @onItemCheckChangeEvent="onItemCheckChangeEvent"></marvel-multi-drop-down>
             '></marvel-ace-editor>
           </div>
         </marvel-tab-item>

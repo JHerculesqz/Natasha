@@ -32,7 +32,18 @@
         <marvel-tab-item :isActive="tabItems1[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-
+            <div style="background-color: #f0f0f0;position: relative;height: 100%;">
+              <button v-on:click="expandBottom">expand</button>
+              <button v-on:click="foldBottom">fold</button>
+              <marvel-bottom-ext-panel
+                ref="ref0"
+                :height=100
+                :show="false"
+                :canDrag="true"
+                @onExpandBtnClick="onExpandBtnClick1">
+                <div slot="content" style="color: #fff">hello world</div>
+              </marvel-bottom-ext-panel>
+            </div>
             '></marvel-ace-editor>
           </div>
         </marvel-tab-item>

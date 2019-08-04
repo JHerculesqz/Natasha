@@ -342,7 +342,7 @@
             {id: "Page4MarvelSelectCard", label: "Page4MarvelSelectCard"},
             {id: "Page4MarvelSwitch", label: "Page4MarvelSwitch"},
             {id: "Page4MarvelTabButton", label: "Page4MarvelTabButton"},
-            {id: "Page4MarvelTableDiff", label: "Page4MarvelTableDiff"},
+            // {id: "Page4MarvelTableDiff", label: "Page4MarvelTableDiff"},
             {id: "Page4MarvelTimeLine", label: "Page4MarvelTimeLine"},
             {id: "Page4MarvelTxtButton", label: "Page4MarvelTxtButton"},
             {id: "Page4MarvelUpload", label: "Page4MarvelUpload"},

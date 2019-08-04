@@ -58,7 +58,46 @@
         <marvel-tab-item :isActive="tabItems1[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-
+            <button v-on:click="onClickExpandNodeGroup">expandNodeGroup</button>
+            <button v-on:click="onClickCollapseNodeGroup">collapseNodeGroup</button>
+            <button v-on:click="onClickExpandLinkGroup">expandLinkGroup</button>
+            <button v-on:click="onClickCollapseLinkGroup">collapseLinkGroup</button>
+            <button v-on:click="onClickSelectNodes">selectNodes</button>
+            <button v-on:click="onClickSelectLinks">selectLinks</button>
+            <button v-on:click="onClickGetTopoData">getTopoData</button>
+            <button v-on:click="onClickUpdateTopo">updateTopo</button>
+            <button v-on:click="onClickCreateNode">createNode</button>
+            <button v-on:click="createNodeContinue">createNodeContinue</button>
+            <button v-on:click="savePosition">savePosition</button>
+            <button v-on:click="resetPosition">resetPosition</button>
+            <button v-on:click="isPositionUpdate">isPositionUpdate</button>
+            <button v-on:click="setBestView">setBestView</button>
+            <button v-on:click="hideOrShowNode">hideOrShowNode</button>
+            <button v-on:click="hideOrShowLink">hideOrShowLink</button>
+            <button v-on:click="getSelectedData">getSelectedData</button>
+            <button v-on:click="createLink">createLink</button>
+            <button v-on:click="createLinkContinue">createLinkContinue</button>
+            <button v-on:click="getPosChangeTopoCache">getPosChangeTopoCache</button>
+            <button v-on:click="setAreaSelect1">设置框选网元</button>
+            <button v-on:click="setAreaSelect2">设置框选链路</button>
+            <button v-on:click="setAreaSelect3">设置框选网元和链路</button>
+            <div style="width: 800px; height: 400px;">
+              <marvel-topo ref="ref4Topo" id="topo" theme="dark"
+                           v-on:onNodeClick="onNodeClick"
+                           v-on:onGenerateNodeProp="onGenerateNodeProp"
+                           v-on:onGenerateNodeTip="onGenerateNodeTip"
+                           v-on:onNodeGroupClick="onNodeGroupClick"
+                           v-on:onLinkGroupClick="onLinkGroupClick"
+                           v-on:onLinkClick="onLinkClick"
+                           v-on:onRightClick="onRightClick"
+                           v-on:onGenerateLinkProp="onGenerateLinkProp"
+                           v-on:onGenerateLinkTip="onGenerateLinkTip"
+                           v-on:onPositionUpdate="onPositionUpdate"
+                           v-on:onClick="onClick"
+                           v-on:onAreaSelect="onAreaSelect"></marvel-topo>
+            </div>
+            <!--2级DemoView end-->
+          </div>
             '></marvel-ace-editor>
           </div>
         </marvel-tab-item>

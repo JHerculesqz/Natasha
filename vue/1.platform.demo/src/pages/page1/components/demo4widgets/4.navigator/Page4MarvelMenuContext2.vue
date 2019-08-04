@@ -27,7 +27,13 @@
         <marvel-tab-item :isActive="tabItems1[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-
+            <div id="contextMenuWrapper" style="width: 100%; height: 100%;" @contextmenu.prevent="showContextMenu">
+              <marvel-menu-context2 ref="refContextMenu"
+                                    :items="items"
+                                    containerId="contextMenuWrapper"
+                                    contextMenuItemId="contextMenuWrapperInner"
+                                    v-on:onMenuItemClick="onMenuItemClick"></marvel-menu-context2>
+            </div>
             '></marvel-ace-editor>
           </div>
         </marvel-tab-item>

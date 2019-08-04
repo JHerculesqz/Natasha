@@ -23,7 +23,9 @@
         <marvel-tab-item :isActive="tabItems1[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-
+            <button @click="changeZIndex">changeZIndex to -1</button>
+            <marvel-list1 :items="listItems" :bargeCount="listBargeCount" ref="aaa"
+                          v-on:onListItemClick="onListItemClick"></marvel-list1>
             '></marvel-ace-editor>
           </div>
         </marvel-tab-item>

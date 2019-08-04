@@ -25,7 +25,11 @@
         <marvel-tab-item :isActive="tabItems1[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-
+            <div style="height:300px; background-color: #fafafa;">
+              <marvel-grid-m :titles="titles4GridM"
+                             :rows="rows4GridM"
+                             v-on:onClickMore="onClickMore"></marvel-grid-m>
+            </div>
             '></marvel-ace-editor>
           </div>
         </marvel-tab-item>

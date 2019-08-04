@@ -25,7 +25,11 @@
         <marvel-tab-item :isActive="tabItems1[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-
+            <div class="panel">
+              <button @click="upDateSearchOption">updateSelectOption</button>
+              <MarvelSearchWithDropDown placeholder="请输入关键字..." @search="search2"
+                                        :selectItems="selectItems"></MarvelSearchWithDropDown>
+            </div>
             '></marvel-ace-editor>
           </div>
         </marvel-tab-item>

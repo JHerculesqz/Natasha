@@ -22,7 +22,8 @@
         <marvel-tab-item :isActive="tabItems1[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-
+            <button v-on:click="onClick">update Data</button>
+            <marvel-warning :items="items"></marvel-warning>
             '></marvel-ace-editor>
           </div>
         </marvel-tab-item>

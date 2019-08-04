@@ -27,7 +27,13 @@
         <marvel-tab-item :isActive="tabItems1[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-
+            <div style="width:360px;">
+              <button v-on:click="setLisInputData">设置值</button>
+              <button v-on:click="getLisInputData">获取值</button>
+              <button v-on:click="setLisInputError">设置报错状态</button>
+              <button v-on:click="clearLisInputError">清除报错状态</button>
+              <marvel-list-input ref="ref2" @onValueChange="onListInputValueChange"></marvel-list-input>
+            </div>
             '></marvel-ace-editor>
           </div>
         </marvel-tab-item>

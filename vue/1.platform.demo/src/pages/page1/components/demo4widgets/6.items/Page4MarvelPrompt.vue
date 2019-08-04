@@ -16,7 +16,7 @@
             <!--2级DemoView start-->
             <div style="width:100%; height: 100%;">
               <div class="panel">
-                <MarvelPrompt :status="items[0].status" :content="items[0].content" :disposeTimeOut='2000'></MarvelPrompt>
+                <MarvelPrompt :status="items[0].status" :content="items[0].content" :disposeTimeOut="2000"></MarvelPrompt>
               </div>
               <div class="panel">
                 <MarvelPrompt :status="items[1].status" :content="items[1].content"></MarvelPrompt>
@@ -31,7 +31,17 @@
         <marvel-tab-item :isActive="tabItems1[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-
+            <div style="width:100%; height: 100%;">
+              <div class="panel">
+                <MarvelPrompt :status="items[0].status" :content="items[0].content" :disposeTimeOut="2000"></MarvelPrompt>
+              </div>
+              <div class="panel">
+                <MarvelPrompt :status="items[1].status" :content="items[1].content"></MarvelPrompt>
+              </div>
+              <div class="panel">
+                <MarvelPrompt :status="items[2].status" :content="items[2].content"></MarvelPrompt>
+              </div>
+            </div>
             '></marvel-ace-editor>
           </div>
         </marvel-tab-item>

@@ -29,7 +29,15 @@
         <marvel-tab-item :isActive="tabItems1[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-
+            <button v-on:click="onClickConfirmShow">show</button>
+            <marvel-confirm :showConfirm="showConfirm"
+                            :showOkBtn="false"
+                            :showCancelBtn="true"
+                            confirmCont="这是一个提示确认框"
+                            tipType="tip"
+                            :canDrag="true"
+                            v-on:onClickOK="onClickConfirmOK"
+                            v-on:onClickCancel="onClickConfirmCancel"></marvel-confirm>
             '></marvel-ace-editor>
           </div>
         </marvel-tab-item>

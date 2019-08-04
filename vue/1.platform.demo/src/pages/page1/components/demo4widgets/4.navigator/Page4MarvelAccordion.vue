@@ -26,7 +26,12 @@
         <marvel-tab-item :isActive="tabItems1[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-
+            <div style="width: 180px;height:100%">
+              <marvel-accordion :isFolder="false" :hasShadow="true"
+                                title="abc" titleIcon="icon-calculator"
+                                defaultSelectLabel="item1"
+                                :items="items"></marvel-accordion>
+            </div>
             '></marvel-ace-editor>
           </div>
         </marvel-tab-item>

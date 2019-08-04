@@ -30,7 +30,16 @@
         <marvel-tab-item :isActive="tabItems1[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-
+            <button v-on:click="getSwitch">getStatus</button>
+            <br>
+            <marvel-switch ref="ref4" id="id5" :check="false" v-on:onClick="onSwitchClick"></marvel-switch>
+            <marvel-switch ref="ref5" id="id6"
+                           buObj="buObj..."
+                           v-on:onClick="onSwitchClick"
+                           v-on:onChange="onChange4Switch"></marvel-switch>
+            <br>
+            <marvel-switch ref="ref6" id="id7" v-on:onClick="onSwitchClick"></marvel-switch>
+            <marvel-switch ref="ref7" id="id8" v-on:onClick="onSwitchClick"></marvel-switch>
             '></marvel-ace-editor>
           </div>
         </marvel-tab-item>

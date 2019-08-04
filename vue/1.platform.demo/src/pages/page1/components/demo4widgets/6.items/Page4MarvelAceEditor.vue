@@ -40,7 +40,26 @@
         <marvel-tab-item :isActive="tabItems1[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor2" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-
+            <div style="margin-left: 54px;margin-top: -30px;height: 40px;">
+              <div style="float: left;">
+                <marvel-drop-down-button ref="languageSelect" width="200px" classCustom="btnCustom"
+                                         maxHeight="240px" :dropDownItems="languageOptions"
+                                         v-on:onOptionSelect="_onOptionSelect"></marvel-drop-down-button>
+              </div>
+              <marvel-button label="Get Code" classCustom="btnCustom"
+                             v-on:onClick="_getCode"></marvel-button>
+              <marvel-button label="Change theme" classCustom="btnCustom"
+                             v-on:onClick="_changeTheme"></marvel-button>
+              <marvel-button label="Increase font size" classCustom="btnCustom"
+                             v-on:onClick="_fontSizeAddition"></marvel-button>
+              <marvel-button label="Reduce font size" classCustom="btnCustom"
+                             v-on:onClick="_fontSizeReduce"></marvel-button>
+              <marvel-button label="Set editor model" classCustom="btnCustom"
+                             v-on:onClick="_setEditorModel"></marvel-button>
+            </div>
+            <div style="border: 1px solid #eee; height: 90%;">
+              <marvel-ace-editor ref="aceEditor" :theme="theme" :fontSize="fontSize" :readOnly="readOnly"></marvel-ace-editor>
+            </div>
             '></marvel-ace-editor>
           </div>
         </marvel-tab-item>

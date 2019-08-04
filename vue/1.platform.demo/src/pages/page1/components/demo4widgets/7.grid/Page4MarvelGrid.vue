@@ -29,7 +29,15 @@
         <marvel-tab-item :isActive="tabItems1[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-
+            <div style="width:500px;height:300px;">
+              <marvel-grid :titles="titles" :rows="rows" :inputMsgs="inputMsgs" gridId="demo"
+                           v-on:onClickRow="onClickRow"
+                           v-on:onIconClick="onIconClick"
+                           v-on:onTitleCheckOrUncheck="onTitleCheckOrUncheck"
+                           v-on:onRowCheckOrUnCheck="onRowCheckOrUnCheck"
+                           v-on:updateRow="updateRow"
+                           v-on:onRowRadionCheckOrUnCheck="onRowRadionCheckOrUnCheck"></marvel-grid>
+            </div>
             '></marvel-ace-editor>
           </div>
         </marvel-tab-item>

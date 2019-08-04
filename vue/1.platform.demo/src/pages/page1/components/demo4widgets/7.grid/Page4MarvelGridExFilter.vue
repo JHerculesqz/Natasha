@@ -64,7 +64,50 @@
         <marvel-tab-item :isActive="tabItems1[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-
+            <button @click="setRowColorEx">setRowColor</button>
+            <button @click="removeRowColorEx">removeRowColor</button>
+            <button @click="getSelectRows4CheckboxEx">getSelectRows4Checkbox</button>
+            <button @click="removeRowEx">removeRow</button>
+            <button @click="getRowsEx">getRows</button>
+            <button @click="getActiveRowsEx">getActiveRows</button>
+            <button @click="resetRowEx">resetRow</button>
+            <button @click="disableRowEx">disableRow</button>
+            <button @click="enableRowEx">enableRow</button>
+            <button @click="enableAllRowsEx">enableAllRows</button>
+            <button @click="checkRow">checkRow</button>
+            <button @click="disabledDropDownCell">disabledDropDownCell</button>
+            <button @click="getUnFoldRowIds">getUnFoldRowIds</button>
+            <button @click="foldRows">folderRows</button>
+            <button @click="unFoldRows">unFolderRows</button>
+            <div style="width:800px;height:300px;">
+              <marvel-grid-ex-filter ref="gridEx"
+                                     :titles="titlesEx"
+                                     :rows="rowsEx"
+                                     :limit="15"
+                                     gridId="demoEx"
+                                     v-on:editCellFinished="editCellFinishedEx"
+                                     :canDrag="true"
+                                     :hasFoot="true"
+                                     :showPageNum="true"
+                                     detailRowComponent="CustomerGridComponent"
+                                     searchComponent="CustomerSearchComponent"
+                                     :showChangeLimit="true"
+                                     :showNumSelected="true"
+                                     :limitRange="[15,30,50,100]"
+                                     v-on:onClickRow="onClickRowEx"
+                                     v-on:onDblclickRow="onDblclickRowEx"
+                                     v-on:onIconClick="onIconClickEx"
+                                     v-on:onClickTextIcon="onClickTextIconEx"
+                                     v-on:onTitleCheckOrUncheck="onTitleCheckOrUncheckEx"
+                                     v-on:onRowCheckOrUnCheck="onRowCheckOrUnCheckEx"
+                                     v-on:onRowRadioCheck="onRowRadioCheckEx"
+                                     v-on:onOptionChange="onOptionChangeEx"
+                                     v-on:onClickMultiDropdownItem="onClickMultiDropdownItemEx"
+                                     v-on:onClickTextCell="onClickTextCell"
+                                     v-on:onClickFoldOrUnFold="onClickFoldOrUnFold"
+                                     v-on:onClickSwitch="onClickSwitch"
+                                     v-on:onClickImg="onClickImg"></marvel-grid-ex-filter>
+            </div>
             '></marvel-ace-editor>
           </div>
         </marvel-tab-item>

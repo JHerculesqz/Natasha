@@ -31,7 +31,17 @@
         <marvel-tab-item :isActive="tabItems1[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-
+            <button v-on:click="onClick4Radio">getStatus</button>
+            <br>
+            <marvel-radio-box ref="ref0" id="id1" group="group1"
+                              label="x1" :showLabel=false></marvel-radio-box>
+            <marvel-radio-box ref="ref1" id="id2" group="group1"
+                              label="x2" :showLabel=true v-on:onChange="onChange4Radio"></marvel-radio-box>
+            <br>
+            <marvel-radio-box ref="ref2" id="id3" group="group2"
+                              label="x3" :showLabel="true"></marvel-radio-box>
+            <marvel-radio-box ref="ref3" id="id4" group="group2"
+                              label="x4" :showLabel="true"></marvel-radio-box>
             '></marvel-ace-editor>
           </div>
         </marvel-tab-item>

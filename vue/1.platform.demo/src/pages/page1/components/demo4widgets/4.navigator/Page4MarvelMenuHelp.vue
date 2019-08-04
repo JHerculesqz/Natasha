@@ -26,7 +26,12 @@
         <marvel-tab-item :isActive="tabItems1[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-
+            <div style="width: 100%;height: 100%;box-sizing: border-box;padding-left: 100px">
+              <marvel-menu-help ref="ref4MenuHelp"
+                                :items="menuHelp.menuHelpItems"
+                                :title="menuHelp.title"
+                                v-on:showSubHelpItem="showSubHelpItem"></marvel-menu-help>
+            </div>
             '></marvel-ace-editor>
           </div>
         </marvel-tab-item>

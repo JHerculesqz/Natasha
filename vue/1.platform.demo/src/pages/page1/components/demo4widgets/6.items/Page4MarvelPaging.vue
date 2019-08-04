@@ -24,7 +24,10 @@
         <marvel-tab-item :isActive="tabItems1[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-
+            <div style="width:500px;height: 150px; background-color: #000000;">
+              <button @click="resetCurPageIndex">resetCurPageIndex</button>
+              <marvel-paging ref="ref4Paging" :totalNum="100" :pages="50" @onPageChange="onPageChange"></marvel-paging>
+            </div>
             '></marvel-ace-editor>
           </div>
         </marvel-tab-item>

@@ -23,7 +23,9 @@
         <marvel-tab-item :isActive="tabItems1[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-
+            <div style="height: 40px; width: 630px; background-color: rgba(65, 71, 90, 1)">
+              <marvel-wizard-advance :wizardsItems="wizardsItems" @onClickSubMenu = "onClickSubMenu"></marvel-wizard-advance>
+            </div>
             '></marvel-ace-editor>
           </div>
         </marvel-tab-item>

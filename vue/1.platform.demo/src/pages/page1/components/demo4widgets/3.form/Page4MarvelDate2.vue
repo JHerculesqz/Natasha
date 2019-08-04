@@ -34,7 +34,20 @@
         <marvel-tab-item :isActive="tabItems1[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-
+            <button v-on:click="setFormat(`YYYY`)">setFormat: YYYY</button>
+            <button v-on:click="setFormat(`YYYY-MM`)">setFormat: YYYY-MM</button>
+            <button v-on:click="setFormat(`YYYY-MM-DD`)">setFormat: YYYY-MM-DD</button>
+            <button v-on:click="setFormat(`YYYY-MM-DD HH:mm:ss`)">setFormat: YYYY-MM-DD HH:mm:ss</button>
+            <button v-on:click="setFormat(`YYYY-MM-DD HH:mm`)">setFormat: YYYY-MM-DD HH:mm</button>
+            <button v-on:click="setFormat(`YYYY-MM-DD HH`)">setFormat: YYYY-MM-DD HH</button>
+            <button v-on:click="getDate">getDate</button>
+            <button v-on:click="setDate">setDate</button>
+            <button v-on:click="setRangeDate">setRangeDate</button>
+            <button v-on:click="disable">disable</button>
+            <button v-on:click="active">active</button>
+            <button v-on:click="clearDates">clearDates</button>
+            <br>
+            <marvel-date2 ref="ref0" v-model="time" :format="format" :disabled="disabled" @input="input"></marvel-date2>
             '></marvel-ace-editor>
           </div>
         </marvel-tab-item>

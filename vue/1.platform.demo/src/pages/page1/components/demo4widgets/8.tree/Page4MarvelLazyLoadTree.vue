@@ -29,7 +29,15 @@
         <marvel-tab-item :isActive="tabItems1[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-
+            <button @click="expandNode4LazyNodeTree(lazyLoadTreeData[2])">expandNode9</button>
+            <button @click="folderNode4LazyNodeTree(lazyLoadTreeData[2])">folderNode9</button>
+            <div class="treeArea">
+              <marvel-lazy-load-tree
+                :treeData="lazyLoadTreeData"
+                ref="lazyLoadTree"
+                id="lazyLoadTree"
+                @onTreeNodeClick="onLazyLoadTreeNodeClick"></marvel-lazy-load-tree>
+            </div>
             '></marvel-ace-editor>
           </div>
         </marvel-tab-item>

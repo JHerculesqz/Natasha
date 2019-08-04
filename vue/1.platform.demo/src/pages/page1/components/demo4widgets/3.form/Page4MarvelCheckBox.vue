@@ -37,7 +37,23 @@
         <marvel-tab-item :isActive="tabItems1[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-
+            <button v-on:click="getCheckBox">getStatus</button>
+            <br>
+            <marvel-check-box ref="ref8" id="id9"
+                              label="x1" :showLabel=false v-on:onClick="onCheckBoxClick"></marvel-check-box>
+            <marvel-check-box ref="ref9" id="id10"
+                              label="x2" :showLabel=true
+                              buObj="buObj..."
+                              v-bind:check="true"
+                              v-on:onChange="onChange4Check"
+                              v-on:onClick="onCheckBoxClick"></marvel-check-box>
+            <br>
+            <marvel-check-box ref="ref10" id="id11"
+                              label="x3" :showLabel=true
+                              v-on:onClick="onCheckBoxClick"></marvel-check-box>
+            <marvel-check-box ref="ref11" id="id12"
+                              label="x4" :showLabel=true
+                              v-on:onClick="onCheckBoxClick"></marvel-check-box>
             '></marvel-ace-editor>
           </div>
         </marvel-tab-item>

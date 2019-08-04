@@ -34,7 +34,20 @@
         <marvel-tab-item :isActive="tabItems1[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-
+            <div class="showArea">
+              <button v-on:click="showGlobal">showGlobal</button>
+              <button v-on:click="showLeft">showLeft</button>
+              <button v-on:click="hideLeft">hideLeft</button>
+              <button v-on:click="showRight">showRight</button>
+              <button v-on:click="hideRight">hideRight</button><br>
+              <marvel-loading ref="ref0" :isGlobal="true" v-on:onCancel="loadingOnCancel"></marvel-loading>
+              <div class="loadingArea1">
+                <marvel-loading ref="ref1" :isGlobal="false" v-on:onCancel="loadingOnCancel"></marvel-loading>
+              </div>
+              <div class="loadingArea2">
+                <marvel-loading ref="ref2" :isGlobal="false" v-on:onCancel="loadingOnCancel"></marvel-loading>
+              </div>
+            </div>
             '></marvel-ace-editor>
           </div>
         </marvel-tab-item>

@@ -56,7 +56,42 @@
         <marvel-tab-item :isActive="tabItems1[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-
+            <button v-on:click="oTest4SetConfig">test4SetConfig</button>
+            <button v-on:click="oTestData">test4Data(draw)</button>
+            <button v-on:click="oTest4Map">test4Map(setCenter)</button>
+            <button v-on:click="oTest4Map2">test4Map(showOrHide)</button>
+            <button v-on:click="oTest4Layer1">test4Layer(getDiffLst)</button>
+            <button v-on:click="oTest4Layer2">test4Layer(toGeoJSON)</button>
+            <button v-on:click="oTest4Marker">test4Marker</button>
+            <button v-on:click="oTest4AttachedIcon">test4AttachedIcon</button>
+            <button v-on:click="oTest4Circle">test4Circle</button>
+            <button v-on:click="oTest4Group">test4Group(expandAllGroup)</button>
+            <button v-on:click="oTest4Group2">test4Group(collapseAllGroup)</button>
+            <button v-on:click="oTest4Group3">oTest4Group(delGroup)</button>
+            <button v-on:click="oTest4Group4">test4Group(setOpacity4Group)</button>
+            <button v-on:click="oTest4Line">test4Line(delPolyline)</button>
+            <button v-on:click="oTest4Line2">test4Line(setOpacity4Link)</button>
+            <button v-on:click="oTest4Line3">test4Line(setColor4Link)</button>
+            <button v-on:click="oTest4Polygon">test4Polygon(addPolygon)</button>
+            <button v-on:click="oTest4Polygon2">test4Polygon(delPolygon)</button>
+            <button v-on:click="oTest4Topo">test4Topo</button>
+            <button v-on:click="oTest4CreateMarker">test4CreateMarker</button>
+            <button v-on:click="oTest4ShowAllLabel">test4ShowAllLabel</button>
+            <button v-on:click="oTest4HideAllLabel">test4HideAllLabel</button>
+            <button v-on:click="oTest4ShowLabelByIds">oTest4ShowLabelByIds</button>
+            <button v-on:click="oTest4HideLabelByIds">oTest4HideLabelByIds</button>
+            <div style="width: 100%;height: 500px;">
+              <marvel-leaflet ref="ref0" id="gisMapId1"
+                              v-on:onZoom="onZoom"
+                              v-on:onClick="onClick"
+                              v-on:onContextMenu="onContextMenu"
+                              v-on:onNodeDblClick="onNodeDblClick"
+                              v-on:onNodeDrag="onNodeDrag"
+                              v-on:onNodeClick="onNodeClick"
+                              v-on:onNodeGroupClick="onNodeGroupClick"
+                              v-on:onLinkClick="onLinkClick"
+                              v-on:onCircleDblclick="onCircleDblclick"></marvel-leaflet>
+            </div>
             '></marvel-ace-editor>
           </div>
         </marvel-tab-item>

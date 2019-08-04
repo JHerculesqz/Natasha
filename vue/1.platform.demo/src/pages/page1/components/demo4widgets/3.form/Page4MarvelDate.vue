@@ -24,7 +24,10 @@
         <marvel-tab-item :isActive="tabItems1[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-
+            <div style="width: 400px;">
+              <marvel-date yearStart="2014" yearEnd="2030" yearSelect="2017"
+                           monthSelect="2" daySelect="3"></marvel-date>
+            </div>
             '></marvel-ace-editor>
           </div>
         </marvel-tab-item>

@@ -32,7 +32,18 @@
         <marvel-tab-item :isActive="tabItems1[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-
+            <button v-on:click="onClickConfirmShowEx">show</button>
+            <marvel-confirm-ex :showConfirm="showConfirmEx"
+                               :showOkBtn="showOkBtn4ConfirmEx"
+                               :showCancelBtn="showCancelBtn4ConfirmEx"
+                               :confirmTitle="confirmTitle4ConfirmEx"
+                               :confirmIcon="confirmIcon4ConfirmEx"
+                               :confirmIconColor="confirmIconColor4ConfirmEx"
+                               :confirmSubTitle="confirmSubTitle4ConfirmEx"
+                               :confirmCont="confirmExContent4ConfirmEx"
+                               :canDrag="true"
+                               v-on:onClickOK="onClickConfirmExOK"
+                               v-on:onClickCancel="onClickConfirmExCancel"></marvel-confirm-ex>
             '></marvel-ace-editor>
           </div>
         </marvel-tab-item>

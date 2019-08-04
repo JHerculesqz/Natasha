@@ -25,7 +25,11 @@
         <marvel-tab-item :isActive="tabItems1[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-
+            <div style="width: 120px;height:100%;">
+              <marvel-accordion2 v-bind:items="items2"
+                                 v-on:onClickItem="onClickItem"
+                                 v-on:onClickSubItem="onClickSubItem"></marvel-accordion2>
+            </div>
             '></marvel-ace-editor>
           </div>
         </marvel-tab-item>

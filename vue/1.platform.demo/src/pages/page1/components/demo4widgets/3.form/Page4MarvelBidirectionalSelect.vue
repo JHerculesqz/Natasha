@@ -27,7 +27,13 @@
         <marvel-tab-item :isActive="tabItems1[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-
+            <button v-on:click="getBidirectionalSelectLeftItems">getLeftItems</button>
+            <button v-on:click="getBidirectionalSelectRightItems">getRightItems</button>
+            <button v-on:click="getBidirectionalSelectLeftSelectItems">getSelectLeftItems</button>
+            <button v-on:click="getBidirectionalSelectRightSelectItems">getSelectRightItems</button>
+            <marvel-bidirectional-select :options="bidirectional"
+                                         ref="ref13"
+                                         v-on:onItemSelectStatusChange="onChange4BidirectionalSelect"></marvel-bidirectional-select>
             '></marvel-ace-editor>
           </div>
         </marvel-tab-item>

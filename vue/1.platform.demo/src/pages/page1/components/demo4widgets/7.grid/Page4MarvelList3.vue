@@ -24,7 +24,10 @@
         <marvel-tab-item :isActive="tabItems1[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-
+            <div style="height: 350px">
+              <marvel-list3 :listItems="listItems"
+                            v-on:onBtnClick4List="onBtnClick4List"></marvel-list3>
+            </div>
             '></marvel-ace-editor>
           </div>
         </marvel-tab-item>

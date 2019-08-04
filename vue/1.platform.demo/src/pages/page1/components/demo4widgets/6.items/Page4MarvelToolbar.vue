@@ -28,7 +28,14 @@
         <marvel-tab-item :isActive="tabItems1[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-
+            <div style="height: 100%;">
+              <button v-on:click="disableItem">disableItem</button>
+              <button v-on:click="hideItem">hideItem</button>
+              <marvel-toolbar v-bind:items="items"
+                              v-on:onToolbarItemClick="onToolbarItemClick" v-on:onToolbarSubItemClick="onToolbarSubItemClick" >
+                <div slot="保存">保存自定义子菜单</div>
+              </marvel-toolbar>
+            </div>
             '></marvel-ace-editor>
           </div>
         </marvel-tab-item>

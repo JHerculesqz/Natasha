@@ -29,7 +29,7 @@
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
             <button v-on:click="toShowDragHelp">toShowDragHelp</button>
             <button v-on:click="toHideDragHelp">toHideDragHelp</button>
-            <marvel-drag-help :width=1100 :height=300 :right=20 :top=300 :showDragHelp="showDragHelp" title="dragHelp">
+            <marvel-drag-help :width=1100 :height=300 :right=200 :top=210 :showDragHelp="showDragHelp" title="dragHelp">
               <div slot="dragHelpCont">
                 此处放置自定义内容
               </div>

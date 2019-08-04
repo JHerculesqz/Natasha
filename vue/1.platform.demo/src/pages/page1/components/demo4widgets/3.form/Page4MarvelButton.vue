@@ -23,13 +23,39 @@
                            v-on:onClick="onClick"></marvel-button>
             <marvel-button size="mini" classCustom="classCustom1" label="mini"
                            v-on:onClick="onClick"></marvel-button>
+            <marvel-button size="large" classCustom="classCustom1"
+                           label="Large" :isWarn=true :isPrimary="false"
+                           v-on:onClick="onClick"></marvel-button>
+            <marvel-button classCustom="classCustom1" label="normal" :isPrimary="false"
+                           v-on:onClick="onClick"></marvel-button>
+            <marvel-button size="small" classCustom="classCustom1" label="small" :isPrimary="false"
+                           v-on:onClick="onClick"></marvel-button>
+            <marvel-button size="mini" classCustom="classCustom1" label="mini" :isPrimary="false"
+                           v-on:onClick="onClick"></marvel-button>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
         <marvel-tab-item :isActive="tabItems1[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-
+            <marvel-button size="large" classCustom="classCustom1"
+                           label="Large" :isWarn=true
+                           v-on:onClick="onClick"></marvel-button>
+            <marvel-button classCustom="classCustom1" label="normal"
+                           v-on:onClick="onClick"></marvel-button>
+            <marvel-button size="small" classCustom="classCustom1" label="small"
+                           v-on:onClick="onClick"></marvel-button>
+            <marvel-button size="mini" classCustom="classCustom1" label="mini"
+                           v-on:onClick="onClick"></marvel-button>
+            <marvel-button size="large" classCustom="classCustom1"
+                           label="Large" :isWarn=true :isPrimary="false"
+                           v-on:onClick="onClick"></marvel-button>
+            <marvel-button classCustom="classCustom1" label="normal" :isPrimary="false"
+                           v-on:onClick="onClick"></marvel-button>
+            <marvel-button size="small" classCustom="classCustom1" label="small" :isPrimary="false"
+                           v-on:onClick="onClick"></marvel-button>
+            <marvel-button size="mini" classCustom="classCustom1" label="mini" :isPrimary="false"
+                           v-on:onClick="onClick"></marvel-button>
             '></marvel-ace-editor>
           </div>
         </marvel-tab-item>

@@ -23,7 +23,9 @@
         <marvel-tab-item :isActive="tabItems1[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-
+            <div>
+              <marvel-crumb :items="items" v-on:onCrumbItemClick="onItemClick" customSeparateSymbol="/" size="large"></marvel-crumb>
+            </div>
             '></marvel-ace-editor>
           </div>
         </marvel-tab-item>

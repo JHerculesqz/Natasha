@@ -32,7 +32,18 @@
         <marvel-tab-item :isActive="tabItems1[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-
+            <marvel-fold-panel
+              :item="foldPanel[0]" class="customClass" v-on:onTitleClick="onTitleClick">
+              <slot>aa</slot>
+            </marvel-fold-panel>
+            <marvel-fold-panel
+              :item="foldPanel[1]" class="customClass" v-on:onTitleClick="onTitleClick">
+              <slot>bb</slot>
+            </marvel-fold-panel>
+            <marvel-fold-panel
+              :item="foldPanel[2]" class="customClass" v-on:onTitleClick="onTitleClick">
+              <slot>cc</slot>
+            </marvel-fold-panel>
             '></marvel-ace-editor>
           </div>
         </marvel-tab-item>

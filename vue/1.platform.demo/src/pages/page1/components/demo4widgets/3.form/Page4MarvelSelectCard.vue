@@ -22,7 +22,8 @@
         <marvel-tab-item :isActive="tabItems1[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-
+            <button v-on:click="onClick4SelectCard">获取</button><br>
+            <marvel-select-card ref="ref12" :items="items" size="mini"></marvel-select-card>
             '></marvel-ace-editor>
           </div>
         </marvel-tab-item>

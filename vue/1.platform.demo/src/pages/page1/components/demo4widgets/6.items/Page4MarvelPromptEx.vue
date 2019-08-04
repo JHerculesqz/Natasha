@@ -26,7 +26,12 @@
         <marvel-tab-item :isActive="tabItems1[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-
+            <div style="width:100%; height: 100%;">
+              <button v-on:click="onClick">设置</button>
+              <marvel-prompt-ex ref="ref0"
+                                label="用户日志"
+                                icon="icon-mail4"></marvel-prompt-ex>
+            </div>
             '></marvel-ace-editor>
           </div>
         </marvel-tab-item>

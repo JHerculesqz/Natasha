@@ -23,7 +23,9 @@
         <marvel-tab-item :isActive="tabItems1[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-
+            <div class="panel">
+              <MarvelSearch placeholder="请输入关键字..." v-on:search="search1"></MarvelSearch>
+            </div>
             '></marvel-ace-editor>
           </div>
         </marvel-tab-item>

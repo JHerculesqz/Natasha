@@ -23,7 +23,7 @@
         <marvel-tab-item :isActive="tabItems1[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-            <div class="width:1200px; height:350px">
+            <div style="width:1200px; height:350px">
               <marvel-chart-line-new ref="ref4ChartLineNew" id="ref4ChartLineNew"></marvel-chart-line-new>
             </div>
             '></marvel-ace-editor>

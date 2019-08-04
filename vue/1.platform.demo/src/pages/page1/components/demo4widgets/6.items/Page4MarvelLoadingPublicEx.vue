@@ -26,7 +26,12 @@
         <marvel-tab-item :isActive="tabItems1[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-
+            <div class="showArea">
+              <marvel-loading-public-ex ref="ref0"
+                                        :showList="showList"
+                                        :hasCancelBtn="true"
+                                        @onCancel="onCancel"></marvel-loading-public-ex>
+            </div>
             '></marvel-ace-editor>
           </div>
         </marvel-tab-item>

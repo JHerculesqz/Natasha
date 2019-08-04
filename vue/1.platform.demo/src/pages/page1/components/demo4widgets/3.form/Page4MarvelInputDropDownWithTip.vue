@@ -28,7 +28,14 @@
         <marvel-tab-item :isActive="tabItems1[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-
+            <button v-on:click="onClick4GetInputDropDownWithTipSelectItem">getSelectItem</button>
+            <button v-on:click="onClick4setInputDropDownWithTipSelectItem">setSelectItem aaa</button>
+            <marvel-input-drop-down-with-tip ref="ref16"
+                                             maxHeight="120px"
+                                             :dropDownItems="inputItemsWithTip"
+                                             :status="inputDropDownStatus"
+                                             :errMsg="inputDropDownErrMsg"
+                                             v-on:onOptionSelect="onOptionSelectInDropDownWithTip"></marvel-input-drop-down-with-tip>
             '></marvel-ace-editor>
           </div>
         </marvel-tab-item>

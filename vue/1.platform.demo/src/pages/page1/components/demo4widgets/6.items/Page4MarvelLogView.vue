@@ -29,7 +29,15 @@
         <marvel-tab-item :isActive="tabItems1[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-
+            <div class="showArea">
+              <div style="height: 100%; background-color: #f0f0f0;">
+                <marvel-log-view ref="logRef"
+                                 :logItems="logs"
+                                 :filterOptions="logFilterOptions"
+                                 @onBtnClick="_callback4OnFilterBtnClick"
+                                 @onCheckBoxChange="_callback4OnFilterCheckBoxChange"></marvel-log-view>
+              </div>
+            </div>
             '></marvel-ace-editor>
           </div>
         </marvel-tab-item>

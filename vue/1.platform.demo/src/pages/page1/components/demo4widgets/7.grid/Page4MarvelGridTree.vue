@@ -30,7 +30,15 @@
         <marvel-tab-item :isActive="tabItems1[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-
+            <div style="width: 100%; height: 350px">
+              <marvel-grid-tree :hasFoot="false"
+                                ref="ref4MarvelGridTree"
+                                :titles="titles"
+                                :treeNodes="treeNodes"
+                                :dynamicPaging="false"
+                                :isTree="false"
+                                @onIconClick="_onIconClick"></marvel-grid-tree>
+            </div>
             '></marvel-ace-editor>
           </div>
         </marvel-tab-item>

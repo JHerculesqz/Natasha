@@ -26,7 +26,12 @@
         <marvel-tab-item :isActive="tabItems1[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-
+            <div style="height: 200px;width:500px;background-color: #fafafa;padding: 20px;">
+              <marvel-dashboard title="Shit">
+                <div slot="customArea">customArea...</div>
+                <div slot="contArea">cont...</div>
+              </marvel-dashboard>
+            </div>
             '></marvel-ace-editor>
           </div>
         </marvel-tab-item>

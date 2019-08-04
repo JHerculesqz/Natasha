@@ -27,7 +27,13 @@
         <marvel-tab-item :isActive="tabItems1[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-
+            <div>
+              <button v-on:click="setWarn">setWarn</button>
+              <button v-on:click="setNotWarn">setNotWarn</button>
+              <button v-on:click="setItemActive">setItemActive</button>
+              <marvel-wizard-tab ref="ref4WizardTabs"
+                                 :wizardTabs="wizardTabs" v-on:onClick="onClickWizardTab"></marvel-wizard-tab>
+            </div>
             '></marvel-ace-editor>
           </div>
         </marvel-tab-item>

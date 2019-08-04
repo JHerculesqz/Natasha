@@ -25,7 +25,11 @@
         <marvel-tab-item :isActive="tabItems1[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-
+            <div style="width:200px;">
+              <button v-on:click="onTestBtnClick">Test</button>
+              <button v-on:click="onClearBtnClick">Clear</button>
+              <marvel-upload ref="ref0" placeHolder="请选择文件"></marvel-upload>
+            </div>
             '></marvel-ace-editor>
           </div>
         </marvel-tab-item>

@@ -29,7 +29,15 @@
         <marvel-tab-item :isActive="tabItems1[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
+            <button v-on:click="onClickDialogShow">show</button>
+            <marvel-dialog :showDialog="showDialog" :canDrag="true"
+                           title="上传" :width="500" :height="300"
+                           v-on:onClickDialogClose="onClickDialogClose">
+              <div slot="dialogCont">111111</div>
+              <div slot="dialogFoot">
 
+              </div>
+            </marvel-dialog>
             '></marvel-ace-editor>
           </div>
         </marvel-tab-item>

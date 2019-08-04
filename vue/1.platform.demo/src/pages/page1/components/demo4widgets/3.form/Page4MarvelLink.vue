@@ -22,7 +22,8 @@
         <marvel-tab-item :isActive="tabItems1[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-
+            <marvel-link label="导航链接" classCustom="classCustom1"
+                         v-on:onClick="onClick"></marvel-link>
             '></marvel-ace-editor>
           </div>
         </marvel-tab-item>

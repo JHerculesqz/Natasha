@@ -39,7 +39,25 @@
         <marvel-tab-item :isActive="tabItems1[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-
+            <div style="width: 500px;height: 400px;">
+              <button @click="setActiveTabItem">setActiveTabItem</button>
+              <button @click="setTabItemHide">hideItem Profile</button>
+              <button @click="setTabItemShow">showItem Profile</button>
+              <marvel-tab ref="ref4Tab" :tabItems="tabItems">
+                <marvel-tab-item :isActive="tabItems[0].isActive">
+                  1
+                </marvel-tab-item>
+                <marvel-tab-item :isActive="tabItems[1].isActive">
+                  2
+                </marvel-tab-item>
+                <marvel-tab-item :isActive="tabItems[2].isActive">
+                  3
+                </marvel-tab-item>
+                <marvel-tab-item :isActive="tabItems[3].isActive">
+                  4
+                </marvel-tab-item>
+              </marvel-tab>
+            </div>
             '></marvel-ace-editor>
           </div>
         </marvel-tab-item>
