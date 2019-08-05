@@ -3,7 +3,7 @@
     <table class="gridCont" cellspacing="0" cellpadding="0">
       <tbody>
       <tr>
-        <td v-for="(title,index) in titles" v-bind:style="{width: title.width}">
+        <td v-for="(title,index) in titles" v-bind:style="{width: title.width}" v-show="title.visible">
           <div v-if="_isTreeNodeCell(title)" v-bind:style="_calcTreeNodeCellStyle(nodeItemInner)">
             <div class="treeItemIcon" v-bind:class="_openEx(nodeItemInner)"
                  v-on:click="_toggle(nodeItemInner)"></div>
@@ -259,6 +259,12 @@
     padding-top: 2px;
   }
 
+  .gridWrapper table tbody tr {
+    table-layout: fixed;
+    display: table;
+    width: 100%;
+  }
+
   .gridCont table tbody tr:first-child:hover {
     background-color: #eaf6f9;
   }
@@ -302,8 +308,11 @@
     left: 0;
   }
 
-  .treeItemName {
+  .treeItemName,.textCellItem{
     white-space: nowrap;
+    overflow: hidden;
+    display: block;
+    text-overflow: ellipsis;
   }
 
   .iconOnly {

@@ -9,7 +9,6 @@
   require('natasha-devpanelex/lib/svg.min.js');
   require('natasha-devpanelex/lib/saveSvgAsPng.js');
   require('natasha-devpanelex/lib/html2canvas.min.js');
-  require('natasha-devpanelex/js/MarvelRackPanel.js');
   require('natasha-devpanelex/js/MarvelRackCabinet.js');
 
   /**

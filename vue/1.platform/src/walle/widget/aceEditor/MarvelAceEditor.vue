@@ -5,6 +5,10 @@
 </template>
 
 <script>
+  import ace from 'natasha-ace'
+  import 'natasha-ace/ace-custom/build/webpack-resolver'
+  import 'natasha-ace/ace-custom/build/src-noconflict/theme-dracula'
+  import 'natasha-ace/ace-custom/build/src-noconflict/mode-javascript'
   import StringUtilsEx from '../../component/str'
 
   /**

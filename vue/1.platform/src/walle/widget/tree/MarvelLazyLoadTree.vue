@@ -178,7 +178,7 @@
   }
 </script>
 
-<style scoped>
+<style>
   /*region basic*/
 
   *{

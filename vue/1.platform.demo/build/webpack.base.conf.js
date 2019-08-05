@@ -27,6 +27,7 @@ module.exports = {
       'vue$': 'vue/dist/vue.esm.js',
       '@': resolve('src'),
       'jquery':'jquery',
+      '^': "natasha-vue/src/walle",
       '~~': "natasha-vue/src/walle",
     }
   },

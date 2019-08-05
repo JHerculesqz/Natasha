@@ -11,6 +11,8 @@
                               @onRowCheckOrUnCheck="_onRowCheckOrUnCheck"
                               @onClickToCreate="_onClickToCreate"
                               @onClickToBatchCreate="_onClickToBatchCreate"
+                              @onClickToBatchDelete="_onClickToBatchDelete"
+                              @onSearch="_onSearch"
                               @onPageChange="_onPageChange"
                               @onIconClick4Delete="_onIconClick4Delete"
                               @onIconClick4View="_onIconClick4View"
@@ -83,6 +85,14 @@
         totalPage: 1,
         limit: 26,
         currentPage: 1,
+        selectRows:[],
+        isSelectAll:false,
+        //#endregion
+        //#region search
+        searchFilter:{
+          key:"",
+          value:""
+        }
         //#endregion
       }
     },
@@ -116,6 +126,31 @@
       },
       _onClickToBatchCreate: function () {
         this.$refs.objLstBatchCreateDialog.toShowDialog();
+      },
+      _onClickToBatchDelete: function(){
+        //todo 刪除接口传参待更改
+        // var self = this;
+        // var oOption = {
+        //   showOkButton: true,
+        //   showCancelBtn: true,
+        //   confirmCont: "是否进行删除操作",
+        //   confirmType: "warning",
+        //   oAfterOk: function () {
+        //     self._toDeleteObj(oRow);
+        //   },
+        //   oAfterCancel: function () {
+        //   }
+        // };
+        // Bus.$emit('msg', 'show-confirm', oOption);
+        console.log(this.selectRows);
+        console.log(this.isSelectAll);
+      },
+      _onSearch: function(strKey, strValue, oKeyObj){
+        this.searchFilter = {
+          key:strKey,
+          value:strValue
+        };
+        console.log(this.searchFilter);
       },
       _onClickToAnalysis: function () {
         console.log("onclick Analysis")
@@ -282,9 +317,11 @@
       },
       _onRowCheckOrUnCheck: function (arrRows) {
         console.log(arrRows);
+        this.selectRows = JSON.parse(JSON.stringify(arrRows))
       },
       _onTitleCheckOrUncheck: function (bIsCheck) {
         console.log(bIsCheck);
+        this.isSelectAll = bIsCheck;
       }
 
       //#endregion

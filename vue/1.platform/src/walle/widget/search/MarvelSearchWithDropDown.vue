@@ -112,6 +112,14 @@
 
       //#endregion
     },
+    watch: {
+      selectItems: {
+        handler: function () {
+          this._initEx();
+        },
+        deep: true
+      }
+    },
   }
 
 </script>
