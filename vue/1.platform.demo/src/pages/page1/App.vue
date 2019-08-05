@@ -30,9 +30,25 @@
       </ul>
     </div>
     <div class="content">
-      <transition name="slide-fade">
-        <router-view></router-view>
-      </transition>
+      <div class="page1">
+        <div class="leftArea">
+          <!--accordionArea start-->
+          <marvel-accordion :isFolder="false" :hasShadow="true"
+                            title="使用说明" titleIcon="icon-evil2"
+                            :defaultSelectLabel="defaultSelectLabel"
+                            :items="accordionItems"
+                            v-on:accordionItemClick="accordionItemClick"
+                            v-on:afterShowOrHide="afterShowOrHide"
+                            v-on:accordionSubItemClick="accordionSubItemClick"></marvel-accordion>
+          <!--accordionArea end-->
+        </div>
+        <div class="rightArea" v-bind:class="isContainerFold">
+          <!--        <component v-bind:is="rightModuleName"></component>-->
+          <transition name="fade">
+            <router-view></router-view>
+          </transition>
+        </div>
+      </div>
     </div>
     <div class="footer">
       footer
@@ -41,15 +57,215 @@
 </template>
 
 <script>
+  import MarvelAccordion from "~~/widget/accordion/MarvelAccordion";
   import SkinUtilsEx from "~~/component/skin";
   import I18nUtilsEx from "~~/component/i18n";
+  import Router from "~~/component/router";
 
   export default {
     name: 'app',
+    components: {
+      MarvelAccordion
+    },
     data: function () {
       return {
         //#region logo
         logo: "Fuck UI 3.0",
+        //#endregion
+        defaultSelectLabel: "安装",
+        accordionItems: [{
+          label: "开发指南",
+          icon: "icon-paint-format",
+          expand: true,
+          subItems: [{
+            id: "/",
+            label: "安装"
+          }, {
+            id: "Page4Start",
+            label: "快速入门"
+          }, {
+            id: "Page4Lan",
+            label: "国际化"
+          }, {
+            id: "Page4Theme",
+            label: "自定义主题"
+          }, {
+            id: "Page4Develop",
+            label: "Vue控件开发"
+          }]
+        }, {
+          label: "控件(基础)",
+          icon: "icon-headphones",
+          expand: false,
+          subItems: [{
+            id: "Page4Icons",
+            label: "图标"
+          }, {
+            id: "Page4MarvelAnimate",
+            label: "动画"
+          }, {
+            id: "Page4MarvelFrame",
+            label: "布局"
+          }]
+        }, {
+          label: "控件(表单)",
+          icon: "icon-pacman",
+          expand: false,
+          subItems: [{id: "Page4MarvelBidirectionalSelect", label: "Page4MarvelBidirectionalSelect"},
+            {id: "Page4MarvelButton", label: "Page4MarvelButton"},
+            {id: "Page4MarvelCheckBox", label: "Page4MarvelCheckBox"},
+            {id: "Page4MarvelDate", label: "Page4MarvelDate"},
+            {id: "Page4MarvelDate2", label: "Page4MarvelDate2"},
+            {id: "Page4MarvelDiff", label: "Page4MarvelDiff"},
+            {id: "Page4MarvelDragHelp", label: "Page4MarvelDragHelp"},
+            {id: "Page4MarvelDropDownButton", label: "Page4MarvelDropDownButton"},
+            {id: "Page4MarvelIconButton", label: "Page4MarvelIconButton"},
+            {id: "Page4MarvelIconTxtButton", label: "Page4MarvelIconTxtButton"},
+            {id: "Page4MarvelInfo", label: "Page4MarvelInfo"},
+            {id: "Page4MarvelInput", label: "Page4MarvelInput"},
+            {id: "Page4MarvelInputDropDown", label: "Page4MarvelInputDropDown"},
+            {id: "Page4MarvelInputDropDownWithTip", label: "Page4MarvelInputDropDownWithTip"},
+            {id: "Page4MarvelLink", label: "Page4MarvelLink"},
+            {id: "Page4MarvelListInput", label: "Page4MarvelListInput"},
+            {id: "Page4MarvelMultiDropDown", label: "Page4MarvelMultiDropDown"},
+            {id: "Page4MarvelMultiInput", label: "Page4MarvelMultiInput"},
+            {id: "Page4MarvelNumberSelect", label: "Page4MarvelNumberSelect"},
+            {id: "Page4MarvelProgress", label: "Page4MarvelProgress"},
+            {id: "Page4MarvelRadioBox", label: "Page4MarvelRadioBox"},
+            {id: "Page4MarvelSearch", label: "Page4MarvelSearch"},
+            {id: "Page4MarvelSearchAdvance", label: "Page4MarvelSearchAdvance"},
+            {id: "Page4MarvelSearchWithDropDown", label: "Page4MarvelSearchWithDropDown"},
+            {id: "Page4MarvelSelectCard", label: "Page4MarvelSelectCard"},
+            {id: "Page4MarvelSwitch", label: "Page4MarvelSwitch"},
+            {id: "Page4MarvelTabButton", label: "Page4MarvelTabButton"},
+            // {id: "Page4MarvelTableDiff", label: "Page4MarvelTableDiff"},
+            {id: "Page4MarvelTimeLine", label: "Page4MarvelTimeLine"},
+            {id: "Page4MarvelTxtButton", label: "Page4MarvelTxtButton"},
+            {id: "Page4MarvelUpload", label: "Page4MarvelUpload"},
+            {id: "Page4MarvelUploadSimple", label: "Page4MarvelUploadSimple"},]
+        }, {
+          label: "控件(导航)",
+          icon: "icon-pacman",
+          expand: false,
+          subItems: [{id: "Page4MarvelAccordion", label: "Page4MarvelAccordion"},
+            {id: "Page4MarvelAccordion2", label: "Page4MarvelAccordion2"},
+            {id: "Page4MarvelAccordion3", label: "Page4MarvelAccordion3"},
+            {id: "Page4MarvelAccordion4", label: "Page4MarvelAccordion4"},
+            {id: "Page4MarvelCrumb", label: "Page4MarvelCrumb"},
+            {id: "Page4MarvelMenu", label: "Page4MarvelMenu"},
+            {id: "Page4MarvelMenuContext", label: "Page4MarvelMenuContext"},
+            {id: "Page4MarvelMenuContext2", label: "Page4MarvelMenuContext2"},
+            {id: "Page4MarvelMenuDropDown", label: "Page4MarvelMenuDropDown"},
+            {id: "Page4MarvelMenuHelp", label: "Page4MarvelMenuHelp"},
+            {id: "Page4MarvelMenuNew", label: "Page4MarvelMenuNew"},
+            {id: "Page4MarvelTab", label: "Page4MarvelTab"},
+            {id: "Page4MarvelWizard", label: "Page4MarvelWizard"},
+            {id: "Page4MarvelWizardAdvance", label: "Page4MarvelWizardAdvance"},
+            {id: "Page4MarvelWizardTab", label: "Page4MarvelWizardTab"},]
+        }, {
+          label: "控件(面板)",
+          icon: "icon-pacman",
+          expand: false,
+          subItems: [{id: "Page4MarvelBottomExtPanel", label: "Page4MarvelBottomExtPanel"},
+            {id: "Page4MarvelConfirm", label: "Page4MarvelConfirm"},
+            {id: "Page4MarvelConfirmEx", label: "Page4MarvelConfirmEx"},
+            {id: "Page4MarvelDashboard", label: "Page4MarvelDashboard"},
+            {id: "Page4MarvelDashboardAdaptToContH", label: "Page4MarvelDashboardAdaptToContH"},
+            {id: "Page4MarvelDialog", label: "Page4MarvelDialog"},
+            {id: "Page4MarvelFoldPanel", label: "Page4MarvelFoldPanel"},
+            {id: "Page4MarvelLeftExtPanel", label: "Page4MarvelLeftExtPanel"},
+            {id: "Page4MarvelRightExtPanel", label: "Page4MarvelRightExtPanel"},]
+        }, {
+          label: "控件(小部件)",
+          icon: "icon-pacman",
+          expand: false,
+          subItems: [{id: "Page4MarvelAceEditor", label: "Page4MarvelAceEditor"},
+            {id: "Page4MarvelLegend", label: "Page4MarvelLegend"},
+            {id: "Page4MarvelLoading", label: "Page4MarvelLoading"},
+            {id: "Page4MarvelLoadingIconPublic", label: "Page4MarvelLoadingIconPublic"},
+            {id: "Page4MarvelLoadingMini", label: "Page4MarvelLoadingMini"},
+            {id: "Page4MarvelLoadingPublic", label: "Page4MarvelLoadingPublic"},
+            {id: "Page4MarvelLoadingPublicEx", label: "Page4MarvelLoadingPublicEx"},
+            {id: "Page4MarvelLogView", label: "Page4MarvelLogView"},
+            {id: "Page4MarvelPaging", label: "Page4MarvelPaging"},
+            {id: "Page4MarvelPrompt", label: "Page4MarvelPrompt"},
+            {id: "Page4MarvelPromptEx", label: "Page4MarvelPromptEx"},
+            {id: "Page4MarvelPromptGLobal", label: "Page4MarvelPromptGLobal"},
+            {id: "Page4MarvelSlider", label: "Page4MarvelSlider"},
+            {id: "Page4MarvelToolbar", label: "Page4MarvelToolbar"},
+            {id: "Page4MarvelWarning", label: "Page4MarvelWarning"},]
+        }, {
+          label: "控件(表格)",
+          icon: "icon-pacman",
+          expand: false,
+          subItems: [{id: "Page4MarvelGrid", label: "Page4MarvelGrid"},
+            {id: "Page4MarvelGridEx", label: "Page4MarvelGridEx"},
+            {id: "Page4MarvelGridExFilter", label: "Page4MarvelGridExFilter"},
+            {id: "Page4MarvelGridExWithFreezeColumn", label: "Page4MarvelGridExWithFreezeColumn"},
+            {id: "Page4MarvelGridM", label: "Page4MarvelGridM"},
+            {id: "Page4MarvelGridPriority", label: "Page4MarvelGridPriority"},
+            {id: "Page4MarvelGridTree", label: "Page4MarvelGridTree"},
+            {id: "Page4MarvelList1", label: "Page4MarvelList1"},
+            {id: "Page4MarvelList2", label: "Page4MarvelList2"},
+            {id: "Page4MarvelList2Analysis", label: "Page4MarvelList2Analysis"},
+            {id: "Page4MarvelList3", label: "Page4MarvelList3"},
+            {id: "Page4MarvelList4", label: "Page4MarvelList4"},
+            {id: "Page4MarvelList5", label: "Page4MarvelList5"},]
+        }, {
+          label: "控件(树)",
+          icon: "icon-pacman",
+          expand: false,
+          subItems: [{id: "Page4MarvelLazyLoadTree", label: "Page4MarvelLazyLoadTree"},
+            {id: "Page4MarvelZTree", label: "Page4MarvelZTree"},]
+        }, {
+          label: "控件(图表)",
+          icon: "icon-pacman",
+          expand: false,
+          subItems: [{id: "Page4MarvelChartBar", label: "Page4MarvelChartBar"},
+            {id: "Page4MarvelChartBarLine", label: "Page4MarvelChartBarLine"},
+            {id: "Page4MarvelChartBarLine2", label: "Page4MarvelChartBarLine2"},
+            {id: "Page4MarvelChartForce", label: "Page4MarvelChartForce"},
+            {id: "Page4MarvelChartGauge", label: "Page4MarvelChartGauge"},
+            {id: "Page4MarvelChartLine", label: "Page4MarvelChartLine"},
+            {id: "Page4MarvelChartLine2", label: "Page4MarvelChartLine2"},
+            {id: "Page4MarvelChartLineNew", label: "Page4MarvelChartLineNew"},
+            {id: "Page4MarvelChartNBar", label: "Page4MarvelChartNBar"},
+            {id: "Page4MarvelChartPie", label: "Page4MarvelChartPie"},
+            {id: "Page4MarvelChartPie2", label: "Page4MarvelChartPie2"},
+            {id: "Page4MarvelChartRadar", label: "Page4MarvelChartRadar"},
+            {id: "Page4MarvelChartScatter", label: "Page4MarvelChartScatter"},
+            {id: "Page4MarvelChartScatter2", label: "Page4MarvelChartScatter2"},
+            {id: "Page4MarvelChartStackLine", label: "Page4MarvelChartStackLine"},
+            {id: "Page4MarvelD3Tree", label: "Page4MarvelD3Tree"},]
+        }, {
+          label: "控件(topo)",
+          icon: "icon-pacman",
+          expand: false,
+          subItems: [{id: "Page4MarvelTopo", label: "Page4MarvelTopo"},]
+        }, {
+          label: "控件(gis)",
+          icon: "icon-pacman",
+          expand: false,
+          subItems: [{id: "Page4MarvelLeaflet", label: "Page4MarvelLeaflet"},]
+        }, {
+          label: "控件(devPanel)",
+          icon: "icon-pacman",
+          expand: false,
+          subItems: [{id: "Page4MarvelDevPanel", label: "Page4MarvelDevPanel"},
+            {id: "Page4MarvelDevPanelEx", label: "Page4MarvelDevPanelEx"},]
+        },{
+          label: "典型页面",
+          icon: "icon-book",
+          expand: false,
+          subItems: [{
+            id: "Page4MarvelLayout1",
+            label: "布局1"
+          }, {
+            id: "Page4MarvelLayout2",
+            label: "布局2"
+          }]
+        },],
+        isContainerFold: "",
         //#endregion
       }
     },
@@ -85,9 +301,23 @@
         } else {
           I18nUtilsEx.localeChange(this.$i18n, "zh");
         }
-      }
+      },
 
       //#endregion
+
+      accordionItemClick: function (oItem) {
+        Router.toEx(this.$router, oItem.id);
+      },
+      afterShowOrHide: function (bIsFolder) {
+        if (bIsFolder) {
+          this.isContainerFold = "fold";
+        } else {
+          this.isContainerFold = "";
+        }
+      },
+      accordionSubItemClick: function (oSubItem) {
+        Router.toEx(this.$router, oSubItem.id);
+      }
     }
   }
 </script>
@@ -168,6 +398,41 @@
   .content {
     height: 100%;
     position: relative;
+  }
+
+  .page1 {
+    position: absolute;
+    width: 100%;
+    height: calc(100% - 50px);
+    top: 50px;
+  }
+
+  .page1 .leftArea {
+    float: left;
+    height: 100%;
+    width: 320px;
+  }
+
+  .page1 .rightArea {
+    width: calc(100% - 320px);
+    float: left;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  .page1 .fold {
+    width: calc(100% - 76px);
+  }
+
+  .dark .rightArea {
+    background-color: #04051b;
+  }
+
+  .accordionItemSubMenuItem{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 
   .footer {
