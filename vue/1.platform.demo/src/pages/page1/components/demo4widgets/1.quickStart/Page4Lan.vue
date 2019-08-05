@@ -1,9 +1,9 @@
 <template>
   <div class="widgetShowSession">
     <!--1级 start-->
-    <div class="title level1">控件使用入门</div>
+    <div class="title level1">国际化</div>
     <div class="describe">
-      控件使用入门
+      国际化
     </div>
     <!--1级 end-->
 

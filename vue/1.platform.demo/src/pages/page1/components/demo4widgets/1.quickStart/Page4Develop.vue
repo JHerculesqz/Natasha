@@ -1,9 +1,9 @@
 <template>
   <div class="widgetShowSession">
     <!--1级 start-->
-    <div class="title level1">控件使用入门</div>
+    <div class="title level1">Develop</div>
     <div class="describe">
-      控件使用入门
+      控件开发
     </div>
     <!--1级 end-->
 
