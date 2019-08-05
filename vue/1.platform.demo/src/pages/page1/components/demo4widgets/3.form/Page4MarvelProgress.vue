@@ -35,7 +35,7 @@
     <!--endregion-->
     <!--region doc area-->
     <div class="docArea">
-      <marvel-i-frame ref="IFrame" id="IFrame" src="static/jsdoc/module-MarvelProgress.html"></marvel-i-frame>
+      <marvel-i-frame ref="page4MarvelProgressIFrame" id="page4MarvelProgressIFrame" src="static/jsdoc/module-MarvelProgress.html"></marvel-i-frame>
     </div>
     <!--endregion-->
   </div>
@@ -86,7 +86,7 @@
       //#region lifeCycle
 
       _initEx: function () {
-        this.$refs.IFrame.setIframe4DemoPage();
+        this.$refs.page4MarvelProgressIFrame.setIframe4DemoPage();
 
         var oInterval = setInterval(()=>{
           this.percent = this.percent + 1;

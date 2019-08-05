@@ -101,7 +101,7 @@
     <!--endregion-->
     <!--region doc area-->
     <div class="docArea">
-      <marvel-i-frame ref="IFrame" id="IFrame" src="static/jsdoc/module-MarvelLeaflet.html"></marvel-i-frame>
+      <marvel-i-frame ref="page4MarvelLeafletIFrame" id="page4MarvelLeafletIFrame" src="static/jsdoc/module-MarvelLeaflet.html"></marvel-i-frame>
     </div>
     <!--endregion-->
   </div>
@@ -153,7 +153,7 @@
       //#region lifeCycle
 
       _initEx: function () {
-        this.$refs.IFrame.setIframe4DemoPage();
+        this.$refs.page4MarvelLeafletIFrame.setIframe4DemoPage();
 
         this.$refs.ref0.init(51.505, -0.09, 13, {
           mapUrl: "https://api.mapbox.com/styles/v1/jherculesqz/cj99csbwi2bzy2qp3mhtqcrkx/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiamhlcmN1bGVzcXoiLCJhIjoiY2o4anNybjZqMDZnczMybXZxaHNhMDRlMyJ9.fR2DM7aypSp8q4AxE6uL5w",

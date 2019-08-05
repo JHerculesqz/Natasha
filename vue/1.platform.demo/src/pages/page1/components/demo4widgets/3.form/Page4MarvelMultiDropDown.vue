@@ -45,7 +45,7 @@
     <!--endregion-->
     <!--region doc area-->
     <div class="docArea">
-      <marvel-i-frame ref="IFrame" id="IFrame" src="static/jsdoc/module-MarvelMultiDropDown.html"></marvel-i-frame>
+      <marvel-i-frame ref="page4MarvelMultiDropDownIFrame" id="page4MarvelMultiDropDownIFrame" src="static/jsdoc/module-MarvelMultiDropDown.html"></marvel-i-frame>
     </div>
     <!--endregion-->
   </div>
@@ -96,7 +96,7 @@
       //#region lifeCycle
 
       _initEx: function () {
-        this.$refs.IFrame.setIframe4DemoPage();
+        this.$refs.page4MarvelMultiDropDownIFrame.setIframe4DemoPage();
 
         for (let i = 0; i < 20; i++) {
           this.multiItems.push({

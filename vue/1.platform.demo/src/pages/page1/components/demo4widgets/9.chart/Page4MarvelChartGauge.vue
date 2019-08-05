@@ -39,7 +39,7 @@
     <!--endregion-->
     <!--region doc area-->
     <div class="docArea">
-      <marvel-i-frame ref="IFrame" id="IFrame" src="static/jsdoc/module-MarvelChartGauge.html"></marvel-i-frame>
+      <marvel-i-frame ref="page4MarvelChartGaugeIFrame" id="page4MarvelChartGaugeIFrame" src="static/jsdoc/module-MarvelChartGauge.html"></marvel-i-frame>
     </div>
     <!--endregion-->
   </div>
@@ -102,7 +102,7 @@
       //#region lifeCycle
 
       _initEx: function () {
-        this.$refs.IFrame.setIframe4DemoPage();
+        this.$refs.page4MarvelChartGaugeIFrame.setIframe4DemoPage();
 
         var self = this;
         this.interval1 = setInterval(function () {

@@ -39,7 +39,7 @@
     <!--endregion-->
     <!--region doc area-->
     <div class="docArea">
-      <marvel-i-frame ref="IFrame" id="IFrame" src="static/jsdoc/module-MarvelGridM.html"></marvel-i-frame>
+      <marvel-i-frame ref="page4MarvelGridMIFrame" id="page4MarvelGridMIFrame" src="static/jsdoc/module-MarvelGridM.html"></marvel-i-frame>
     </div>
     <!--endregion-->
   </div>
@@ -91,7 +91,7 @@
       //#region lifeCycle
 
       _initEx: function () {
-        this.$refs.IFrame.setIframe4DemoPage();
+        this.$refs.page4MarvelGridMIFrame.setIframe4DemoPage();
 
         for (var i = 0; i < 100; i++) {
           var oRow = {

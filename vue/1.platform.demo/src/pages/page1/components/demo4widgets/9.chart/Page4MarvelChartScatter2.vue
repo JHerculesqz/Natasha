@@ -37,7 +37,7 @@
     <!--endregion-->
     <!--region doc area-->
     <div class="docArea">
-      <marvel-i-frame ref="IFrame" id="IFrame" src="static/jsdoc/module-MarvelChartScatter2.html"></marvel-i-frame>
+      <marvel-i-frame ref="page4MarvelChartScatter2IFrame" id="page4MarvelChartScatter2IFrame" src="static/jsdoc/module-MarvelChartScatter2.html"></marvel-i-frame>
     </div>
     <!--endregion-->
   </div>
@@ -113,7 +113,7 @@
       //#region lifeCycle
 
       _initEx: function () {
-        this.$refs.IFrame.setIframe4DemoPage();
+        this.$refs.page4MarvelChartScatter2IFrame.setIframe4DemoPage();
 
         this.$refs.ref4.setData(this.scatterData2);
       },

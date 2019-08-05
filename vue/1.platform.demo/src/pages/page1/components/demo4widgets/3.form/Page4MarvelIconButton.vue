@@ -41,7 +41,7 @@
     <!--endregion-->
     <!--region doc area-->
     <div class="docArea">
-      <marvel-i-frame ref="IFrame" id="IFrame" src="static/jsdoc/module-MarvelIconButton.html"></marvel-i-frame>
+      <marvel-i-frame ref="page4MarvelIconButtonIFrame" id="page4MarvelIconButtonIFrame" src="static/jsdoc/module-MarvelIconButton.html"></marvel-i-frame>
     </div>
     <!--endregion-->
   </div>
@@ -92,7 +92,7 @@
       //#region lifeCycle
 
       _initEx: function () {
-        this.$refs.IFrame.setIframe4DemoPage();
+        this.$refs.page4MarvelIconButtonIFrame.setIframe4DemoPage();
       },
 
       //#endregion

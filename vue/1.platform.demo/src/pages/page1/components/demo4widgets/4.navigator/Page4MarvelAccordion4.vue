@@ -35,7 +35,7 @@
     <!--endregion-->
     <!--region doc area-->
     <div class="docArea">
-      <marvel-i-frame ref="IFrame" id="IFrame" src="static/jsdoc/module-MarvelAccordion4.html"></marvel-i-frame>
+      <marvel-i-frame ref="page4MarvelAccordion4IFrame" id="page4MarvelAccordion4IFrame" src="static/jsdoc/module-MarvelAccordion4.html"></marvel-i-frame>
     </div>
     <!--endregion-->
   </div>
@@ -95,7 +95,7 @@
       //#region lifeCycle
 
       _initEx: function () {
-        this.$refs.IFrame.setIframe4DemoPage();
+        this.$refs.page4MarvelAccordion4IFrame.setIframe4DemoPage();
       },
 
       //#endregion

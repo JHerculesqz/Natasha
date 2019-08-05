@@ -35,7 +35,7 @@
     <!--endregion-->
     <!--region doc area-->
     <div class="docArea">
-      <marvel-i-frame ref="IFrame" id="IFrame" src="static/jsdoc/module-MarvelChartLineNew.html"></marvel-i-frame>
+      <marvel-i-frame ref="page4MarvelChartLineNewIFrame" id="page4MarvelChartLineNewIFrame" src="static/jsdoc/module-MarvelChartLineNew.html"></marvel-i-frame>
     </div>
     <!--endregion-->
   </div>
@@ -86,7 +86,7 @@
       //#region lifeCycle
 
       _initEx: function () {
-        this.$refs.IFrame.setIframe4DemoPage();
+        this.$refs.page4MarvelChartLineNewIFrame.setIframe4DemoPage();
 
         var oData = {
           yName:"yName",

@@ -117,7 +117,7 @@
     <!--endregion-->
     <!--region doc area-->
     <div class="docArea">
-      <marvel-i-frame ref="IFrame" id="IFrame" src="static/jsdoc/module-MarvelGridExFilter.html"></marvel-i-frame>
+      <marvel-i-frame ref="page4MarvelGridExFilterIFrame" id="page4MarvelGridExFilterIFrame" src="static/jsdoc/module-MarvelGridExFilter.html"></marvel-i-frame>
     </div>
     <!--endregion-->
   </div>
@@ -245,7 +245,7 @@
       //#region lifeCycle
 
       _initEx: function () {
-        this.$refs.IFrame.setIframe4DemoPage();
+        this.$refs.page4MarvelGridExFilterIFrame.setIframe4DemoPage();
 
         this._initGridEx();
       },

@@ -53,7 +53,7 @@
     <!--endregion-->
     <!--region doc area-->
     <div class="docArea">
-      <marvel-i-frame ref="IFrame" id="IFrame" src="static/jsdoc/module-MarvelRightExtPanel.html"></marvel-i-frame>
+      <marvel-i-frame ref="page4MarvelRightExtPanelIFrame" id="page4MarvelRightExtPanelIFrame" src="static/jsdoc/module-MarvelRightExtPanel.html"></marvel-i-frame>
     </div>
     <!--endregion-->
   </div>
@@ -104,7 +104,7 @@
       //#region lifeCycle
 
       _initEx: function () {
-        this.$refs.IFrame.setIframe4DemoPage();
+        this.$refs.page4MarvelRightExtPanelIFrame.setIframe4DemoPage();
       },
 
       //#endregion

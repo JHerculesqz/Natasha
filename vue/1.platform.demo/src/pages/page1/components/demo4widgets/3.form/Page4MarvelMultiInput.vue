@@ -45,7 +45,7 @@
     <!--endregion-->
     <!--region doc area-->
     <div class="docArea">
-      <marvel-i-frame ref="IFrame" id="IFrame" src="static/jsdoc/module-MarvelMultiInput.html"></marvel-i-frame>
+      <marvel-i-frame ref="page4MarvelMultiInputIFrame" id="page4MarvelMultiInputIFrame" src="static/jsdoc/module-MarvelMultiInput.html"></marvel-i-frame>
     </div>
     <!--endregion-->
   </div>
@@ -97,7 +97,7 @@
       //#region lifeCycle
 
       _initEx: function () {
-        this.$refs.IFrame.setIframe4DemoPage();
+        this.$refs.page4MarvelMultiInputIFrame.setIframe4DemoPage();
       },
 
       //#endregion

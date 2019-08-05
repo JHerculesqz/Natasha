@@ -50,7 +50,7 @@
     <!--endregion-->
     <!--region doc area-->
     <div class="docArea">
-      <marvel-i-frame ref="IFrame" id="IFrame" src="static/jsdoc/module-MarvelDevPanelEx.html"></marvel-i-frame>
+      <marvel-i-frame ref="page4MarvelDevPanelExIFrame" id="page4MarvelDevPanelExIFrame" src="static/jsdoc/module-MarvelDevPanelEx.html"></marvel-i-frame>
     </div>
     <!--endregion-->
   </div>
@@ -101,7 +101,7 @@
       //#region lifeCycle
 
       _initEx: function () {
-        this.$refs.IFrame.setIframe4DemoPage();
+        this.$refs.page4MarvelDevPanelExIFrame.setIframe4DemoPage();
 
         var options = {
           buObjId: "jigui_1",

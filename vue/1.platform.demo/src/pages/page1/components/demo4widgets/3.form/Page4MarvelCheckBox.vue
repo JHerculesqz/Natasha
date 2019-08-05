@@ -63,7 +63,7 @@
     <!--endregion-->
     <!--region doc area-->
     <div class="docArea">
-      <marvel-i-frame ref="IFrame" id="IFrame" src="static/jsdoc/module-MarvelCheckBox.html"></marvel-i-frame>
+      <marvel-i-frame ref="Page4MarvelCheckBoxIFrame" id="Page4MarvelCheckBoxIFrame" src="static/jsdoc/module-MarvelCheckBox.html"></marvel-i-frame>
     </div>
     <!--endregion-->
   </div>
@@ -114,7 +114,7 @@
       //#region lifeCycle
 
       _initEx: function () {
-        this.$refs.IFrame.setIframe4DemoPage();
+        this.$refs.Page4MarvelCheckBoxIFrame.setIframe4DemoPage();
       },
 
       //#endregion
