@@ -94,7 +94,7 @@
           label:"性别",
           width:"300px",
           type:"text",
-          visible:true,
+          visible:false,
         },{
           key:"age",
           label:"年龄",

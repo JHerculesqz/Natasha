@@ -1,10 +1,10 @@
 <template>
   <div class="gridWrapper marvelGridWrapper">
     <div class="headWrapper" v-if="hasHead">
-      <table class="gridCont" cellspacing="0" cellpadding="0" border="0">
+      <table class="gridCont" cellspacing="0" cellpadding="0" border="0" v-bind:style="{left:offSetX + 'px'}">
         <thead>
         <tr>
-          <td v-for="(title, index) in titles" v-bind:style="{width: title.width}">
+          <td v-for="(title, index) in titles" v-bind:style="{width: title.width}" v-show="title.visible">
             <div>
               {{title.label}}
             </div>
@@ -13,7 +13,7 @@
         </thead>
       </table>
     </div>
-    <div class="bodyWrapper" v-bind:style="_genBodyHeightstyle()">
+    <div class="bodyWrapper" id="bodyWrapper" v-bind:style="_genBodyHeightstyle()">
       <table class="gridCont" cellspacing="0" cellpadding="0" border="0">
         <tbody>
         <tr v-for="oNode in rowsInPage">
@@ -143,6 +143,7 @@
         pageLimit: this.isTree ? 3 : 7,
         showPageNum: this.isTree ? false : true,
         showChangeLimit: this.isTree ? false : true,
+        offSetX:0
       }
     },
     mounted: function () {
@@ -193,6 +194,11 @@
 
       _initEx: function () {
         this._handlerTreeNodes();
+
+        let oTbody = this.$el.querySelector("#bodyWrapper");
+        oTbody.addEventListener("scroll", (oEvent) => {
+          this.offSetX = -oEvent.target.scrollLeft;
+        });
       },
       _destroy: function () {
       },
@@ -670,9 +676,9 @@
   .gridCont {
     width: 100%;
     height: 100%;
-    overflow: auto;
     display: block;
     box-sizing: border-box;
+    position: relative;
   }
 
   .headWrapper {
@@ -732,7 +738,13 @@
     position: relative;
   }
 
-  table thead, tbody {
+  table thead{
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+  }
+
+  tbody {
     display: table;
     width: 100%;
     table-layout: fixed;
