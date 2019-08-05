@@ -1,7 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Page1 from '../components/Page1'
-
 
 import Page4Develop from '../components/demo4widgets/1.quickStart/Page4Develop'
 import Page4Install from '../components/demo4widgets/1.quickStart/Page4Install'

@@ -272,10 +272,20 @@
     mounted: function () {
       //#region custom
 
+      this._initEx();
+
       //#endregion
     },
     methods: {
       //#region inner
+
+      //#region lifeCycle
+
+      _initEx: function () {
+        Router.toEx(this.$router, "/");
+      },
+
+      //#endregion
 
       //#endregion
 
