@@ -26,6 +26,7 @@
                       :totalPage="totalPage"
                       :canDrag="true"
                       :hasFoot="true"
+                      :sortRowFunc="_sortRowFunc"
                       v-on:onTitleCheckOrUncheck="_onTitleCheckOrUncheck"
                       v-on:onRowCheckOrUnCheck="_onRowCheckOrUnCheck"
                       v-on:onIconClick="_onIconClick"
@@ -125,8 +126,8 @@
 
       _genSearchData: function () {
         var arrSearchItem = [];
-        for (var i = 0; i < this.title4objLstInner.length; i++) {
-          var oTitle = this.title4objLstInner[i];
+        for (var i = 0; i < this.title4objLst.length; i++) {
+          var oTitle = this.title4objLst[i];
           if (oTitle.key != "id" && oTitle.key != "checkBox" && oTitle.key != "operation" && oTitle.visible) {
             arrSearchItem.push({
               label: oTitle.label
@@ -285,7 +286,7 @@
       _onRowCheckOrUnCheck: function (oRow, isCheck) {
         this.arrSelectRows = this.$refs.objLstGrid.getSelectRows4Checkbox();
         this._updateBtnStatus();
-        this.callback4OnRowCheckOrUnCheck(this.arrSelectRows);
+        this.callback4OnRowCheckOrUnCheck(this.arrSelectRows, oRow, isCheck);
       },
       _onTitleCheckOrUncheck: function (isCheck) {
         this.isSelectAll = isCheck;
@@ -298,6 +299,9 @@
         }else{
           this.$refs.objLstPageCreateBtn3.setBtnDisable(true);
         }
+      },
+      _sortRowFunc: function(strKey, order, rows){
+        this.callback4OnSortRow(strKey, order, rows)
       },
 
       //#endregion
@@ -327,11 +331,14 @@
       callback4OnIconClick4View: function (oRow) {
         this.$emit("onIconClick4View", oRow);
       },
-      callback4OnRowCheckOrUnCheck: function (arrRows) {
-        this.$emit("onRowCheckOrUnCheck", arrRows);
+      callback4OnRowCheckOrUnCheck: function (arrRows, oRow, isCheck) {
+        this.$emit("onRowCheckOrUnCheck", arrRows, oRow, isCheck);
       },
       callback4OnTitleCheckOrUncheck: function (arrRows) {
         this.$emit("onTitleCheckOrUncheck", arrRows);
+      },
+      callback4OnSortRow: function (strKey, order, rows) {
+        this.$emit("onSortRow", strKey, order, rows);
       },
 
       //#endregion
@@ -341,7 +348,9 @@
     watch: {
       title4objLst: {
         handler: function () {
-          this._genTitles4Grid();
+          this._genTitles4Grid(function () {
+            
+          });
         },
         deep: true
       },
