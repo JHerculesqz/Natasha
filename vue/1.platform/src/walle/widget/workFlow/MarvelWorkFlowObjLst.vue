@@ -130,7 +130,8 @@
           var oTitle = this.title4objLst[i];
           if (oTitle.key != "id" && oTitle.key != "checkBox" && oTitle.key != "operation" && oTitle.visible) {
             arrSearchItem.push({
-              label: oTitle.label
+              label: oTitle.label,
+              key:oTitle.key
             })
           }
         }
@@ -349,7 +350,6 @@
       title4objLst: {
         handler: function () {
           this._genTitles4Grid(function () {
-            
           });
         },
         deep: true

@@ -309,13 +309,13 @@
   }
 
   .mopLeft {
-    width: 1200px;
+    width: calc(100% - 620px);
     float: left;
     height: 100%;
   }
 
   .mopRight {
-    width: calc(100% - 1220px);
+    width: 600px;
     float: left;
     height: 100%;
     margin-left: 20px;
