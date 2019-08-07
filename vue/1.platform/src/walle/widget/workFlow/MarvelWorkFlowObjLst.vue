@@ -26,7 +26,7 @@
                       :totalPage="totalPage"
                       :canDrag="true"
                       :hasFoot="true"
-                      :sortRowFunc="_sortRowFunc"
+                      :sortRowsFunc="_sortRowsFunc"
                       v-on:onTitleCheckOrUncheck="_onTitleCheckOrUncheck"
                       v-on:onRowCheckOrUnCheck="_onRowCheckOrUnCheck"
                       v-on:onIconClick="_onIconClick"
@@ -300,8 +300,8 @@
           this.$refs.objLstPageCreateBtn3.setBtnDisable(true);
         }
       },
-      _sortRowFunc: function(strKey, order, rows){
-        this.callback4OnSortRow(strKey, order, rows)
+      _sortRowsFunc: function(strKey, order, rows){
+        this.callback4OnSortRows(strKey, order, rows)
       },
 
       //#endregion
@@ -337,8 +337,8 @@
       callback4OnTitleCheckOrUncheck: function (arrRows) {
         this.$emit("onTitleCheckOrUncheck", arrRows);
       },
-      callback4OnSortRow: function (strKey, order, rows) {
-        this.$emit("onSortRow", strKey, order, rows);
+      callback4OnSortRows: function (strKey, order, rows) {
+        this.$emit("onSortRows", strKey, order, rows);
       },
 
       //#endregion
