@@ -9,21 +9,73 @@
     <!--region widget show area-->
     <!--2级 start-->
 
+    <div class="describe">
+      dashboard - 固定高度
+    </div>
     <div class="showArea">
       <marvel-tab :tabItems="tabItems1">
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
             <div style="height: 200px;width:500px;background-color: #fafafa;padding: 20px;">
-              <marvel-dashboard title="Shit">
+              <marvel-dashboard title="MarvelDashboardFixH">
                 <div slot="customArea">customArea...</div>
-                <div slot="contArea">cont...</div>
+                <div slot="contArea" style="height: 100%;background-color: #eee;overflow:auto;">
+                  <div>content...</div>
+                  <div>content...</div>
+                  <div>content...</div>
+                  <div>content...</div>
+                  <div>content...</div>
+                  <div>content...</div>
+                  <div>content...</div>
+                  <div>content...</div>
+                  <div>content...</div>
+                  <div>content...</div>
+                  <div>content...</div>
+                </div>
               </marvel-dashboard>
             </div>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
         <marvel-tab-item :isActive="tabItems1[1].isActive">
+          <div class="codeArea">
+            <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
+            <div style="height: 200px;width:500px;background-color: #fafafa;padding: 20px;">
+              <marvel-dashboard title="Shit">
+                <div slot="customArea">customArea...</div>
+                <div slot="contArea">cont...</div>
+              </marvel-dashboard>
+            </div>
+            '></marvel-ace-editor>
+          </div>
+        </marvel-tab-item>
+      </marvel-tab>
+    </div>
+    <br><br>
+
+    <div class="describe">
+      dashboard - 适应内容高度
+    </div>
+    <div class="showArea">
+      <marvel-tab :tabItems="tabItems2">
+        <marvel-tab-item :isActive="tabItems2[0].isActive">
+          <div class="showAreaInner">
+            <!--2级DemoView start-->
+            <div style="height: 200px;width:500px;background-color: #fafafa;padding: 20px;">
+              <marvel-dashboard title="MarvelDashboardAdaptToContH" :bIsAdaptToContent="true">
+                <div slot="customArea">customArea...</div>
+                <div slot="contArea">
+                  <div style="height: 200px;background-color: #eee">
+                    content 200px height
+                  </div>
+                </div>
+              </marvel-dashboard>
+            </div>
+            <!--2级DemoView end-->
+          </div>
+        </marvel-tab-item>
+        <marvel-tab-item :isActive="tabItems2[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
             <div style="height: 200px;width:500px;background-color: #fafafa;padding: 20px;">
@@ -67,6 +119,13 @@
       return {
         //#region document data
         tabItems1: [{
+          label: "Demo View",
+          isActive: true
+        }, {
+          label: "Code View",
+          isActive: false
+        }],
+        tabItems2: [{
           label: "Demo View",
           isActive: true
         }, {
