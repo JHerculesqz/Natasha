@@ -8,17 +8,17 @@
                                         :selectItems="searchSelectItems"></marvel-search-with-drop-down>
         </div>
         <slot name="btnArea"></slot>
-        <marvel-button ref="objLstPageCreateBtn3" label="批量删除" classCustom="classCustom4Btn"
+        <marvel-button :ref="'objLstPageCreateBtn3' + componentId" label="批量删除" classCustom="classCustom4Btn"
                        v-on:onClick="callback4OnClickToBatchDelete"></marvel-button>
-        <marvel-button ref="objLstPageCreateBtn2" label="批量创建" classCustom="classCustom4Btn"
+        <marvel-button :ref="'objLstPageCreateBtn2' + componentId" label="批量创建" classCustom="classCustom4Btn"
                        v-on:onClick="callback4OnClickToBatchCreate"></marvel-button>
-        <marvel-button ref="objLstPageCreateBtn1" label="创建" classCustom="classCustom4Btn"
+        <marvel-button :ref="'objLstPageCreateBtn1' + componentId" label="创建" classCustom="classCustom4Btn"
                        v-on:onClick="callback4OnClickToCreate"></marvel-button>
       </div>
     </div>
     <div class="bottomArea">
-      <marvel-grid-ex ref="objLstGrid"
-                      gridId="objLstGrid"
+      <marvel-grid-ex :ref="'objLstGrid' + componentId"
+                      gridId="'objLstGrid' + componentId"
                       :titles="title4objLstInner"
                       :rows="row4objLstInner"
                       :dynamicPaging="true"
@@ -39,6 +39,7 @@
   import MarvelButton from '../../widget/button/MarvelButton';
   import MarvelGridEx from '../../widget/grid/MarvelGridEx';
   import MarvelSearchWithDropDown from "../search/MarvelSearchWithDropDown";
+  import StrUtils from "../../component/str";
 
   /**
    *  MarvelWorkFlow widget description
@@ -69,7 +70,7 @@
         required: true,
       },
       rowOriginData: {
-        type: Object,
+        type: Array,
         default: undefined,
         required: true,
       },
@@ -96,7 +97,8 @@
         title4objLstInner: [],
         row4objLstInner: [],
         arrSelectRows:[],
-        isSelectAll:false
+        isSelectAll:false,
+        componentId:'',
         //#endregion
       }
     },
@@ -114,12 +116,13 @@
 
       _initEx: function () {
         var self = this;
-        this._genTitles4Grid(function () {
-          self._genSearchData();
+        this.componentId = StrUtils.uuid();
+        this.$nextTick(function () {
+          self._genTitles4Grid(function () {
+            self._genSearchData();
+          });
+          self._genRows4Grid();
         });
-        this._genRows4Grid();
-
-        this._updateBtnStatus();
       },
 
       //#endregion
@@ -128,7 +131,7 @@
         var arrSearchItem = [];
         for (var i = 0; i < this.title4objLst.length; i++) {
           var oTitle = this.title4objLst[i];
-          if (oTitle.key != "id" && oTitle.key != "checkBox" && oTitle.key != "operation" && oTitle.visible) {
+          if (oTitle.canSearch) {
             arrSearchItem.push({
               label: oTitle.label,
               key:oTitle.key
@@ -151,8 +154,14 @@
           visible: true,
           width: "36px"
         }, {
-          label: "insId4UIWf",
+          label: "",
           key: "id",
+          type: "text",
+          visible: false,
+          width: "36px"
+        }, {
+          label: "",
+          key: "idRef",
           type: "text",
           visible: false,
           width: "36px"
@@ -194,11 +203,14 @@
         return arrNewTitleV2;
       },
       _genRows4Grid: function () {
+        this.arrSelectRows = [];
+        this.isSelectAll = false;
         var arrRows = JSON.parse(JSON.stringify(this.row4objLst));
         this.row4objLstInner = this._genRows(arrRows);
+        this._updateBtnStatus();
       },
       _genRows: function (arrRows) {
-        var oRes = this.rowOriginData.lstUIWFInsVo;
+        var oRes = this.rowOriginData;
         var bHasOperationAlready = false;
         for (var i = 0; i < arrRows.length; i++) {
           arrRows[i].push({
@@ -209,6 +221,10 @@
           });
           arrRows[i].push({
             key: "id",
+            value: StrUtils.uuid(),
+          });
+          arrRows[i].push({
+            key: "idRef",
             value: oRes[i].id
           });
           arrRows[i].push({
@@ -239,7 +255,7 @@
                 title: "删除"
               });
               oCell.value.unshift({
-                value: "icon-wrench",
+                value: "icon-enter",
                 color: "#3399ff",
                 title: "查看"
               });
@@ -249,7 +265,7 @@
             arrRows[i].push({
               key: "operation",
               value: [{
-                value: "icon-wrench",
+                value: "icon-enter",
                 color: "#3399ff",
                 title: "查看"
               }, {
@@ -263,7 +279,7 @@
         return arrRows;
       },
       _onIconClick: function (oRow, oCell, oIcon) {
-        if (oIcon.value == "icon-wrench") {
+        if (oIcon.value == "icon-enter") {
           this.callback4OnIconClick4View(oRow);
         } else if (oIcon.value == "icon-bin") {
           this.callback4OnIconClick4Delete(oRow);
@@ -285,7 +301,7 @@
         return targetCell;
       },
       _onRowCheckOrUnCheck: function (oRow, isCheck) {
-        this.arrSelectRows = this.$refs.objLstGrid.getSelectRows4Checkbox();
+        this.arrSelectRows = this.$refs['objLstGrid' + this.componentId].getSelectRows4Checkbox();
         this._updateBtnStatus();
         this.callback4OnRowCheckOrUnCheck(this.arrSelectRows, oRow, isCheck);
       },
@@ -296,9 +312,9 @@
       },
       _updateBtnStatus:function(){
         if(this.arrSelectRows.length>0 || this.isSelectAll){
-          this.$refs.objLstPageCreateBtn3.setBtnDisable(false);
+          this.$refs['objLstPageCreateBtn3' + this.componentId].setBtnDisable(false);
         }else{
-          this.$refs.objLstPageCreateBtn3.setBtnDisable(true);
+          this.$refs['objLstPageCreateBtn3' + this.componentId].setBtnDisable(true);
         }
       },
       _sortRowsFunc: function(strKey, order, rows){
