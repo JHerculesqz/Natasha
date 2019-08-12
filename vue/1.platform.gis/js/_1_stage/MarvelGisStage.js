@@ -107,7 +107,7 @@
                   minZoom: 3,
                   wheelDebounceTime:100,
                   wheelPxPerZoomLevel:200,
-                  zoomSnap:0.1,
+                  zoomSnap: 0.1,
                     worldCopyJump: true,
                     doubleClickZoom: false,
                     preferCanvas: true,
@@ -301,7 +301,7 @@
         //region 快捷键
 
         var _initEventEscPress = function (oGis) {
-            keyboardJS.on('esc', function (e) {
+          keyboardJS.on('esc', function (e) {
                 //down
                 if (model === self.MODEL_CREATE_MARK) {
                     oGis.Sprite.Node.eventEscPress(e, oGis);
@@ -337,7 +337,7 @@
             Object.assign(self.config, oConfig);
         };
 
-        this.resize = function () {
+        this.resize = function (){
           self.mapObj._onResize();
         };
 

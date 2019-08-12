@@ -350,6 +350,7 @@
       title4objLst: {
         handler: function () {
           this._genTitles4Grid(function () {
+
           });
         },
         deep: true

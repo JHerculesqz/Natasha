@@ -8,7 +8,9 @@
     <!--1级 end-->
     <!--region widget show area-->
     <!--2级 start-->
-
+    <div class="describe">
+      树表——树
+    </div>
     <div class="showArea">
       <marvel-tab :tabItems="tabItems1">
         <marvel-tab-item :isActive="tabItems1[0].isActive">
@@ -20,7 +22,7 @@
                                 :titles="titles"
                                 :treeNodes="treeNodes"
                                 :dynamicPaging="false"
-                                :isTree="false"
+                                :isTree=true
                                 @onIconClick="_onIconClick"></marvel-grid-tree>
             </div>
 
@@ -44,11 +46,51 @@
         </marvel-tab-item>
       </marvel-tab>
     </div>
+    <br>
+
+    <div class="describe">
+      树表——表
+    </div>
+    <div class="showArea">
+      <marvel-tab :tabItems="tabItems2">
+        <marvel-tab-item :isActive="tabItems2[0].isActive">
+          <div class="showAreaInner">
+            <!--2级DemoView start-->
+            <div style="width: 100%; height: 350px">
+              <marvel-grid-tree :hasFoot="false"
+                                ref="ref4MarvelGridTree"
+                                :titles="titles2"
+                                :treeNodes="treeNodes2"
+                                :dynamicPaging="false"
+                                :isTree=false
+                                @onIconClick="_onIconClick"></marvel-grid-tree>
+            </div>
+            <!--2级DemoView end-->
+          </div>
+        </marvel-tab-item>
+        <marvel-tab-item :isActive="tabItems2[1].isActive">
+          <div class="codeArea">
+            <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
+            <div style="width: 100%; height: 350px">
+              <marvel-grid-tree :hasFoot="false"
+                                ref="ref4MarvelGridTree"
+                                :titles="titles2"
+                                :treeNodes="treeNodes2"
+                                :dynamicPaging="false"
+                                :isTree=false
+                                @onIconClick="_onIconClick"></marvel-grid-tree>
+            </div>
+            '></marvel-ace-editor>
+          </div>
+        </marvel-tab-item>
+      </marvel-tab>
+    </div>
     <!--2级 end-->
     <!--endregion-->
     <!--region doc area-->
     <div class="docArea">
-      <marvel-i-frame ref="page4MarvelGridTreeIFrame" id="page4MarvelGridTreeIFrame" src="static/jsdoc/module-MarvelGridTree.html"></marvel-i-frame>
+      <marvel-i-frame ref="page4MarvelGridTreeIFrame" id="page4MarvelGridTreeIFrame"
+                      src="static/jsdoc/module-MarvelGridTree.html"></marvel-i-frame>
     </div>
     <!--endregion-->
   </div>
@@ -80,35 +122,53 @@
           label: "Code View",
           isActive: false
         }],
+        tabItems2: [{
+          label: "Demo View",
+          isActive: true
+        }, {
+          label: "Code View",
+          isActive: false
+        }],
         //#endregion
         //#region custom data
         titles: [{
-          key:"name",
-          label:"名字",
-          width:"300px",
-          type:"text",
-          visible:true,
-          isTreeNodeCell:true,
-        },{
-          key:"sex",
-          label:"性别",
-          width:"300px",
-          type:"text",
-          visible:false,
-        },{
-          key:"age",
-          label:"年龄",
-          width:"300px",
-          type:"text",
-          visible:true,
-        },{
-          key:"operate",
-          label:"操作",
-          width:"300px",
-          type:"icon",
-          visible:true,
+          key: "name",
+          label: "名字",
+          width: "300px",
+          type: "text",
+          visible: true,
+          isTreeNodeCell: true,
         }],
         treeNodes: [],
+        titles2: [{
+          key: "name",
+          label: "名字",
+          width: "300px",
+          type: "text",
+          visible: true,
+          isTreeNodeCell: true,
+        },
+          {
+            key: "sex",
+            label: "性别",
+            width: "300px",
+            type: "text",
+            visible: false,
+          }, {
+            key: "age",
+            label: "年龄",
+            width: "300px",
+            type: "text",
+            visible: true,
+          }, {
+            key: "operate",
+            label: "操作",
+            width: "300px",
+            type: "icon",
+            visible: true,
+          }
+        ],
+        treeNodes2: [],
         //#endregion
       }
     },
@@ -127,75 +187,77 @@
       _initEx: function () {
         this.$refs.page4MarvelGridTreeIFrame.setIframe4DemoPage();
 
-        this.treeNodes=[];
-        for(var i = 0; i<2; i++){
+        this.treeNodes = [];
+        this.treeNodes2 = [];
+        for (var i = 0; i < 2; i++) {
           var oNode = {
-            id:"L0_"+i,
-            name:"L0_"+i,
-            age:22,
-            sex:"M",
-            operate:[{
-              title:"title1",
-              value:"icon-pencil"
-            },{
-              title:"title2",
-              value:"icon-bin"
+            id: "L0_" + i,
+            name: "L0_L0_L0_L0_L0_L0_L0_L0_L0_L0_L0_L0_L0_L0_" + i,
+            age: 22,
+            sex: "M",
+            operate: [{
+              title: "title1",
+              value: "icon-pencil"
+            }, {
+              title: "title2",
+              value: "icon-bin"
             }],
-            children:[],
-            nodeLevel:1,
+            children: [],
+            nodeLevel: 1,
             hasCheckbox: false,
             hasRadiobox: false,
-            isInitCheck:false,
-            isInitExpand:true,
-            idLeafNode:false
+            isInitCheck: false,
+            isInitExpand: true,
+            idLeafNode: false
           };
-          for(var j = 0; j<2; j++){
+          for (var j = 0; j < 2; j++) {
             var oNodeChild = {
-              id:oNode.name + "_" +j,
-              name:oNode.name + "_" +j,
-              age:22,
-              sex:"W",
-              operate:[{
-                title:"title1",
-                value:"icon-pencil"
-              },{
-                title:"title2",
-                value:"icon-bin"
+              id: oNode.name + "_" + j,
+              name: oNode.name + "_" + j,
+              age: 22,
+              sex: "W",
+              operate: [{
+                title: "title1",
+                value: "icon-pencil"
+              }, {
+                title: "title2",
+                value: "icon-bin"
               }],
-              children:[],
-              nodeLevel:2,
+              children: [],
+              nodeLevel: 2,
               hasCheckbox: false,
               hasRadiobox: false,
-              isInitCheck:false,
-              isInitExpand:true,
-              idLeafNode:false
+              isInitCheck: false,
+              isInitExpand: true,
+              idLeafNode: false
             };
             oNode.children.push(oNodeChild);
-            for(var k = 0; k<2; k++){
+            for (var k = 0; k < 2; k++) {
               var oNodeChildrenEx = {
-                id:oNodeChild.name + "_" +k,
-                name:oNodeChild.name + "_" +k,
-                age:22,
-                sex:"M",
-                operate:[{
-                  title:"title1",
-                  value:"icon-pencil"
-                },{
-                  title:"title2",
-                  value:"icon-bin"
+                id: oNodeChild.name + "_" + k,
+                name: oNodeChild.name + "_" + k,
+                age: 22,
+                sex: "M",
+                operate: [{
+                  title: "title1",
+                  value: "icon-pencil"
+                }, {
+                  title: "title2",
+                  value: "icon-bin"
                 }],
-                children:[],
-                nodeLevel:3,
+                children: [],
+                nodeLevel: 3,
                 hasCheckbox: false,
                 hasRadiobox: false,
-                isInitCheck:false,
-                isInitExpand:true,
-                idLeafNode:true
+                isInitCheck: false,
+                isInitExpand: true,
+                idLeafNode: true
               };
               oNodeChild.children.push(oNodeChildrenEx);
             }
           }
-          this.treeNodes.push(oNode)
+          this.treeNodes.push(oNode);
+          this.treeNodes2.push(oNode);
         }
       },
 
@@ -248,11 +310,11 @@
     box-sizing: border-box;
   }
 
-  .docArea{
+  .docArea {
     width: 100%;
   }
 
-  .docArea iframe{
+  .docArea iframe {
     width: 100%;
     height: 100%;
     border: none;

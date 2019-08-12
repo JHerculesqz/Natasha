@@ -317,8 +317,7 @@
     border: 1px solid #d5d5d5;
     box-sizing: border-box;
     padding: 10px;
-    overflow-x: hidden;
-    overflow-y: auto;
+    overflow: auto;
     margin: 0;
   }
 

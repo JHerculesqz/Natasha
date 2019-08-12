@@ -159,6 +159,7 @@
     border-radius: 2px;
     cursor: pointer;
     position: relative;
+    white-space: nowrap;
   }
 
   .iconTextBtn:before {

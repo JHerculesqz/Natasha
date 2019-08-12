@@ -164,7 +164,7 @@
           visible: true,
         }, {
           key: "operation",
-          label: "Operation",
+          label: "操作",
           width: "100px",
           type: "icon",
           visible: true,

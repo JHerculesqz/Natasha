@@ -130,7 +130,7 @@
           var iOffsetTop =anchor.offsetTop;
           oParentDiv.scrollTop = iOffsetTop;
         }else{
-          console.log("can not find" + strAnchorId);
+          console.log("can not find " + strAnchorId);
         }
       }
 
