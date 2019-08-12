@@ -43,7 +43,7 @@
             <div v-if="title.type == 'icon'">
               <span class="iconOnly"
                     v-for="icon in _getTdValue(title,nodeItemInner)"
-                    :class="[icon.value]"
+                    :class="[icon.value, {disableIcon:icon.isDisable}]"
                     :style="{color:icon.color}"
                     :title="icon.title"
                     @click.stop="_onIconClick(title.key, nodeItemInner, icon)">
@@ -334,6 +334,11 @@
 
   .iconOnly:hover {
     cursor: pointer;
+  }
+
+  .disableIcon{
+    color: #666 !important;
+    pointer-events: none;
   }
 
 </style>
