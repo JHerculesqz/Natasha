@@ -114,11 +114,12 @@
       //#region lifeCycle
 
       _initEx: function () {
+        var self = this;
         this.logRef = StrUtils.uuid();
         this.$nextTick(function () {
-          this._genTabs();
-          this._genTitles4Grid();
-          this._genRows4Grid();
+          self._genTabs();
+          self._genTitles4Grid();
+          self._genRows4Grid();
         });
       },
 

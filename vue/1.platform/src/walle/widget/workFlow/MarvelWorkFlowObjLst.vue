@@ -18,7 +18,7 @@
     </div>
     <div class="bottomArea">
       <marvel-grid-ex :ref="'objLstGrid' + componentId"
-                      gridId="'objLstGrid' + componentId"
+                      :gridId="'objLstGrid' + componentId"
                       :titles="title4objLstInner"
                       :rows="row4objLstInner"
                       :dynamicPaging="true"
