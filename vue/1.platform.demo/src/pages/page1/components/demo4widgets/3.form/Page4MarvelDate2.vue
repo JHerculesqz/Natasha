@@ -20,6 +20,7 @@
             <button v-on:click="setFormat(`YYYY-MM-DD HH:mm:ss`)">setFormat: YYYY-MM-DD HH:mm:ss</button>
             <button v-on:click="setFormat(`YYYY-MM-DD HH:mm`)">setFormat: YYYY-MM-DD HH:mm</button>
             <button v-on:click="setFormat(`YYYY-MM-DD HH`)">setFormat: YYYY-MM-DD HH</button>
+            <button v-on:click="setFormat(`HH:mm:ss`)">setFormat: HH:mm:ss</button>
             <button v-on:click="getDate">getDate</button>
             <button v-on:click="setDate">setDate</button>
             <button v-on:click="setRangeDate">setRangeDate</button>
