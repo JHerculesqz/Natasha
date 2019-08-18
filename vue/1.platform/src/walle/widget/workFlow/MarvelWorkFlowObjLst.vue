@@ -3,10 +3,6 @@
     <div class="topArea">
       <div class="title4objListPageWrapper">{{title}}</div>
       <div class="btnAreaWrapper">
-        <div class="searchArea4objList">
-          <marvel-search-with-drop-down @search="callback4OnSearch" width="120px"
-                                        :selectItems="searchSelectItems"></marvel-search-with-drop-down>
-        </div>
         <slot name="btnArea"></slot>
         <marvel-button :ref="'objLstPageCreateBtn3' + componentId" label="批量删除" classCustom="classCustom4Btn"
                        v-on:onClick="callback4OnClickToBatchDelete"></marvel-button>
@@ -14,6 +10,10 @@
                        v-on:onClick="callback4OnClickToBatchCreate"></marvel-button>
         <marvel-button :ref="'objLstPageCreateBtn1' + componentId" label="创建" classCustom="classCustom4Btn"
                        v-on:onClick="callback4OnClickToCreate"></marvel-button>
+      </div>
+      <div class="searchArea4objList">
+        <marvel-search-with-drop-down @search="callback4OnSearch" width="120px"
+                                      :selectItems="searchSelectItems"></marvel-search-with-drop-down>
       </div>
     </div>
     <div class="bottomArea">
@@ -412,7 +412,7 @@
 
   .topArea {
     height: 46px;
-    padding: 7px 20px 0 20px;
+    padding: 7px 10px 0 10px;
     box-sizing: border-box;
   }
 
@@ -427,12 +427,13 @@
   .btnAreaWrapper {
     position: relative;
     top: 0px;
+    float: left;
   }
 
   .searchArea4objList{
     width: 320px;
     float: right;
-    margin-left: 20px;
+    margin-right: 20px;
   }
 
   .classCustom4Btn {

@@ -182,6 +182,13 @@
       getDropDownCurrentLabel: function () {
         return this.inputMsg;
       },
+      getDropDownCurrentItem: function(){
+        for(var i = 0; i<this.items.length; i++){
+          if(this.inputMsg == this.items[i].label){
+            return this.items[i];
+          }
+        }
+      },
       setSelectItem: function (strLabel) {
         this.inputMsg = strLabel;
         this.callback4OnOptionSelect(this.inputMsg);
