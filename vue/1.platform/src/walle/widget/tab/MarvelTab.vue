@@ -6,7 +6,7 @@
         <div class="headItem" v-for="tabItem in tabItems"
              :title="tabItem.label"
              v-bind:class="[{ active : tabItem.isActive }, { dpn : tabItem.isHide }, tabCustomClass]"
-             v-on:click="onTabClick(tabItem.label)">
+             v-on:click="onTabClick(tabItem.label)" :style="tabStyle">
           {{ tabItem.label }}
           <div v-if="tabItem.showWarn" style="float: right;width: 25px">
             <span class="warn">{{tabItem.warnCount}}</span>
@@ -47,6 +47,10 @@
         default: false,
         required: false,
       },
+      tabStyle:{
+        default: undefined,
+        required: false,
+      }
     },
     data: function () {
       return {}

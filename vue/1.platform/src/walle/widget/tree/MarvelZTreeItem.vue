@@ -4,7 +4,7 @@
       <div class="treeItemIcon" v-bind:class="openEx"
            v-on:click="toggle"></div>
       <div class="treeItemCheck" v-if="treeItemOptions.hasCheckbox">
-        <input class="treeitemCheckbox" type="checkbox" v-model="model.check"
+        <input class="treeitemCheckbox" type="checkbox" v-model="model.check" :disabled="model.disabledCheck"
                v-on:change.stop="onCheckboxClick(model)">
       </div>
       <div class="treeItemCustomIcon"
@@ -86,10 +86,10 @@
         }
       },
       hasIcon: function () {
-        return this.model.icon != undefined;
+        return this.model.icon != undefined && this.model.icon != "";
       },
       hasImgIcon: function () {
-        return this.model.imgIcon != undefined;
+        return this.model.imgIcon != undefined && this.model.imgIcon != "";
       },
       treeIconStyle: function () {
         return {

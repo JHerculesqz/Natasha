@@ -8,7 +8,7 @@
            v-bind:class="[{isDragging:bIsDragging}]"
            v-on:mousedown="mouseDown"></div>
     </div>
-    <div class="expandBtn icon-marvelIcon-97"
+    <div class="expandBtn icon-marvelIcon-97" :style="{color:expandBtnBgColor}"
          v-on:click="onExpandBtnClick"></div>
     <div class="expandBtnInner" v-bind:class="[icon]"></div>
   </div>
@@ -40,6 +40,11 @@
         default: false,
         required: false,
       },
+      expandBtnBgColor:{
+        type: String,
+        default: "#ffffff",
+        required: false,
+      }
     },
     data: function () {
       return {

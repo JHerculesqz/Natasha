@@ -1,7 +1,7 @@
 <template>
   <div class="iconTextBtn"
        :title="userDefineTitle?userDefineTitle:label"
-       :style="butStyle"
+       :style="[butStyle, {'max-width':maxWidth + 'px'}]"
        v-bind:class="[isPrimaryStyle, isMouseDownStyle, size, disable, classCustom, icon, {tip:isWarn}, isIconPosToRight]"
        v-on:click="onClick" v-on:mousedown="_onMouseDown" v-on:mouseup="_onMouseUp">{{ label }}
   </div>
@@ -73,7 +73,12 @@
         type: Boolean,
         default: true,
         required: false,
-      }
+      },
+      maxWidth:{
+        type: Number,
+        default: 220,
+        required: false,
+      },
     },
     data: function () {
       return {
@@ -159,6 +164,8 @@
     border-radius: 2px;
     cursor: pointer;
     position: relative;
+    text-overflow: ellipsis;
+    overflow: hidden;
     white-space: nowrap;
   }
 
