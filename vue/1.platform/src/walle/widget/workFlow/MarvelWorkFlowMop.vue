@@ -2,7 +2,6 @@
   <div class="workFlowMopWrapper">
     <div class="mopLeft">
       <marvel-grid-tree :hasFoot="false"
-                        ref="ref4MarvelGridTree"
                         :titles="title4MopLstInner"
                         :treeNodes="treeNode4MopLstInner"
                         :dynamicPaging="false"
@@ -10,9 +9,9 @@
                         @onIconClick="_onIconClick"></marvel-grid-tree>
     </div>
     <div class="mopRight">
-      <marvel-tab ref="tab4LogView" :tabItems="tabItemsInner" :hide-border="true">
+      <marvel-tab :tabItems="tabItemsInner" :hide-border="true">
         <marvel-tab-item v-for="tabItem in tabItemsInner" :key="tabItem.id" :isActive="tabItem.isActive">
-          <div v-if="tabItem.isDefault" class="tabCont logTabCont">
+          <div v-if="tabItem.key == 'logDetails'" class="tabCont logTabCont">
             <marvel-log-view :ref="logRef"
                              :logItems="logs"
                              :filterOptions="logFilterOptions"
@@ -88,10 +87,15 @@
         logRef: undefined,
         tabItemsInner: [{
           id: StrUtils.uuid(),
-          label: "Process Output",
-          isActive: true,
-          logInfo: undefined,
-          isDefault: true
+          label: "步骤详情",
+          key: "stepDetails",
+          slotId: "stepDetailsTab",
+          isActive: true
+        },{
+          id: StrUtils.uuid(),
+          label: "日志详情",
+          key: "logDetails",
+          isActive: false
         }],
         title4MopLstInner: [],
         treeNode4MopLstInner: [],
@@ -110,10 +114,13 @@
       //#region lifeCycle
 
       _initEx: function () {
+        var self = this;
         this.logRef = StrUtils.uuid();
-        this._genTabs();
-        this._genTitles4Grid();
-        this._genRows4Grid();
+        this.$nextTick(function () {
+          self._genTabs();
+          self._genTitles4Grid();
+          self._genRows4Grid();
+        });
       },
 
       //#endregion
@@ -127,7 +134,7 @@
             id: StrUtils.uuid(),
             label: oCustomTab.label,
             slotId: oCustomTab.slotId,
-            isDefault: false
+            isActive: false
           });
         }
       },
@@ -164,7 +171,7 @@
           visible: true,
         }, {
           key: "operation",
-          label: "Operation",
+          label: "操作",
           width: "100px",
           type: "icon",
           visible: true,
@@ -183,15 +190,11 @@
         for (var i = 0; i < arrRows.length; i++) {
           //基础操作按钮
           var oOperations = [{
-            title: "跳过",
-            value: "icon-forward2",
+            title: "查看步骤",
+            value: "icon-marvelIcon-34",
             color: "#3399ff"
           },{
-            title: "暂停",
-            value: "icon-pause",
-            color: "#3399ff"
-          },{
-            title: "查看详情",
+            title: "查看日志",
             value: "icon-file-text2",
             color: "#3399ff"
           }];
@@ -202,7 +205,14 @@
             }
           }
           //数据组装
-          arrRows[i].operation = JSON.parse(JSON.stringify(oOperations));
+          if(arrRows[i].operation != undefined){
+            for(var k = oOperations.length - 1; k>=0; k--){
+              arrRows[i].operation.unshift(oOperations[k]);
+            }
+          }else{
+            arrRows[i].operation = JSON.parse(JSON.stringify(oOperations));
+          }
+
           arrRows[i].nodeLevel = iNodeLevel;
           arrRows[i].hasCheckbox = false;
           arrRows[i].hasRadiobox = false;
@@ -223,12 +233,16 @@
         if (oCell.value == "icon-forward2") {
           //skip
           this._callback4OnIconClick4Skip(oRow, oCell);
-        } else if (oCell.value == "icon-pause") {
+        } else if (oCell.value == "icon-marvelIcon-34") {
           //pause
+          this.tabItemsInner[0].isActive = true;
+          this.tabItemsInner[1].isActive = false;
           this._callback4OnIconClick4Pause(oRow, oCell);
         } else if (oCell.value == "icon-file-text2") {
           //anchorLogTo
           //mop一行的id 与 log的taskId相对应
+          this.tabItemsInner[0].isActive = false;
+          this.tabItemsInner[1].isActive = true;
           var logId = oRow.id;
           this.$refs[this.logRef][0].anchorTo(logId);
         }else{
@@ -309,13 +323,13 @@
   }
 
   .mopLeft {
-    width: 1200px;
+    width: calc(100% - 620px);
     float: left;
     height: 100%;
   }
 
   .mopRight {
-    width: calc(100% - 1220px);
+    width: 600px;
     float: left;
     height: 100%;
     margin-left: 20px;

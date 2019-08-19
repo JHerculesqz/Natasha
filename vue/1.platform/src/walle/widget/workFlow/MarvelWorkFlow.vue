@@ -8,7 +8,7 @@
                      @onWizardClick="onWizardClick"></marvel-wizard>
     </div>
     <div class="bottomContArea">
-      <component v-bind:is="currentStep.uiCompName"></component>
+      <component v-bind:is="currentStep.uiCompName" :index="currentStep.index"></component>
     </div>
   </div>
 </template>

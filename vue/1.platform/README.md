@@ -1,4 +1,4 @@
-# core-fw-vue-widget-new
+# natasha-vue
 
 > A Vue.js project
 

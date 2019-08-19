@@ -104,7 +104,10 @@
                     zoomControl: oOptions.hasZoomCtrl == undefined ? true : oOptions.hasZoomCtrl,
                     center: [iX, iY],
                     zoom: iZoom4Init,
-                    minZoom: 3,
+                  minZoom: 3,
+                  wheelDebounceTime:100,
+                  wheelPxPerZoomLevel:200,
+                  zoomSnap: 0.1,
                     worldCopyJump: true,
                     doubleClickZoom: false,
                     preferCanvas: true,
@@ -298,7 +301,7 @@
         //region 快捷键
 
         var _initEventEscPress = function (oGis) {
-            keyboardJS.bind('esc', function (e) {
+          keyboardJS.on('esc', function (e) {
                 //down
                 if (model === self.MODEL_CREATE_MARK) {
                     oGis.Sprite.Node.eventEscPress(e, oGis);
@@ -317,6 +320,7 @@
 
         //region imsg
 
+
         this.setCenter = function (iX, iY, iZoom4Init) {
             self.mapObj.setView([iX, iY], iZoom4Init);
         };
@@ -331,6 +335,10 @@
 
         this.setConfig = function (oConfig) {
             Object.assign(self.config, oConfig);
+        };
+
+        this.resize = function (){
+          self.mapObj._onResize();
         };
 
         //endregion

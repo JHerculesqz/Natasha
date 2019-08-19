@@ -209,11 +209,11 @@
     color: #333333;
     line-height: 16px;
     cursor: pointer;
-    float: left;
+    display: inline-block;
   }
 
   .treeItemCont .treeItemCheck {
-    float: left;
+    display: inline-block;
     height: 12px;
     width: 12px;
     position: relative;
@@ -237,7 +237,6 @@
     line-height: 16px;
     display: inline-block;
     color: #3399ff;
-    float: left;
   }
 
   .treeItemCont .icon-minus {
@@ -254,10 +253,8 @@
     color: #333333;
     cursor: pointer;
     white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
     font-size: 12px;
-    float: left;
+    display: inline-block;
     padding: 0 4px;
   }
 

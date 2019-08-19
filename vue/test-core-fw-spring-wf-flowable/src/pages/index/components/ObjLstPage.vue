@@ -65,22 +65,28 @@
           key: "business1",
           type: "text",
           visible: true,
+          canSearch: true,
+          orderBy: true,
           width: "20%"
         }, {
           label: "业务列2",
           key: "business2",
           type: "text",
           visible: true,
+          canSearch: true,
+          orderBy: true,
           width: "20%"
         }, {
           label: "业务列N",
           key: "businessN",
           type: "text",
           visible: true,
+          canSearch: false,
+          orderBy: false,
           width: "20%"
         }],
         row4objLst: [],
-        rowOriginData: {},
+        rowOriginData: [],
         totalNum: 0,
         totalPage: 1,
         limit: 26,
@@ -112,9 +118,12 @@
         var self = this;
 
         //get insLst
-        this._getInsModelGrid(function (oRes) {
-          self._setInsModelGrid(oRes);
+        this.$nextTick(function () {
+          self._getInsModelGrid(function (oRes) {
+            self._setInsModelGrid(oRes);
+          });
         });
+
       },
 
       //#endregion
@@ -241,7 +250,7 @@
 
           arrRows.push(oRow);
         }
-        this.rowOriginData = oData;
+        this.rowOriginData = oData.lstUIWFInsVo;
         this.row4objLst = JSON.parse(JSON.stringify(arrRows));
         this.totalNum = oData.count;
         this.totalPage = Math.ceil(this.totalNum / this.limit);

@@ -60,6 +60,7 @@
 
       onClickItem: function (oItem, index) {
         this.currentSelectItemIndex = index;
+        this.callback4OnClickItem(oItem, index);
       },
       onClickToFirst: function () {
         for (; ;) {
@@ -112,7 +113,10 @@
       //#region callback
 
       callback4AfterPriorityListChange: function () {
-        this.$emit("afterPriorityListChange");
+        this.$emit("afterPriorityListChange", this.list);
+      },
+      callback4OnClickItem: function(oItem, index){
+        this.$emit("onClickItem", oItem, index);
       },
 
       //#endregion

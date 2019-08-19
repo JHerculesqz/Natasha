@@ -21,6 +21,7 @@
             <marvel-grid-tree-node :key="oNode.nodeLevel + oNode.name"
                                    :nodeItem="oNode"
                                    :titles="titles"
+                                   :isTree="isTree"
                                    @onCheckOrNotRecussionTreeNode="onCheckOrNotRecussionTreeNode"
                                    @onExpandOrNotTreeNode="onExpandOrNotTreeNode"
                                    @onIconClick="onIconClick">

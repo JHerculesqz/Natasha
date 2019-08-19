@@ -1,5 +1,5 @@
 <template>
-  <div class="gridWrapper" v-show="nodeItemInner.isShow">
+  <div class="gridWrapper" :class="{gridWrapper4Grid:!isTree}" v-show="nodeItemInner.isShow">
     <table class="gridCont" cellspacing="0" cellpadding="0">
       <tbody>
       <tr>
@@ -17,15 +17,15 @@
                      v-bind:id="'title_' + nodeItemInner.id"
                      v-on:click.stop="_onRadioboxClick">
             </div>
-            <div class="treeItemName" :title="_getTdValue(title, nodeItemInner)">
+            <div class="treeItemName" :class="{treeItemName4Grid:!isTree}" :title="_getTdValue(title, nodeItemInner)">
               {{_getTdValue(title, nodeItemInner)}}
             </div>
           </div>
-          <div v-else class="treeItemName">
+          <div v-else class="treeItemName" :class="{treeItemName4Grid:!isTree}">
             <!--列支持文本类型-->
             <div v-if="title.type=='text'">
               <div class="textCell" :title="_getTdValue(title, nodeItemInner)">
-                <span class="textCellItem" v-html="_getTdValue(title, nodeItemInner)"></span>
+                <span class="textCellItem" :class="{textCellItem4Grid:!isTree}" v-html="_getTdValue(title, nodeItemInner)"></span>
               </div>
             </div>
             <!--列支持输入框类型-->
@@ -43,7 +43,7 @@
             <div v-if="title.type == 'icon'">
               <span class="iconOnly"
                     v-for="icon in _getTdValue(title,nodeItemInner)"
-                    :class="[icon.value]"
+                    :class="[icon.value, {disableIcon:icon.isDisable}]"
                     :style="{color:icon.color}"
                     :title="icon.title"
                     @click.stop="_onIconClick(title.key, nodeItemInner, icon)">
@@ -57,6 +57,7 @@
           <template v-if="_showChildren(nodeItemInner)" v-for="oNodeChildItem in nodeItemInner.children">
             <marvel-grid-tree-node :key="oNodeChildItem.nodeLevel + oNodeChildItem.name" :nodeItem="oNodeChildItem"
                                    :titles="titles"
+                                   :isTree="isTree"
                                    @onCheckOrNotRecussionTreeNode="onCheckOrNotRecussionTreeNode"
                                    @onExpandOrNotTreeNode="onExpandOrNotTreeNode"
                                    @onIconClick="onIconClick">
@@ -90,6 +91,11 @@
       },
       editCellFinished: {
         type: Function,
+        required: false,
+      },
+      isTree:{
+        type: Boolean,
+        default: true,
         required: false,
       },
     },
@@ -260,9 +266,12 @@
   }
 
   .gridWrapper table tbody tr {
-    table-layout: fixed;
     display: table;
     width: 100%;
+  }
+
+  .gridWrapper4Grid table tbody tr{
+    table-layout: fixed;
   }
 
   .gridCont table tbody tr:first-child:hover {
@@ -310,9 +319,12 @@
 
   .treeItemName,.textCellItem{
     white-space: nowrap;
-    overflow: hidden;
     display: block;
     text-overflow: ellipsis;
+  }
+
+  .treeItemName4Grid,.textCellItem4Grid{
+    overflow: hidden;
   }
 
   .iconOnly {
@@ -322,6 +334,11 @@
 
   .iconOnly:hover {
     cursor: pointer;
+  }
+
+  .disableIcon{
+    color: #666 !important;
+    pointer-events: none;
   }
 
 </style>
