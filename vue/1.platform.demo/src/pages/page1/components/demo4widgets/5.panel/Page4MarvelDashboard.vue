@@ -42,9 +42,21 @@
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
             <div style="height: 200px;width:500px;background-color: #fafafa;padding: 20px;">
-              <marvel-dashboard title="Shit">
+              <marvel-dashboard title="MarvelDashboardFixH">
                 <div slot="customArea">customArea...</div>
-                <div slot="contArea">cont...</div>
+                <div slot="contArea" style="height: 100%;background-color: #eee;overflow:auto;">
+                  <div>content...</div>
+                  <div>content...</div>
+                  <div>content...</div>
+                  <div>content...</div>
+                  <div>content...</div>
+                  <div>content...</div>
+                  <div>content...</div>
+                  <div>content...</div>
+                  <div>content...</div>
+                  <div>content...</div>
+                  <div>content...</div>
+                </div>
               </marvel-dashboard>
             </div>
             '></marvel-ace-editor>
@@ -79,9 +91,13 @@
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
             <div style="height: 200px;width:500px;background-color: #fafafa;padding: 20px;">
-              <marvel-dashboard title="Shit">
+              <marvel-dashboard title="MarvelDashboardAdaptToContH" :bIsAdaptToContent="true">
                 <div slot="customArea">customArea...</div>
-                <div slot="contArea">cont...</div>
+                <div slot="contArea">
+                  <div style="height: 200px;background-color: #eee">
+                    content 200px height
+                  </div>
+                </div>
               </marvel-dashboard>
             </div>
             '></marvel-ace-editor>
@@ -93,7 +109,7 @@
     <!--endregion-->
     <!--region doc area-->
     <div class="docArea">
-      <marvel-i-frame ref="page4MarvelDashboardIFrame" id="page4MarvelDashboardIFrame" src="static/jsdoc/module-MarvelDashboard.html"></marvel-i-frame>
+      <marvel-i-frame ref="page4MarvelDashboardIFrame" id="page4MarvelDashboardIFrame" src="static/jsdoc/module-MarvelDashboardEx.html"></marvel-i-frame>
     </div>
     <!--endregion-->
   </div>

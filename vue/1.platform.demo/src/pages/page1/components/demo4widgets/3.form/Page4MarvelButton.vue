@@ -14,6 +14,8 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
+
+            <!--region button-->
             <marvel-button size="large" classCustom="classCustom1"
                            label="Large" :isWarn=true
                            v-on:onClick="onClick"></marvel-button>
@@ -23,21 +25,87 @@
                            v-on:onClick="onClick"></marvel-button>
             <marvel-button size="mini" classCustom="classCustom1" label="mini"
                            v-on:onClick="onClick"></marvel-button>
+            <marvel-button ref="disabledButton" classCustom="classCustom1" label="disable" icon="icon-home3"
+                           v-on:onClick="onClick"></marvel-button>
+            <marvel-button ref="activeButton" classCustom="classCustom1" label="active" icon="icon-home3"
+                           v-on:onClick="onClick"></marvel-button>
+            <marvel-button classCustom="classCustom1" icon="icon-home3" label="icon"
+                           v-on:onClick="onClick"></marvel-button>
+            <marvel-button classCustom="classCustom1" icon="icon-home3" label="icon right" iconPos="right"
+                           v-on:onClick="onClick"></marvel-button>
+            <!--endregion-->
+
+            <!--region plainBtn-->
+            <br>
+            <br>
             <marvel-button size="large" classCustom="classCustom1"
-                           label="Large" :isWarn=true :isPrimary="false"
-                           v-on:onClick="onClick"></marvel-button>
-            <marvel-button classCustom="classCustom1" label="normal" :isPrimary="false"
-                           v-on:onClick="onClick"></marvel-button>
-            <marvel-button size="small" classCustom="classCustom1" label="small" :isPrimary="false"
-                           v-on:onClick="onClick"></marvel-button>
-            <marvel-button size="mini" classCustom="classCustom1" label="mini" :isPrimary="false"
-                           v-on:onClick="onClick"></marvel-button>
+                           label="Large" :isWarn=true
+                           v-on:onClick="onClick" buttonType="plainBtn"></marvel-button>
+            <marvel-button classCustom="classCustom1" label="normal"
+                           v-on:onClick="onClick" buttonType="plainBtn"></marvel-button>
+            <marvel-button size="small" classCustom="classCustom1" label="small"
+                           v-on:onClick="onClick" buttonType="plainBtn"></marvel-button>
+            <marvel-button size="mini" classCustom="classCustom1" label="mini"
+                           v-on:onClick="onClick" buttonType="plainBtn"></marvel-button>
+            <marvel-button ref="disabledPlainBtn" classCustom="classCustom1" label="disable" icon="icon-home3"
+                           v-on:onClick="onClick" buttonType="plainBtn" ></marvel-button>
+            <marvel-button ref="activePlainBtn" classCustom="classCustom1" label="active" icon="icon-home3"
+                           v-on:onClick="onClick" buttonType="plainBtn" ></marvel-button>
+            <marvel-button classCustom="classCustom1" icon="icon-home3" label="icon"
+                           v-on:onClick="onClick" buttonType="plainBtn"></marvel-button>
+            <marvel-button classCustom="classCustom1" icon="icon-home3" label="icon right" iconPos="right"
+                           v-on:onClick="onClick" buttonType="plainBtn"></marvel-button>
+            <!--endregion-->
+
+            <!--region dottedLineBtn-->
+            <br>
+            <br>
+            <marvel-button size="large" classCustom="classCustom1"
+                           label="Large" :isWarn=true
+                           v-on:onClick="onClick" buttonType="dottedLineBtn"></marvel-button>
+            <marvel-button classCustom="classCustom1" label="normal"
+                           v-on:onClick="onClick" buttonType="dottedLineBtn"></marvel-button>
+            <marvel-button size="small" classCustom="classCustom1" label="small"
+                           v-on:onClick="onClick" buttonType="dottedLineBtn"></marvel-button>
+            <marvel-button size="mini" classCustom="classCustom1" label="mini"
+                           v-on:onClick="onClick" buttonType="dottedLineBtn"></marvel-button>
+            <marvel-button ref="disabledDottedLineBtn" classCustom="classCustom1" label="disable" icon="icon-home3"
+                           v-on:onClick="onClick" buttonType="dottedLineBtn" ></marvel-button>
+            <marvel-button ref="activeDottedLineBtn" classCustom="classCustom1" label="active" icon="icon-home3"
+                           v-on:onClick="onClick" buttonType="dottedLineBtn" ></marvel-button>
+            <marvel-button classCustom="classCustom1" icon="icon-home3" label="icon"
+                           v-on:onClick="onClick" buttonType="dottedLineBtn"></marvel-button>
+            <marvel-button classCustom="classCustom1" icon="icon-home3" label="icon right" iconPos="right"
+                           v-on:onClick="onClick" buttonType="dottedLineBtn"></marvel-button>
+            <!--endregion-->
+
+            <!--region noBorderBtn-->
+            <br>
+            <br>
+            <marvel-button size="large" classCustom="classCustom1"
+                           label="Large" :isWarn=true
+                           v-on:onClick="onClick" buttonType="noBorderBtn"></marvel-button>
+            <marvel-button classCustom="classCustom1" label="normal"
+                           v-on:onClick="onClick" buttonType="noBorderBtn"></marvel-button>
+            <marvel-button size="small" classCustom="classCustom1" label="small"
+                           v-on:onClick="onClick" buttonType="noBorderBtn"></marvel-button>
+            <marvel-button size="mini" classCustom="classCustom1" label="mini"
+                           v-on:onClick="onClick" buttonType="noBorderBtn"></marvel-button>
+            <marvel-button ref="disabledNoBorderBtn" classCustom="classCustom1" label="disable" icon="icon-home3"
+                           v-on:onClick="onClick" buttonType="noBorderBtn" ></marvel-button>
+            <marvel-button ref="activeNoBorderBtn" classCustom="classCustom1" label="active" icon="icon-home3"
+                           v-on:onClick="onClick" buttonType="noBorderBtn" ></marvel-button>
+            <marvel-button classCustom="classCustom1" icon="icon-home3" :isWarn=true
+                           v-on:onClick="onClick" buttonType="noBorderBtn"></marvel-button>
+            <!--endregion-->
+
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
         <marvel-tab-item :isActive="tabItems1[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
+            <!--region button-->
             <marvel-button size="large" classCustom="classCustom1"
                            label="Large" :isWarn=true
                            v-on:onClick="onClick"></marvel-button>
@@ -47,15 +115,79 @@
                            v-on:onClick="onClick"></marvel-button>
             <marvel-button size="mini" classCustom="classCustom1" label="mini"
                            v-on:onClick="onClick"></marvel-button>
+            <marvel-button ref="disabledButton" classCustom="classCustom1" label="disable" icon="icon-home3"
+                           v-on:onClick="onClick"></marvel-button>
+            <marvel-button ref="activeButton" classCustom="classCustom1" label="active" icon="icon-home3"
+                           v-on:onClick="onClick"></marvel-button>
+            <marvel-button classCustom="classCustom1" icon="icon-home3" label="icon"
+                           v-on:onClick="onClick"></marvel-button>
+            <marvel-button classCustom="classCustom1" icon="icon-home3" label="icon right" iconPos="right"
+                           v-on:onClick="onClick"></marvel-button>
+            <!--endregion-->
+
+            <!--region plainBtn-->
+            <br>
+            <br>
             <marvel-button size="large" classCustom="classCustom1"
-                           label="Large" :isWarn=true :isPrimary="false"
-                           v-on:onClick="onClick"></marvel-button>
-            <marvel-button classCustom="classCustom1" label="normal" :isPrimary="false"
-                           v-on:onClick="onClick"></marvel-button>
-            <marvel-button size="small" classCustom="classCustom1" label="small" :isPrimary="false"
-                           v-on:onClick="onClick"></marvel-button>
-            <marvel-button size="mini" classCustom="classCustom1" label="mini" :isPrimary="false"
-                           v-on:onClick="onClick"></marvel-button>
+                           label="Large" :isWarn=true
+                           v-on:onClick="onClick" buttonType="plainBtn"></marvel-button>
+            <marvel-button classCustom="classCustom1" label="normal"
+                           v-on:onClick="onClick" buttonType="plainBtn"></marvel-button>
+            <marvel-button size="small" classCustom="classCustom1" label="small"
+                           v-on:onClick="onClick" buttonType="plainBtn"></marvel-button>
+            <marvel-button size="mini" classCustom="classCustom1" label="mini"
+                           v-on:onClick="onClick" buttonType="plainBtn"></marvel-button>
+            <marvel-button ref="disabledPlainBtn" classCustom="classCustom1" label="disable" icon="icon-home3"
+                           v-on:onClick="onClick" buttonType="plainBtn" ></marvel-button>
+            <marvel-button ref="activePlainBtn" classCustom="classCustom1" label="active" icon="icon-home3"
+                           v-on:onClick="onClick" buttonType="plainBtn" ></marvel-button>
+            <marvel-button classCustom="classCustom1" icon="icon-home3" label="icon"
+                           v-on:onClick="onClick" buttonType="plainBtn"></marvel-button>
+            <marvel-button classCustom="classCustom1" icon="icon-home3" label="icon right" iconPos="right"
+                           v-on:onClick="onClick" buttonType="plainBtn"></marvel-button>
+            <!--endregion-->
+
+            <!--region dottedLineBtn-->
+            <br>
+            <br>
+            <marvel-button size="large" classCustom="classCustom1"
+                           label="Large" :isWarn=true
+                           v-on:onClick="onClick" buttonType="dottedLineBtn"></marvel-button>
+            <marvel-button classCustom="classCustom1" label="normal"
+                           v-on:onClick="onClick" buttonType="dottedLineBtn"></marvel-button>
+            <marvel-button size="small" classCustom="classCustom1" label="small"
+                           v-on:onClick="onClick" buttonType="dottedLineBtn"></marvel-button>
+            <marvel-button size="mini" classCustom="classCustom1" label="mini"
+                           v-on:onClick="onClick" buttonType="dottedLineBtn"></marvel-button>
+            <marvel-button ref="disabledDottedLineBtn" classCustom="classCustom1" label="disable" icon="icon-home3"
+                           v-on:onClick="onClick" buttonType="dottedLineBtn" ></marvel-button>
+            <marvel-button ref="activeDottedLineBtn" classCustom="classCustom1" label="active" icon="icon-home3"
+                           v-on:onClick="onClick" buttonType="dottedLineBtn" ></marvel-button>
+            <marvel-button classCustom="classCustom1" icon="icon-home3" label="icon"
+                           v-on:onClick="onClick" buttonType="dottedLineBtn"></marvel-button>
+            <marvel-button classCustom="classCustom1" icon="icon-home3" label="icon right" iconPos="right"
+                           v-on:onClick="onClick" buttonType="dottedLineBtn"></marvel-button>
+            <!--endregion-->
+
+            <!--region noBorderBtn-->
+            <br>
+            <br>
+            <marvel-button size="large" classCustom="classCustom1"
+                           label="Large" :isWarn=true
+                           v-on:onClick="onClick" buttonType="noBorderBtn"></marvel-button>
+            <marvel-button classCustom="classCustom1" label="normal"
+                           v-on:onClick="onClick" buttonType="noBorderBtn"></marvel-button>
+            <marvel-button size="small" classCustom="classCustom1" label="small"
+                           v-on:onClick="onClick" buttonType="noBorderBtn"></marvel-button>
+            <marvel-button size="mini" classCustom="classCustom1" label="mini"
+                           v-on:onClick="onClick" buttonType="noBorderBtn"></marvel-button>
+            <marvel-button ref="disabledNoBorderBtn" classCustom="classCustom1" label="disable" icon="icon-home3"
+                           v-on:onClick="onClick" buttonType="noBorderBtn" ></marvel-button>
+            <marvel-button ref="activeNoBorderBtn" classCustom="classCustom1" label="active" icon="icon-home3"
+                           v-on:onClick="onClick" buttonType="noBorderBtn" ></marvel-button>
+            <marvel-button classCustom="classCustom1" icon="icon-home3" :isWarn=true
+                           v-on:onClick="onClick" buttonType="noBorderBtn"></marvel-button>
+            <!--endregion-->
             '></marvel-ace-editor>
           </div>
         </marvel-tab-item>
@@ -65,7 +197,7 @@
     <!--endregion-->
     <!--region doc area-->
     <div class="docArea">
-      <marvel-i-frame ref="page4MarvelButtonIFrame" id="page4MarvelButtonIFrame" src="static/jsdoc/module-MarvelButton.html"></marvel-i-frame>
+      <marvel-i-frame ref="page4MarvelButtonIFrame" id="page4MarvelButtonIFrame" src="static/jsdoc/module-MarvelButtonEx.html"></marvel-i-frame>
     </div>
     <!--endregion-->
   </div>
@@ -117,6 +249,16 @@
 
       _initEx: function () {
         this.$refs.page4MarvelButtonIFrame.setIframe4DemoPage();
+
+        this.$refs.disabledButton.setBtnDisable(true);
+        this.$refs.disabledPlainBtn.setBtnDisable(true);
+        this.$refs.disabledDottedLineBtn.setBtnDisable(true);
+        this.$refs.disabledNoBorderBtn.setBtnDisable(true);
+
+        this.$refs.activeButton.setActive(true);
+        this.$refs.activePlainBtn.setActive(true);
+        this.$refs.activeDottedLineBtn.setActive(true);
+        this.$refs.activeNoBorderBtn.setActive(true);
       },
 
       //#endregion
@@ -186,6 +328,10 @@
 
   /*document custom style end*/
   /*custom style start*/
+
+  .classCustom1{
+    margin-right: 20px;
+  }
 
   /*custom style end*/
 
