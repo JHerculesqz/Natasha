@@ -433,12 +433,12 @@
   .searchArea4objList{
     width: 320px;
     float: right;
-    margin-right: 20px;
+    margin-left: 20px;
   }
 
   .classCustom4Btn {
     float: right;
-    margin-left: 20px;
+    margin-right: 20px;
   }
 
   .bottomArea {
