@@ -21,6 +21,7 @@
                       :gridId="'objLstGrid' + componentId"
                       :titles="title4objLstInner"
                       :rows="row4objLstInner"
+                      :limit="limit"
                       :dynamicPaging="true"
                       :totalNum="totalNum"
                       :totalPage="totalPage"
