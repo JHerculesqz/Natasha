@@ -142,6 +142,7 @@
       setSelectYMD: function (strYear, strMonth, strDay) {
         this.ySelect = strYear;
         this.mSelect = strMonth;
+        this._updateDayLst();
         this.dSelect = strDay;
       }
 
@@ -243,7 +244,8 @@
   }
 
   .dateSelectWrapper .dateArea .dateOptions .option:hover {
-    background-color: #d8f5ed;
+    background-color: #2b9577;
+    color: #fff;
   }
 
   /*region dark theme*/

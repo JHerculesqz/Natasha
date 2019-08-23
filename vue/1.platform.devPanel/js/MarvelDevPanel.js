@@ -197,6 +197,11 @@
           oOption.plugin.init(self.m_oOptions);
           self.m_oOptions.events.afterInitPlugin();
         });
+
+        return true;
+      }
+      else{
+        return false;
       }
     };
 

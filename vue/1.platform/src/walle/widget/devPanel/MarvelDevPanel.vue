@@ -94,7 +94,8 @@
         this.m_oMarvelDevPanel.init(newOptions);
       },
       initPlugin: function (strDevType) {
-        this.m_oMarvelDevPanel.initPlugin(strDevType);
+        var bRes = this.m_oMarvelDevPanel.initPlugin(strDevType);
+        return bRes;
       },
       getPlugin: function (strDevType) {
         var oPlugin = this.m_oMarvelDevPanel.getPlugin(strDevType);

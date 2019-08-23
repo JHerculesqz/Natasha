@@ -15,7 +15,7 @@
           <div class="showAreaInner">
             <!--2级DemoView start-->
             <div style="width: 400px;">
-              <marvel-date yearStart="2014" yearEnd="2030" yearSelect="2017"
+              <marvel-date ref="marvelDateTest" yearStart="2014" yearEnd="2030" yearSelect="2017"
                            monthSelect="2" daySelect="3"></marvel-date>
             </div>
             <!--2级DemoView end-->
@@ -89,6 +89,8 @@
 
       _initEx: function () {
         this.$refs.Page4MarvelDateIFrame.setIframe4DemoPage();
+
+        this.$refs.marvelDateTest.setSelectYMD("2019", "8", "23");
       },
 
       //#endregion
