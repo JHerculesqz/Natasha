@@ -308,8 +308,9 @@
       },
       _onTitleCheckOrUncheck: function (isCheck) {
         this.isSelectAll = isCheck;
+        this.arrSelectRows = this.$refs['objLstGrid' + this.componentId].getSelectRows4Checkbox();
         this._updateBtnStatus();
-        this.callback4OnTitleCheckOrUncheck(isCheck);
+        this.callback4OnTitleCheckOrUncheck(this.arrSelectRows, isCheck);
       },
       _updateBtnStatus:function(){
         if(this.arrSelectRows.length>0 || this.isSelectAll){
@@ -352,8 +353,8 @@
       callback4OnRowCheckOrUnCheck: function (arrRows, oRow, isCheck) {
         this.$emit("onRowCheckOrUnCheck", arrRows, oRow, isCheck);
       },
-      callback4OnTitleCheckOrUncheck: function (arrRows) {
-        this.$emit("onTitleCheckOrUncheck", arrRows);
+      callback4OnTitleCheckOrUncheck: function (arrRows, isCheck) {
+        this.$emit("onTitleCheckOrUncheck", arrRows, isCheck);
       },
       callback4OnSortRows: function (strKey, order, rows) {
         this.$emit("onSortRows", strKey, order, rows);

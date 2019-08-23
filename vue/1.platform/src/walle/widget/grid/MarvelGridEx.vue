@@ -215,7 +215,7 @@ customer：自定义单元格，支持文本单元格和dropdown单元格的切�
                 <td v-if="title.type == 'icon'" :style="getTdStyle(title, row)">
                  <span class="iconOnly"
                        v-for="icon in getCellValueByKey(title.key, row)"
-                       :class="[icon.value]"
+                       :class="[icon.value, {disableIcon:icon.disable}]"
                        :style="{ color: icon.color }"
                        :title="icon.title"
                        @click.stop="onIconClick(title.key, row, icon)">
@@ -1861,6 +1861,11 @@ customer：自定义单元格，支持文本单元格和dropdown单元格的切�
     color: #3399ff !important;
   }
 
+  .gridWrapper .grid .gridCont tbody div tr .disableIcon {
+    color:#808080 !important;
+    pointer-events: none;
+  }
+
   .gridWrapper .grid .gridCont tbody div tr .textIcon:hover {
     cursor: pointer;
     color: #3399ff !important;
@@ -2178,6 +2183,11 @@ customer：自定义单元格，支持文本单元格和dropdown单元格的切�
 
   .dark .grid .gridCont tbody div tr .iconOnly:hover {
     color: #3399ff;
+  }
+
+  .dark .grid .gridCont tbody div tr .disableIcon {
+    color:rgba(255,255,255,0.1) !important;
+    pointer-events: none;
   }
 
   .dark .grid .gridCont tbody div tr:nth-child(odd) {
