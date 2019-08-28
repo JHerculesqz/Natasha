@@ -26,17 +26,17 @@
       disable: {
         type: Boolean,
         default: false,
-        required: false,
+        required: false
       },
       width: {
         type: String,
         default: "",
-        required: false,
+        required: true
       },
       maxHeight: {
         type: String,
         default: "",
-        required: false,
+        required: true
       },
     },
     data: function () {
@@ -51,7 +51,7 @@
       //#region inner
 
       onOptionChange: function (oEvent) {
-        for (var i = 0; i < this.items, length; i++) {
+        for (var i = 0; i < this.items.length; i++) {
           var oItem = this.items[i];
           if (oItem.label == oEvent.target.value) {
             oItem.selected = true;
@@ -73,8 +73,8 @@
       //#endregion
       //#region 3rd
 
-      init: function (lstItem, strSelectItemLabel) {
-        this.items = lstItem;
+      init: function (lstItems, strSelectItemLabel) {
+        this.items = lstItems;
         for (var i = 0; i < this.items.length; i++) {
           var oItem = this.items[i];
           if (oItem.label == strSelectItemLabel) {

@@ -3,13 +3,13 @@
     <div class="topArea">
       <div class="title4objListPageWrapper">{{title}}</div>
       <div class="btnAreaWrapper">
-        <slot name="btnArea"></slot>
-        <marvel-button :ref="'objLstPageCreateBtn3' + componentId" label="批量删除" classCustom="classCustom4Btn"
-                       v-on:onClick="callback4OnClickToBatchDelete"></marvel-button>
-        <marvel-button :ref="'objLstPageCreateBtn2' + componentId" label="批量创建" classCustom="classCustom4Btn"
-                       v-on:onClick="callback4OnClickToBatchCreate"></marvel-button>
-        <marvel-button :ref="'objLstPageCreateBtn1' + componentId" label="创建" classCustom="classCustom4Btn"
+        <marvel-button :ref="'objLstPageCreateBtn1' + componentId" label="创建" classCustom="classCustom4Btn4WorkflowObjLst"
                        v-on:onClick="callback4OnClickToCreate"></marvel-button>
+        <marvel-button :ref="'objLstPageCreateBtn2' + componentId" label="批量创建" classCustom="classCustom4Btn4WorkflowObjLst"
+                       v-on:onClick="callback4OnClickToBatchCreate"></marvel-button>
+        <marvel-button :ref="'objLstPageCreateBtn3' + componentId" label="批量删除" classCustom="classCustom4Btn4WorkflowObjLst"
+                       v-on:onClick="callback4OnClickToBatchDelete"></marvel-button>
+        <slot name="btnArea"></slot>
       </div>
       <div class="searchArea4objList">
         <marvel-search-with-drop-down @search="callback4OnSearch" width="120px"
@@ -217,7 +217,7 @@
           arrRows[i].push({
             key: "checkBox",
             value: "",
-            checked: false,
+            checked: oRes[i].checked?true:false,
             disabled: false,
           });
           arrRows[i].push({
@@ -276,6 +276,12 @@
               }],
             });
           }
+
+          //更新选择数据
+          if(oRes[i].checked){
+            this.arrSelectRows.push(arrRows[i]);
+          }
+
         }
         return arrRows;
       },
@@ -438,8 +444,8 @@
     margin-left: 20px;
   }
 
-  .classCustom4Btn {
-    float: right;
+  .classCustom4Btn4WorkflowObjLst {
+    float: left;
     margin-right: 20px;
   }
 
