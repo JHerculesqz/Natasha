@@ -9,12 +9,12 @@
 
 <script>
   /**
-   *  MarvelButtonEx widget description
+   *  MarvelButton widget description
    *  @vuedoc
-   *  @exports MarvelButtonEx
+   *  @exports MarvelButton
    */
   export default {
-    name: 'MarvelButtonEx',
+    name: 'MarvelButton',
     props: {
       size: {
         type: String,
