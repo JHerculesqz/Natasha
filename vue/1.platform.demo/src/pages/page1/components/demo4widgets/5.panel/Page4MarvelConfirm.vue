@@ -20,13 +20,55 @@
                             :showCancelBtn="true"
                             confirmCont="这是一个提示确认框"
                             tipType="tip"
-                            :canDrag="true"
+                            :draggable="true"
                             v-on:onClickOK="onClickConfirmOK"
                             v-on:onClickCancel="onClickConfirmCancel"></marvel-confirm>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
         <marvel-tab-item :isActive="tabItems1[1].isActive">
+          <div class="codeArea">
+            <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
+            <button v-on:click="onClickConfirmShow">show</button>
+            <marvel-confirm :showConfirm="showConfirm"
+                            :showOkBtn="false"
+                            :showCancelBtn="true"
+                            confirmCont="这是一个提示确认框"
+                            tipType="tip"
+                            :canDrag="true"
+                            v-on:onClickOK="onClickConfirmOK"
+                            v-on:onClickCancel="onClickConfirmCancel"></marvel-confirm>
+            '></marvel-ace-editor>
+          </div>
+        </marvel-tab-item>
+      </marvel-tab>
+    </div>
+
+    自定义提示框
+    <div class="showArea">
+      <marvel-tab :tabItems="tabItems2">
+        <marvel-tab-item :isActive="tabItems2[0].isActive">
+          <div class="showAreaInner">
+            <!--2级DemoView start-->
+            <button v-on:click="onClickConfirmShowEx">show</button>
+            <marvel-confirm :showConfirm="showConfirmEx"
+                            :showOkBtn="true"
+                            :showCancelBtn="true"
+                            confirmTitle="自定义一级标题"
+                            confirmIcon="icon-marvelIcon-15"
+                            confirmIconColor="#d373f3"
+                            :confirmContLst="confirmExContent4ConfirmEx"
+                            tipType="custom"
+                            confirmSubTitle="自定义二级标题"
+                            :draggable="true"
+                            :width=520
+                            :maxContH=200
+                            v-on:onClickOK="onClickConfirmOKEx"
+                            v-on:onClickCancel="onClickConfirmCancelEx"></marvel-confirm>
+            <!--2级DemoView end-->
+          </div>
+        </marvel-tab-item>
+        <marvel-tab-item :isActive="tabItems2[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
             <button v-on:click="onClickConfirmShow">show</button>
@@ -79,9 +121,38 @@
           label: "Code View",
           isActive: false
         }],
+        tabItems2: [{
+          label: "Demo View",
+          isActive: true
+        }, {
+          label: "Code View",
+          isActive: false
+        }],
         //#endregion
         //#region custom data
+        //#region confirm
+
         showConfirm: false,
+
+        //#endregion
+        //#region confirmEx
+
+        showConfirmEx: false,
+        confirmExContent4ConfirmEx:[{
+          key:"Description:",
+          value:"Failed to create services."
+        },{
+          key:"Reason:",
+          value:"Failed to create services."
+        },{
+          key:"Detail:",
+          value:"Failed to create services."
+        },{
+          key:"Repair advice:",
+          value:"Please contact technical support."
+        },]
+
+        //#endregion
         //#endregion
       }
     },
@@ -111,6 +182,17 @@
       },
       onClickConfirmCancel: function(){
         this.showConfirm = false;
+      },
+
+
+      onClickConfirmShowEx: function () {
+        this.showConfirmEx = true;
+      },
+      onClickConfirmOKEx: function(){
+        this.showConfirmEx = false;
+      },
+      onClickConfirmCancelEx: function(){
+        this.showConfirmEx = false;
       },
 
       //#endregion

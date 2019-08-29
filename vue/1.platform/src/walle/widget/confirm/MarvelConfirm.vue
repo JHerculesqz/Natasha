@@ -1,9 +1,9 @@
 <template>
   <div class="tipDialogBg" v-show="showConfirm">
-    <div class="tipDialogWrapper"
-         v-bind:style="{'left':positionLeft, 'top':positionTop}">
+    <div class="tipDialogWrapper" :id="confirmId"
+         v-bind:style="{width: width + 'px','margin-left':marginLeft + 'px', 'margin-top':marginTop + 'px','left':positionLeft, 'top':positionTop}">
       <div class="tipDialogTitleArea">
-        <div class="titleName">{{$t("confirm")}}</div>
+        <div class="titleName">{{confirmTitle}}</div>
         <div v-if="draggable"
              class="dragArea"
              v-bind:class="[{isDragging:bIsDragging}]"
@@ -17,14 +17,20 @@
       <div class="tipDialogContArea">
         <div class="leftMessageIcon icon-cancel-circle" v-if="tipType == 'error'"></div>
         <div class="leftMessageIcon icon-notification" v-else-if="tipType == 'warning'"></div>
-        <div class="leftMessageIcon icon-question" v-else="tipType == 'tip'"></div>
+        <div class="leftMessageIcon icon-question" v-else-if="tipType == 'tip'"></div>
+        <div class="leftMessageIcon " v-else="tipType == 'custom'" :class="confirmIcon" :style="{color: confirmIconColor}"></div>
         <div class="rightMessageCont">
-          <div class="MessageTitle errorTitle" v-if="tipType == 'error'">{{$t("error")}}</div>
-          <div class="MessageTitle warningTitle" v-else-if="tipType == 'warning'">
-            {{$t("warning")}}
+          <div class="MessageTitle errorTitle" v-if="tipType == 'error'" v-text="$t('error')"></div>
+          <div class="MessageTitle warningTitle" v-else-if="tipType == 'warning'" v-text="$t('warning')"></div>
+          <div class="MessageTitle tipTitle" v-else-if="tipType == 'tip'" v-text="$t('tip')"></div>
+          <div class="MessageTitle" v-else="tipType == 'custom'" v-text="confirmSubTitle"></div>
+          <div name="dialogCont" class="customContArea" :style="{'max-height':maxContH + 'px'}">
+            <span style="line-height: normal;" v-html="confirmCont"></span>
+            <div class="contentSession" v-for="content in confirmContLst" :key="content.key">
+              <div class="sessionKey">{{content.key}}</div>
+              <div class="sessionValue">{{content.value}}</div>
+            </div>
           </div>
-          <div class="MessageTitle tipTitle" v-else="tipType == 'tip'">{{$t("tip")}}</div>
-          <div name="dialogCont" class="customContArea" v-html="confirmCont"></div>
         </div>
       </div>
       <div class="tipDialogBtnArea">
@@ -66,6 +72,7 @@
 </i18n>
 
 <script>
+  import StringUtilsEx from '../../component/str'
   import MarvelIconTxtButton from "../button/MarvelIconTxtButton";
 
   /**
@@ -77,6 +84,38 @@
     components: {MarvelIconTxtButton},
     name: 'MarvelConfirm',
     props: {
+      width: {
+        type: Number,
+        default: 420,
+        required: false,
+      },
+      maxContH: {
+        type: Number,
+        default: undefined,
+        required: false,
+      },
+      confirmTitle: {
+        type: String,
+        default: function () {
+          return this.$t("confirm");
+        },
+        required: false,
+      },
+      confirmIcon: {
+        type: String,
+        default: "icon-notification",
+        required: false,
+      },
+      confirmIconColor: {
+        type: String,
+        default: "#ff8833",
+        required: false,
+      },
+      confirmSubTitle: {
+        type: String,
+        default: undefined,
+        required: false,
+      },
       showConfirm: {
         type: Boolean,
         default: false,
@@ -87,7 +126,7 @@
         default: "tip",
         required: false,
         validator: function (str) {
-          if (str == "tip" || str == "error" || str == "warning") {
+          if (str == "tip" || str == "error" || str == "warning" || str =="custom") {
             return true;
           } else {
             return false;
@@ -96,7 +135,14 @@
       },
       confirmCont: {
         type: String,
-        default: "",
+        default: "&nbsp;&nbsp;",
+        required: false,
+      },
+      confirmContLst: {
+        type: Array,
+        default: function () {
+          return [];
+        },
         required: false,
       },
       draggable: {
@@ -135,7 +181,10 @@
     },
     data: function () {
       return {
+        confirmId: StringUtilsEx.uuid(),
         bIsDragging: false,
+        marginLeft: 0,
+        marginTop: 0,
         mouseDownX: 0,
         mouseDownY: 0,
         positionLeft: "50%",
@@ -146,6 +195,14 @@
     },
     methods: {
       //#region inner
+
+      _calcConfirmPos: function () {
+        var iConfirmW = parseInt($("#" + this.confirmId).width());
+        var iConfirmH = parseInt($("#" + this.confirmId).height());
+
+        this.marginLeft = -iConfirmW / 2;
+        this.marginTop = -iConfirmH / 2;
+      },
 
       mouseDown: function (e) {
         if (this.draggable) {
@@ -192,6 +249,18 @@
       //#region 3rd
       //#endregion
     },
+    watch: {
+      showConfirm: {
+        handler: function () {
+          if (this.showConfirm) {
+            this.$nextTick(function () {
+              this._calcConfirmPos();
+            });
+          }
+        },
+        deep: true
+      }
+    },
   }
 </script>
 
@@ -228,7 +297,7 @@
 
   .tipDialogBg .tipDialogWrapper {
     position: absolute;
-    width: 420px;
+    min-width: 330px;
     margin-left: -210px;
     margin-top: -106px;
     border-radius: 2px;
@@ -335,6 +404,7 @@
     font-size: 18px;
     line-height: 18px;
     margin-bottom: 10px;
+    color: #333333;
   }
 
   .errorTitle {
@@ -355,6 +425,25 @@
     margin-bottom: 6px;
     color: #666;
     word-break: break-all;
+    overflow-y: auto;
+  }
+
+  .tipDialogBg .tipDialogWrapper .tipDialogContArea .rightMessageCont .customContArea .contentSession {
+    overflow: hidden;
+    font-size: 16px;
+    line-height: 32px;
+  }
+
+  .tipDialogBg .tipDialogWrapper .tipDialogContArea .rightMessageCont .customContArea .contentSession .sessionKey {
+    width: 120px;
+    margin-right: 10px;
+    float: left;
+  }
+
+  .tipDialogBg .tipDialogWrapper .tipDialogContArea .rightMessageCont .customContArea .contentSession .sessionValue {
+    width: calc(100% - 130px);
+    float: right;
+    color: #333;
   }
 
   .tipDialogBg .tipDialogWrapper .tipDialogBtnArea {
@@ -426,6 +515,26 @@
     line-height: 14px;
     margin-bottom: 6px;
     color: #8b90b3;
+  }
+
+  .dark .tipDialogBg .tipDialogWrapper .tipDialogContArea .rightMessageCont .MessageTitle {
+    color: #8b90b3;
+  }
+
+  .dark .errorTitle {
+    color: #ff4c4c;
+  }
+
+  .dark .warningTitle {
+    color: #ff8833;
+  }
+
+  .dark .tipTitle {
+    color: #3dcca6;
+  }
+
+  .dark .tipDialogWrapper .tipDialogContArea .rightMessageCont .customContArea .contentSession .sessionValue {
+    color: #ffffff;
   }
 
   .dark .tipDialogWrapper .tipDialogBtnArea {

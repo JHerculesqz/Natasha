@@ -11,6 +11,10 @@ src\walle\widget\dialog\MarvelConfirmEx
 
 ### 更改控件名和引用路径: src\walle\widget\dialog\xxxx  改为  src\walle\widget\confirm\xxxx
 
-### MarvelConfirm   -- -- 更改控件名和引用路径；
+### MarvelConfirm  
+    添加confirmTitle 配置提示框标题
+    
+    
+    
 ### MarvelConfirmEx    -- 更改控件名和引用路径；配置buttonType="noBorderBtn"
 
