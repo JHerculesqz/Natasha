@@ -1,9 +1,6 @@
-/**
-* Created by destina on 2017/9/7.
-*/
 <template>
-  <div class="search_dropDown">
-    <div class="dropdownArea">
+  <div class="search_dropDown" :class="{onlySearch:!dropDownItems.length>0}">
+    <div class="dropdownArea" v-if="dropDownItems.length>0">
       <!-- dropdown_button start-->
       <marvel-drop-down-button ref="ref1" :dropDownItems="dropDownItems" :width="width"
                                :maxHeight="maxHeight"></marvel-drop-down-button>
@@ -11,7 +8,11 @@
     </div>
     <div class="searchArea">
       <!-- search start-->
-      <MarvelSearch @search="search" ref="ref4SearchInput" :placeholder="placeholder" :mixin="true"></MarvelSearch>
+      <div class="searchWrapper">
+        <input type="text" class="searchInput" v-bind:placeholder="placeholder" v-model.trim="inputVal" @keyup.enter="search">
+        <div class="searchBtn icon-marvelIcon-19" v-on:click="search"></div>
+        <div class="deleBtn icon-marvelIcon-20" v-bind:class="{dpn: inputVal == ''}" @click="clear"></div>
+      </div>
       <!-- search end-->
     </div>
   </div>
@@ -35,6 +36,7 @@
     data: function () {
       return {
         dropDownItems: [],
+        inputVal: ''
       }
     },
     props: {
@@ -107,7 +109,8 @@
       //#region 3rd
 
       clear: function () {
-        this.$refs.ref4SearchInput.clear();
+        this.inputVal = "";
+        this.$emit("onClear", this.inputVal);
       }
 
       //#endregion
@@ -175,6 +178,69 @@
     width: 100%;
   }
 
+  .searchWrapper {
+    height: 30px;
+    box-sizing: border-box;
+    width: 100%;
+    position: relative;
+    background-color: transparent;
+  }
+
+  .searchWrapper .searchInput {
+    height: 100%;
+    border: none;
+    width: 100%;
+    float: left;
+    padding: 0 70px 0 10px;
+    outline: none;
+    line-height: 30px;
+    color: #333;
+    font-size: 14px;
+    box-sizing: border-box;
+    border-radius: 2px;
+    background-color: transparent;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .searchWrapper .searchBtn {
+    position: absolute;
+    height: 30px;
+    width: 40px;
+    top: 0px;
+    right: 0px;
+    color: #777;
+    text-align: center;
+    line-height: 30px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  .searchWrapper .searchBtn:hover {
+    color: #3399ff !important;
+  }
+
+  .searchWrapper .deleBtn {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    font-size: 12px;
+    color: #999;
+    top: 3px;
+    right: 40px;
+    border-right: 1px solid #ccc;
+    cursor: pointer;
+  }
+
+  .searchWrapper .deleBtn:hover {
+    color: #3399ff;
+  }
+
+  .dpn {
+    display: none
+  }
+
   /*region dark theme*/
 
   .dark .search_dropDown {
@@ -183,6 +249,40 @@
 
   .dark .search_dropDown:hover {
     border: 1px solid #3dcca6;
+  }
+
+  .dark .searchWrapper .searchInput {
+    border: 1px solid #8b90b3;
+    color: #ffffff;
+  }
+
+  .dark .searchWrapper .searchInput:hover {
+    border: 1px solid #3dcca6;
+  }
+
+  .dark .searchWrapper .searchBtn {
+    color: #8b90b3;
+  }
+
+  .dark .searchWrapper .searchBtn:hover {
+    color: #3dcca6 !important;
+  }
+
+  .dark .searchWrapper .deleBtn {
+    color: #8b90b3;
+    border-right: 1px solid #8b90b3;
+  }
+
+  .dark .searchWrapper .deleBtn:hover {
+    color: #3dcca6;
+  }
+
+  .dark .searchInputEx .searchInput {
+    border: none;
+  }
+
+  .dark .searchInputEx .searchInput:hover {
+    border: none;
   }
 
   /*endregion*/
