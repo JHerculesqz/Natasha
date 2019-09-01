@@ -23,3 +23,5 @@ src\walle\widget\button\MarvelTabButton
 ### MarvelTxtButton -- 更改控件名和引用路径；配置buttonType="noBorderBtn"
 ### MarvelTabButton  -- 更改控件名和引用路径；配置buttonType="dottedLineBtn"
 
+以上控件请关注由外层class变化引起的自动化变更
+
