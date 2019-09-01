@@ -362,6 +362,7 @@
             {id: "Page4MarvelSearch", label: "Page4MarvelSearch"},
             {id: "Page4MarvelSearchAdvance", label: "Page4MarvelSearchAdvance"},
             {id: "Page4MarvelSearchWithDropDown", label: "Page4MarvelSearchWithDropDown"},
+            {id: "Page4MarvelSearchBox", label: "Page4MarvelSearchBox"},
             {id: "Page4MarvelSelectCard", label: "Page4MarvelSelectCard"},
 
 

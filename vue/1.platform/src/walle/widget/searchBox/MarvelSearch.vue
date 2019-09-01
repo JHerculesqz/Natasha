@@ -1,59 +1,147 @@
 <template>
-  <div class="searchWrapper" :class="{searchInputEx : mixin}">
-    <input type="text" class="searchInput" v-bind:placeholder="placeholder" v-model.trim="inputVal" @keyup.enter="search">
-    <div class="searchBtn icon-marvelIcon-19" v-on:click="search"></div>
-    <div class="deleBtn icon-marvelIcon-20" v-bind:class="{dpn: inputVal == ''}" @click="clear"></div>
+  <div class="search_dropDown" :class="{onlySearch:!dropDownItems.length>0}">
+    <div class="dropdownArea" v-if="dropDownItems.length>0">
+      <!-- dropdown_button start-->
+      <marvel-drop-down-button ref="ref1" :dropDownItems="dropDownItems" :width="width"
+                               :maxHeight="maxHeight"></marvel-drop-down-button>
+      <!-- dropdown_button end-->
+    </div>
+    <div class="searchArea">
+      <!-- search start-->
+      <div class="searchWrapper">
+        <input type="text" class="searchInput" v-bind:placeholder="placeholder" v-model.trim="inputVal" @keyup.enter="search">
+        <div class="searchBtn icon-marvelIcon-19" v-on:click="search"></div>
+        <div class="deleBtn icon-marvelIcon-20" v-bind:class="{dpn: inputVal == ''}" @click="clear"></div>
+      </div>
+      <!-- search end-->
+    </div>
   </div>
 </template>
 
 <script>
+  import MarvelDropDownButton from '../button/MarvelDropDownButton.vue';
+
   /**
    *  MarvelSearch widget description
    *  @vuedoc
    *  @exports MarvelSearch
    */
   export default {
+    components: {
+      MarvelDropDownButton
+    },
     name: "MarvelSearch",
+    data: function () {
+      return {
+        dropDownItems: [],
+        inputVal: ''
+      }
+    },
     props: {
       placeholder: {
         type: String,
         default: "",
         required: false,
       },
-      mixin: {
-        type: Boolean,
-        default: false,
+      selectItems: {
+        type: Array,
+        default: function () {
+          return [];
+        },
+        required: false,
+      },
+      width: {
+        type: String,
+        default: "",
+        required: false,
+      },
+      maxHeight: {
+        type: String,
+        default: "",
         required: false,
       },
     },
-    data: function () {
-      return {
-        inputVal: ''
-      }
+    computed: {},
+    mounted: function () {
+      //#region init
+
+      this._initEx();
+
+      //#endregion
     },
     methods: {
       //#region inner
+
+      //#region lifeCycle
+
+      _initEx: function () {
+        for (var i = 0, len = this.selectItems.length; i < len; i++) {
+          if (this.selectItems[i].selected === true) {
+            this.selectItems[i].active = true;
+            break;
+          }
+        }
+        this.dropDownItems = this.selectItems;
+      },
+
+      //#endregion
+
+      search: function (strSearchVal) {
+        let searchKey = undefined;
+        let searchKeyObj = undefined;
+        if(this.selectItems.length>0){
+          searchKey = this.$refs.ref1.getSelectItem();
+          searchKeyObj = this.$refs.ref1.getSelectItemObj();
+          if (strSearchVal == undefined) {
+            strSearchVal = ""
+          }
+        }
+
+        this.callback4Search(searchKey, strSearchVal, searchKeyObj);
+      },
+
       //#endregion
       //#region callback
 
-      search: function () {
-        this.$emit("search", this.inputVal);
-      },
-      clear: function () {
-        this.inputVal = "";
-        this.$emit("onClear", this.inputVal);
+      callback4Search: function (searchKey, strSearchVal, searchKeyObj) {
+        this.$emit("search", searchKey, strSearchVal, searchKeyObj);
       },
 
       //#endregion
       //#region 3rd
 
+      clear: function () {
+        this.inputVal = "";
+        this.$emit("onClear", this.inputVal);
+      },
+
       getSearchVal: function () {
-        return this.inputVal;
+        var oOption = {
+          searchKey:undefined,
+          searchKeyObj:undefined,
+          strSearchVal: this.inputVal
+        };
+        if(this.selectItems.length>0){
+          oOption.searchKey = this.$refs.ref1.getSelectItem();
+          oOption.searchKeyObj = this.$refs.ref1.getSelectItemObj();
+        }
+        if (oOption.strSearchVal == undefined) {
+          oOption.strSearchVal = ""
+        }
+
+        return oOption;
       }
 
       //#endregion
-
-    }
+    },
+    watch: {
+      selectItems: {
+        handler: function () {
+          this._initEx();
+        },
+        deep: true
+      }
+    },
   }
 
 </script>
@@ -79,8 +167,39 @@
   }
 
   /*endregion*/
-  .searchWrapper {
+  /*search dropDown*/
+  .search_dropDown {
     height: 32px;
+    display: table;
+    position: relative;
+    white-space: nowrap;
+    border: 1px solid #cccccc;
+    box-sizing: border-box;
+    width: 100%;
+  }
+
+  .search_dropDown:hover {
+    border: 1px solid #3399ff;
+  }
+
+  .search_dropDown .dropdownArea {
+    display: inline-block;
+    height: 30px;
+    float: left;
+    position: relative;
+    top: -1px;
+    left: -1px;
+  }
+
+  .search_dropDown .searchArea {
+    display: table-cell;
+    height: 30px;
+    width: 100%;
+  }
+
+  .searchWrapper {
+    height: 30px;
+    box-sizing: border-box;
     width: 100%;
     position: relative;
     background-color: transparent;
@@ -88,7 +207,7 @@
 
   .searchWrapper .searchInput {
     height: 100%;
-    border: 1px solid #cccccc;
+    border: none;
     width: 100%;
     float: left;
     padding: 0 70px 0 10px;
@@ -101,10 +220,6 @@
     background-color: transparent;
     overflow: hidden;
     text-overflow: ellipsis;
-  }
-
-  .searchWrapper .searchInput:hover {
-    border: 1px solid #3399ff;
   }
 
   .searchWrapper .searchBtn {
@@ -141,25 +256,20 @@
     color: #3399ff;
   }
 
-  .searchInputEx {
-    height: 30px;
-    box-sizing: border-box;
-  }
-
-  .searchInputEx .searchInput {
-    border: none;
-  }
-
-  .searchInputEx .searchInput:hover {
-    border: none;
-  }
-
   .dpn {
     display: none
   }
 
-
   /*region dark theme*/
+
+  .dark .search_dropDown {
+    border: 1px solid #8b90b3;
+  }
+
+  .dark .search_dropDown:hover {
+    border: 1px solid #3dcca6;
+  }
+
   .dark .searchWrapper .searchInput {
     border: 1px solid #8b90b3;
     color: #ffffff;

@@ -35,6 +35,7 @@ import Page4MarvelRadioBox from '../components/demo4widgets/3.form/Page4MarvelRa
 import Page4MarvelSearch from '../components/demo4widgets/3.form/Page4MarvelSearch'
 import Page4MarvelSearchAdvance from '../components/demo4widgets/3.form/Page4MarvelSearchAdvance'
 import Page4MarvelSearchWithDropDown from '../components/demo4widgets/3.form/Page4MarvelSearchWithDropDown'
+import Page4MarvelSearchBox from '../components/demo4widgets/3.form/Page4MarvelSearchBox'
 import Page4MarvelSelectCard from '../components/demo4widgets/3.form/Page4MarvelSelectCard'
 import Page4MarvelSwitch from '../components/demo4widgets/3.form/Page4MarvelSwitch'
 import Page4MarvelTabButton from '../components/demo4widgets/3.form/Page4MarvelTabButton'
@@ -263,6 +264,10 @@ export default new Router({
       path: '/Page4MarvelSearchWithDropDown',
       name: 'Page4MarvelSearchWithDropDown',
       component:Page4MarvelSearchWithDropDown
+    },{
+      path: '/Page4MarvelSearchBox',
+      name: 'Page4MarvelSearchBox',
+      component:Page4MarvelSearchBox
     },{
       path: '/Page4MarvelSelectCard',
       name: 'Page4MarvelSelectCard',
