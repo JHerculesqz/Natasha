@@ -1,7 +1,7 @@
 <template>
   <div class="contextMenuWrapper_text" v-bind:id="contextMenuItemId"
        v-bind:class="{ dpn: !show }"
-       v-bind:style="{ top: top + 'px', left: left + 'px'}"
+       v-bind:style="{ top: top + 'px', left: left + 'px',position: bIsFixed?'fixed':'absolute'}"
        @contextmenu.prevent="notShowRightMenue()"
        v-click-outside="hideSubMenu">
     <div v-for="item in items"
@@ -47,6 +47,11 @@
       containerId: {
         type: String,
         default: "",
+        required: false,
+      },
+      bIsFixed: {
+        type: Boolean,
+        default: false,
         required: false,
       }
     },
@@ -101,8 +106,8 @@
             //2.计算外部容器的宽和高
             let IwinH = document.getElementById(this.containerId).clientHeight;
             let IwinW = document.getElementById(this.containerId).clientWidth;
-            let IwinTop = document.getElementById(this.containerId).offsetTop;
-            let IwinLeft = document.getElementById(this.containerId).offsetLeft;
+            let IwinTop = document.getElementById(this.containerId).getBoundingClientRect().y;
+            let IwinLeft = document.getElementById(this.containerId).getBoundingClientRect().x;
 
             //3.计算鼠标点击位置距离所给区域的top、left值
             let ISubMenuContainerTop = iY;
@@ -172,8 +177,8 @@
                 IContextMenuLeft = ISubMenuContainerLeft - IContextMenuW;
               }
             }
-            this.top = IContextMenuTop;
-            this.left = IContextMenuLeft;
+            this.top = IContextMenuTop - IwinTop;
+            this.left = IContextMenuLeft - IwinLeft;
           }
         );
       },
@@ -225,7 +230,7 @@
   }
 
   .contextMenuWrapper_text {
-    position: fixed;
+    position: absolute;
     background-color: #FFFFFF;
     border-radius: 4px;
     padding: 2px 0px;

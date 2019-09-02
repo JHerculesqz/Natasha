@@ -15,6 +15,7 @@
                             :id="item.id + '_checkBox'"
                             :label="item.name"
                             :buObj="item"
+                            v-bind:check="true"
                             :showLabel=true
                             v-on:onChange="_onCheckBoxChange()"></marvel-check-box>
         </div>

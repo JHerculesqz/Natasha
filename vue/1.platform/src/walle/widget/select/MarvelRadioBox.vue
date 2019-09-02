@@ -8,7 +8,7 @@
       <label v-bind:for="[id]"></label>
     </div>
     <label v-bind:for="[id]" class="radioLabel" v-bind:title="title ? title : label"
-           v-bind:class="{ dpn: !showLabel }">{{ label }}</label>
+           v-bind:class="{ dpn: isShowLabel }">{{ label }}</label>
   </div>
   <!--radio end-->
 </template>
@@ -50,8 +50,12 @@
     },
     data: function () {
       return {
-        isDisable: false
+        isDisable: false,
+        isShowLabel:true,
       }
+    },
+    mounted: function(){
+      this.isShowLabel = this.showLabel == false ? true : false;
     },
     methods: {
       //#region inner
