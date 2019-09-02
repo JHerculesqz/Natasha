@@ -37,7 +37,7 @@
         type: String,
         default: "",
         required: true
-      },
+      }
     },
     data: function () {
       return {

@@ -24,9 +24,9 @@
              :class="optionItemChecked(item)"
              @click.stop
              :title="item.label">
-          <input type="checkbox" :checked="itemChecked(item)" :id="item.label"
+          <input type="checkbox" :checked="itemChecked(item)" :id="item.label + id4SelectAllOption"
                  @change.stop="onItemCheckBoxChange(item, $event)">
-          <label class="name" :for="item.label">{{item.label}}</label>
+          <label class="name" :for="item.label + id4SelectAllOption">{{item.label}}</label>
         </div>
       </div>
     </div>
