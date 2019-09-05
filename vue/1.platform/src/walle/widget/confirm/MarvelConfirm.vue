@@ -76,9 +76,9 @@
   import MarvelIconTxtButton from "../button/MarvelIconTxtButton";
 
   /**
-   *  MarvelConfirm widget description
+   *  MarvelConfirmEx widget description
    *  @vuedoc
-   *  @exports MarvelConfirm
+   *  @exports MarvelConfirmEx
    */
   export default {
     components: {MarvelIconTxtButton},

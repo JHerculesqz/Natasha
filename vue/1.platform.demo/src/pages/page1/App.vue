@@ -116,6 +116,7 @@
           expand: false,
           subItems: [
             //#region button
+            {id: "Page4MarvelButtonC", label: "Page4MarvelButton(C)"},
             {id: "Page4MarvelButton", label: "Page4MarvelButton"},
             {id: "Page4MarvelIconButton", label: "Page4MarvelIconButton"},
             {id: "Page4MarvelIconTxtButton", label: "Page4MarvelIconTxtButton"},
@@ -214,6 +215,7 @@
             //endregion
 
             //#region Confirm
+            {id: "Page4MarvelConfirmC", label: "Page4MarvelConfirmC"},
             {id: "Page4MarvelConfirm", label: "Page4MarvelConfirm"},
             {id: "Page4MarvelConfirmEx", label: "Page4MarvelConfirmEx"},
             //endregion
@@ -252,6 +254,7 @@
             //endregion
 
             //#region Dashboard
+            {id: "Page4MarvelDashboardC", label: "Page4MarvelDashboardC"},
             {id: "Page4MarvelDashboard", label: "Page4MarvelDashboard"},
             {id: "Page4MarvelDashboardAdaptToContH", label: "Page4MarvelDashboardAdaptToContH"},
             //endregion

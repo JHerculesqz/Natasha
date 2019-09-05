@@ -12,6 +12,7 @@ import Page4MarvelAnimate from '../components/demo4widgets/2.basic/Page4MarvelAn
 import Page4MarvelFrame from '../components/demo4widgets/2.basic/Page4MarvelFrame'
 
 import Page4MarvelBidirectionalSelect from '../components/demo4widgets/3.form/Page4MarvelBidirectionalSelect'
+import Page4MarvelButtonC from '../components/demo4widgets/3.form/Page4MarvelButtonC'
 import Page4MarvelButton from '../components/demo4widgets/3.form/Page4MarvelButton'
 import Page4MarvelCheckBox from '../components/demo4widgets/3.form/Page4MarvelCheckBox'
 import Page4MarvelDate from '../components/demo4widgets/3.form/Page4MarvelDate'
@@ -62,8 +63,10 @@ import Page4MarvelWizardAdvance from '../components/demo4widgets/4.navigator/Pag
 import Page4MarvelWizardTab from '../components/demo4widgets/4.navigator/Page4MarvelWizardTab'
 
 import Page4MarvelBottomExtPanel from '../components/demo4widgets/5.panel/Page4MarvelBottomExtPanel'
+import Page4MarvelConfirmC from '../components/demo4widgets/5.panel/Page4MarvelConfirmC'
 import Page4MarvelConfirm from '../components/demo4widgets/5.panel/Page4MarvelConfirm'
 import Page4MarvelConfirmEx from '../components/demo4widgets/5.panel/Page4MarvelConfirmEx'
+import Page4MarvelDashboardC from '../components/demo4widgets/5.panel/Page4MarvelDashboardC'
 import Page4MarvelDashboard from '../components/demo4widgets/5.panel/Page4MarvelDashboard'
 import Page4MarvelDashboardAdaptToContH from '../components/demo4widgets/5.panel/Page4MarvelDashboardAdaptToContH'
 import Page4MarvelDialog from '../components/demo4widgets/5.panel/Page4MarvelDialog'
@@ -172,6 +175,10 @@ export default new Router({
       path: '/Page4MarvelBidirectionalSelect',
       name: 'Page4MarvelBidirectionalSelect',
       component:Page4MarvelBidirectionalSelect
+    },{
+      path: '/Page4MarvelButtonC',
+      name: 'Page4MarvelButtonC',
+      component:Page4MarvelButtonC
     },{
       path: '/Page4MarvelButton',
       name: 'Page4MarvelButton',
@@ -365,6 +372,10 @@ export default new Router({
       name: 'Page4MarvelBottomExtPanel',
       component:Page4MarvelBottomExtPanel
     },{
+      path: '/Page4MarvelConfirmC',
+      name: 'Page4MarvelConfirmC',
+      component:Page4MarvelConfirmC
+    },{
       path: '/Page4MarvelConfirm',
       name: 'Page4MarvelConfirm',
       component:Page4MarvelConfirm
@@ -372,6 +383,10 @@ export default new Router({
       path: '/Page4MarvelConfirmEx',
       name: 'Page4MarvelConfirmEx',
       component:Page4MarvelConfirmEx
+    },{
+      path: '/Page4MarvelDashboardC',
+      name: 'Page4MarvelDashboardC',
+      component:Page4MarvelDashboardC
     },{
       path: '/Page4MarvelDashboard',
       name: 'Page4MarvelDashboard',

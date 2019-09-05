@@ -1,7 +1,7 @@
 <template>
   <div class="widgetShowSession">
     <!--1级 start-->
-    <div class="title level1">MarvelSearchWithDropDown</div>
+    <div class="title level1">MarvelDashboard</div>
     <div class="describe">
 
     </div>
@@ -9,13 +9,31 @@
     <!--region widget show area-->
     <!--2级 start-->
 
+    <div class="describe">
+      dashboard - 固定高度
+    </div>
     <div class="showArea">
       <marvel-tab :tabItems="tabItems1">
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-            <div class="panel">
-              <marvel-search-box placeholder="请输入关键字..." @search="search"></marvel-search-box>
+            <div style="height: 200px;width:500px;background-color: #fafafa;padding: 20px;">
+              <marvel-dashboard title="MarvelDashboardFixH">
+                <div slot="customArea">customArea...</div>
+                <div slot="contArea" style="height: 100%;background-color: #eee;overflow:auto;">
+                  <div>content...</div>
+                  <div>content...</div>
+                  <div>content...</div>
+                  <div>content...</div>
+                  <div>content...</div>
+                  <div>content...</div>
+                  <div>content...</div>
+                  <div>content...</div>
+                  <div>content...</div>
+                  <div>content...</div>
+                  <div>content...</div>
+                </div>
+              </marvel-dashboard>
             </div>
             <!--2级DemoView end-->
           </div>
@@ -23,27 +41,48 @@
         <marvel-tab-item :isActive="tabItems1[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-            <div class="panel">
-              <marvel-search-box placeholder="请输入关键字..." @search="search"></marvel-search-box>
+            <div style="height: 200px;width:500px;background-color: #fafafa;padding: 20px;">
+              <marvel-dashboard title="MarvelDashboardFixH">
+                <div slot="customArea">customArea...</div>
+                <div slot="contArea" style="height: 100%;background-color: #eee;overflow:auto;">
+                  <div>content...</div>
+                  <div>content...</div>
+                  <div>content...</div>
+                  <div>content...</div>
+                  <div>content...</div>
+                  <div>content...</div>
+                  <div>content...</div>
+                  <div>content...</div>
+                  <div>content...</div>
+                  <div>content...</div>
+                  <div>content...</div>
+                </div>
+              </marvel-dashboard>
             </div>
             '></marvel-ace-editor>
           </div>
         </marvel-tab-item>
       </marvel-tab>
     </div>
-    <!--2级 end-->
+    <br><br>
 
-    <!--2级 start-->
-
+    <div class="describe">
+      dashboard - 适应内容高度
+    </div>
     <div class="showArea">
       <marvel-tab :tabItems="tabItems2">
         <marvel-tab-item :isActive="tabItems2[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-            <div class="panel">
-              <button @click="upDateSearchOption">updateSelectOption</button>
-              <marvel-search-box placeholder="请输入关键字..." @search="search2"
-                                        :selectItems="selectItems"></marvel-search-box>
+            <div style="height: 200px;width:500px;background-color: #fafafa;padding: 20px;">
+              <marvel-dashboard title="MarvelDashboardAdaptToContH" :bIsAdaptToContent="true">
+                <div slot="customArea">customArea...</div>
+                <div slot="contArea">
+                  <div style="height: 200px;background-color: #eee">
+                    content 200px height
+                  </div>
+                </div>
+              </marvel-dashboard>
             </div>
             <!--2级DemoView end-->
           </div>
@@ -51,10 +90,15 @@
         <marvel-tab-item :isActive="tabItems2[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-            <div class="panel">
-              <button @click="upDateSearchOption">updateSelectOption</button>
-              <marvel-search-box placeholder="请输入关键字..." @search="search2"
-                                        :selectItems="selectItems"></marvel-search-box>
+            <div style="height: 200px;width:500px;background-color: #fafafa;padding: 20px;">
+              <marvel-dashboard title="MarvelDashboardAdaptToContH" :bIsAdaptToContent="true">
+                <div slot="customArea">customArea...</div>
+                <div slot="contArea">
+                  <div style="height: 200px;background-color: #eee">
+                    content 200px height
+                  </div>
+                </div>
+              </marvel-dashboard>
             </div>
             '></marvel-ace-editor>
           </div>
@@ -65,7 +109,7 @@
     <!--endregion-->
     <!--region doc area-->
     <div class="docArea">
-      <marvel-i-frame ref="page4MarvelSearchWithDropDownIFrame" id="page4MarvelSearchWithDropDownIFrame" src="static/jsdoc/module-MarvelSearchEx.html"></marvel-i-frame>
+      <marvel-i-frame ref="page4MarvelDashboardIFrame" id="page4MarvelDashboardIFrame" src="static/jsdoc/module-MarvelDashboardEx.html"></marvel-i-frame>
     </div>
     <!--endregion-->
   </div>
@@ -75,13 +119,13 @@
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
-  import MarvelSearchBox from '^/widget/searchBox/MarvelSearchBox';
+  import MarvelDashboard from "^/widget/dboard/MarvelDashboard";
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
 
   export default {
-    name: 'page4MarvelSearchBox',
+    name: 'page4MarvelDashboardC',
     components: {
-      MarvelSearchBox,
+      MarvelDashboard,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -106,17 +150,7 @@
         }],
         //#endregion
         //#region custom data
-        selectItems: [
-          {
-            label: "ip"
-          },
-          {
-            label: "网元名称",
-            selected: true
-          },
-          {
-            label: "组名"
-          }]
+
         //#endregion
       }
     },
@@ -133,27 +167,10 @@
       //#region lifeCycle
 
       _initEx: function () {
-        this.$refs.page4MarvelSearchWithDropDownIFrame.setIframe4DemoPage();
+        this.$refs.page4MarvelDashboardIFrame.setIframe4DemoPage();
       },
 
       //#endregion
-
-      search: function (strSearchKey, strSearchValue) {
-        console.log(strSearchKey);
-        console.log(strSearchValue);
-      },
-
-      search2: function (strSearchKey, strSearchValue) {
-        console.log(strSearchKey);
-        console.log(strSearchValue);
-      },
-      upDateSearchOption: function () {
-        this.selectItems[1].selected = false;
-        this.selectItems.push({
-          label: "others",
-          selected: true
-        })
-      }
 
       //#endregion
       //#region callback
@@ -198,11 +215,11 @@
     box-sizing: border-box;
   }
 
-  .docArea {
+  .docArea{
     width: 100%;
   }
 
-  .docArea iframe {
+  .docArea iframe{
     width: 100%;
     height: 100%;
     border: none;
@@ -218,11 +235,6 @@
   /*custom style start*/
 
   /*custom style end*/
-  .panel {
-    padding: 10px;
-    width: 400px;
-    height: 50px;
-  }
 
   /*region dark theme*/
 

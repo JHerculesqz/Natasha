@@ -9,9 +9,9 @@
 
 <script>
   /**
-   *  MarvelButton widget description
+   *  MarvelButtonEx widget description
    *  @vuedoc
-   *  @exports MarvelButton
+   *  @exports MarvelButtonEx
    */
   export default {
     name: 'MarvelButton',

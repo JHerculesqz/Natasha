@@ -22,15 +22,15 @@
   import MarvelDropDownButton from '../button/MarvelDropDownButton.vue';
 
   /**
-   *  MarvelSearch widget description
+   *  MarvelSearchBox widget description
    *  @vuedoc
-   *  @exports MarvelSearch
+   *  @exports MarvelSearchBox
    */
   export default {
     components: {
       MarvelDropDownButton
     },
-    name: "MarvelSearch",
+    name: "MarvelSearchBox",
     data: function () {
       return {
         dropDownItems: [],
@@ -86,18 +86,18 @@
 
       //#endregion
 
-      search: function (strSearchVal) {
+      search: function () {
         let searchKey = undefined;
         let searchKeyObj = undefined;
         if(this.selectItems.length>0){
           searchKey = this.$refs.ref1.getSelectItem();
           searchKeyObj = this.$refs.ref1.getSelectItemObj();
-          if (strSearchVal == undefined) {
-            strSearchVal = ""
+          if (this.inputVal == undefined) {
+            this.inputVal = ""
           }
         }
 
-        this.callback4Search(searchKey, strSearchVal, searchKeyObj);
+        this.callback4Search(searchKey, this.inputVal, searchKeyObj);
       },
 
       //#endregion

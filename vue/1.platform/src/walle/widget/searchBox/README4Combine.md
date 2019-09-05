@@ -11,15 +11,13 @@ src\walle\widget\search\MarvelSearchWithDropDown
 
 ### 更改控件名和引用路径: src\walle\widget\search\xxxx  改为  src\walle\widget\searchBox\xxxx
 
-### MarvelSearch  
+### MarvelSearch
 
     业务侧修改点：
     更改控件引用路径；
 
     合并后功能变更：
     添加width属性，用于设置搜索框宽度
-    添加selectItems属性，用于设置下拉框
-    添加maxHeight属性，用于设置下拉框子菜单最大高度
     API回调返回值变更（！！业务侧注意修改）：
     this.$emit("search", strSearchVal); -> this.$emit("search", searchKey, strSearchVal, searchKeyObj);
     API getSearchVal 返回值变更（！！业务侧注意修改）：
@@ -28,19 +26,19 @@ src\walle\widget\search\MarvelSearchWithDropDown
                                       searchKeyObj:Object,
                                       strSearchVal: String
                                     };
-    
+
     自动化测试影响分析：
       外层Class名称searchWrapper -> （search_dropDown onlySearch）/searchArea/searchWrapper
-       
-    
-### MarvelSearchWithDropDown 
+
+
+### MarvelSearchWithDropDown
 
     业务侧修改点：
         更改控件名和引用路径
-    
+
     合并后功能变更：
     新增 onClear 回调方法
     新增 getSearchVal API
-    
-    自动化测试影响分析：无。 
+
+    自动化测试影响分析：无。
 
