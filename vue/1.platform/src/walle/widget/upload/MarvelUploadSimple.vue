@@ -1,6 +1,7 @@
 <template>
   <div>
-    <marvel-icon-txt-button :size="btnSize"
+    <marvel-icon-txt-button :ref="id4Btn"
+                            :size="btnSize"
                             :label="btnName"
                             :icon="btnIcon"
                             :isWarn="false"
@@ -11,6 +12,7 @@
 
 <script>
   import MarvelIconTxtButton from "../button/MarvelIconTxtButton"
+  import StringUtilsEx from '../../component/str'
 
   /**
    *  MarvelUploadSimple widget description
@@ -45,7 +47,9 @@
       }
     },
     data() {
-      return {}
+      return {
+        id4Btn: StringUtilsEx.uuid(),
+      }
     },
     methods: {
       //#region inner
@@ -85,6 +89,11 @@
 
       //#endregion
       //#region 3rd
+      
+      setBtnDisable: function (bIsDisable) {
+        this.$refs[this.id4Btn].setBtnDisable(bIsDisable);
+      }
+      
       //#endregion
     }
   }

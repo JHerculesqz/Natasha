@@ -48,10 +48,10 @@
         required: false,
       },
     },
-    data: function () {
+    data: function() {
       return {
         isDisable: false,
-        isShowLabel:true,
+        isShowLabel: true,
       }
     },
     mounted: function(){
