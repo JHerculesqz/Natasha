@@ -19,10 +19,22 @@ src\walle\widget\extPanel\MarvelRightExtPanel
         更改控件引用路径；
 
         合并后功能变更：
+              通过新增的pos属性，设置面板展示位置
+              
+### MarvelLeftExtPanel
 
+    业务侧修改点：
+        更改控件引用路径；
 
-        合并后样式变更：
+        合并后功能变更：
+              通过新增的pos属性，设置面板展示位置
+              
+### MarvelRightExtPanel
 
-        自动化测试影响分析:
+    业务侧修改点：
+        更改控件引用路径；
+
+        合并后功能变更：
+              通过新增的pos属性，设置面板展示位置
 
 

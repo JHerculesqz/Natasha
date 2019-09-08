@@ -268,6 +268,8 @@
             //endregion
 
             //#region extPanel
+            {id: "page4MarvelFlexiblePanel", label: "page4MarvelFlexiblePanel"},
+            {id: "page4MarvelFloatPanel", label: "page4MarvelFloatPanel"},
             {id: "Page4MarvelBottomExtPanel", label: "Page4MarvelBottomExtPanel"},
             {id: "Page4MarvelLeftExtPanel", label: "Page4MarvelLeftExtPanel"},
             {id: "Page4MarvelRightExtPanel", label: "Page4MarvelRightExtPanel"},
@@ -353,6 +355,7 @@
 
             {id: "Page4MarvelInfo", label: "Page4MarvelInfo"},
 
+            {id: "Page4MarvelInputDropDownC", label: "Page4MarvelInputDropDownC"},
             {id: "Page4MarvelInputDropDown", label: "Page4MarvelInputDropDown"},
             {id: "Page4MarvelInputDropDownWithTip", label: "Page4MarvelInputDropDownWithTip"},
 
@@ -378,6 +381,7 @@
             {id: "Page4MarvelList3", label: "*Page4MarvelList3"},
             {id: "Page4MarvelList4", label: "Page4MarvelList4"},
             {id: "Page4MarvelList5", label: "Page4MarvelList5"},
+            {id: "Page4MarvelDragHelp", label: "Page4MarvelDragHelp"},
           ]
         },],
         isContainerFold: "",

@@ -18,12 +18,12 @@ import Page4MarvelCheckBox from '../components/demo4widgets/3.form/Page4MarvelCh
 import Page4MarvelDate from '../components/demo4widgets/3.form/Page4MarvelDate'
 import Page4MarvelDate2 from '../components/demo4widgets/3.form/Page4MarvelDate2'
 import Page4MarvelDiff from '../components/demo4widgets/3.form/Page4MarvelDiff'
-import Page4MarvelDragHelp from '../components/demo4widgets/3.form/Page4MarvelDragHelp'
 import Page4MarvelDropDownButton from '../components/demo4widgets/3.form/Page4MarvelDropDownButton'
 import Page4MarvelIconButton from '../components/demo4widgets/3.form/Page4MarvelIconButton'
 import Page4MarvelIconTxtButton from '../components/demo4widgets/3.form/Page4MarvelIconTxtButton'
 import Page4MarvelInfo from '../components/demo4widgets/3.form/Page4MarvelInfo'
 import Page4MarvelInput from '../components/demo4widgets/3.form/Page4MarvelInput'
+import Page4MarvelInputDropDownC from '../components/demo4widgets/3.form/Page4MarvelInputDropDownC'
 import Page4MarvelInputDropDown from '../components/demo4widgets/3.form/Page4MarvelInputDropDown'
 import Page4MarvelInputDropDownWithTip from '../components/demo4widgets/3.form/Page4MarvelInputDropDownWithTip'
 import Page4MarvelLink from '../components/demo4widgets/3.form/Page4MarvelLink'
@@ -45,6 +45,7 @@ import Page4MarvelTimeLine from '../components/demo4widgets/3.form/Page4MarvelTi
 import Page4MarvelTxtButton from '../components/demo4widgets/3.form/Page4MarvelTxtButton'
 import Page4MarvelUpload from '../components/demo4widgets/3.form/Page4MarvelUpload'
 import Page4MarvelUploadSimple from '../components/demo4widgets/3.form/Page4MarvelUploadSimple'
+import Page4MarvelDragHelp from '../components/demo4widgets/3.form/Page4MarvelDragHelp'
 
 import Page4MarvelAccordion from '../components/demo4widgets/4.navigator/Page4MarvelAccordion'
 import Page4MarvelAccordion2 from '../components/demo4widgets/4.navigator/Page4MarvelAccordion2'
@@ -62,6 +63,8 @@ import Page4MarvelWizard from '../components/demo4widgets/4.navigator/Page4Marve
 import Page4MarvelWizardAdvance from '../components/demo4widgets/4.navigator/Page4MarvelWizardAdvance'
 import Page4MarvelWizardTab from '../components/demo4widgets/4.navigator/Page4MarvelWizardTab'
 
+import Page4MarvelFlexiblePanel from '../components/demo4widgets/5.panel/Page4MarvelFlexiblePanel'
+import Page4MarvelFloatPanel from '../components/demo4widgets/5.panel/Page4MarvelFloatPanel'
 import Page4MarvelBottomExtPanel from '../components/demo4widgets/5.panel/Page4MarvelBottomExtPanel'
 import Page4MarvelConfirmC from '../components/demo4widgets/5.panel/Page4MarvelConfirmC'
 import Page4MarvelConfirm from '../components/demo4widgets/5.panel/Page4MarvelConfirm'
@@ -200,10 +203,6 @@ export default new Router({
       name: 'Page4MarvelDiff',
       component:Page4MarvelDiff
     },{
-      path: '/Page4MarvelDragHelp',
-      name: 'Page4MarvelDragHelp',
-      component:Page4MarvelDragHelp
-    },{
       path: '/Page4MarvelDropDownButton',
       name: 'Page4MarvelDropDownButton',
       component:Page4MarvelDropDownButton
@@ -223,6 +222,10 @@ export default new Router({
       path: '/Page4MarvelInput',
       name: 'Page4MarvelInput',
       component:Page4MarvelInput
+    },{
+      path: '/Page4MarvelInputDropDownC',
+      name: 'Page4MarvelInputDropDownC',
+      component:Page4MarvelInputDropDownC
     },{
       path: '/Page4MarvelInputDropDown',
       name: 'Page4MarvelInputDropDown',
@@ -367,6 +370,14 @@ export default new Router({
       path: '/Page4MarvelWizardTab',
       name: 'Page4MarvelWizardTab',
       component:Page4MarvelWizardTab
+    },{
+      path: '/Page4MarvelFlexiblePanel',
+      name: 'Page4MarvelFlexiblePanel',
+      component:Page4MarvelFlexiblePanel
+    },{
+      path: '/Page4MarvelFloatPanel',
+      name: 'Page4MarvelFloatPanel',
+      component:Page4MarvelFloatPanel
     },{
       path: '/Page4MarvelBottomExtPanel',
       name: 'Page4MarvelBottomExtPanel',
@@ -523,6 +534,10 @@ export default new Router({
       path: '/Page4MarvelList5',
       name: 'Page4MarvelList5',
       component:Page4MarvelList5
+    },{
+      path: '/Page4MarvelDragHelp',
+      name: 'Page4MarvelDragHelp',
+      component:Page4MarvelDragHelp
     },{
       path: '/Page4MarvelLazyLoadTree',
       name: 'Page4MarvelLazyLoadTree',
