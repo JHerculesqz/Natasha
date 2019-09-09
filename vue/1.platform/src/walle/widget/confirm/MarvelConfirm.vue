@@ -36,13 +36,13 @@
       <div class="tipDialogBtnArea">
         <div class="wapper">
           <div class="pos1" v-show="showOkBtn">
-            <marvel-icon-txt-button :label="buttonName == undefined ? $t('ok') : buttonName" icon="icon-checkmark"
-                                    v-on:onClick="onClickOK"></marvel-icon-txt-button>
+            <marvel-button :label="buttonName == undefined ? $t('ok') : buttonName" icon="icon-checkmark"
+                           v-on:onClick="onClickOK"></marvel-button>
           </div>
           <div class="pos2" v-show="showCancelBtn">
-            <marvel-icon-txt-button :label="cancelButtonName == undefined ? $t('cancel') : cancelButtonName"
-                                    icon="icon-cross"
-                                    v-on:onClick="onClickCancel"></marvel-icon-txt-button>
+            <marvel-button :label="cancelButtonName == undefined ? $t('cancel') : cancelButtonName"
+                           icon="icon-cross"
+                           v-on:onClick="onClickCancel"></marvel-button>
           </div>
         </div>
       </div>
@@ -73,7 +73,7 @@
 
 <script>
   import StringUtilsEx from '../../component/str'
-  import MarvelIconTxtButton from "../button/MarvelIconTxtButton";
+  import MarvelButton from "../btn/MarvelButton";
 
   /**
    *  MarvelConfirmEx widget description
@@ -81,7 +81,7 @@
    *  @exports MarvelConfirmEx
    */
   export default {
-    components: {MarvelIconTxtButton},
+    components: {MarvelButton},
     name: 'MarvelConfirm',
     props: {
       width: {

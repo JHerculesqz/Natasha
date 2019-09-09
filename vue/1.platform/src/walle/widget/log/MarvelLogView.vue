@@ -3,12 +3,12 @@
     <div class="filterWrapper">
       <div class="filterArea" v-for="item in filterOptions" :key="item.id + '_key'">
         <div v-if="item.type == 'button'" class="customAreaSession btnSession">
-          <marvel-icon-txt-button :ref="item.id + '_textBtn'"
-                                  :id="item.id + '_textBtn'"
-                                  size="mini"
-                                  classCustom="classCustom4MopLogBtn"
-                                  :label="item.name" :isPrimary=false
-                                  :icon="item.icon" v-on:onClick="_onBtnClick(item)"></marvel-icon-txt-button>
+          <marvel-button :ref="item.id + '_textBtn'"
+                         :id="item.id + '_textBtn'"
+                         size="mini"
+                         classCustom="classCustom4MopLogBtn"
+                         :label="item.name" :isPrimary=false
+                         :icon="item.icon" v-on:onClick="_onBtnClick(item)"></marvel-button>
         </div>
         <div v-if="item.type == 'checkbox'" class="customAreaSession checkSession">
           <marvel-check-box :ref="item.id + '_checkBox'"
@@ -38,7 +38,7 @@
 
 <script>
   import MarvelCheckBox from "../select/MarvelCheckBox";
-  import MarvelIconTxtButton from "../button/MarvelIconTxtButton";
+  import MarvelButton from "../btn/MarvelButton";
   import StrUtils from "../../component/str";
 
   /**
@@ -50,7 +50,7 @@
     name: 'MarvelLogView',
     components: {
       MarvelCheckBox,
-      MarvelIconTxtButton
+      MarvelButton
     },
     props: {
       logItems: {

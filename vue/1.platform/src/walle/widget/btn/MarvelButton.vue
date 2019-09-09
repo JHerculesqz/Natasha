@@ -120,7 +120,7 @@
       //#region callback
 
       onClick: function () {
-        this.$emit('onClick');
+        this.$emit('onClick', this.icon);
       },
 
       //#endregion

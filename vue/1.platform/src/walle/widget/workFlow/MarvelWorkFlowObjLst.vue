@@ -12,8 +12,8 @@
         <slot name="btnArea"></slot>
       </div>
       <div class="searchArea4objList">
-        <marvel-search-with-drop-down @search="callback4OnSearch" width="120px"
-                                      :selectItems="searchSelectItems"></marvel-search-with-drop-down>
+        <marvel-search-box @search="callback4OnSearch" width="120px"
+                                      :selectItems="searchSelectItems"></marvel-search-box>
       </div>
     </div>
     <div class="bottomArea">
@@ -37,9 +37,9 @@
 </template>
 
 <script>
-  import MarvelButton from '../../widget/button/MarvelButton';
+  import MarvelButton from '../../widget/btn/MarvelButton';
   import MarvelGridEx from '../../widget/grid/MarvelGridEx';
-  import MarvelSearchWithDropDown from "../search/MarvelSearchWithDropDown";
+  import MarvelSearchBox from "../searchBox/MarvelSearchBox";
   import StrUtils from "../../component/str";
 
   /**
@@ -50,7 +50,7 @@
   export default {
     name: 'MarvelWorkFlowObjLst',
     components: {
-      MarvelSearchWithDropDown,
+      MarvelSearchBox,
       MarvelButton,
       MarvelGridEx
     },
