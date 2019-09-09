@@ -24,7 +24,7 @@
                v-on:click="onToolbarSubItemClick($event, subItems, item)"
                v-bind:key="subItems.id"
                v-bind:class="[{dpn: subItems.visible === false},{disable: subItems.disable === true}]">
-            <div class="iconArea" v-bind:class="subItems.icon"></div>
+            <div class="iconArea" v-if="subItems.icon != undefined && subItems.icon != ''" v-bind:class="subItems.icon"></div>
             <div class="textArea" :class="{dpn: !showSubItemLabels}">{{subItems.label}}</div>
           </div>
         </div>

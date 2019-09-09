@@ -223,10 +223,10 @@ customer：自定义单元格，支持文本单元格和dropdown单元格的切�
                 </td>
                 <!--列支持文本图标类型-->
                 <td v-if="title.type == 'textIcon'" :style="getTdStyle(title, row)">
-                  <div class="textIcon" @click.stop="onClickTextIcon(title.key, row)">
-                  <span class="icon"
-                        :class="[getCellValueByKey(title.key, row)]"
-                        :style="{ color: _getCell(title.key, row).color }"></span>
+                  <div class="textIcon" @click.stop="onClickTextIcon(title.key, row)" :style="getDivWidth(title)">
+                    <span class="icon"
+                          :class="[getCellValueByKey(title.key, row)]"
+                          :style="{ color: _getCell(title.key, row).color }"></span>
                     <span class="icon-label"
                           :title="_getCell(title.key, row).label">{{_getCell(title.key, row).label}}</span>
                   </div>

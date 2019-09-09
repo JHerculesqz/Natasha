@@ -48,7 +48,7 @@
     },
     data() {
       return {
-        id4Btn: StringUtilsEx.uuid(),
+        id4Btn:StringUtilsEx.uuid(),
       }
     },
     methods: {
@@ -89,11 +89,11 @@
 
       //#endregion
       //#region 3rd
-      
+
       setBtnDisable: function (bIsDisable) {
         this.$refs[this.id4Btn].setBtnDisable(bIsDisable);
       }
-      
+
       //#endregion
     }
   }

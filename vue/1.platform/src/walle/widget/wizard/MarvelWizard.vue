@@ -51,11 +51,13 @@
       //#region inner
 
       onWizardClick: function (oItem) {
-        if (this.hasJudgeBeforeWizardSwitch) {
-          this.callback4OnWizardClick(oItem);
-        } else {
-          this.setProgress(oItem.index);
-          this.callback4OnWizardClick(oItem);
+        if(this.isClickable){
+          if (this.hasJudgeBeforeWizardSwitch) {
+            this.callback4OnWizardClick(oItem);
+          } else {
+            this.setProgress(oItem.index);
+            this.callback4OnWizardClick(oItem);
+          }
         }
       },
 
@@ -136,7 +138,7 @@
   }
 
   .wizardsWrapper .unClickable {
-    pointer-events: none;
+    cursor: default !important;
   }
 
   .wizardsWrapper .wizardsItem .name {
