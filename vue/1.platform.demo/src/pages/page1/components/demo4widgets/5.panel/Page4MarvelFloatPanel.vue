@@ -14,15 +14,19 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner" style="height: 100%;">
             <!--2级DemoView start-->
-            <div style="position: relative;width: 100%; height: 100%">
+            <div style="position: relative;width: 100%; height: 100%;background-color: #f0f0f0;">
               <button @click="changeZIndex">changeZIndex to -1</button>
               <marvel-float-panel ref="aaa"
                                   :posBottom= 250
                                   :posRight= 250
                                   :contWidth=100
                                   :contHeight=100
-                                  contPos="bottom-right"
+                                  :icon="floatPanelIcon"
+                                  :text="floatPanelText"
+                                  contPos="top-right"
                                   :draggable="true"
+                                  @onOpenPanel="_onOpenPanel"
+                                  @onClosePanel="_onClosePanel"
                                   :bargeCount="listBargeCount"></marvel-float-panel>
             </div>
             <!--2级DemoView end-->
@@ -77,7 +81,8 @@
         }],
         //#endregion
         //#region custom data
-
+        floatPanelIcon:"icon-marvelIcon-27",
+        floatPanelText:"open",
         listBargeCount: 10
         //#endregion
       }
@@ -99,6 +104,15 @@
       },
 
       //#endregion
+
+      _onOpenPanel: function(){
+        this.floatPanelIcon = "icon-marvelIcon-28";
+        this.floatPanelText = "close";
+      },
+      _onClosePanel: function(){
+        this.floatPanelIcon = "icon-marvelIcon-27";
+        this.floatPanelText = "open";
+      },
 
       changeZIndex: function(){
         this.$refs.aaa.setZIndex(-1);

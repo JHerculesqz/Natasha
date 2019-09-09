@@ -3,11 +3,10 @@
     <div class="floatPanelInner" :style="floatPanelStyle"
          v-bind:class="[{ expand: isExpand}]">
       <div class="dashboardExpandFolderIcon"
-           v-bind:class="icon"
+           v-bind:class="[icon, {hasText:text != undefined}]"
            v-on:mousedown="mouseDown"
            v-on:mousemove="mouseMove"
-           v-on:mouseup="mouseUp"
-           v-on:click="_onExpandBtnClick">
+           v-on:mouseup="mouseUp">
         <div class="tipInfo" v-if="bargeCount>0">{{ bargeCount }}</div>
         <div class="tipText" v-if="text != undefined">{{text}}</div>
       </div>
@@ -114,6 +113,7 @@
         zIndex: 2000,
         floatPanelWrapperStyle:{},
         floatPanelStyle:{},
+        bIsMouseDown:false,
         bIsDragging:false,
         mouseDownX: 0,
         mouseDownY: 0,
@@ -159,7 +159,7 @@
 
       mouseDown: function (e) {
         if (this.draggable) {
-          this.bIsDragging = true;
+          this.bIsMouseDown = true;
           this.mouseDownX = e.pageX;
           this.mouseDownY = e.pageY;
           this.iLastPositionTop = this.positionInTop != undefined? this.positionInTop : undefined;
@@ -169,7 +169,8 @@
         }
       },
       mouseMove: function (e) {
-        if (this.bIsDragging) {
+        if (this.bIsMouseDown) {
+          this.bIsDragging = true;
           var x = e.pageX;
           var Y = e.pageY;
           if(this.positionInTop != undefined){
@@ -189,22 +190,31 @@
         }
       },
       mouseUp: function () {
+        this.bIsMouseDown = false;
         if (this.bIsDragging) {
           this.bIsDragging = false;
+        }else{
+          this.isExpand = !this.isExpand;
+          this._calFloatPanelStyle();
+          if(this.isExpand){
+            this.callback4OnOpenPanel();
+          }else{
+            this.callback4OnClosePanel();
+          }
         }
       },
 
       //#endregion
 
-      _onExpandBtnClick: function () {
-        this.isExpand = !this.isExpand;
-        this._calFloatPanelStyle();
-      },
       _calFloatPanelStyle: function(){
         var iIconWH = 46;
         var styleOption = {
           width: iIconWH + 'px',
           height: iIconWH + 'px',
+          top: this.positionInTop != undefined? '0' : undefined,
+          right: this.positionInRight != undefined? '0' : undefined,
+          bottom: this.positionInBottom != undefined? '0' : undefined,
+          left: this.positionInLeft != undefined? '0' : undefined,
         };
 
         if(this.isExpand){
@@ -253,6 +263,12 @@
       //#endregion
       //#region callback
 
+      callback4OnOpenPanel: function () {
+        this.$emit("onOpenPanel");
+      },
+      callback4OnClosePanel: function () {
+        this.$emit("onClosePanel");
+      },
 
       //#endregion
       //#region 3rd
@@ -321,6 +337,22 @@
     padding: 0 6px;
     top: -4px;
     right: -4px;
+  }
+
+  .floatPanelInner .hasText{
+    line-height: 14px;
+    font-size: 14px;
+    padding-top: 10px;
+    box-sizing: border-box;
+  }
+
+  .floatPanelInner .hasText:before{
+    position: relative;
+  }
+
+  .floatPanelInner .hasText .tipText{
+    line-height: 18px;
+    font-size: 12px;
   }
 
   .floatPanelInner .dashboardContArea {
