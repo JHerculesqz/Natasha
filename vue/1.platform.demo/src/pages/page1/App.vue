@@ -207,6 +207,7 @@
             //endregion
 
             //#region Loading
+            {id: "Page4MarvelLoadingC", label: "Page4MarvelLoadingC"},
             {id: "Page4MarvelLoading", label: "Page4MarvelLoading"},
             {id: "Page4MarvelLoadingIconPublic", label: "Page4MarvelLoadingIconPublic"},
             {id: "Page4MarvelLoadingMini", label: "Page4MarvelLoadingMini"},

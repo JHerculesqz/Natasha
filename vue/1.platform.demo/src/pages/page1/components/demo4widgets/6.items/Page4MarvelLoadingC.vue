@@ -8,7 +8,7 @@
     <!--1级 end-->
     <!--region widget show area-->
     <!--2级 start-->
-
+    <div class="describe">loading</div>
     <div class="showArea">
       <marvel-tab :tabItems="tabItems1">
         <marvel-tab-item :isActive="tabItems1[0].isActive">
@@ -20,12 +20,12 @@
               <button v-on:click="hideLeft">hideLeft</button>
               <button v-on:click="showRight">showRight</button>
               <button v-on:click="hideRight">hideRight</button><br>
-              <marvel-loading ref="ref0" :isGlobal="true" v-on:onCancel="loadingOnCancel"></marvel-loading>
+              <marvel-loading ref="ref0" :isGlobal="true" :hasCancelBtn="true" v-on:onCancel="loadingOnCancel"></marvel-loading>
               <div class="loadingArea1">
-                <marvel-loading ref="ref1" :isGlobal="false" v-on:onCancel="loadingOnCancel"></marvel-loading>
+                <marvel-loading ref="ref1" :isGlobal="false" :hasCancelBtn="true" v-on:onCancel="loadingOnCancel"></marvel-loading>
               </div>
               <div class="loadingArea2">
-                <marvel-loading ref="ref2" :isGlobal="false" v-on:onCancel="loadingOnCancel"></marvel-loading>
+                <marvel-loading ref="ref2" :isGlobal="false" :hasCancelBtn="true" v-on:onCancel="loadingOnCancel"></marvel-loading>
               </div>
             </div>
             <!--2级DemoView end-->
@@ -34,26 +34,48 @@
         <marvel-tab-item :isActive="tabItems1[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-            <div class="showArea">
-              <button v-on:click="showGlobal">showGlobal</button>
-              <button v-on:click="showLeft">showLeft</button>
-              <button v-on:click="hideLeft">hideLeft</button>
-              <button v-on:click="showRight">showRight</button>
-              <button v-on:click="hideRight">hideRight</button><br>
-              <marvel-loading ref="ref0" :isGlobal="true" v-on:onCancel="loadingOnCancel"></marvel-loading>
-              <div class="loadingArea1">
-                <marvel-loading ref="ref1" :isGlobal="false" v-on:onCancel="loadingOnCancel"></marvel-loading>
-              </div>
-              <div class="loadingArea2">
-                <marvel-loading ref="ref2" :isGlobal="false" v-on:onCancel="loadingOnCancel"></marvel-loading>
-              </div>
-            </div>
             '></marvel-ace-editor>
           </div>
         </marvel-tab-item>
       </marvel-tab>
     </div>
     <!--2级 end-->
+
+    <!--2级 start-->
+
+    <div class="describe">icon loading</div>
+    <div class="showArea">
+      <marvel-tab :tabItems="tabItems1">
+        <marvel-tab-item :isActive="tabItems1[0].isActive">
+          <div class="showAreaInner">
+            <!--2级DemoView start-->
+            <div class="showArea">
+              <button v-on:click="showGlobal2">showGlobal</button>
+              <button v-on:click="showLeft2">showLeft</button>
+              <button v-on:click="hideLeft2">hideLeft</button>
+              <button v-on:click="showRight2">showRight</button>
+              <button v-on:click="hideRight2">hideRight</button><br>
+              <marvel-loading ref="ref3" :isGlobal="true" :onlyIcon="true" :hasCancelBtn="true" v-on:onCancel="loadingOnCancel"></marvel-loading>
+              <div class="loadingArea1">
+                <marvel-loading ref="ref4" :isGlobal="false" :onlyIcon="true" :hasCancelBtn="true" v-on:onCancel="loadingOnCancel"></marvel-loading>
+              </div>
+              <div class="loadingArea2">
+                <marvel-loading ref="ref5" :isGlobal="false" :onlyIcon="true" :hasCancelBtn="true" v-on:onCancel="loadingOnCancel"></marvel-loading>
+              </div>
+            </div>
+            <!--2级DemoView end-->
+          </div>
+        </marvel-tab-item>
+        <marvel-tab-item :isActive="tabItems1[1].isActive">
+          <div class="codeArea">
+            <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
+            '></marvel-ace-editor>
+          </div>
+        </marvel-tab-item>
+      </marvel-tab>
+    </div>
+    <!--2级 end-->
+
     <!--endregion-->
     <!--region doc area-->
     <div class="docArea">
@@ -67,11 +89,11 @@
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
-  import MarvelLoading from "^/widget/loading/MarvelLoading";
+  import MarvelLoading from "^/widget/load/MarvelLoading";
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
 
   export default {
-    name: 'page4MarvelLoading',
+    name: 'page4MarvelLoadingC',
     components: {
       MarvelLoading,
       MarvelIFrame,
@@ -127,6 +149,22 @@
       },
       hideRight: function(){
         this.$refs.ref2.imsgMarvelLoadingHide();
+      },
+
+      showGlobal2: function(){
+        this.$refs.ref3.imsgMarvelLoadingShow("global loading...");
+      },
+      showLeft2: function(){
+        this.$refs.ref4.imsgMarvelLoadingShow("loading");
+      },
+      hideLeft2: function(){
+        this.$refs.ref4.imsgMarvelLoadingHide();
+      },
+      showRight2: function(){
+        this.$refs.ref5.imsgMarvelLoadingShow("加载中");
+      },
+      hideRight2: function(){
+        this.$refs.ref5.imsgMarvelLoadingHide();
       },
       loadingOnCancel:function(){
         console.log("loadingCancel");

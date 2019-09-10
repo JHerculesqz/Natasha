@@ -79,6 +79,7 @@ import Page4MarvelRightExtPanel from '../components/demo4widgets/5.panel/Page4Ma
 
 import Page4MarvelAceEditor from '../components/demo4widgets/6.items/Page4MarvelAceEditor'
 import Page4MarvelLegend from '../components/demo4widgets/6.items/Page4MarvelLegend'
+import Page4MarvelLoadingC from '../components/demo4widgets/6.items/Page4MarvelLoadingC'
 import Page4MarvelLoading from '../components/demo4widgets/6.items/Page4MarvelLoading'
 import Page4MarvelLoadingIconPublic from '../components/demo4widgets/6.items/Page4MarvelLoadingIconPublic'
 import Page4MarvelLoadingMini from '../components/demo4widgets/6.items/Page4MarvelLoadingMini'
@@ -430,6 +431,10 @@ export default new Router({
       path: '/Page4MarvelLegend',
       name: 'Page4MarvelLegend',
       component:Page4MarvelLegend
+    },{
+      path: '/Page4MarvelLoadingC',
+      name: 'Page4MarvelLoadingC',
+      component:Page4MarvelLoadingC
     },{
       path: '/Page4MarvelLoading',
       name: 'Page4MarvelLoading',

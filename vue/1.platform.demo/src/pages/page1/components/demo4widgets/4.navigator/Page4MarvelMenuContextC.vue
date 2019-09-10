@@ -1,7 +1,7 @@
 <template>
   <div class="widgetShowSession">
     <!--1级 start-->
-    <div class="title level1">MarvelLoading</div>
+    <div class="title level1">MarvelMenuContext</div>
     <div class="describe">
 
     </div>
@@ -14,40 +14,19 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-            <div class="showArea">
-              <button v-on:click="showGlobal">showGlobal</button>
-              <button v-on:click="showLeft">showLeft</button>
-              <button v-on:click="hideLeft">hideLeft</button>
-              <button v-on:click="showRight">showRight</button>
-              <button v-on:click="hideRight">hideRight</button><br>
-              <marvel-loading ref="ref0" :isGlobal="true" v-on:onCancel="loadingOnCancel"></marvel-loading>
-              <div class="loadingArea1">
-                <marvel-loading ref="ref1" :isGlobal="false" v-on:onCancel="loadingOnCancel"></marvel-loading>
-              </div>
-              <div class="loadingArea2">
-                <marvel-loading ref="ref2" :isGlobal="false" v-on:onCancel="loadingOnCancel"></marvel-loading>
-              </div>
-            </div>
+            <button v-on:click.stop="onClick">show</button>
+            <marvel-context-menu ref="ref0"
+                                 :items="items"
+                                 v-on:onMenuItemClick="onMenuItemClick"></marvel-context-menu>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
         <marvel-tab-item :isActive="tabItems1[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-            <div class="showArea">
-              <button v-on:click="showGlobal">showGlobal</button>
-              <button v-on:click="showLeft">showLeft</button>
-              <button v-on:click="hideLeft">hideLeft</button>
-              <button v-on:click="showRight">showRight</button>
-              <button v-on:click="hideRight">hideRight</button><br>
-              <marvel-loading ref="ref0" :isGlobal="true" v-on:onCancel="loadingOnCancel"></marvel-loading>
-              <div class="loadingArea1">
-                <marvel-loading ref="ref1" :isGlobal="false" v-on:onCancel="loadingOnCancel"></marvel-loading>
-              </div>
-              <div class="loadingArea2">
-                <marvel-loading ref="ref2" :isGlobal="false" v-on:onCancel="loadingOnCancel"></marvel-loading>
-              </div>
-            </div>
+             <marvel-menu-context ref="ref0"
+                                 :items="items"
+                                 v-on:onMenuItemClick="onMenuItemClick"></marvel-menu-context>
             '></marvel-ace-editor>
           </div>
         </marvel-tab-item>
@@ -57,7 +36,7 @@
     <!--endregion-->
     <!--region doc area-->
     <div class="docArea">
-      <marvel-i-frame ref="page4MarvelLoadingIFrame" id="page4MarvelLoadingIFrame" src="static/jsdoc/module-MarvelLoading.html"></marvel-i-frame>
+      <marvel-i-frame ref="page4MarvelMenuContextIFrame" id="page4MarvelMenuContextIFrame" src="static/jsdoc/module-MarvelMenuContext.html"></marvel-i-frame>
     </div>
     <!--endregion-->
   </div>
@@ -67,13 +46,13 @@
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
-  import MarvelLoading from "^/widget/loading/MarvelLoading";
+  import MarvelContextMenu from "^/widget/contextMenu/MarvelContextMenu"
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
 
   export default {
-    name: 'page4MarvelLoading',
+    name: 'page4MarvelMenuContextC',
     components: {
-      MarvelLoading,
+      MarvelContextMenu,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -91,7 +70,15 @@
         }],
         //#endregion
         //#region custom data
-
+        items: [{
+          icon: "icon-cancel-circle",
+          color: "#ff4c4c",
+          label: "删除"
+        }, {
+          icon: "icon-pencil",
+          color: "",
+          label: "编辑"
+        }],
         //#endregion
       }
     },
@@ -108,29 +95,18 @@
       //#region lifeCycle
 
       _initEx: function () {
-        this.$refs.page4MarvelLoadingIFrame.setIframe4DemoPage();
+        this.$refs.page4MarvelMenuContextIFrame.setIframe4DemoPage();
       },
 
       //#endregion
 
-      showGlobal: function(){
-        this.$refs.ref0.imsgMarvelLoadingShow("global loading...");
+      onClick: function(){
+        console.log("1");
+        this.$refs.ref0.showSubMenu(500,200);
       },
-      showLeft: function(){
-        this.$refs.ref1.imsgMarvelLoadingShow("loading");
+      onMenuItemClick: function(strMenuItemLabel){
+        alert(strMenuItemLabel);
       },
-      hideLeft: function(){
-        this.$refs.ref1.imsgMarvelLoadingHide();
-      },
-      showRight: function(){
-        this.$refs.ref2.imsgMarvelLoadingShow("加载中");
-      },
-      hideRight: function(){
-        this.$refs.ref2.imsgMarvelLoadingHide();
-      },
-      loadingOnCancel:function(){
-        console.log("loadingCancel");
-      }
 
       //#endregion
       //#region callback
@@ -189,22 +165,6 @@
   /*document custom style start*/
   .showArea {
     height: 400px;
-  }
-
-  .loadingArea1{
-    width: 50%;
-    height: 300px;
-    background-color: #ffccce;
-    position: relative;
-    float: left;
-  }
-
-  .loadingArea2{
-    width: 50%;
-    height: 300px;
-    background-color: #c1d9ff;
-    position: relative;
-    float: left;
   }
 
   /*document custom style end*/
