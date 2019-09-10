@@ -1,7 +1,7 @@
 <template>
   <!-- maskLoading start-->
-  <div class="maskLoading" v-bind:class="{ dpn: !show , globalLoading: isGlobal }" v-dom-portal="isGlobal">
-    <div class="loadingBoard">
+  <div class="maskLoading" v-bind:class="{ dpn: !bIsShow , globalLoading: isGlobal }" v-dom-portal="isGlobal">
+    <div class="loadingBoard" v-bind:class="{onlyIcon:onlyIcon}">
       <div class="loadingIcon">
         <div class="icon">
           <div class="dot white"></div>
@@ -11,8 +11,10 @@
           <div class="dot"></div>
         </div>
       </div>
-      <div class="loadingTip" v-text="loadingMsg"></div>
-      <div class="loadingCancel" :title="$t('cancel')" v-on:click="imsgMarvelLoadingCancel">X</div>
+      <div class="loadingTip" v-if="!onlyIcon" v-html="loadingMsg"></div>
+      <div class="loadingCancel" v-if="hasCancelBtn" :title="$t('cancel')"
+           v-on:click="_cancelCurrentLoading">X
+      </div>
     </div>
   </div>
   <!-- maskLoading end-->
@@ -48,37 +50,88 @@
         default: false,
         required: false,
       },
+      hasCancelBtn: {
+        type: Boolean,
+        default: false,
+        required: false,
+      },
+      onlyIcon:{
+        type: Boolean,
+        default: false,
+        required: false,
+      },
     },
     data: function () {
       return {
-        show: false,
-        loadingMsg: ""
+        showList: []
+      }
+    },
+    computed: {
+      loadingMsg: function () {
+        var iLen = this.showList.length;
+        if (iLen !== 0) {
+          return this.showList[iLen - 1].strMsg;
+        } else {
+          return "";
+        }
+      },
+      bIsShow: function () {
+        return this.showList.length > 0 ? true : false;
       }
     },
     methods: {
       //#region inner
+
+      _cancelCurrentLoading: function () {
+        var iLen = this.showList.length;
+        var loadingKey = this.showList[iLen - 1].key;
+        this.callback4OnCancel(loadingKey);
+      },
+
+      _getIndexInList: function (strKey) {
+        var iIndex = -1;
+        for (var i = 0; i < this.showList.length; i++) {
+          if (this.showList[i].key == strKey) {
+            iIndex = i;
+            break;
+          }
+        }
+
+        return iIndex;
+      },
+
       //#endregion
       //#region callback
 
-      callback4OnCancel: function () {
-        this.$emit("onCancel");
+      callback4OnCancel: function (loadingKey) {
+        this.$emit("onCancel", loadingKey);
       },
 
       //#endregion
       //#region 3rd
 
-      imsgMarvelLoadingShow: function (strLoadingMsg) {
-        this.show = true;
-        this.loadingMsg = strLoadingMsg;
+      showLoading: function (strKey, strLoadingMsg) {
+        if (this._getIndexInList(strKey) == -1) {
+          //registry
+          this.showList.push({
+            key: strKey,
+            strMsg: strLoadingMsg
+          });
+        }
       },
-      imsgMarvelLoadingHide: function () {
-        this.show = false;
-        this.loadingMsg = "";
+      hideLoading: function (strKey) {
+        //is already registry
+        var iIndexInList = this._getIndexInList(strKey);
+        if (iIndexInList != -1) {
+          //registry
+          this.showList.splice(iIndexInList, 1);
+        }
       },
-      imsgMarvelLoadingCancel: function () {
-        this.imsgMarvelLoadingHide();
-        this.callback4OnCancel();
-      }
+
+      hideAllLoading: function () {
+        //is already registry
+        this.showList = [];
+      },
 
       //#endregion
     }
@@ -249,7 +302,8 @@
 
   .maskLoading .loadingBoard {
     position: relative;
-    top: 300px;
+    top: 50%;
+    margin-top: -30px;
     max-width: 50%;
     display: inline-block;
     border-radius: 2px;
@@ -259,12 +313,34 @@
     box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.15);
   }
 
+  .maskLoading .onlyIcon{
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    top: 0;
+    margin-top: unset;
+    left: 0;
+    padding: 0;
+    background-color: transparent;
+    box-shadow: none;
+  }
+
   .maskLoading .loadingBoard .loadingIcon {
     width: 24px;
     height: 24px;
     float: left;
     margin-right: 10px;
     position: relative;
+  }
+
+  .maskLoading .onlyIcon .loadingIcon {
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -12px;
+    margin-left: -12px;
   }
 
   .maskLoading .loadingBoard .loadingTip {
@@ -289,6 +365,14 @@
     color: #fff;
     float: left;
     cursor: pointer;
+  }
+
+  .maskLoading .onlyIcon .loadingCancel{
+    width: 40px;
+    height: 40px;
+    border-bottom-left-radius: 40px;
+    font-size: 20px;
+    line-height: 32px;
   }
 
   /*region dark theme*/

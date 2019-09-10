@@ -15,17 +15,19 @@
           <div class="showAreaInner">
             <!--2级DemoView start-->
             <div class="showArea">
-              <button v-on:click="showGlobal">showGlobal</button>
-              <button v-on:click="showLeft">showLeft</button>
-              <button v-on:click="hideLeft">hideLeft</button>
-              <button v-on:click="showRight">showRight</button>
-              <button v-on:click="hideRight">hideRight</button><br>
-              <marvel-loading ref="ref0" :isGlobal="true" :hasCancelBtn="true" v-on:onCancel="loadingOnCancel"></marvel-loading>
+              <button v-on:click="showGlobal" class="loadingControlBtn">showGlobal</button>
+              <button v-on:click="showLeft" class="loadingControlBtn">showLeft</button>
+              <button v-on:click="hideLeft" class="loadingControlBtn">hideLeft</button>
+              <button v-on:click="showRight" class="loadingControlBtn">showRight</button>
+              <button v-on:click="hideRight" class="loadingControlBtn">hideRight</button>
+              <button v-on:click="showCancelBtn(true)" class="loadingControlBtn">showCancelBtn</button>
+              <button v-on:click="showCancelBtn(false)" class="loadingControlBtn">hideCancelBtn</button><br>
+              <marvel-loading ref="ref0" :isGlobal="true" :hasCancelBtn="isShowCancelBtn" v-on:onCancel="loadingOnCancel(arguments, 'ref0')"></marvel-loading>
               <div class="loadingArea1">
-                <marvel-loading ref="ref1" :isGlobal="false" :hasCancelBtn="true" v-on:onCancel="loadingOnCancel"></marvel-loading>
+                <marvel-loading ref="ref1" :isGlobal="false" :hasCancelBtn="isShowCancelBtn" v-on:onCancel="loadingOnCancel(arguments, 'ref1')"></marvel-loading>
               </div>
               <div class="loadingArea2">
-                <marvel-loading ref="ref2" :isGlobal="false" :hasCancelBtn="true" v-on:onCancel="loadingOnCancel"></marvel-loading>
+                <marvel-loading ref="ref2" :isGlobal="false" :hasCancelBtn="isShowCancelBtn" v-on:onCancel="loadingOnCancel(arguments, 'ref2')"></marvel-loading>
               </div>
             </div>
             <!--2级DemoView end-->
@@ -50,18 +52,51 @@
           <div class="showAreaInner">
             <!--2级DemoView start-->
             <div class="showArea">
-              <button v-on:click="showGlobal2">showGlobal</button>
-              <button v-on:click="showLeft2">showLeft</button>
-              <button v-on:click="hideLeft2">hideLeft</button>
-              <button v-on:click="showRight2">showRight</button>
-              <button v-on:click="hideRight2">hideRight</button><br>
-              <marvel-loading ref="ref3" :isGlobal="true" :onlyIcon="true" :hasCancelBtn="true" v-on:onCancel="loadingOnCancel"></marvel-loading>
+              <button v-on:click="showGlobal2" class="loadingControlBtn">showGlobal</button>
+              <button v-on:click="showLeft2" class="loadingControlBtn">showLeft</button>
+              <button v-on:click="hideLeft2" class="loadingControlBtn">hideLeft</button>
+              <button v-on:click="showRight2" class="loadingControlBtn">showRight</button>
+              <button v-on:click="hideRight2" class="loadingControlBtn">hideRight</button>
+              <button v-on:click="showCancelBtn2(true)" class="loadingControlBtn">showCancelBtn</button>
+              <button v-on:click="showCancelBtn2(false)" class="loadingControlBtn">hideCancelBtn</button><br>
+              <marvel-loading ref="ref3" :isGlobal="true" :onlyIcon="true" :hasCancelBtn="isShowCancelBtn2" v-on:onCancel="loadingOnCancel(arguments, 'ref3')"></marvel-loading>
               <div class="loadingArea1">
-                <marvel-loading ref="ref4" :isGlobal="false" :onlyIcon="true" :hasCancelBtn="true" v-on:onCancel="loadingOnCancel"></marvel-loading>
+                <marvel-loading ref="ref4" :isGlobal="false" :onlyIcon="true" :hasCancelBtn="isShowCancelBtn2" v-on:onCancel="loadingOnCancel(arguments, 'ref4')"></marvel-loading>
               </div>
               <div class="loadingArea2">
-                <marvel-loading ref="ref5" :isGlobal="false" :onlyIcon="true" :hasCancelBtn="true" v-on:onCancel="loadingOnCancel"></marvel-loading>
+                <marvel-loading ref="ref5" :isGlobal="false" :onlyIcon="true" :hasCancelBtn="isShowCancelBtn2" v-on:onCancel="loadingOnCancel(arguments, 'ref5')"></marvel-loading>
               </div>
+            </div>
+            <!--2级DemoView end-->
+          </div>
+        </marvel-tab-item>
+        <marvel-tab-item :isActive="tabItems1[1].isActive">
+          <div class="codeArea">
+            <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
+            '></marvel-ace-editor>
+          </div>
+        </marvel-tab-item>
+      </marvel-tab>
+    </div>
+    <!--2级 end-->
+
+    <!--2级 start-->
+
+    <div class="describe">loading 堆栈展示</div>
+    <div class="showArea">
+      <marvel-tab :tabItems="tabItems1">
+        <marvel-tab-item :isActive="tabItems1[0].isActive">
+          <div class="showAreaInner">
+            <!--2级DemoView start-->
+            <div class="showArea">
+              <button v-on:click="showLoading(`key1`)" class="loadingControlBtn">showLoading key1</button>
+              <button v-on:click="showLoading(`key2`)" class="loadingControlBtn">showLoading key2</button>
+              <button v-on:click="showLoading(`key3`)" class="loadingControlBtn">showLoading key3</button>
+              <button v-on:click="hideLoading(`key1`)" class="loadingControlBtn">hideLoading key1</button>
+              <button v-on:click="hideLoading(`key2`)" class="loadingControlBtn">hideLoading key2</button>
+              <button v-on:click="hideLoading(`key3`)" class="loadingControlBtn">hideLoading key3</button>
+              <button v-on:click="hideAllLoading" class="loadingControlBtn">hideAllLoading</button><br>
+              <marvel-loading ref="ref6" :isGlobal="true" :hasCancelBtn="true" v-on:onCancel="loadingOnCancel(arguments, 'ref6')"></marvel-loading>
             </div>
             <!--2级DemoView end-->
           </div>
@@ -113,7 +148,8 @@
         }],
         //#endregion
         //#region custom data
-
+        isShowCancelBtn: false,
+        isShowCancelBtn2: false
         //#endregion
       }
     },
@@ -136,38 +172,55 @@
       //#endregion
 
       showGlobal: function(){
-        this.$refs.ref0.imsgMarvelLoadingShow("global loading...");
+        this.$refs.ref0.showLoading("ref0", "global loading...");
       },
       showLeft: function(){
-        this.$refs.ref1.imsgMarvelLoadingShow("loading");
+        this.$refs.ref1.showLoading("ref1", "loading");
       },
       hideLeft: function(){
-        this.$refs.ref1.imsgMarvelLoadingHide();
+        this.$refs.ref1.hideLoading("ref1");
       },
       showRight: function(){
-        this.$refs.ref2.imsgMarvelLoadingShow("加载中");
+        this.$refs.ref2.showLoading("ref2", "加载中");
       },
       hideRight: function(){
-        this.$refs.ref2.imsgMarvelLoadingHide();
+        this.$refs.ref2.hideLoading("ref2");
+      },
+      showCancelBtn: function(bIsShow){
+        this.isShowCancelBtn = bIsShow;
       },
 
       showGlobal2: function(){
-        this.$refs.ref3.imsgMarvelLoadingShow("global loading...");
+        this.$refs.ref3.showLoading("ref3", "global loading...");
       },
       showLeft2: function(){
-        this.$refs.ref4.imsgMarvelLoadingShow("loading");
+        this.$refs.ref4.showLoading("ref4", "loading");
       },
       hideLeft2: function(){
-        this.$refs.ref4.imsgMarvelLoadingHide();
+        this.$refs.ref4.hideLoading("ref4");
       },
       showRight2: function(){
-        this.$refs.ref5.imsgMarvelLoadingShow("加载中");
+        this.$refs.ref5.showLoading("ref5", "加载中");
       },
       hideRight2: function(){
-        this.$refs.ref5.imsgMarvelLoadingHide();
+        this.$refs.ref5.hideLoading("ref5");
       },
-      loadingOnCancel:function(){
-        console.log("loadingCancel");
+      showCancelBtn2: function(bIsShow){
+        this.isShowCancelBtn2 = bIsShow;
+      },
+
+      loadingOnCancel:function(strKey, refKey){
+        this.$refs[refKey].hideLoading(strKey[0]);
+      },
+
+      showLoading: function (strKey) {
+        this.$refs.ref6.showLoading(strKey, "public loading " + strKey);
+      },
+      hideLoading: function (strKey) {
+        this.$refs.ref6.hideLoading(strKey);
+      },
+      hideAllLoading: function () {
+        this.$refs.ref6.hideAllLoading();
       }
 
       //#endregion
@@ -243,6 +296,10 @@
     background-color: #c1d9ff;
     position: relative;
     float: left;
+  }
+  .loadingControlBtn {
+    z-index: 999999;
+    position: relative;
   }
 
   /*document custom style end*/
