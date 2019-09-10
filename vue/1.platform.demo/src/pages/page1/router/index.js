@@ -53,6 +53,7 @@ import Page4MarvelAccordion3 from '../components/demo4widgets/4.navigator/Page4M
 import Page4MarvelAccordion4 from '../components/demo4widgets/4.navigator/Page4MarvelAccordion4'
 import Page4MarvelCrumb from '../components/demo4widgets/4.navigator/Page4MarvelCrumb'
 import Page4MarvelMenu from '../components/demo4widgets/4.navigator/Page4MarvelMenu'
+import Page4MarvelMenuContextC from '../components/demo4widgets/4.navigator/Page4MarvelMenuContextC'
 import Page4MarvelMenuContext from '../components/demo4widgets/4.navigator/Page4MarvelMenuContext'
 import Page4MarvelMenuContext2 from '../components/demo4widgets/4.navigator/Page4MarvelMenuContext2'
 import Page4MarvelMenuDropDown from '../components/demo4widgets/4.navigator/Page4MarvelMenuDropDown'
@@ -335,6 +336,10 @@ export default new Router({
       path: '/Page4MarvelMenu',
       name: 'Page4MarvelMenu',
       component:Page4MarvelMenu
+    },{
+      path: '/Page4MarvelMenuContextC',
+      name: 'Page4MarvelMenuContextC',
+      component:Page4MarvelMenuContextC
     },{
       path: '/Page4MarvelMenuContext',
       name: 'Page4MarvelMenuContext',

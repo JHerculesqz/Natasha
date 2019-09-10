@@ -1,10 +1,16 @@
 <template>
-  <div class="contextMenuWrapper_text" v-bind:id="contextMenuItemId"
-       v-bind:class="{ dpn: !show }"
+  <div v-bind:id="contextMenuItemId"
+       v-bind:class="{ dpn: !show,contextMenuWrapper_icon: onlyIcon,contextMenuWrapper_text:!onlyIcon }"
        v-bind:style="{ top: top + 'px', left: left + 'px',position: bIsFixed?'fixed':'absolute'}"
-       @contextmenu.prevent="notShowRightMenue()"
+       @contextmenu.prevent
        v-click-outside="hideSubMenu">
-    <div v-for="item in items"
+    <div v-if="onlyIcon" v-for="item in items"
+         class="contextMenuItem"
+         v-bind:class="item.icon"
+         v-bind:style="{ color: item.color }"
+         v-bind:title="item.label"
+         v-on:click="onMenuItemClick(item.label)"></div>
+    <div v-if="!onlyIcon" v-for="item in items"
          class="contextMenuItem">
       <div v-if="item.subMenu" class="multiItem" v-bind:title="item.label"
            v-on:mouseenter="onMenuItemMouseEnter(item)">
@@ -34,6 +40,11 @@
   export default {
     name: 'MarvelContextMenu',
     props: {
+      onlyIcon: {
+        type: Boolean,
+        default: false,
+        required: false,
+      },
       items: {
         type: Array,
         default: undefined,
@@ -229,6 +240,39 @@
     display: none;
   }
 
+  .contextMenuWrapper_icon {
+    position: absolute;
+    max-width: 144px;
+    overflow: hidden;
+    background-color: #ffffff;
+    border-radius: 4px;
+    padding: 2px;
+    z-index: 1000;
+    box-shadow: 0 0 2px 3px rgba(0, 0, 0, 0.15);
+  }
+
+  .contextMenuWrapper_icon .contextMenuItem {
+    width: 32px;
+    height: 32px;
+    float: left;
+    text-align: center;
+    margin: 2px;
+    line-height: 32px;
+    font-size: 18px;
+    color: #33bbff;
+    cursor: pointer;
+    -webkit-transition: font-size 0.4s ease-in-out 0s;
+    -moz-transition: font-size 0.4s ease-in-out 0s;
+    -ms-transition: font-size 0.4s ease-in-out 0s;
+    -o-transition: font-size 0.4s ease-in-out 0s;
+    transition: font-size 0.4s ease-in-out 0s;
+  }
+
+  .contextMenuWrapper_icon .contextMenuItem:hover {
+    box-shadow: 0 0 2px 3px rgba(0, 0, 0, 0.15);
+    font-size: 22px;
+  }
+
   .contextMenuWrapper_text {
     position: absolute;
     background-color: #FFFFFF;
@@ -355,6 +399,19 @@
   .dark .contextMenuWrapper_text .contextMenuItem:hover {
     background-color: #1d3b60;
     color: #3dcca6;
+  }
+
+  .dark .contextMenuWrapper_icon {
+    background-color: rgba(0, 0, 0, 0.8);
+    box-shadow: none;
+  }
+
+  .dark .contextMenuWrapper_icon .contextMenuItem {
+    color: #33bbff;
+  }
+
+  .dark .contextMenuWrapper_icon .contextMenuItem:hover {
+    box-shadow: 0 0 2px 3px rgba(255, 255, 255, 0.15);
   }
 
   /*endregion*/

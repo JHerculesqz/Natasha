@@ -1,32 +1,62 @@
 <template>
   <div class="widgetShowSession">
     <!--1级 start-->
-    <div class="title level1">MarvelMenuContext</div>
+    <div class="title level1">MarvelMenuContext2</div>
     <div class="describe">
 
     </div>
     <!--1级 end-->
     <!--region widget show area-->
     <!--2级 start-->
-
+    <div class="describe">图标右键菜单</div>
     <div class="showArea">
       <marvel-tab :tabItems="tabItems1">
         <marvel-tab-item :isActive="tabItems1[0].isActive">
-          <div class="showAreaInner">
+          <div class="showAreaInner" style="width: 100%;height: 100%">
             <!--2级DemoView start-->
-            <button v-on:click.stop="onClick">show</button>
-            <marvel-context-menu ref="ref0"
-                                 :items="items"
-                                 v-on:onMenuItemClick="onMenuItemClick"></marvel-context-menu>
+            <div id="contextMenuWrapper1" style="width: 100%; height: 100%;" @contextmenu.prevent="showContextMenu1">
+              <marvel-context-menu ref="refContextMenu1"
+                                    :items="items1"
+                                    containerId="contextMenuWrapper1"
+                                    contextMenuItemId="contextMenuWrapperInner1"
+                                    v-on:onMenuItemClick="onMenuItemClick1"></marvel-context-menu>
+            </div>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
         <marvel-tab-item :isActive="tabItems1[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-             <marvel-menu-context ref="ref0"
-                                 :items="items"
-                                 v-on:onMenuItemClick="onMenuItemClick"></marvel-menu-context>
+
+            '></marvel-ace-editor>
+          </div>
+        </marvel-tab-item>
+      </marvel-tab>
+    </div>
+    <!--2级 end-->
+
+    <!--2级 start-->
+    <div class="describe">文本右键菜单</div>
+    <div class="showArea">
+      <marvel-tab :tabItems="tabItems1">
+        <marvel-tab-item :isActive="tabItems1[0].isActive">
+          <div class="showAreaInner" style="width: 100%;height: 100%">
+            <!--2级DemoView start-->
+            <div id="contextMenuWrapper2" style="width: 100%; height: 100%;" @contextmenu.prevent="showContextMenu2">
+              <marvel-context-menu ref="refContextMenu2"
+                                   :items="items2"
+                                   :onlyIcon="true"
+                                   containerId="contextMenuWrapper2"
+                                   contextMenuItemId="contextMenuWrapperInner2"
+                                   v-on:onMenuItemClick="onMenuItemClick1"></marvel-context-menu>
+            </div>
+            <!--2级DemoView end-->
+          </div>
+        </marvel-tab-item>
+        <marvel-tab-item :isActive="tabItems1[1].isActive">
+          <div class="codeArea">
+            <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
+
             '></marvel-ace-editor>
           </div>
         </marvel-tab-item>
@@ -36,7 +66,7 @@
     <!--endregion-->
     <!--region doc area-->
     <div class="docArea">
-      <marvel-i-frame ref="page4MarvelMenuContextIFrame" id="page4MarvelMenuContextIFrame" src="static/jsdoc/module-MarvelMenuContext.html"></marvel-i-frame>
+      <marvel-i-frame ref="page4MarvelMenuContext2IFrame" id="page4MarvelMenuContext2IFrame" src="static/jsdoc/module-MarvelMenuContext2.html"></marvel-i-frame>
     </div>
     <!--endregion-->
   </div>
@@ -46,8 +76,8 @@
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
-  import MarvelContextMenu from "^/widget/contextMenu/MarvelContextMenu"
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
+  import MarvelContextMenu from "~~/widget/contextMenu/MarvelContextMenu";
 
   export default {
     name: 'page4MarvelMenuContextC',
@@ -70,7 +100,21 @@
         }],
         //#endregion
         //#region custom data
-        items: [{
+        items1:[{
+          label:"contextMenu1",
+          subMenu:[{
+            label:"contextSubMenu1"
+          },{
+            label:"contextSubMenu2"
+          },{
+            label:"contextSubMenu3"
+          },{
+            label:"contextSubMenu4"
+          }]
+        },{
+          label:"contextMenu2",
+        }],
+        items2: [{
           icon: "icon-cancel-circle",
           color: "#ff4c4c",
           label: "删除"
@@ -95,18 +139,27 @@
       //#region lifeCycle
 
       _initEx: function () {
-        this.$refs.page4MarvelMenuContextIFrame.setIframe4DemoPage();
+        this.$refs.page4MarvelMenuContext2IFrame.setIframe4DemoPage();
       },
 
       //#endregion
 
-      onClick: function(){
-        console.log("1");
-        this.$refs.ref0.showSubMenu(500,200);
+      showContextMenu1: function (e) {
+        console.log(e);
+        var x = e.clientX;
+        var y = e.clientY;
+        this.$refs.refContextMenu1.showSubMenu(x,y);
       },
-      onMenuItemClick: function(strMenuItemLabel){
-        alert(strMenuItemLabel);
-      },
+      showContextMenu2: function (e) {
+              console.log(e);
+              var x = e.clientX;
+              var y = e.clientY;
+              this.$refs.refContextMenu2.showSubMenu(x,y);
+            },
+
+      onMenuItemClick1: function (strMenuItemLabel) {
+        console.log(strMenuItemLabel);
+      }
 
       //#endregion
       //#region callback
