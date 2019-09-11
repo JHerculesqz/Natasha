@@ -7,51 +7,61 @@
     </div>
     <!--1级 end-->
     <!--region widget show area-->
-    <!--2级 start-->
 
+    <!--2级 start-->
+    <div class="describe">局部提示</div>
     <div class="showArea">
       <marvel-tab :tabItems="tabItems1">
         <marvel-tab-item :isActive="tabItems1[0].isActive">
-          <div class="showAreaInner">
+          <div class="showAreaInner" style="height: 100%;position: relative;">
             <!--2级DemoView start-->
-            <div style="width:100%; height: 100%;">
-              <div class="panel">
-                <MarvelPrompt :status="items[0].status" :content="items[0].content" :disposeTimeOut="2000"></MarvelPrompt>
-              </div>
-              <div class="panel">
-                <MarvelPrompt :status="items[1].status" :content="items[1].content"></MarvelPrompt>
-              </div>
-              <div class="panel">
-                <MarvelPrompt :status="items[2].status" :content="items[2].content"></MarvelPrompt>
-              </div>
-            </div>
+            <button v-on:click="onClickAddError1">添加一条错误提示</button>
+            <button v-on:click="onClickAddWarning1">添加一条警告提示</button>
+            <button v-on:click="onClickAddTip1">添加一条普通提示</button>
+            <marvel-prompt :oPrompts="oPrompts" :disposeTimeOut="3000" :isGlobal="false"></marvel-prompt>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
         <marvel-tab-item :isActive="tabItems1[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-            <div style="width:100%; height: 100%;">
-              <div class="panel">
-                <MarvelPrompt :status="items[0].status" :content="items[0].content" :disposeTimeOut="2000"></MarvelPrompt>
-              </div>
-              <div class="panel">
-                <MarvelPrompt :status="items[1].status" :content="items[1].content"></MarvelPrompt>
-              </div>
-              <div class="panel">
-                <MarvelPrompt :status="items[2].status" :content="items[2].content"></MarvelPrompt>
-              </div>
-            </div>
+
             '></marvel-ace-editor>
           </div>
         </marvel-tab-item>
       </marvel-tab>
     </div>
     <!--2级 end-->
+
+    <!--2级 start-->
+    <div class="describe">全局提示</div>
+    <div class="showArea">
+      <marvel-tab :tabItems="tabItems1">
+        <marvel-tab-item :isActive="tabItems1[0].isActive">
+          <div class="showAreaInner">
+            <!--2级DemoView start-->
+            <button v-on:click="onClickAddError2">添加一条错误提示</button>
+            <button v-on:click="onClickAddWarning2">添加一条警告提示</button>
+            <button v-on:click="onClickAddTip2">添加一条普通提示</button>
+            <marvel-prompt :oPrompts="oGlobalPrompts" :disposeTimeOut="3000"></marvel-prompt>
+            <!--2级DemoView end-->
+          </div>
+        </marvel-tab-item>
+        <marvel-tab-item :isActive="tabItems1[1].isActive">
+          <div class="codeArea">
+            <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
+
+            '></marvel-ace-editor>
+          </div>
+        </marvel-tab-item>
+      </marvel-tab>
+    </div>
+    <!--2级 end-->
+
     <!--endregion-->
     <!--region doc area-->
     <div class="docArea">
-      <marvel-i-frame ref="page4MarvelPromptIFrame" id="page4MarvelPromptIFrame" src="static/jsdoc/module-MarvelPrompt.html"></marvel-i-frame>
+      <marvel-i-frame ref="page4MarvelPromptGlobalIFrame" id="page4MarvelPromptGlobalIFrame" src="static/jsdoc/module-MarvelPromptGlobal.html"></marvel-i-frame>
     </div>
     <!--endregion-->
   </div>
@@ -61,7 +71,7 @@
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
-  import MarvelPrompt from '^/widget/prompting/MarvelPrompt'
+  import MarvelPrompt from "^/widget/prompting/MarvelPrompt";
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
 
   export default {
@@ -83,22 +93,17 @@
           label: "Code View",
           isActive: false
         }],
+        tabItems2: [{
+          label: "Demo View",
+          isActive: true
+        }, {
+          label: "Code View",
+          isActive: false
+        }],
         //#endregion
         //#region custom data
-        items: [
-          {
-            status: '0',
-            content: 'prompt1'
-          },
-          {
-            status: '1',
-            content: 'prompt2'
-          },
-          {
-            status: '2',
-            content: 'prompt3'
-          }
-        ],
+        oPrompts:[],
+        oGlobalPrompts:[]
         //#endregion
       }
     },
@@ -115,10 +120,48 @@
       //#region lifeCycle
 
       _initEx: function () {
-        this.$refs.page4MarvelPromptIFrame.setIframe4DemoPage();
+        this.$refs.page4MarvelPromptGlobalIFrame.setIframe4DemoPage();
       },
 
       //#endregion
+
+      onClickAddError1:function(){
+        this.oPrompts.push({
+          status: '2',
+          content: 'prompt1'
+        });
+      },
+      onClickAddWarning1:function(){
+        this.oPrompts.push({
+          status: '1',
+          content: 'prompt2'
+        });
+      },
+      onClickAddTip1:function(){
+        this.oPrompts.push({
+          status: '0',
+          content: 'prompt3'
+        });
+      },
+
+      onClickAddError2:function(){
+        this.oGlobalPrompts.push({
+          status: '2',
+          content: 'prompt1'
+        });
+      },
+      onClickAddWarning2:function(){
+        this.oGlobalPrompts.push({
+          status: '1',
+          content: 'prompt2'
+        });
+      },
+      onClickAddTip2:function(){
+        this.oGlobalPrompts.push({
+          status: '0',
+          content: 'prompt3'
+        });
+      }
 
       //#endregion
       //#region callback

@@ -1,13 +1,13 @@
 <template>
-  <div class="promptGlobalContainer" v-dom-portal="isGlobal">
+  <div class="promptGlobalContainer" :class="[{ promptWrapper: !isGlobal }, promptPos]" v-dom-portal="isGlobal" :style="promptPosCalc">
     <!--<div class="promptBoxes" >-->
     <marvel-prompt-item class="customStyle" v-for="(prompt, index) in oPrompts"
-                  :key="prompt.id ? prompt.id : index"
-                  :status="prompt.status"
-                  :content="prompt.content"
-                  :prompt="prompt"
-                  @destroy="promptDestroy"
-                  :disposeTimeOut="disposeTimeOut"></marvel-prompt-item>
+                        :key="prompt.id ? prompt.id : index"
+                        :status="prompt.status"
+                        :content="prompt.content"
+                        :prompt="prompt"
+                        @destroy="promptDestroy"
+                        :disposeTimeOut="disposeTimeOut"></marvel-prompt-item>
     <!--</div>-->
   </div>
 </template>
@@ -16,19 +16,24 @@
   import MarvelPromptItem from './MarvelPromptItem.vue';
 
   /**
-   *  MarvelPromptGlobal widget description
+   *  MarvelPromptC widget description
    *  @vuedoc
-   *  @exports MarvelPromptGlobal
+   *  @exports MarvelPromptC
    */
   export default {
     components: {
       MarvelPromptItem
     },
-    name: "MarvelPromptGlobal",
+    name: "MarvelPrompt",
     props: {
+      top: {
+        type: String,
+        default: undefined,
+        required: false,
+      },
       isGlobal: {
         type: Boolean,
-        default: false,
+        default: true,
         required: false,
       },
       oPrompts: {
@@ -44,6 +49,11 @@
     },
     data: function () {
       return {};
+    },
+    computed:{
+      promptPosCalc:function () {
+
+      }
     },
     methods: {
       //#region inner
@@ -83,11 +93,16 @@
   }
 
   /*endregion*/
+
   .promptGlobalContainer {
     position: fixed;
     bottom: 0px;
     right: 20px;
     z-index: 3003;
+  }
+
+  .promptWrapper{
+    position: absolute !important;
   }
 
   .customStyle {

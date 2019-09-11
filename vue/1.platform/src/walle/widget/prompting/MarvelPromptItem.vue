@@ -163,24 +163,25 @@
     border: 1px solid;
     border-radius: 6px;
     overflow: hidden;
+    text-shadow: 1px 1px 1px rgba(255,255,255,0.6);
   }
 
   .promptInfo {
-    background-color: rgba(61, 204, 166, 0.3);
-    border-color: #5ccbb1;
-    color: #5ccbb1;
+    background-color: rgba(61, 204, 166, 0.4);
+    border-color: #4d9e88;
+    color: #4d9e88;
     font-size: 16px;
   }
 
   .promptTip {
-    background-color: rgba(51, 153, 255, 0.3);
+    background-color: rgba(51, 153, 255, 0.4);
     border-color: #1b8adb;
     color: #1b8adb;
     font-size: 16px;
   }
 
   .promptError {
-    background-color: rgba(255, 76, 76, 0.3);
+    background-color: rgba(255, 76, 76, 0.4);
     border-color: #e54545;
     color: #e54545;
     font-size: 16px;
@@ -224,5 +225,9 @@
     font-size: 8px;
     text-align: center;
     width: 12px;
+  }
+
+  .dark .promptContainer{
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.6);
   }
 </style>
