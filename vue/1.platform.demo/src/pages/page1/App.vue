@@ -284,7 +284,6 @@
             {id: "Page4MarvelAceEditor", label: "Page4MarvelAceEditor"},
             {id: "Page4MarvelLegend", label: "Page4MarvelLegend"},
             {id: "Page4MarvelLogView", label: "Page4MarvelLogView"},
-            {id: "Page4MarvelPromptEx", label: "*Page4MarvelPromptEx"},
             {id: "Page4MarvelToolbar", label: "Page4MarvelToolbar"},
             {id: "Page4MarvelWarning", label: "Page4MarvelWarning"},
           ]

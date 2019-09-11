@@ -90,7 +90,6 @@ import Page4MarvelLoadingPublicEx from '../components/demo4widgets/6.items/Page4
 import Page4MarvelLogView from '../components/demo4widgets/6.items/Page4MarvelLogView'
 import Page4MarvelPaging from '../components/demo4widgets/6.items/Page4MarvelPaging'
 import Page4MarvelPrompt from '../components/demo4widgets/6.items/Page4MarvelPrompt'
-import Page4MarvelPromptEx from '../components/demo4widgets/6.items/Page4MarvelPromptEx'
 import Page4MarvelPromptGLobal from '../components/demo4widgets/6.items/Page4MarvelPromptGLobal'
 import Page4MarvelSlider from '../components/demo4widgets/6.items/Page4MarvelSlider'
 import Page4MarvelToolbar from '../components/demo4widgets/6.items/Page4MarvelToolbar'
@@ -477,10 +476,6 @@ export default new Router({
       path: '/Page4MarvelPrompt',
       name: 'Page4MarvelPrompt',
       component:Page4MarvelPrompt
-    },{
-      path: '/Page4MarvelPromptEx',
-      name: 'Page4MarvelPromptEx',
-      component:Page4MarvelPromptEx
     },{
       path: '/Page4MarvelPromptGLobal',
       name: 'Page4MarvelPromptGLobal',
