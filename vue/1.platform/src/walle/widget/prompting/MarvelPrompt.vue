@@ -1,5 +1,5 @@
 <template>
-  <div class="promptGlobalContainer" :class="[{ promptWrapper: !isGlobal }, promptPos]" v-dom-portal="isGlobal" :style="promptPosCalc">
+  <div class="promptGlobalContainer" :class="[{ promptWrapper: !isGlobal }, promptCustomClass]" v-dom-portal="isGlobal">
     <!--<div class="promptBoxes" >-->
     <marvel-prompt-item class="customStyle" v-for="(prompt, index) in oPrompts"
                         :key="prompt.id ? prompt.id : index"
@@ -26,9 +26,9 @@
     },
     name: "MarvelPrompt",
     props: {
-      top: {
+      promptCustomClass: {
         type: String,
-        default: undefined,
+        default: "promptDefaultPos",
         required: false,
       },
       isGlobal: {
@@ -49,11 +49,6 @@
     },
     data: function () {
       return {};
-    },
-    computed:{
-      promptPosCalc:function () {
-
-      }
     },
     methods: {
       //#region inner
@@ -96,9 +91,12 @@
 
   .promptGlobalContainer {
     position: fixed;
+    z-index: 3003;
+  }
+
+  .promptDefaultPos{
     bottom: 0px;
     right: 20px;
-    z-index: 3003;
   }
 
   .promptWrapper{

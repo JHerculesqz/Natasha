@@ -18,7 +18,7 @@
             <button v-on:click="onClickAddError1">添加一条错误提示</button>
             <button v-on:click="onClickAddWarning1">添加一条警告提示</button>
             <button v-on:click="onClickAddTip1">添加一条普通提示</button>
-            <marvel-prompt :oPrompts="oPrompts" :disposeTimeOut="3000" :isGlobal="false"></marvel-prompt>
+            <marvel-prompt :oPrompts="oPrompts" :disposeTimeOut="3000" :isGlobal="false" promptCustomClass="promptCustomClass"></marvel-prompt>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -220,6 +220,11 @@
   /*document custom style start*/
   .showArea {
     height: 400px;
+  }
+
+  .promptCustomClass{
+    top: 70px;
+    left: calc(50% - 200px);
   }
 
   /*document custom style end*/
