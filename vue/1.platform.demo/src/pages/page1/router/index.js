@@ -56,6 +56,7 @@ import Page4MarvelMenu from '../components/demo4widgets/4.navigator/Page4MarvelM
 import Page4MarvelMenuContextC from '../components/demo4widgets/4.navigator/Page4MarvelMenuContextC'
 import Page4MarvelMenuContext from '../components/demo4widgets/4.navigator/Page4MarvelMenuContext'
 import Page4MarvelMenuContext2 from '../components/demo4widgets/4.navigator/Page4MarvelMenuContext2'
+import Page4MarvelDropDownMenu from '../components/demo4widgets/4.navigator/Page4MarvelDropDownMenu'
 import Page4MarvelMenuDropDown from '../components/demo4widgets/4.navigator/Page4MarvelMenuDropDown'
 import Page4MarvelMenuHelp from '../components/demo4widgets/4.navigator/Page4MarvelMenuHelp'
 import Page4MarvelMenuNew from '../components/demo4widgets/4.navigator/Page4MarvelMenuNew'
@@ -348,6 +349,10 @@ export default new Router({
       path: '/Page4MarvelMenuContext2',
       name: 'Page4MarvelMenuContext2',
       component:Page4MarvelMenuContext2
+    },{
+      path: '/Page4MarvelDropDownMenu',
+      name: 'Page4MarvelDropDownMenu',
+      component:Page4MarvelDropDownMenu
     },{
       path: '/Page4MarvelMenuDropDown',
       name: 'Page4MarvelMenuDropDown',

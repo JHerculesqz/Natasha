@@ -8,17 +8,18 @@
     <!--1级 end-->
     <!--region widget show area-->
     <!--2级 start-->
-
+    <div class="describe">常规</div>
     <div class="showArea">
       <marvel-tab :tabItems="tabItems1">
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
             <div class="chart">
-              <div style="width: 500px; height: 350px;">
+              <div style="width: 500px; height: 350px;position: relative;left: 300px;">
                 <marvel-drop-down-menu :menus="menus"
                                        height="50px"
-                                       v-on:clickSubMenu="clickSubMenu"></marvel-drop-down-menu>
+                                       v-on:clickSubMenu="clickSubMenu"
+                                       v-on:clickOperationIcon="clickOperationIcon"></marvel-drop-down-menu>
               </div>
             </div>
             <!--2级DemoView end-->
@@ -40,6 +41,43 @@
       </marvel-tab>
     </div>
     <!--2级 end-->
+
+    <!--2级 start-->
+    <div class="describe">简化</div>
+    <div class="showArea">
+      <marvel-tab :tabItems="tabItems2">
+        <marvel-tab-item :isActive="tabItems2[0].isActive">
+          <div class="showAreaInner">
+            <!--2级DemoView start-->
+            <div class="chart">
+              <div style="width: 500px; height: 350px;position: relative;left: 300px;">
+                <marvel-drop-down-menu :menus="menus"
+                                       height="50px"
+                                       type="Simplify"
+                                       v-on:clickSubMenu="clickSubMenu"
+                                       v-on:clickOperationIcon="clickOperationIcon"></marvel-drop-down-menu>
+              </div>
+            </div>
+            <!--2级DemoView end-->
+          </div>
+        </marvel-tab-item>
+        <marvel-tab-item :isActive="tabItems2[1].isActive">
+          <div class="codeArea">
+            <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
+            <div class="chart">
+              <div style="width: 500px; height: 350px;">
+                <marvel-menu-drop-down :menus="menus"
+                                       height="50px"
+                                       v-on:clickSubMenu="clickSubMenu"></marvel-menu-drop-down>
+              </div>
+            </div>
+            '></marvel-ace-editor>
+          </div>
+        </marvel-tab-item>
+      </marvel-tab>
+    </div>
+    <!--2级 end-->
+
     <!--endregion-->
     <!--region doc area-->
     <div class="docArea">
@@ -57,7 +95,7 @@
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
 
   export default {
-    name: 'page4MarvelMenuDropDown',
+    name: 'page4MarvelDropDownMenu',
     components: {
       MarvelDropDownMenu,
       MarvelIFrame,
@@ -75,6 +113,13 @@
           label: "Code View",
           isActive: false
         }],
+        tabItems2: [{
+          label: "Demo View",
+          isActive: true
+        }, {
+          label: "Code View",
+          isActive: false
+        }],
         //#endregion
         //#region custom data
         menus: {
@@ -84,7 +129,15 @@
           },
           subMenu: [{
             icon: "icon-user",
-            label: "我的工作台"
+            label: "我的工作台",
+            subMenu:[{
+              label: "我的工作台",
+              operationIcons:[{
+                icon:"icon-java",
+              },{
+                icon:"icon-marvelIcon_2-03",
+              }]
+            }]
           }, {
             icon: "icon-user",
             label: "日志"
@@ -125,6 +178,10 @@
 
       clickSubMenu: function (strLabel) {
         console.log(strLabel);
+      },
+      clickOperationIcon: function (strLabel, strIcon) {
+        console.log(strLabel);
+        console.log(strIcon);
       }
 
       //#endregion
