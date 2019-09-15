@@ -15,7 +15,8 @@
           <div class="showAreaInner" style="height: 100%;">
             <!--2级DemoView start-->
             <div style="position: relative;width: 100%; height: 100%;background-color: #f0f0f0;">
-              <button @click="changeZIndex">changeZIndex to -1</button>
+              <button @click="changeZIndex(-1)">hide</button>
+              <button @click="changeZIndex(2000)">show</button>
               <marvel-float-panel ref="aaa"
                                   :posBottom= 250
                                   :posRight= 250
@@ -114,8 +115,8 @@
         this.floatPanelText = "open";
       },
 
-      changeZIndex: function(){
-        this.$refs.aaa.setZIndex(-1);
+      changeZIndex: function(iIndex){
+        this.$refs.aaa.setZIndex(iIndex);
       }
 
       //#endregion
