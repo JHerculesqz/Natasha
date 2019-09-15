@@ -6,7 +6,7 @@
 
 ## 原有控件更新为最新控件所需适配：
 
-    MarvelDashboard   -- --  更改控件标签，原使用配置可不做变更
+    MarvelDashboard   -- --  原使用配置可不做变更
     MarvelDashboardAdatptToContH    -- 更改控件标签，在原有配置基础上添加 添加配置项:bIsAdaptToContent="true"
 
   所涉及控件的共同修改点：

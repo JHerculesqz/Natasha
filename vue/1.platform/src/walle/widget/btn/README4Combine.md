@@ -9,7 +9,7 @@
 
 ## 原有控件更新为最新控件所需适配：
 
-    MarvelButton   -- --  更改控件标签，原使用配置可不做变更
+    MarvelButton   -- --  原使用配置可不做变更
     MarvelIconButton    -- 更改控件标签，在原有配置基础上添加 buttonType="noBorderBtn"
     MarvelIconTxtButton -- 更改控件标签，原使用配置可不做变更
     MarvelTxtButton -- 更改控件标签，在原有配置基础上添加 buttonType="noBorderBtn"
