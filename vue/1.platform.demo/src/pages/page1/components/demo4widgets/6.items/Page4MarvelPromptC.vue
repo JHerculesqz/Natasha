@@ -61,7 +61,7 @@
     <!--endregion-->
     <!--region doc area-->
     <div class="docArea">
-      <marvel-i-frame ref="page4MarvelPromptGlobalIFrame" id="page4MarvelPromptGlobalIFrame" src="static/jsdoc/module-MarvelPromptGlobal.html"></marvel-i-frame>
+      <marvel-i-frame ref="page4MarvelPromptIFrame" id="page4MarvelPromptIFrame" src="static/jsdoc/module-MarvelPromptC.html"></marvel-i-frame>
     </div>
     <!--endregion-->
   </div>
@@ -120,7 +120,7 @@
       //#region lifeCycle
 
       _initEx: function () {
-        this.$refs.page4MarvelPromptGlobalIFrame.setIframe4DemoPage();
+        this.$refs.page4MarvelPromptIFrame.setIframe4DemoPage();
       },
 
       //#endregion

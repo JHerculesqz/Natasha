@@ -65,7 +65,7 @@
     <!--endregion-->
     <!--region doc area-->
     <div class="docArea">
-      <marvel-i-frame ref="page4MarvelSearchWithDropDownIFrame" id="page4MarvelSearchWithDropDownIFrame" src="static/jsdoc/module-MarvelSearchEx.html"></marvel-i-frame>
+      <marvel-i-frame ref="page4MarvelSearchWithDropDownIFrame" id="page4MarvelSearchWithDropDownIFrame" src="static/jsdoc/module-MarvelSearchBox.html"></marvel-i-frame>
     </div>
     <!--endregion-->
   </div>

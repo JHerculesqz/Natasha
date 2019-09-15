@@ -33,9 +33,9 @@
 
 <script>
   /**
-   *  MarvelContextMenu widget description
+   *  MarvelContextMenuC widget description
    *  @vuedoc
-   *  @exports MarvelContextMenu
+   *  @exports MarvelContextMenuC
    */
   export default {
     name: 'MarvelContextMenu',

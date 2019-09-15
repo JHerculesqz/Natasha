@@ -1,7 +1,7 @@
 <template>
   <div class="widgetShowSession">
     <!--1级 start-->
-    <div class="title level1">MarvelMenuContext2</div>
+    <div class="title level1">MarvelMenuContext</div>
     <div class="describe">
 
     </div>
@@ -66,7 +66,7 @@
     <!--endregion-->
     <!--region doc area-->
     <div class="docArea">
-      <marvel-i-frame ref="page4MarvelMenuContext2IFrame" id="page4MarvelMenuContext2IFrame" src="static/jsdoc/module-MarvelMenuContext2.html"></marvel-i-frame>
+      <marvel-i-frame ref="page4MarvelMenuContext2IFrame" id="page4MarvelMenuContext2IFrame" src="static/jsdoc/module-MarvelMenuContextC.html"></marvel-i-frame>
     </div>
     <!--endregion-->
   </div>

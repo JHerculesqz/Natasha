@@ -1,7 +1,7 @@
 <template>
   <div class="widgetShowSession">
     <!--1级 start-->
-    <div class="title level1">MarvelMenuDropDown</div>
+    <div class="title level1">MarvelDropDownMenu</div>
     <div class="describe">
 
     </div>
@@ -81,7 +81,7 @@
     <!--endregion-->
     <!--region doc area-->
     <div class="docArea">
-      <marvel-i-frame ref="page4MarvelMenuDropDownIFrame" id="page4MarvelMenuDropDownIFrame" src="static/jsdoc/module-MarvelMenuDropDown.html"></marvel-i-frame>
+      <marvel-i-frame ref="page4MarvelDropDownMenuIFrame" id="page4MarvelDropDownMenuIFrame" src="static/jsdoc/module-MarvelDropDownMenu.html"></marvel-i-frame>
     </div>
     <!--endregion-->
   </div>
@@ -171,7 +171,7 @@
       //#region lifeCycle
 
       _initEx: function () {
-        this.$refs.page4MarvelMenuDropDownIFrame.setIframe4DemoPage();
+        this.$refs.page4MarvelDropDownMenuIFrame.setIframe4DemoPage();
       },
 
       //#endregion

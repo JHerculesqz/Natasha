@@ -115,7 +115,7 @@
     <!--endregion-->
     <!--region doc area-->
     <div class="docArea">
-      <marvel-i-frame ref="page4MarvelLoadingIFrame" id="page4MarvelLoadingIFrame" src="static/jsdoc/module-MarvelLoading.html"></marvel-i-frame>
+      <marvel-i-frame ref="page4MarvelLoadingIFrame" id="page4MarvelLoadingIFrame" src="static/jsdoc/module-MarvelLoadingC.html"></marvel-i-frame>
     </div>
     <!--endregion-->
   </div>

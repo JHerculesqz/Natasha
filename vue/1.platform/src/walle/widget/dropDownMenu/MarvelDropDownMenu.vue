@@ -42,12 +42,12 @@
 <script>
   import StringUtilsEx from "../../component/str";
   /**
-   *  MarvelMenuDropDown widget description
+   *  MarvelDropDownMenu widget description
    *  @vuedoc
-   *  @exports MarvelMenuDropDown
+   *  @exports MarvelDropDownMenu
    */
   export default {
-    name: 'MarvelMenuDropDown',
+    name: 'MarvelDropDownMenu',
     props: {
       type: {
         type: String,

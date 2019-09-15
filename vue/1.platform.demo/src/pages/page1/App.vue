@@ -329,10 +329,10 @@
           icon: "icon-book",
           expand: false,
           subItems: [{
-            id: "*Page4MarvelLayout1",
+            id: "Page4MarvelLayout1",
             label: "布局1"
           }, {
-            id: "*Page4MarvelLayout2",
+            id: "Page4MarvelLayout2",
             label: "布局2"
           }]
         },{

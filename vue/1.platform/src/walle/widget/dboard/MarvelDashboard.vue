@@ -16,9 +16,9 @@
 
 <script>
   /**
-   *  MarvelDashboardEx widget description
+   *  MarvelDashboardC widget description
    *  @vuedoc
-   *  @exports MarvelDashboardEx
+   *  @exports MarvelDashboardC
    */
   export default {
     name: 'MarvelDashboard',

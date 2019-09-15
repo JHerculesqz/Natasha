@@ -109,7 +109,7 @@
     <!--endregion-->
     <!--region doc area-->
     <div class="docArea">
-      <marvel-i-frame ref="page4MarvelDashboardIFrame" id="page4MarvelDashboardIFrame" src="static/jsdoc/module-MarvelDashboardEx.html"></marvel-i-frame>
+      <marvel-i-frame ref="page4MarvelDashboardIFrame" id="page4MarvelDashboardIFrame" src="static/jsdoc/module-MarvelDashboardC.html"></marvel-i-frame>
     </div>
     <!--endregion-->
   </div>

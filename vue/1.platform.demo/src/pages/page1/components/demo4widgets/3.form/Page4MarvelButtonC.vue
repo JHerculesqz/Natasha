@@ -197,7 +197,7 @@
     <!--endregion-->
     <!--region doc area-->
     <div class="docArea">
-      <marvel-i-frame ref="page4MarvelButtonIFrame" id="page4MarvelButtonIFrame" src="static/jsdoc/module-MarvelButtonEx.html"></marvel-i-frame>
+      <marvel-i-frame ref="page4MarvelButtonIFrame" id="page4MarvelButtonIFrame" src="static/jsdoc/module-MarvelButtonC.html"></marvel-i-frame>
     </div>
     <!--endregion-->
   </div>

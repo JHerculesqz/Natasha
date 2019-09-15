@@ -38,9 +38,9 @@
 
 <script>
   /**
-   *  MarvelLoading widget description
+   *  MarvelLoadingC widget description
    *  @vuedoc
-   *  @exports MarvelLoading
+   *  @exports MarvelLoadingC
    */
   export default {
     name: 'MarvelLoading',

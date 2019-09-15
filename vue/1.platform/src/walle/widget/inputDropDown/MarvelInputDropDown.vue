@@ -30,9 +30,9 @@
 
 <script>
   /**
-   *  MarvelInputDropDown widget description
+   *  MarvelInputDropDownC widget description
    *  @vuedoc
-   *  @exports MarvelInputDropDown
+   *  @exports MarvelInputDropDownC
    */
   export default {
     name: 'MarvelInputDropDown',

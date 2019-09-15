@@ -1,7 +1,7 @@
 <template>
   <div class="widgetShowSession">
     <!--1级 start-->
-    <div class="title level1">MarvelInputDropDownWithTip</div>
+    <div class="title level1">MarvelInputDropDown</div>
     <div class="describe">
 
     </div>
@@ -16,12 +16,12 @@
             <!--2级DemoView start-->
             <button v-on:click="onClick4GetInputDropDownWithTipSelectItem">getSelectItem</button>
             <button v-on:click="onClick4setInputDropDownWithTipSelectItem">setSelectItem aaa</button>
-            <marvel-input-drop-down-with-tip ref="ref16"
+            <marvel-input-drop-down ref="ref16"
                                              maxHeight="120px"
                                              :dropDownItems="inputItemsWithTip"
                                              :status="inputDropDownStatus"
                                              :errMsg="inputDropDownErrMsg"
-                                             v-on:onOptionSelect="onOptionSelectInDropDownWithTip"></marvel-input-drop-down-with-tip>
+                                             v-on:onOptionSelect="onOptionSelectInDropDownWithTip"></marvel-input-drop-down>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -45,7 +45,7 @@
     <!--endregion-->
     <!--region doc area-->
     <div class="docArea">
-      <marvel-i-frame ref="page4MarvelInputDropDownCIFrame" id="page4MarvelInputDropDownCIFrame" src="static/jsdoc/module-MarvelInputDropDownWithTip.html"></marvel-i-frame>
+      <marvel-i-frame ref="page4MarvelInputDropDownCIFrame" id="page4MarvelInputDropDownCIFrame" src="static/jsdoc/module-MarvelInputDropDownC.html"></marvel-i-frame>
     </div>
     <!--endregion-->
   </div>
@@ -55,13 +55,13 @@
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
-  import MarvelInputDropDownWithTip from "^/widget/button/MarvelInputDropDownWithTip";
+  import MarvelInputDropDown from "^/widget/inputDropDown/MarvelInputDropDown";
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
 
   export default {
     name: 'page4MarvelInputDropDownC',
     components: {
-      MarvelInputDropDownWithTip,
+      MarvelInputDropDown,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
