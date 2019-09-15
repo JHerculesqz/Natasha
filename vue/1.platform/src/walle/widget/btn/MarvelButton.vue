@@ -9,9 +9,9 @@
 
 <script>
   /**
-   *  MarvelButtonEx widget description
+   *  MarvelButtonC widget description
    *  @vuedoc
-   *  @exports MarvelButtonEx
+   *  @exports MarvelButtonC
    */
   export default {
     name: 'MarvelButton',
@@ -83,7 +83,7 @@
       },
       userDefineTitle: {
         type: String,
-        default: "",
+        default: undefined,
         required: false,
       },
     },
@@ -130,7 +130,7 @@
         this.disable = bIsDisable ? this.buttonType + "Disable" : "";
       },
 
-      isBtnDisabled: function () {
+      getStatus : function () {
         return this.disable == this.buttonType + "Disable" ? true : false;
       },
 
