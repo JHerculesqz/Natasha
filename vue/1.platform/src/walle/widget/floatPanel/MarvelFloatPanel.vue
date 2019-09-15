@@ -275,6 +275,7 @@
 
       setZIndex: function (iNum) {
         this.zIndex = iNum;
+        this._calFloatPanelStyle();
       }
 
       //#endregion
