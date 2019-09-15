@@ -19,7 +19,7 @@
       a.更改控件引用路径；
       
       b.自动化测试影响分析：
-        无
+        控件内按钮控件变更为src\walle\widget\btn\MarvelButton，自动化影响同MarvelButton
         
     2.合并后功能变更
       
