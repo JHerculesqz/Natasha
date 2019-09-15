@@ -21,7 +21,8 @@
               <button v-on:click="showRight" class="loadingControlBtn">showRight</button>
               <button v-on:click="hideRight" class="loadingControlBtn">hideRight</button>
               <button v-on:click="showCancelBtn(true)" class="loadingControlBtn">showCancelBtn</button>
-              <button v-on:click="showCancelBtn(false)" class="loadingControlBtn">hideCancelBtn</button><br>
+              <button v-on:click="showCancelBtn(false)" class="loadingControlBtn">hideCancelBtn</button>
+              <button v-on:click="cancelLeft" class="loadingControlBtn">cancelLeft</button><br>
               <marvel-loading ref="ref0" :isGlobal="true" :hasCancelBtn="isShowCancelBtn" v-on:onCancel="loadingOnCancel(arguments, 'ref0')"></marvel-loading>
               <div class="loadingArea1">
                 <marvel-loading ref="ref1" :isGlobal="false" :hasCancelBtn="isShowCancelBtn" v-on:onCancel="loadingOnCancel(arguments, 'ref1')"></marvel-loading>
@@ -188,6 +189,9 @@
       },
       showCancelBtn: function(bIsShow){
         this.isShowCancelBtn = bIsShow;
+      },
+      cancelLeft: function(){
+        this.$refs.ref1.imsgMarvelLoadingCancel("ref1");
       },
 
       showGlobal2: function(){

@@ -128,7 +128,7 @@
         }
       },
       imsgMarvelLoadingCancel: function(strKey){
-        this.hideLoading(strKey);
+        this.imsgMarvelLoadingHide(strKey);
         this.callback4OnCancel(strKey);
       },
 
