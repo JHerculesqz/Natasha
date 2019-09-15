@@ -89,12 +89,12 @@
           <div class="showAreaInner">
             <!--2级DemoView start-->
             <div class="showArea">
-              <button v-on:click="showLoading(`key1`)" class="loadingControlBtn">showLoading key1</button>
-              <button v-on:click="showLoading(`key2`)" class="loadingControlBtn">showLoading key2</button>
-              <button v-on:click="showLoading(`key3`)" class="loadingControlBtn">showLoading key3</button>
-              <button v-on:click="hideLoading(`key1`)" class="loadingControlBtn">hideLoading key1</button>
-              <button v-on:click="hideLoading(`key2`)" class="loadingControlBtn">hideLoading key2</button>
-              <button v-on:click="hideLoading(`key3`)" class="loadingControlBtn">hideLoading key3</button>
+              <button v-on:click="imsgMarvelLoadingShow(`key1`)" class="loadingControlBtn">showLoading key1</button>
+              <button v-on:click="imsgMarvelLoadingShow(`key2`)" class="loadingControlBtn">showLoading key2</button>
+              <button v-on:click="imsgMarvelLoadingShow(`key3`)" class="loadingControlBtn">showLoading key3</button>
+              <button v-on:click="imsgMarvelLoadingHide(`key1`)" class="loadingControlBtn">hideLoading key1</button>
+              <button v-on:click="imsgMarvelLoadingHide(`key2`)" class="loadingControlBtn">hideLoading key2</button>
+              <button v-on:click="imsgMarvelLoadingHide(`key3`)" class="loadingControlBtn">hideLoading key3</button>
               <button v-on:click="hideAllLoading" class="loadingControlBtn">hideAllLoading</button><br>
               <marvel-loading ref="ref6" :isGlobal="true" :hasCancelBtn="true" v-on:onCancel="loadingOnCancel(arguments, 'ref6')"></marvel-loading>
             </div>
@@ -148,8 +148,8 @@
         }],
         //#endregion
         //#region custom data
-        isShowCancelBtn: false,
-        isShowCancelBtn2: false
+        isShowCancelBtn: undefined,
+        isShowCancelBtn2: undefined
         //#endregion
       }
     },
@@ -172,55 +172,55 @@
       //#endregion
 
       showGlobal: function(){
-        this.$refs.ref0.showLoading("ref0", "global loading...");
+        this.$refs.ref0.imsgMarvelLoadingShow("ref0", "global loading...");
       },
       showLeft: function(){
-        this.$refs.ref1.showLoading("ref1", "loading");
+        this.$refs.ref1.imsgMarvelLoadingShow("ref1", "loading");
       },
       hideLeft: function(){
-        this.$refs.ref1.hideLoading("ref1");
+        this.$refs.ref1.imsgMarvelLoadingHide("ref1");
       },
       showRight: function(){
-        this.$refs.ref2.showLoading("ref2", "加载中");
+        this.$refs.ref2.imsgMarvelLoadingShow("ref2", "加载中");
       },
       hideRight: function(){
-        this.$refs.ref2.hideLoading("ref2");
+        this.$refs.ref2.imsgMarvelLoadingHide("ref2");
       },
       showCancelBtn: function(bIsShow){
         this.isShowCancelBtn = bIsShow;
       },
 
       showGlobal2: function(){
-        this.$refs.ref3.showLoading("ref3", "global loading...");
+        this.$refs.ref3.imsgMarvelLoadingShow("ref3", "global loading...");
       },
       showLeft2: function(){
-        this.$refs.ref4.showLoading("ref4", "loading");
+        this.$refs.ref4.imsgMarvelLoadingShow("ref4", "loading");
       },
       hideLeft2: function(){
-        this.$refs.ref4.hideLoading("ref4");
+        this.$refs.ref4.imsgMarvelLoadingHide("ref4");
       },
       showRight2: function(){
-        this.$refs.ref5.showLoading("ref5", "加载中");
+        this.$refs.ref5.imsgMarvelLoadingShow("ref5", "加载中");
       },
       hideRight2: function(){
-        this.$refs.ref5.hideLoading("ref5");
+        this.$refs.ref5.imsgMarvelLoadingHide("ref5");
       },
       showCancelBtn2: function(bIsShow){
         this.isShowCancelBtn2 = bIsShow;
       },
 
       loadingOnCancel:function(strKey, refKey){
-        this.$refs[refKey].hideLoading(strKey[0]);
+        this.$refs[refKey].imsgMarvelLoadingHide(strKey[0]);
       },
 
       showLoading: function (strKey) {
-        this.$refs.ref6.showLoading(strKey, "public loading " + strKey);
+        this.$refs.ref6.imsgMarvelLoadingShow(strKey, "public loading " + strKey);
       },
       hideLoading: function (strKey) {
-        this.$refs.ref6.hideLoading(strKey);
+        this.$refs.ref6.imsgMarvelLoadingHide(strKey);
       },
       hideAllLoading: function () {
-        this.$refs.ref6.hideAllLoading();
+        this.$refs.ref6.imsgMarvelLoadingHideAll();
       }
 
       //#endregion

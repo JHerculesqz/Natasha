@@ -52,7 +52,7 @@
       },
       hasCancelBtn: {
         type: Boolean,
-        default: false,
+        default: true,
         required: false,
       },
       onlyIcon:{
@@ -110,7 +110,7 @@
       //#endregion
       //#region 3rd
 
-      showLoading: function (strKey, strLoadingMsg) {
+      imsgMarvelLoadingShow: function (strKey, strLoadingMsg) {
         if (this._getIndexInList(strKey) == -1) {
           //registry
           this.showList.push({
@@ -119,7 +119,7 @@
           });
         }
       },
-      hideLoading: function (strKey) {
+      imsgMarvelLoadingHide: function (strKey) {
         //is already registry
         var iIndexInList = this._getIndexInList(strKey);
         if (iIndexInList != -1) {
@@ -127,8 +127,12 @@
           this.showList.splice(iIndexInList, 1);
         }
       },
+      imsgMarvelLoadingCancel: function(strKey){
+        this.hideLoading(strKey);
+        this.callback4OnCancel(strKey);
+      },
 
-      hideAllLoading: function () {
+      imsgMarvelLoadingHideAll: function () {
         //is already registry
         this.showList = [];
       },
