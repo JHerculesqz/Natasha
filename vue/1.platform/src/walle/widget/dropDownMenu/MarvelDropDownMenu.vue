@@ -14,7 +14,7 @@
       <div class="topTriangle"></div>
       <div class="userInfoSubMenuCont">
         <div class="userInfoSubMenuItem" v-for="item in menus.subMenu">
-          <div class="userInfoSubMenuItemContainer" v-on:click="clickSubMenu(item.label)">
+          <div class="userInfoSunbMenuItemContainer" v-on:click="clickSubMenu(item.label)">
             <div class="userInfoSubMenuItemIcon" v-bind:class="item.icon"></div>
             <div class="userInfoSubMenuItemName">{{item.label}}</div>
             <div class="userInfoSubMenuItemOperationIcon"
@@ -306,7 +306,7 @@
     box-sizing: border-box;
   }
 
-  .userInfoWrapper .userInfoSubMenu .userInfoSubMenuCont .userInfoSubMenuItemContainer{
+  .userInfoWrapper .userInfoSubMenu .userInfoSubMenuCont .userInfoSunbMenuItemContainer{
     height: 24px;
   }
 
