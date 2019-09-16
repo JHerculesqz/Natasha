@@ -96,6 +96,7 @@ import Page4MarvelSlider from '../components/demo4widgets/6.items/Page4MarvelSli
 import Page4MarvelToolbar from '../components/demo4widgets/6.items/Page4MarvelToolbar'
 import Page4MarvelWarning from '../components/demo4widgets/6.items/Page4MarvelWarning'
 
+import Page4MarvelTable from '../components/demo4widgets/7.grid/Page4MarvelTable'
 import Page4MarvelGrid from '../components/demo4widgets/7.grid/Page4MarvelGrid'
 import Page4MarvelGridEx from '../components/demo4widgets/7.grid/Page4MarvelGridEx'
 import Page4MarvelGridExFilter from '../components/demo4widgets/7.grid/Page4MarvelGridExFilter'
@@ -497,6 +498,10 @@ export default new Router({
       path: '/Page4MarvelWarning',
       name: 'Page4MarvelWarning',
       component:Page4MarvelWarning
+    },{
+      path: '/Page4MarvelTable',
+      name: 'Page4MarvelTable',
+      component:Page4MarvelTable
     },{
       path: '/Page4MarvelGrid',
       name: 'Page4MarvelGrid',

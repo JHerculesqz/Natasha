@@ -1,117 +1,136 @@
+<!--
+功能说明：
+相对marvelGridEx，固定列表格功能有以下删减
+1 不支持表头拖拽更改列宽
+2 不支持子表（展开）项
+
+新增prop参数
+1 bIsAdaptToContH: 用于高度计算。由于表格添加固定列功能后，高度无法自适应内容，需要使用者显式告知是否适应于内容的高度。默认false（适应于父容器高度）。
+2 maxHeight: 控件最大高度限制，仅在bIsAdaptToContH == true时生效。
+-->
 <template>
-  <div class="gridWrapper">
-    <div class="grid" v-bind:class="{ empty: 0 == rows.length }">
-      <table class="gridCont" cellspacing="0" cellpadding="0" border="0">
-        <thead>
-        <tr>
-          <th v-for="(title,index) in titles" v-bind:style="{ width: title.width }" :title="title.label">
-            <div v-if="title.type == 'checkBox'" class="checkBoxWrapper">
-              <div class="checkBox">
-                <input type="checkbox" v-bind:id="'title_'+[gridId]+[index]"
-                       v-model="checkTitleItem"
-                       v-on:click="onTitleCheck">
-                <label v-bind:for="'title_'+[gridId]+[index]"></label>
-              </div>
-            </div>
-            <div v-else>
-              {{title.label}}
-            </div>
-          </th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr v-for="(row,index) in rowsInPage" v-on:click="callback4OnClickRow(row)">
-          <td v-for="(cell,iCellIndex) in row"
-              v-bind:style="{ width: _getWidth(row.indexOf(cell)) }">
-            <div v-if="cell.type == 'text'" :title="cell.value">
-              {{ cell.value }}
-            </div>
-            <div v-else-if="cell.type == 'icon'">
-                <span class="iconOnly"
-                      v-for="icon in cell.value"
-                      v-bind:class="[icon.value]"
-                      v-bind:style="{ color: icon.color }"
-                      :title="icon.tip"
-                      v-on:click="callback4OnIconClick(row, icon)"></span>
-            </div>
-            <div v-else-if="cell.type == 'textIcon'">
-                <span class="icon"
-                      v-bind:class="[cell.value]"
-                      v-bind:style="{ color: cell.color }"></span>
-              <span :title="cell.label">{{ cell.label }}</span>
-            </div>
-            <div v-else-if="cell.type == 'checkBox'" class="checkBoxWrapper">
-              <div class="checkBox">
-                <input type="checkbox" v-bind:id="'row_'+[gridId]+[index]"
-                       v-model="cell.isCheck"
-                       v-on:click="onRowCheck(row)"/>
-                <label v-bind:for="'row_'+[gridId]+[index]"></label>
-              </div>
-            </div>
-            <div v-else-if="cell.type == 'radioBox'" class="radioWrapper">
-              <div class="radio">
-                <input type="radio" v-bind:id="'row_'+[gridId]+[index]"
-                       v-bind:value="[index]"
-                       v-bind:name="radioGroup"
-                       v-model="radioGroup"
-                       v-on:click="callback4OnRowRadioCheck(row)"/>
-                <label v-bind:for="'row_'+[gridId]+[index]"></label>
-              </div>
-            </div>
-            <div v-else-if="cell.type == 'input'" class="inputWrapper" id="[index]">
-              <div class="radio" :class="{disable:cell.bIsDisabled}">
-                <input type="text" class="inputDefault"
-                       v-model="inputMsgs[skip + index]"
-                       :disabled="cell.bIsDisabled"
-                       @input="updateRow(index,iCellIndex)"/>
-              </div>
-            </div>
-          </td>
-        </tr>
-        </tbody>
-      </table>
+  <div class="GridExWithFreezeColumnWrapper" :id="gridId">
+    <div class="titleArea"></div>
+    <div class="freezeTables" :style="contentStyle" :class="contentClass">
+      <div class="freezeTable freezeLeftTable"
+           v-if="bHasLeftTable"
+           :style="leftTableStyle">
+        <marvel-table-item :ref="leftTableId"
+                           :gridId="leftTableId"
+                           :titles="leftTitles"
+                           :rows="leftRows"
+                           :limit="limit4TableItem"
+                           :editCellFinished="editCellFinished"
+                           :sortRowsFunc="sortRowsFuncTriggerByLeftGrid"
+                           v-on:onRowHover="leftTableOnRowHover"
+                           v-on:onRowHoverEnd="leftTableOnRowHoverEnd"
+                           v-on:onTbodyScroll="leftTableOnScroll"
+                           :hasFoot="false"
+                           v-on:onTitleCheckOrUncheck="onTitleCheckOrUncheck"
+                           v-on:onClickRow="onClickRow"
+                           v-on:onRowCheckOrUnCheck="onRowCheckOrUnCheck"
+                           v-on:onRowRadioCheck="onRowRadioCheck"
+                           v-on:onClickTextCell="onClickTextCell"
+                           v-on:onIconClick="onIconClick"
+                           v-on:onOptionChange="onOptionChange"
+                           v-on:onClickTextIcon="onClickTextIcon"
+                           v-on:onClickMultiDropdownItem="onClickMultiDropdownItem"
+                           v-on:onPageChange="onPageChange"></marvel-table-item>
+      </div>
+      <div class="freezeTable centerTable"
+           v-if="bHasCenterTable"
+           :style="centerTableStyle">
+        <marvel-table-item :ref="centerTableId"
+                           :gridId="centerTableId"
+                           :titles="centerTitles"
+                           :rows="centerRows"
+                           :limit="limit4TableItem"
+                           :editCellFinished="editCellFinished"
+                           :sortRowsFunc="sortRowsFuncTriggerByCenterGrid"
+                           v-on:onRowHover="centerTableOnRowHover"
+                           v-on:onRowHoverEnd="centerTableOnRowHoverEnd"
+                           v-on:onTbodyScroll="centerTableOnScroll"
+                           :hasFoot="false"
+                           v-on:onTitleCheckOrUncheck="onTitleCheckOrUncheck"
+                           v-on:onClickRow="onClickRow"
+                           v-on:onRowCheckOrUnCheck="onRowCheckOrUnCheck"
+                           v-on:onRowRadioCheck="onRowRadioCheck"
+                           v-on:onClickTextCell="onClickTextCell"
+                           v-on:onIconClick="onIconClick"
+                           v-on:onOptionChange="onOptionChange"
+                           v-on:onClickTextIcon="onClickTextIcon"
+                           v-on:onClickMultiDropdownItem="onClickMultiDropdownItem"
+                           v-on:onPageChange="onPageChange"></marvel-table-item>
+      </div>
+      <div class="freezeTable freezeRightTable"
+           v-if="bHasRightTable"
+           :style="rightTableStyle">
+        <marvel-table-item :ref="rightTableId"
+                           :gridId="rightTableId"
+                           :titles="rightTitles"
+                           :rows="rightRows"
+                           :limit="limit4TableItem"
+                           :editCellFinished="editCellFinished"
+                           :sortRowsFunc="sortRowsFuncTriggerByRightGrid"
+                           v-on:onRowHover="rightTableOnRowHover"
+                           v-on:onRowHoverEnd="rightTableOnRowHoverEnd"
+                           v-on:onTbodyScroll="rightTableOnScroll"
+                           :hasFoot="false"
+                           v-on:onTitleCheckOrUncheck="onTitleCheckOrUncheck"
+                           v-on:onClickRow="onClickRow"
+                           v-on:onRowCheckOrUnCheck="onRowCheckOrUnCheck"
+                           v-on:onRowRadioCheck="onRowRadioCheck"
+                           v-on:onClickTextCell="onClickTextCell"
+                           v-on:onIconClick="onIconClick"
+                           v-on:onOptionChange="onOptionChange"
+                           v-on:onClickTextIcon="onClickTextIcon"
+                           v-on:onClickMultiDropdownItem="onClickMultiDropdownItem"
+                           v-on:onPageChange="onPageChange"></marvel-table-item>
+      </div>
+      <div class="emptyTip"></div>
     </div>
-    <div class="footArea">
+    <div v-if="hasFoot" class="footArea">
       <div class="foot">
-        <div class="pageSwitch">
-          <div class="item icon-marvelIcon-04" v-on:click="onPreClick"></div>
-          <div class="item" v-for="item in pagination"
-               v-bind:class="{ current: curPageIndex == item }"
-               v-on:click="onPageItemClick(item)">{{ item }}
-          </div>
-          <div class="item icon-marvelIcon-02" v-on:click="onNextClick"></div>
-        </div>
-        <!--<div class="text">跳转</div><input class="pageDrop"><div class="text">页</div>-->
-        <div class="text">{{$t('total')}}{{ rows.length}}{{$t('unit')}}</div>
+        <marvel-paging :ref="footId" :totalNum="totalCount" :pages="totalPageCount"
+                       @onPageChange="_onPageChange"></marvel-paging>
       </div>
     </div>
+    <div v-if="columnConfig" class="columnConfig icon-cog" :title="$t('columnConfig')"
+         @click="_showColumnConfigPanel"></div>
+    <marvel-table-column-config ref="ref4ColumnConfig"
+                                @handleTblDataToShow="_handleGridDataToShow"></marvel-table-column-config>
   </div>
 </template>
 
 <i18n>
   {
-  "zh": {
-  "total": "共",
-  "unit": "条"
-  },
   "en": {
-  "total": "Total:",
-  "unit": ""
+  "columnConfig": "Column Config "
+  },
+  "zh": {
+  "columnConfig": "列配置 "
   }
   }
 </i18n>
 
 <script>
-  import MarvelCheckBox from "../select/MarvelCheckBox.vue";
+  import MarvelPaging from "../paging/MarvelPaging"
+  import MarvelTableItem from "./MarvelTableItem";
+  import StringUtilsEx from "../../component/str"
+  import MarvelTableColumnConfig from "./MarvelTableColumnConfig";
 
   /**
-   *  MarvelGrid widget description
+   *  MarvelTable widget description
    *  @vuedoc
-   *  @exports MarvelGrid
+   *  @exports MarvelTable
    */
   export default {
-    components: {MarvelCheckBox},
-    name: 'MarvelGrid',
+    components: {
+      MarvelTableColumnConfig,
+      MarvelTableItem,
+      MarvelPaging
+    },
+    name: 'MarvelTable',
     props: {
       titles: {
         type: Array,
@@ -125,137 +144,787 @@
       },
       limit: {
         type: Number,
-        default: undefined,
-        required: false,
-      },
-      inputMsgs: {
-        type: Array,
-        default: function () {
-          return [];
-        },
+        default: 5,
         required: false,
       },
       gridId: {
-        type: String,
-        default: undefined,
-        required: true,
+        type: [String, Number],
+        default: "",
+        required: true
       },
+      canDrag: {
+        type: Boolean,
+        default: false,
+        required: false,
+      },
+      hasFoot: {
+        type: Boolean,
+        default: true,
+        required: false,
+      },
+      dynamicPaging: {
+        type: Boolean,
+        default: false,
+        required: false,
+      },
+      totalNum: {
+        type: Number,
+        default: undefined,
+        required: false,
+      },
+      totalPage: {
+        type: Number,
+        default: undefined,
+        required: false,
+      },
+      pageLimit: {
+        type: Number,
+        default: 7,
+        required: false,
+      },
+      bIsAdaptToContH: {
+        type: Boolean,
+        default: false,
+        required: false,
+      },
+      maxHeight: {
+        type: Number,
+        default: null,
+        required: false,
+      },
+      columnConfig: {
+        type: Boolean,
+        default: false,
+        required: false,
+      }
     },
     data: function () {
       return {
-        totalPageCount: 1,
-        curPageIndex: 1,
-        limitEx: 5,
+        //#region common
+        lastTime4Throttle: 0,
+        whereIsCheckColumn: undefined,
+        whereIsRadioColumn: undefined,
+        orderBy: {
+          key: "",
+          order: 1 //1表示升序排列，-1表示降序排列
+        },
+        //#endregion
+        //#region leftTable
+        hasAnyColumnShowInLeft: true,
+        leftTableId: "",
+        leftTableStyle: undefined,
+        //#endregion
+        //#region centerTable
+        hasAnyColumnShowInCenter: true,
+        centerTableId: '',
+        centerTableStyle: undefined,
+        //#endregion
+        //#region rightTable
+        hasAnyColumnShowInRight: true,
+        rightTableId: "",
+        rightTableStyle: undefined,
+        //#endregion
+        //#region foot
         skip: 0,
         rowsInPage: [],
-        //#region checkbox
-        checkTitleItem: false,
-        //#endregion
-        //#region radio
-        radioGroup: []
+        curPageIndex: 1,
+        footId: "",
         //#endregion
       }
     },
     computed: {
-      pagination: function () {
-        var arrRes = [];
-
-        //0.get this.totalPageCount/curPageIndex
-        this.limitEx = this.limit == undefined ? 5 : this.limit;
-        this.totalPageCount = Math.ceil(this.rows.length / this.limitEx);
-        this.curPageIndex = this.curPageIndex;
-        for (var i = 1; i <= this.totalPageCount; i++) {
-          arrRes.push(i);
-        }
-
-        //1.calc this.skip
-        this.skip = (this.curPageIndex - 1) * this.limitEx;
-
-        //2.calc this.rowsInPage
-        var iTmpRowCount = this.curPageIndex * this.limitEx;
-        if (iTmpRowCount <= this.rows.length) {
-          this.rowsInPage = this.rows.slice(this.skip, parseInt(this.skip) + parseInt(this.limitEx));
+      //#region common
+      limit4TableItem: function () {
+        if (this.dynamicPaging) {
+          return this.rows.length;
         } else {
-          this.rowsInPage = this.rows.slice(this.skip, this.rows.length);
+          return this.limit;
+        }
+      },
+      totalCount: function () {
+        if (this.dynamicPaging) {
+          return this.totalNum;
+        } else {
+          return this.rows.length;
+        }
+      },
+      totalPageCount: function () {
+        if (this.dynamicPaging) {
+          return this.totalPage;
+        } else {
+          var iTotalPage = 1;
+          if (this.rows.length > 0) {
+            iTotalPage = Math.ceil(this.rows.length / this.limit)
+          }
+          return iTotalPage;
+        }
+      },
+      contentStyle() {
+        var iTitleH = 34;
+        var iRowH = 40.2;
+        var iRowsNumInCurrentPage = 0;
+        if (this.dynamicPaging) {
+          iRowsNumInCurrentPage = this.rows.length;
+        } else {
+          if (this.curPageIndex * this.limit4TableItem < this.rows.length) {
+            iRowsNumInCurrentPage = this.limit4TableItem;
+          } else {
+            iRowsNumInCurrentPage = this.rows.length - (this.curPageIndex - 1) * this.limit4TableItem;
+          }
+        }
+        var iContH = iTitleH + iRowsNumInCurrentPage * iRowH + this._getScrollWByBrowser();
+        var iFootH = 32;
+        var oStyle = {};
+
+        if (!this.bIsAdaptToContH) {
+          //适应父容器高度
+          if (!this.hasFoot) {
+            oStyle.height = "100%";
+          } else {
+            oStyle.height = "calc(100% - 32px)";
+          }
+        } else {
+          //适应内容高度
+          if (this.maxHeight && iContH + iFootH > this.maxHeight) {
+            oStyle.height = this.maxHeight + "px";
+          } else {
+            oStyle.height = iContH + "px";
+          }
         }
 
-        return arrRes;
-      }
+        return oStyle;
+      },
+      contentClass() {
+        let oClass = [];
+        if (this.rows.length === 0 && !this.bIsAdaptToContH) {
+          oClass.push("empty");
+        }
+        return oClass;
+      },
+      //#endregion
+      //#endregion
+      //#region leftTable
+      bHasLeftTable: function () {
+        return this.leftTitles.length > 0;
+      },
+      leftTitles: function () {
+        var arrLeftTitles = [];
+
+        //将title 分入对应的区域
+        for (const title of this.titles) {
+          if (title.key == "id") {
+            //使用同一id列
+            arrLeftTitles.push(JSON.parse(JSON.stringify(title)));
+          } else if (title.freeze && title.freeze == "left") {
+            if (title.type == "checkBox") {
+              this.whereIsCheckColumn = "left";
+            }
+            if (title.type == "radioBox") {
+              this.whereIsRadioColumn = "left";
+            }
+            arrLeftTitles.push(JSON.parse(JSON.stringify(title)));
+          }
+        }
+
+        return arrLeftTitles;
+      },
+      leftRows: function () {
+        var leftRows = [];
+        if (this.dynamicPaging == false) {
+          this._sortRows();
+        }
+
+        for (const row of this.rows) {
+          var leftRow = [];
+          for (const cell of row) {
+            //使用同一id列
+            if (cell.key == "id") {
+              leftRow.push(JSON.parse(JSON.stringify(cell)));
+            } else {
+              //匹配左表
+              for (const oLeftTitle of this.leftTitles) {
+                if (cell.key == oLeftTitle.key) {
+                  leftRow.push(JSON.parse(JSON.stringify(cell)));
+                  break;
+                }
+              }
+            }
+          }
+          leftRows.push(JSON.parse(JSON.stringify(leftRow)));
+        }
+
+        return leftRows;
+      },
+      //#endregion
+      //#region centerTable
+      bHasCenterTable: function () {
+        return this.centerTitles.length > 0;
+      },
+      centerTitles: function () {
+        var arrCenterTitles = [];
+
+        //将title 分入对应的区域
+        for (const title of this.titles) {
+          if (title.key == "id") {
+            //使用同一id列
+            arrCenterTitles.push(JSON.parse(JSON.stringify(title)));
+          } else if (title.freeze == undefined || title.freeze == '') {
+            if (title.type == "checkBox") {
+              this.whereIsCheckColumn = "center";
+            }
+            if (title.type == "radioBox") {
+              this.whereIsRadioColumn = "center";
+            }
+            arrCenterTitles.push(JSON.parse(JSON.stringify(title)));
+          }
+        }
+
+        return arrCenterTitles;
+      },
+      centerRows: function () {
+        var centerRows = [];
+
+        for (const row of this.rows) {
+          var centerRow = [];
+
+          for (const cell of row) {
+            //使用同一id列
+            if (cell.key == "id") {
+              centerRow.push(JSON.parse(JSON.stringify(cell)));
+            } else {
+              //匹配中间表
+              for (const oCenterTitle of this.centerTitles) {
+                if (cell.key == oCenterTitle.key) {
+                  centerRow.push(JSON.parse(JSON.stringify(cell)));
+                  break;
+                }
+              }
+            }
+          }
+          centerRows.push(JSON.parse(JSON.stringify(centerRow)));
+        }
+
+        return centerRows;
+      },
+      //#endregion
+      //#region rightTable
+      bHasRightTable: function () {
+        return this.rightTitles.length > 0;
+      },
+      rightTitles: function () {
+        var arrRightTitles = [];
+
+        //将title 分入对应的区域
+        for (const title of this.titles) {
+          if (title.key == "id") {
+            //使用同一id列
+            arrRightTitles.push(JSON.parse(JSON.stringify(title)));
+          } else if (title.freeze && title.freeze == "right") {
+            if (title.type == "checkBox") {
+              this.whereIsCheckColumn = "right";
+            }
+            if (title.type == "radioBox") {
+              this.whereIsRadioColumn = "right";
+            }
+            arrRightTitles.push(JSON.parse(JSON.stringify(title)));
+          }
+        }
+
+        return arrRightTitles;
+      },
+      rightRows: function () {
+        var rightRows = [];
+
+        for (const row of this.rows) {
+          var rightRow = [];
+
+          for (const cell of row) {
+            //使用同一id列
+            if (cell.key == "id") {
+              rightRow.push(JSON.parse(JSON.stringify(cell)));
+            } else {
+              //匹配右表
+              for (const oRightTitle of this.rightTitles) {
+                if (cell.key == oRightTitle.key) {
+                  rightRow.push(JSON.parse(JSON.stringify(cell)));
+                  break;
+                }
+              }
+            }
+          }
+          rightRows.push(JSON.parse(JSON.stringify(rightRow)));
+        }
+
+        return rightRows;
+      },
+      //#endregion
+    },
+    mounted: function () {
+      //#region initEx
+
+      this._initEx();
+
+      //#endregion
     },
     methods: {
       //#region inner
 
-      _getWidth: function (iColIndex) {
+      //#region lifeCycle
+
+      _initEx: function () {
+        this.leftTableId = this.gridId + StringUtilsEx.uuid();
+        this.centerTableId = this.gridId + StringUtilsEx.uuid();
+        this.rightTableId = this.gridId + StringUtilsEx.uuid();
+        this.footId = this.gridId + StringUtilsEx.uuid();
+
+        //setStyle
+        this._setStyle4Tables();
+      },
+
+      //#endregion
+
+      //#region column config
+
+      _showColumnConfigPanel: function () {
+        var oData = [];
         for (var i = 0; i < this.titles.length; i++) {
-          if (i == iColIndex) {
-            return this.titles[iColIndex].width;
+          if (this.titles[i].bCanColumnConfig != false) {
+            if (this.titles[i].visible == true) {
+              oData.push({
+                label: this.titles[i].label,
+                belongTo: "right",
+                key: this.titles[i].key,
+              });
+            } else {
+              oData.push({
+                label: this.titles[i].label,
+                belongTo: "left",
+                key: this.titles[i].key,
+              });
+            }
+          }
+        }
+        this.$refs.ref4ColumnConfig.init(oData);
+      },
+      _handleGridDataToShow: function (oData) {
+        for (var i = 0; i < oData.length; i++) {
+          for (var j = 0; j < this.titles.length; j++) {
+            if (oData[i].key == this.titles[j].key) {
+              if (oData[i].belongTo == "right") {
+                this.titles[j].visible = true;
+              } else {
+                this.titles[j].visible = false;
+              }
+            }
           }
         }
       },
-      onPreClick: function () {
-        if (this.curPageIndex > 1) {
-          this.curPageIndex -= 1;
+
+      //#endregion
+
+      //#region leftTable
+
+      //#region 一致性 设置
+
+      leftTableOnRowHover: function (oRow) {
+        var rowId = this._getRowId(oRow);
+        this.setCenterTableRowHoverById(rowId);
+        this.setRightTableRowHoverById(rowId);
+      },
+      leftTableOnRowHoverEnd: function () {
+        this.setCenterTableRowHoverById();
+        this.setRightTableRowHoverById();
+      },
+      setLeftTableRowHoverById: function (rowId) {
+        if (this.bHasLeftTable) {
+          this.$refs[this.leftTableId].setRowHover(rowId);
         }
       },
-      onPageItemClick: function (iCurPage) {
-        this.curPageIndex = iCurPage;
+      leftTableOnScroll: function (oEvent) {
+        var self = this;
+        this._throttle(function () {
+          self.centerTableToScrollTop(oEvent.target.scrollTop);
+          self.rightTableToScrollTop(oEvent.target.scrollTop);
+        });
       },
-      onNextClick: function () {
-        if (this.curPageIndex < this.totalPageCount) {
-          this.curPageIndex += 1;
+      leftTableToScrollTop: function (iScrollTop) {
+        if (this.bHasLeftTable) {
+          this.$refs[this.leftTableId].setTableContentScrollTop(iScrollTop);
         }
       },
 
-      //#region check
+      //#endregion
 
-      onTitleCheck: function () {
-        for (var i = 0; i < this.rows.length; i++) {
-          this.rows[i][0].isCheck = this.checkTitleItem;
-        }
-        console.log(this.checkTitleItem);
-        this.callback4OnTitleCheckOrUncheck(this.checkTitleItem);
+      //#endregion
+
+      //#region centerTable
+
+      //#region 一致性 设置
+
+      centerTableOnRowHover: function (oRow) {
+        var rowId = this._getRowId(oRow);
+        this.setLeftTableRowHoverById(rowId);
+        this.setRightTableRowHoverById(rowId);
       },
-      onRowCheck: function (oRow) {
-        var j = 0;
-        for (var i = 0; i < this.rows.length; i++) {
-          if (this.rows[i][0].isCheck) {
-            this.checkTitleItem = true;
+      centerTableOnRowHoverEnd: function () {
+        this.setLeftTableRowHoverById();
+        this.setRightTableRowHoverById();
+      },
+      setCenterTableRowHoverById: function (rowId) {
+        if (this.bHasCenterTable) {
+          this.$refs[this.centerTableId].setRowHover(rowId);
+        }
+      },
+      centerTableOnScroll: function (oEvent) {
+        var self = this;
+        this._throttle(function () {
+          self.leftTableToScrollTop(oEvent.target.scrollTop);
+          self.rightTableToScrollTop(oEvent.target.scrollTop);
+        });
+      },
+      centerTableToScrollTop: function (iScrollTop) {
+        if (this.bHasCenterTable) {
+          this.$refs[this.centerTableId].setTableContentScrollTop(iScrollTop);
+        }
+      },
+
+      //#endregion
+
+      //#endregion
+
+      //#region rightTable
+
+      //#region 一致性 设置
+
+      rightTableOnRowHover: function (oRow) {
+        var rowId = this._getRowId(oRow);
+        this.setLeftTableRowHoverById(rowId);
+        this.setCenterTableRowHoverById(rowId);
+      },
+      rightTableOnRowHoverEnd: function () {
+        this.setLeftTableRowHoverById();
+        this.setCenterTableRowHoverById();
+      },
+      setRightTableRowHoverById: function (rowId) {
+        if (this.bHasRightTable) {
+          this.$refs[this.rightTableId].setRowHover(rowId);
+        }
+      },
+      rightTableOnScroll: function (oEvent) {
+        var self = this;
+        this._throttle(function () {
+          self.leftTableToScrollTop(oEvent.target.scrollTop);
+          self.centerTableToScrollTop(oEvent.target.scrollTop);
+        });
+      },
+      rightTableToScrollTop: function (iScrollTop) {
+        if (this.bHasRightTable) {
+          this.$refs[this.rightTableId].setTableContentScrollTop(iScrollTop);
+        }
+      },
+
+      //#endregion
+
+      //#endregion
+
+      //#region foot
+
+      _onPageChange: function (iPage) {
+        this.curPageIndex = iPage;
+        if (this.dynamicPaging) {
+          this.onPageChange(iPage);
+        } else {
+          if (this.bHasLeftTable) {
+            this.$refs[this.leftTableId].onPageChange(iPage);
+          }
+          if (this.bHasCenterTable) {
+            this.$refs[this.centerTableId].onPageChange(iPage);
+          }
+          if (this.bHasRightTable) {
+            this.$refs[this.rightTableId].onPageChange(iPage);
+          }
+        }
+      },
+
+      //#endregion
+
+      //#region common
+
+      _setStyle4Tables: function () {
+        var oTitleVisibleStatus4Tables = this._hasAnyItemToShowInTables();
+        var iScrollW = this._getScrollWByBrowser();
+        this.leftTableStyle = this._getLeftTableStyle(iScrollW, oTitleVisibleStatus4Tables);
+        this.centerTableStyle = this._getCenterTableStyle(iScrollW, oTitleVisibleStatus4Tables);
+        this.rightTableStyle = this._getRightTableStyle(iScrollW, oTitleVisibleStatus4Tables);
+        this.$nextTick(function () {
+          if (this._bIsCenterTableOverflowInX()) {
+            this.leftTableStyle.height = 'calc(100% - ' + iScrollW + 'px)';
+            this.rightTableStyle.height = 'calc(100% - ' + iScrollW + 'px)';
+          } else {
+            this.leftTableStyle.height = '100%';
+            this.rightTableStyle.height = '100%';
+          }
+        });
+      },
+      _hasAnyItemToShowInTables: function () {
+        var oHasAnyItemToShowInTables = {
+          left: false,
+          center: false,
+          right: false,
+        };
+
+        for (const title of this.titles) {
+          if (title.visible) {
+            if (title.freeze == 'left') {
+              oHasAnyItemToShowInTables.left = true;
+            } else if (title.freeze == 'right') {
+              oHasAnyItemToShowInTables.right = true;
+            } else {
+              oHasAnyItemToShowInTables.center = true;
+            }
+          }
+        }
+
+        return oHasAnyItemToShowInTables;
+      },
+      _bIsCenterTableOverflowInX: function () {
+        var iCenterTableW = $("#" + this.gridId + " .freezeTables .centerTable").width();
+
+        var iScrollW = 20;
+        //根据浏览器信息，设置滚动条宽度
+        var userAgent = window.navigator.userAgent.toLocaleLowerCase();
+        if (userAgent.match(/chrome/) != null) {
+          iScrollW = 10;
+        }
+        var iTitleW = iScrollW;
+        for (const centerTitle of this.centerTitles) {
+          if (centerTitle.visible == true) {
+            iTitleW += parseInt(centerTitle.width);
+          }
+        }
+
+        if (iTitleW > iCenterTableW) {
+          return true;
+        } else {
+          return false;
+        }
+      },
+      _getScrollWByBrowser: function () {
+        var iScrollW = 20;//浏览器默认滚动条样式宽度
+        //根据浏览器信息，设置滚动条宽度
+        var userAgent = window.navigator.userAgent.toLocaleLowerCase();
+        if (userAgent.match(/chrome/) != null) {
+          iScrollW = 10;//chrome 下设置的滚动条样式宽度
+        }
+
+        return iScrollW;
+      },
+      _getLeftTableStyle: function (iScrollW, oTitleVisibleStatus4Tables) {
+        var oStyle = {
+          height: '100%'
+        };
+        var iLeftW = iScrollW;
+
+        for (const leftTitle of this.leftTitles) {
+          iLeftW += parseInt(leftTitle.width);
+        }
+
+        if (oTitleVisibleStatus4Tables.left) {
+          if (!oTitleVisibleStatus4Tables.center && !oTitleVisibleStatus4Tables.right) {
+            //center表 && right表 不可见
+            oStyle.width = "100%";
+            oStyle.left = 0 + 'px';
+          } else {
+            //按照自身宽度正常显示
+            oStyle.width = iLeftW + 'px';
+            oStyle.left = 0 + 'px';
+          }
+        } else {
+          //left表中所有表头不可见
+          oStyle.width = 0 + 'px';
+          oStyle.left = 0 + 'px';
+        }
+
+        return oStyle;
+      },
+      _getCenterTableStyle: function (iScrollW, oTitleVisibleStatus4Tables) {
+        var oStyle = {
+          height: '100%'
+        };
+
+        if (oTitleVisibleStatus4Tables.center) {
+          //center可见
+          if (oTitleVisibleStatus4Tables.left && oTitleVisibleStatus4Tables.right) {
+            //left表 && right表 可见
+            var iLeftW = iScrollW;
+            for (const leftTitle of this.leftTitles) {
+              iLeftW += parseInt(leftTitle.width);
+            }
+            var iRightW = iScrollW;
+            for (const rightTitle of this.rightTitles) {
+              iRightW += parseInt(rightTitle.width);
+            }
+
+            oStyle.width = 'calc(100% - ' + (iLeftW + iRightW - iScrollW * 2) + 'px)';
+            oStyle.left = iLeftW - iScrollW + 'px';
+
+          } else if (!oTitleVisibleStatus4Tables.left && oTitleVisibleStatus4Tables.right) {
+            //left表不可见 && right表可见
+            var iRightW = iScrollW;
+            for (const rightTitle of this.rightTitles) {
+              iRightW += parseInt(rightTitle.width);
+            }
+
+            oStyle.width = 'calc(100% - ' + (iRightW - iScrollW) + 'px)';
+            oStyle.left = 0 + 'px';
+          } else if (oTitleVisibleStatus4Tables.left && !oTitleVisibleStatus4Tables.right) {
+            //left表可见 && right不表可见
+            var iLeftW = iScrollW;
+            for (const leftTitle of this.leftTitles) {
+              iLeftW += parseInt(leftTitle.width);
+            }
+
+            oStyle.width = 'calc(100% - ' + (iLeftW - iScrollW) + 'px)';
+            oStyle.left = iLeftW - iScrollW + 'px';
+          } else {
+            //left表 && right表 均不可见
+            oStyle.width = '100%';
+            oStyle.left = 0 + 'px';
+          }
+        } else {
+          oStyle.width = 0 + 'px';
+          oStyle.left = 0 + 'px';
+        }
+
+        return oStyle;
+      },
+      _getRightTableStyle: function (iScrollW, oTitleVisibleStatus4Tables) {
+        var oStyle = {
+          height: '100%'
+        };
+
+        var iRightW = iScrollW;
+        for (const rightTitle of this.rightTitles) {
+          iRightW += parseInt(rightTitle.width);
+        }
+
+        if (oTitleVisibleStatus4Tables.right) {
+          //right 表头可见
+          if (!oTitleVisibleStatus4Tables.center && !oTitleVisibleStatus4Tables.left) {
+            //left表 && center表不可见
+            oStyle.width = "100%";
+            oStyle.right = 0 + 'px';
+          } else if (!oTitleVisibleStatus4Tables.center && oTitleVisibleStatus4Tables.left) {
+            //left表可见 && center表不可见
+            var iLeftW = iScrollW;
+            for (const leftTitle of this.leftTitles) {
+              iLeftW += parseInt(leftTitle.width);
+            }
+
+            oStyle.width = 'calc(100% - ' + (iLeftW - iScrollW) + 'px)';
+            oStyle.right = 0 + 'px';
+          } else {
+            //left表 可见或不可见 && center表可见
+            oStyle.width = iRightW + 'px';
+            oStyle.right = 0 + 'px';
+          }
+        } else {
+          //right表中所有表头不可见
+          oStyle.width = 0 + 'px';
+          oStyle.right = 0 + 'px';
+        }
+
+        return oStyle;
+      },
+      _throttle: function (action) {
+        var delay = 20;
+        let curr = +new Date();
+        if (curr - this.lastTime4Throttle > delay) {
+          this.lastTime4Throttle = curr;
+          action();
+        }
+      },
+      _combineRows: function (arrLeftRows, arrCenterRows, arrRightRows) {
+        var arrTargetRows = [];
+        var iLength = Math.max(arrLeftRows.length, arrCenterRows.length, arrRightRows.length);
+        for (var i = 0; i < iLength; i++) {
+          var leftRow = JSON.parse(JSON.stringify(arrLeftRows[i]));
+          var centerRow = JSON.parse(JSON.stringify(arrCenterRows[i]));
+          var centerRowLength = centerRow.length;
+          var rightRow = JSON.parse(JSON.stringify(arrRightRows[i]));
+          var rightRowLength = rightRow.length;
+          var oRow = leftRow.concat(centerRow.slice(1, centerRowLength), rightRow.slice(1, rightRowLength));
+          arrTargetRows.push(oRow);
+        }
+        return arrTargetRows;
+      },
+      _getRowId: function (oRow) {
+        var oRowId = undefined;
+        for (const cell of oRow) {
+          if (cell.key == "id") {
+            oRowId = cell.value;
             break;
-          } else {
-            j++;
           }
-          if (j == this.rows.length) {
-            this.checkTitleItem = false;
+        }
+
+        return oRowId
+      },
+      _getRowIdsByRows: function (arrRows) {
+        var arrRowIds = [];
+        for (const row of arrRows) {
+          for (const cell of row) {
+            if (cell.key == "id") {
+              arrRowIds.push(cell.value);
+              break;
+            }
           }
-          this.callback4OnRowCheckOrUncheck(oRow);
+        }
+        return arrRowIds;
+      },
+      _getRowsByRowIds: function (arrRowIds, arrRows) {
+        var arrTargetRows = [];
+        for (const rowId of arrRowIds) {
+          for (const row of arrRows) {
+            var strRowId = this._getRowId(row);
+            if (strRowId == rowId) {
+              arrTargetRows.push(row);
+              break;
+            }
+          }
+        }
+        return arrTargetRows
+      },
+      _getRowByPartRow: function (oPartRow) {
+        var strTargetRowId = this._getRowId(oPartRow);
+        var arrRows = this.getRows();
+        var arrTargetRows = this._getRowsByRowIds([strTargetRowId], arrRows);
+
+        return arrTargetRows[0];
+      },
+      _getCellValueByKey: function (strKeyValue, oRow) {
+        let oTargetCell = undefined;
+        for (let i = 0, len = oRow.length; i < len; i++) {
+          let oCell = oRow[i];
+          if (oCell.key == strKeyValue) {
+            oTargetCell = oCell;
+          }
+        }
+        if (oTargetCell) {
+          return oTargetCell.value;
         }
       },
-
-      //#endregion
-
-      //#region input
-
-      updateRow: function (iRowIndex, iCellIndex) {
-        var self = this;
-        var oOldRowValue = this.rows[iRowIndex][iCellIndex].value;
-        this.rows[iRowIndex][iCellIndex].value = this.inputMsgs[iRowIndex];
-        this._afteUpdateRow(iRowIndex, oOldRowValue);
-
-      },
-
-      //#endregion
-
-      //#region radio
-
-      _afteUpdateRow: function (iRowIndex, oOldRowValue) {
-        var self = this;
-        this.callback4UpdateRow(this.rows[iRowIndex], function (bIsSuccess) {
-          if (bIsSuccess) {
-            //do nothing
+      _sortRows: function () {
+        this.rows.sort((oRow1, oRow2) => {
+          let strVal1 = this._getCellValueByKey(this.orderBy.key, oRow1);
+          let strVal2 = this._getCellValueByKey(this.orderBy.key, oRow2);
+          if (strVal1 < strVal2) {
+            return -1 * this.orderBy.order;
+          } else if (strVal1 == strVal2) {
+            return 0;
           } else {
-            self.inputMsgs[iRowIndex] = oOldRowValue;
+            return 1 * this.orderBy.order;
           }
-        })
+        });
       },
 
       //#endregion
@@ -263,34 +932,223 @@
       //#endregion
       //#region callback
 
-      callback4OnIconClick: function (oRow, oCell) {
-        this.$emit("onIconClick", oRow, oCell);
+      editCellFinished: function (oRow, oCell, oOldVal, oNewVal, oAfterValidateOk) {
+        var oTargetRow = this._getRowByPartRow(oRow);
+        this.$emit("editCellFinished", oTargetRow, oCell, oOldVal, oNewVal, oAfterValidateOk);
       },
-      callback4OnClickRow: function (oRow) {
-        this.$emit("onClickRow", oRow);
+      sortRowsFuncTriggerByLeftGrid: function (strKey, order, oRows) {
+        this.orderBy.key = strKey;
+        this.orderBy.order = order;
+        if (this.dynamicPaging == true) {
+          this.$emit("sortRowsFunc", this.orderBy.key, this.orderBy.order, this.rows);
+        } else {
+          this._sortRows();
+        }
+
+        //清除其他表格排序状态
+        this.$refs[this.centerTableId].clearSortStatus();
+        this.$refs[this.rightTableId].clearSortStatus();
       },
-      callback4OnTitleCheckOrUncheck: function (bIscheckTitleItem) {
-        this.$emit("onTitleCheckOrUncheck", bIscheckTitleItem);
+      sortRowsFuncTriggerByCenterGrid: function (strKey, order, oRows) {
+        this.orderBy.key = strKey;
+        this.orderBy.order = order;
+        if (this.dynamicPaging == true) {
+          this.$emit("sortRowsFunc", this.orderBy.key, this.orderBy.order, this.rows);
+        } else {
+          this._sortRows();
+        }
+
+        //清除其他表格排序状态
+        this.$refs[this.leftTableId].clearSortStatus();
+        this.$refs[this.rightTableId].clearSortStatus();
       },
-      callback4OnRowCheckOrUncheck: function (oRow) {
-        this.$emit("onRowCheckOrUnCheck", oRow);
+      sortRowsFuncTriggerByRightGrid: function (strKey, order, oRows) {
+        this.orderBy.key = strKey;
+        this.orderBy.order = order;
+        if (this.dynamicPaging == true) {
+          this.$emit("sortRowsFunc", this.orderBy.key, this.orderBy.order, this.rows);
+        } else {
+          this._sortRows();
+        }
+
+        //清除其他表格排序状态
+        this.$refs[this.leftTableId].clearSortStatus();
+        this.$refs[this.centerTableId].clearSortStatus();
       },
-      callback4OnRowRadioCheck: function (oRow) {
-        this.$emit("onRowRadionCheckOrUnCheck", oRow);
+      onTitleCheckOrUncheck: function (isChecked) {
+        this.$emit("onTitleCheckOrUncheck", isChecked);
       },
-      callback4UpdateRow: function (oRow, oAfterUpdate) {
-        this.$emit("updateRow", oRow, oAfterUpdate)
+      onClickRow: function (oRow) {
+        var oTargetRow = this._getRowByPartRow(oRow);
+        this.$emit("onClickRow", oTargetRow);
+      },
+      onRowCheckOrUnCheck: function (oRow, isChecked) {
+        var oTargetRow = this._getRowByPartRow(oRow);
+        this.$emit("onRowCheckOrUnCheck", oTargetRow, isChecked);
+      },
+      onRowRadioCheck: function (oRow) {
+        var oTargetRow = this._getRowByPartRow(oRow);
+        this.$emit("onRowRadioCheck", oTargetRow);
+      },
+      onClickTextCell: function (oRow, oCell) {
+        var oTargetRow = this._getRowByPartRow(oRow);
+        this.$emit("onClickTextCell", oTargetRow, oCell);
+      },
+      onIconClick: function (oRow, oCell, oIcon) {
+        var oTargetRow = this._getRowByPartRow(oRow);
+        this.$emit("onIconClick", oTargetRow, oCell, oIcon);
+      },
+      onOptionChange: function (oRow, oCell, strOldValue, strNewValue) {
+        var oTargetRow = this._getRowByPartRow(oRow);
+        this.$emit("onOptionChange", oTargetRow, oCell, strOldValue, strNewValue);
+      },
+      onClickTextIcon: function (oRow, oCell) {
+        var oTargetRow = this._getRowByPartRow(oRow);
+        this.$emit("onClickTextIcon", oTargetRow, oCell);
+      },
+      onClickMultiDropdownItem: function (oRow, oCell, oItem) {
+        var oTargetRow = this._getRowByPartRow(oRow);
+        this.$emit("onClickMultiDropdownItem", oTargetRow, oCell, oItem);
+      },
+      onPageChange: function (iPage) {
+        this.$emit("onPageChange", iPage);
       },
 
       //#endregion
       //#region 3rd
 
-      setSkip: function (iSkip) {
-        this.curPageIndex = iSkip + 1;
-        this.skip = iSkip;
+      setRowColor(strRowId, bCancleOtherRowActive) {
+        this.$refs[this.leftTableId].setRowColor(strRowId, bCancleOtherRowActive);
+        this.$refs[this.centerTableId].setRowColor(strRowId, bCancleOtherRowActive);
+        this.$refs[this.rightTableId].setRowColor(strRowId, bCancleOtherRowActive);
       },
+      removeRowColor(strRowId) {
+        this.$refs[this.leftTableId].removeRowColor(strRowId);
+        this.$refs[this.centerTableId].removeRowColor(strRowId);
+        this.$refs[this.rightTableId].removeRowColor(strRowId);
+      },
+      getSelectRows4Checkbox() {
+        var arrRows = JSON.parse(JSON.stringify(this.getRows()));
+        var arrTargetRowIds = [];
+        var arrTargetRows = [];
+        if (this.whereIsCheckColumn == "left") {
+          //checkbox 在左侧固定列中
+          var arrLeftTableSelectRows = this.$refs[this.leftTableId].getSelectRows4Checkbox();
+          arrTargetRowIds = this._getRowIdsByRows(arrLeftTableSelectRows)
+        } else if (this.whereIsCheckColumn == "center") {
+          //checkbox 在左侧固定列中
+          var arrCenterTableSelectRows = this.$refs[this.centerTableId].getSelectRows4Checkbox();
+          arrTargetRowIds = this._getRowIdsByRows(arrCenterTableSelectRows)
+        } else if (this.whereIsCheckColumn == "right") {
+          //checkbox 在左侧固定列中
+          var arrRightTableSelectRows = this.$refs[this.rightTableId].getSelectRows4Checkbox();
+          arrTargetRowIds = this._getRowIdsByRows(arrRightTableSelectRows)
+        }
+
+        arrTargetRows = this._getRowsByRowIds(arrTargetRowIds, arrRows);
+        return arrTargetRows;
+      },
+      getSelectRow4Radiobox() {
+        var arrRows = JSON.parse(JSON.stringify(this.getRows()));
+        var strTargetRowId = "";
+        var arrTargetRows = [];
+        if (this.whereIsCheckColumn == "left") {
+          //checkbox 在左侧固定列中
+          var oLeftTableSelectRows = this.$refs[this.leftTableId].getSelectRow4Radiobox();
+          strTargetRowId = this._getRowId(oLeftTableSelectRows)
+        } else if (this.whereIsCheckColumn == "center") {
+          //checkbox 在左侧固定列中
+          var oCenterTableSelectRows = this.$refs[this.centerTableId].getSelectRow4Radiobox();
+          strTargetRowId = this._getRowId(oCenterTableSelectRows)
+        } else if (this.whereIsCheckColumn == "right") {
+          //checkbox 在左侧固定列中
+          var oRightTableSelectRows = this.$refs[this.rightTableId].getSelectRow4Radiobox();
+          strTargetRowId = this._getRowId(oRightTableSelectRows)
+        }
+
+        arrTargetRows = this._getRowsByRowIds([strTargetRowId], arrRows);
+        return arrTargetRows;
+      },
+      getRows() {
+        var arrLeftTableRows = this.$refs[this.leftTableId].getRows();
+        var arrCenterTableRows = this.$refs[this.centerTableId].getRows();
+        var arrRightTableRows = this.$refs[this.rightTableId].getRows();
+
+        var arrRows = this._combineRows(arrLeftTableRows, arrCenterTableRows, arrRightTableRows);
+        return arrRows;
+      },
+      removeRow(strRowId) {
+        let index = -1;
+        for (let i = 0, len = this.rows.length; i < len; i++) {
+          let strId = this._getRowId(this.rows[i]);
+          if (strRowId === strId) {
+            index = i;
+            break;
+          }
+        }
+        if (index > -1) {
+          this.rows.splice(index, 1);
+        }
+      },
+      getActiveRows() {
+        var arrLeftTableActiveRows = this.$refs[this.leftTableId].getActiveRows();
+        var arrCenterTableActiveRows = this.$refs[this.centerTableId].getActiveRows();
+        var arrRightTableActiveRows = this.$refs[this.rightTableId].getActiveRows();
+
+        var arrRows = this._combineRows(arrLeftTableActiveRows, arrCenterTableActiveRows, arrRightTableActiveRows);
+        return arrRows;
+      },
+      disableRow(strRowId) {
+        this.$refs[this.leftTableId].disableRow(strRowId);
+        this.$refs[this.centerTableId].disableRow(strRowId);
+        this.$refs[this.rightTableId].disableRow(strRowId);
+      },
+      enableRow(strRowId) {
+        this.$refs[this.leftTableId].enableRow(strRowId);
+        this.$refs[this.centerTableId].enableRow(strRowId);
+        this.$refs[this.rightTableId].enableRow(strRowId);
+      },
+      enableAllRows() {
+        this.$refs[this.leftTableId].enableAllRows();
+        this.$refs[this.centerTableId].enableAllRows();
+        this.$refs[this.rightTableId].enableAllRows();
+      },
+      checkOrUnCheckRow4CheckBox(strRowId, bCheck) {
+        if (this.whereIsCheckColumn == "left") {
+          this.$refs[this.leftTableId].checkOrUnCheckRow4CheckBox(strRowId, bCheck);
+        } else if (this.whereIsCheckColumn == "center") {
+          this.$refs[this.centerTableId].checkOrUnCheckRow4CheckBox(strRowId, bCheck);
+        } else if (this.whereIsCheckColumn == "right") {
+          this.$refs[this.rightTableId].checkOrUnCheckRow4CheckBox(strRowId, bCheck);
+        }
+      },
+      checkorUnCheckRow4RadioBox(strRowId, bCheck) {
+        if (this.whereIsRadioColumn == "left") {
+          this.$refs[this.leftTableId].checkorUnCheckRow4RadioBox(strRowId, bCheck);
+        } else if (this.whereIsRadioColumn == "center") {
+          this.$refs[this.centerTableId].checkorUnCheckRow4RadioBox(strRowId, bCheck);
+        } else if (this.whereIsRadioColumn == "right") {
+          this.$refs[this.rightTableId].checkorUnCheckRow4RadioBox(strRowId, bCheck);
+        }
+      },
+      disabledDropDownCell(strRowId, strKey, bDisabled) {
+        this.$refs[this.leftTableId].disabledDropDownCell(strRowId, strKey, bDisabled);
+        this.$refs[this.centerTableId].disabledDropDownCell(strRowId, strKey, bDisabled);
+        this.$refs[this.rightTableId].disabledDropDownCell(strRowId, strKey, bDisabled);
+      },
+      resetFoot: function () {
+        this.$refs[this.footId].resetPage();
+      }
 
       //#endregion
+    },
+    watch: {
+      titles: {
+        handler() {
+          this._setStyle4Tables();
+        },
+        deep: true
+      },
     },
   }
 </script>
@@ -316,115 +1174,61 @@
   }
 
   /*endregion*/
-  .gridWrapper {
+  .GridExWithFreezeColumnWrapper {
     width: 100%;
     height: 100%;
-    background-color: #fff;
-  }
-
-  .gridWrapper .grid {
-    height: calc(100% - 32px);
-  }
-
-  .gridWrapper .empty {
-    background: url("../../../../static/images/common/emptyTip2.png") no-repeat center;
-    background-size: 14%;
-  }
-
-  .gridWrapper .grid .gridCont {
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    display: block;
-    border: 1px solid #ffffff;
-    box-sizing: border-box;
-  }
-
-  table thead, tbody tr {
-    display: table;
-    width: 100%;
-    table-layout: fixed;
-  }
-
-  .gridWrapper .grid .gridCont thead {
-    padding-right: 8px;
     position: relative;
-    box-sizing: border-box;
   }
 
-  .gridWrapper .grid .gridCont thead tr th {
-    background-color: #e1e4e5;
+  .GridExWithFreezeColumnWrapper .titleArea {
+    width: 100%;
     height: 30px;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    color: #212121;
-    padding: 0 8px;
-    position: relative;
-    border-bottom: 1px solid #ffffff;
-    border-right: 1px solid #ffffff;
-    font-size: 14px;
-    font-weight: 100;
-    text-align: center;
-  }
-
-  .gridWrapper .grid .gridCont thead tr th:last-child:after {
-    content: "";
-    height: 30px;
-    background-color: #eee;
-    width: 8px;
-    display: inline-block;
     position: absolute;
     top: 0;
-    right: -8px;
+    left: 0;
+    background-color: #eee;
   }
 
-  .gridWrapper .grid .gridCont thead tr .titleIcon {
-    float: right;
-  }
-
-  .gridWrapper .grid .gridCont tbody {
-    width: 100%;
-    height: calc(100% - 32px);
-    display: block;
-    overflow-x: auto;
-    overflow-y: scroll;
-  }
-
-  .gridWrapper .grid .gridCont tbody tr td {
-    color: #333;
-    height: 40px;
-    padding: 0 10px;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    border-bottom: 1px solid #ffffff;
-    border-right: 1px solid #ffffff;
-    font-size: 15px;
-  }
-
-  .gridWrapper .grid .gridCont tbody tr .icon {
-    margin-right: 8px;
-  }
-
-  .gridWrapper .grid .gridCont tbody tr .iconOnly {
-    float: right;
+  .GridExWithFreezeColumnWrapper .columnConfig {
+    width: 40px;
+    height: 28px;
+    position: absolute;
+    top: 1px;
+    right: 8px;
+    line-height: 28px;
+    text-align: center;
+    background-color: #eee;
+    color: #777777;
     cursor: pointer;
-    margin-left: 10px;
   }
 
-  .gridWrapper .grid .gridCont tbody tr .iconOnly:hover {
+  .GridExWithFreezeColumnWrapper .columnConfig:hover {
     color: #3399ff;
   }
 
-  .gridWrapper .grid .gridCont tbody tr:nth-child(odd) {
-    background-color: #f7f7f7;
+  .GridExWithFreezeColumnWrapper .freezeTables {
+    width: 100%;
+    position: relative;
   }
 
-  .gridWrapper .grid .gridCont tbody tr:hover {
-    background-color: #eaf6f9;
+  .GridExWithFreezeColumnWrapper .freezeTables .freezeTable {
+    position: absolute;
   }
 
-  .gridWrapper .footArea {
+  .GridExWithFreezeColumnWrapper .freezeTables .emptyTip {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: url("../../../../static/images/common/emptyTip2.png") no-repeat center;
+    background-size: 14%;
+    display: none;
+  }
+
+  .GridExWithFreezeColumnWrapper .empty .emptyTip {
+    display: block;
+  }
+
+  .GridExWithFreezeColumnWrapper .footArea {
     height: 32px;
     padding: 4px;
     box-sizing: border-box;
@@ -433,434 +1237,52 @@
     border-bottom: 1px solid #ccc;
   }
 
-  .gridWrapper .footArea .foot {
+  .GridExWithFreezeColumnWrapper .footArea .foot {
     display: inline-block;
     overflow: hidden;
     height: 100%;
   }
 
-  .gridWrapper .footArea .foot .pageSwitch {
-    float: left;
+  /*region dark*/
+
+  .dark .titleArea {
+    background-color: #2a3255;
+    border-top: #808080;
   }
 
-  .gridWrapper .footArea .foot .pageSwitch .item {
-    height: 100%;
-    float: left;
-    line-height: 26px;
-    color: #666;
-    padding: 0 4px;
-    maring: 0 4px;
-    font-size: 12px;
-    cursor: pointer;
-  }
-
-  .gridWrapper .footArea .foot .pageSwitch .item:hover {
-    color: #fff;
-    background-color: #60b0ff;
-  }
-
-  .gridWrapper .footArea .foot .pageSwitch .current {
-    color: #fff;
-    background-color: #3399ff !important;
-  }
-
-  .gridWrapper .footArea .foot .pageDrop {
-    float: left;
-    padding: 0 10px;
-    height: 22px;
-    width: 40px;
-    box-sizing: border-box;
-    border: 1px solid #ccc;
-    border-radius: 2px;
-    line-height: 22px;
-    font-size: 14px;
-    color: #333;
-    outline: none;
-  }
-
-  .gridWrapper .footArea .foot .text {
-    height: 100%;
-    float: left;
-    line-height: 26px;
-    color: #666;
-    margin: 0 4px;
-    padding: 0 4px;
-    font-size: 12px;
-  }
-
-  /*region dark theme*/
-
-  .dark .gridWrapper {
-    background-color: #161C36;
-  }
-
-  .dark .grid {
-  }
-
-  .dark .empty {
-  }
-
-  .dark .grid .gridCont {
-    border: 1px solid rgb(128, 128, 128);
-  }
-
-  .dark .grid .gridCont thead {
-  }
-
-  .dark .grid .gridCont thead tr th {
+  .dark .columnConfig {
     background-color: #2a3255;
     color: #ffffff;
-    border-bottom: 1px solid rgb(128, 128, 128);
-    border-right: 1px solid rgb(128, 128, 128);
   }
 
-  .dark .grid .gridCont thead tr th:last-child:after {
-    background-color: #2a3255;
+  .dark .columnConfig:hover {
+    color: #3dcca6;
   }
 
-  .dark .grid .gridCont thead tr .titleIcon {
+  /*endregion*/
+
+  /*region blackBg*/
+
+  .blackBg .titleArea {
+    background-color: #322b2b;
+    border-top: #444444;
   }
 
-  .dark .grid .gridCont tbody {
-  }
-
-  .dark .grid .gridCont tbody tr td {
+  .blackBg .columnConfig {
+    background-color: #322b2b;
     color: #ffffff;
-    border-bottom: 1px solid rgb(128, 128, 128);
-    border-right: 1px solid rgb(128, 128, 128);
   }
 
-  .dark .grid .gridCont tbody tr td:last-child {
-    border-right: none;
-  }
-
-  .dark .grid .gridCont tbody tr td:last-child {
-    color: #ffffff;
-    border-right: none;
-  }
-
-  .dark .grid .gridCont tbody tr .icon {
-  }
-
-  .dark .grid .gridCont tbody tr .iconOnly {
-  }
-
-  .dark .grid .gridCont tbody tr .iconOnly:hover {
+  .blackBg .columnConfig:hover {
     color: #3399ff;
   }
 
-  .dark .grid .gridCont tbody tr:nth-child(odd) {
-    background-color: #161C36;
-  }
-
-  .dark .grid .gridCont tbody tr:nth-child(even) {
-    background-color: #13213c;
-  }
-
-  .dark .grid .gridCont tbody tr:hover {
-    background-color: #1d3b60;
-  }
-
-  .dark .footArea {
-    border-top: none;
-    border-bottom: 1px solid rgb(128, 128, 128);
-  }
-
-  .dark .footArea .foot {
-  }
-
-  .dark .footArea .foot .pageSwitch {
-  }
-
-  .dark .footArea .foot .pageSwitch .item {
-    color: #ffffff;
-  }
-
-  .dark .footArea .foot .pageSwitch .item:hover {
-    color: #fff;
-    background-color: #60b0ff;
-  }
-
-  .dark .footArea .foot .pageSwitch .current {
-    color: #fff;
-    background-color: #3399ff !important;
-  }
-
-  .dark .footArea .foot .pageDrop {
-    border: 1px solid #ccc;
-    color: #333;
-  }
-
-  .dark .footArea .foot .text {
-    color: #ffffff;
-  }
-
   /*endregion*/
 
-  /*sl start*/
-  /*check start*/
-  * {
-    box-sizing: border-box
+</style>
+
+<style>
+  .GridExWithFreezeColumnWrapper .freezeTables .freezeTable .gridWrapper .empty {
+    background: none !important;
   }
-
-  .checkBoxWrapper {
-    display: inline-block;
-  }
-
-  .dpn {
-    display: none;
-  }
-
-  .checkBoxWrapper .checkBox {
-    width: 16px;
-    height: 16px;
-    position: relative;
-    float: left;
-  }
-
-  .checkBoxWrapper .checkBox input[type=checkbox] {
-    /*pos*/
-    margin: 0;
-    padding: 0;
-    /*style*/
-    visibility: hidden;
-  }
-
-  .checkBoxWrapper .checkBox input[type=checkbox]:checked + label:after {
-    /*pos*/
-    /*style*/
-    opacity: 1;
-    border: 2px solid #fff;
-    border-top: none;
-    border-right: none;
-  }
-
-  .checkBoxWrapper .checkBox input[type=checkbox]:checked + label {
-    /*pos*/
-    /*style*/
-    background: #3399ff;
-    border: 1px solid rgba(0, 0, 0, 0);
-  }
-
-  .checkBoxWrapper .checkBox input[type=checkbox]:disabled + label:after {
-    /*pos*/
-    /*style*/
-    border: 2px solid #999999;
-    border-top: none;
-    border-right: none;
-  }
-
-  .checkBoxWrapper .checkBox input[type=checkbox]:disabled + label {
-    /*pos*/
-    /*style*/
-    border: 1px solid #999999;
-    background-color: #f0f0f0;
-    pointer-events: none;
-  }
-
-  .checkBoxWrapper .checkBox label {
-    /*pos*/
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    margin: 0;
-    padding: 0;
-    /*style*/
-    cursor: pointer;
-    border: 1px solid #ccc;
-    border-radius: 2px;
-    -webkit-transition: all .5s ease;
-    -moz-transition: all .5s ease;
-    -ms-transition: all .5s ease;
-    -o-transition: all .5s ease;
-    transition: all .5s ease;
-  }
-
-  .checkBoxWrapper .checkBox label:hover {
-    border: 1px solid #60b0ff;
-  }
-
-  .checkBoxWrapper .checkBox label:after {
-    /*pos*/
-    position: absolute;
-    width: 7px;
-    height: 4px;
-    top: 3px;
-    left: 2px;
-    /*style*/
-    opacity: 0;
-    content: '';
-    background: transparent;
-    border: 2px solid #fff;
-    border-top: none;
-    border-right: none;
-    -webkit-transform: rotate(-45deg);
-    -moz-transform: rotate(-45deg);
-    -ms-transform: rotate(-45deg);
-    -o-transform: rotate(-45deg);
-    transform: rotate(-45deg);
-  }
-
-  /*check end*/
-  /*radio start*/
-  .radioWrapper {
-    display: inline-block;
-  }
-
-  .dpn {
-    display: none;
-  }
-
-  .radioWrapper .radio {
-    width: 16px;
-    height: 16px;
-    position: relative;
-    float: left;
-  }
-
-  .radioWrapper .radio input[type=radio] {
-    /*pos*/
-    margin: 0;
-    padding: 0;
-    /*style*/
-    visibility: hidden;
-  }
-
-  .radioWrapper .radio input[type=radio]:checked + label:after {
-    /*pos*/
-    /*style*/
-    opacity: 1;
-    border-top: none;
-    border-right: none;
-  }
-
-  .radioWrapper .radio input[type=radio]:checked + label {
-    /*pos*/
-    /*style*/
-    background-color: #3399ff;
-  }
-
-  .radioWrapper .radio input[type=radio]:disabled + label:after {
-    /*pos*/
-    /*style*/
-    background-color: #aaa;
-  }
-
-  .radioWrapper .radio input[type=radio]:disabled + label {
-    /*pos*/
-    /*style*/
-    border: 1px solid #999999;
-    background-color: #f0f0f0;
-    pointer-events: none;
-  }
-
-  .radioWrapper .radio label {
-    /*pos*/
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    margin: 0;
-    padding: 0;
-    /*style*/
-    cursor: pointer;
-    border: 1px solid #ccc;
-    border-radius: 100%;
-    -webkit-transition: all .5s ease;
-    -moz-transition: all .5s ease;
-    -ms-transition: all .5s ease;
-    -o-transition: all .5s ease;
-    transition: all .5s ease;
-  }
-
-  .radioWrapper .radio label:hover {
-    border: 1px solid #60b0ff;
-  }
-
-  .radioWrapper .radio label:after {
-    /*pos*/
-    position: absolute;
-    width: 6px;
-    height: 6px;
-    border-radius: 100%;
-    top: 4px;
-    left: 4px;
-    /*style*/
-    opacity: 0;
-    content: '';
-    background-color: #fff;
-  }
-
-  /*radio end*/
-  /*input start*/
-  .inputWrapper {
-    width: 100%;
-  }
-
-  .inputWrapper .inputDefault {
-    padding: 0 10px;
-    height: 30px;
-    width: 100%;
-    box-sizing: border-box;
-    border: 1px solid #ccc;
-    border-radius: 2px;
-    line-height: 30px;
-    font-size: 14px;
-    color: #333;
-    outline: none;
-  }
-
-  .inputWrapper .inputDefault:hover, .inputWrapper .inputDefault:focus {
-    border: 1px solid #3399ff;
-  }
-
-  .inputWrapper .errorTip {
-    color: #ff4c4c;
-    line-height: 36px;
-    font-size: 14px;
-    display: none;
-  }
-
-  .inputWrapper .errorTip:before {
-    margin-right: 10px;
-  }
-
-  .error .inputDefault {
-    border: 1px solid #ff4c4c !important;
-  }
-
-  .error .errorTip {
-    display: block;
-  }
-
-  .disable .inputDefault {
-    background-color: #f0f0f0;
-    pointer-events: none;
-  }
-
-  /*region dark theme*/
-  .dark .inputWrapper {
-    background-color: transparent;
-  }
-
-  .dark .inputDefault {
-    border: 1px solid #8b90b3;
-    font-size: 14px;
-    color: #ffffff;
-    background-color: transparent;
-  }
-
-  /*endregion*/
-
-  .mini .inputDefault {
-    height: 22px;
-    line-height: 22px;
-    font-size: 12px;
-  }
-
-  /*input end*/
-  /*sl end*/
 </style>

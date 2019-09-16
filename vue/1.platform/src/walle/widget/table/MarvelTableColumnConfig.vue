@@ -46,13 +46,13 @@
   import MarvelButton from "../button/MarvelButton";
 
   /**
-   *  MarvelGridColumnConfig widget description
+   *  MarvelTableColumnConfig widget description
    *  @vuedoc
-   *  @exports MarvelGridColumnConfig
+   *  @exports MarvelTableColumnConfig
    */
   export default {
     components: {MarvelButton, MarvelBidirectionalSelect, MarvelDialog},
-    name: 'MarvelGridColumnConfig',
+    name: 'MarvelTableColumnConfig',
     props: [],
     data: function () {
       return {

@@ -177,6 +177,7 @@
           expand: false,
           subItems: [
             //#region Grid
+            {id: "Page4MarvelTable", label: "Page4MarvelTable"},
             {id: "Page4MarvelGrid", label: "Page4MarvelGrid"},
             {id: "Page4MarvelGridEx", label: "Page4MarvelGridEx"},
             {id: "Page4MarvelGridExFilter", label: "Page4MarvelGridExFilter"},
