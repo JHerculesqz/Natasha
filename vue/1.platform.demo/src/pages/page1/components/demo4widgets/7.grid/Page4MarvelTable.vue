@@ -7,8 +7,9 @@
     </div>
     <!--1级 end-->
     <!--region widget show area-->
-    <!--2级 start-->
 
+    <!--2级 start-->
+    <div class="describe">一次性获取全量数据表</div>
     <div class="showArea">
       <marvel-tab :tabItems="tabItems1">
         <marvel-tab-item :isActive="tabItems1[0].isActive">
@@ -60,6 +61,20 @@
         <marvel-tab-item :isActive="tabItems1[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
+            '></marvel-ace-editor>
+          </div>
+        </marvel-tab-item>
+      </marvel-tab>
+    </div>
+    <!--2级 end-->
+
+    <!--2级 start-->
+    <div class="describe">一次性获取全量数据表</div>
+    <div class="showArea">
+      <marvel-tab :tabItems="tabItems2">
+        <marvel-tab-item :isActive="tabItems2[0].isActive">
+          <div class="showAreaInner">
+            <!--2级DemoView start-->
             <button @click="setRowColor4FreezeGrid">setRowColor</button>
             <button @click="removeRowColor4FreezeGrid">removeRowColor</button>
             <button @click="getSelectRows4Checkbox4FreezeGrid">getSelectRows4Checkbox</button>
@@ -73,39 +88,167 @@
             <button @click="checkRow4FreezeGrid">checkRow</button>
             <button @click="checkRadioRow4FreezeGrid">checkRadioRow</button>
             <button @click="disabledDropDownCell4FreezeGrid">disabledDropDownCell</button>
-            <div style="width:800px;height:300px;">
-              <marvel-grid-ex-with-freeze-column ref="gridExWithFreezeColumn"
-                                                 gridId="gridExWithFreezeColumn"
-                                                 :titles="titlesExWithFreezeColumn"
-                                                 :rows="rowsExWithFreezeColumn"
-                                                 :dynamicPaging="true"
-                                                 :totalNum="totalNumWithFreezeColumn"
-                                                 :totalPage="totalPageWithFreezeColumn"
-                                                 :limit="totalNumWithFreezeLimit"
-                                                 :canDrag="true"
-                                                 :hasFoot="true"
-                                                 :bIsAdaptToContH="true"
-                                                 :maxHeight="200"
-                                                 :columnConfig="true"
-                                                 v-on:editCellFinished="editCellFinished4GridExWithFreezeColumn"
-                                                 v-on:sortRowsFunc="sortRowsFunc4GridExWithFreezeColumn"
-                                                 v-on:onTitleCheckOrUncheck="onTitleCheckOrUncheck4GridExWithFreezeColumn"
-                                                 v-on:onClickRow="onClickRow4GridExWithFreezeColumn"
-                                                 v-on:onRowCheckOrUnCheck="onRowCheckOrUnCheck4GridExWithFreezeColumn"
-                                                 v-on:onRowRadioCheck="onRowRadioCheck4GridExWithFreezeColumn"
-                                                 v-on:onClickTextCell="onClickTextCell4GridExWithFreezeColumn"
-                                                 v-on:onIconClick="onIconClick4GridExWithFreezeColumn"
-                                                 v-on:onOptionChange="onOptionChange4GridExWithFreezeColumn"
-                                                 v-on:onClickTextIcon="onClickTextIcon4GridExWithFreezeColumn"
-                                                 v-on:onClickMultiDropdownItem="onClickMultiDropdownItem4GridExWithFreezeColumn"
-                                                 v-on:onPageChange="onPageChange4GridExWithFreezeColumn"></marvel-grid-ex-with-freeze-column>
+            <div style="width:100%;height:300px;">
+              <marvel-table ref="gridExWithFreezeColumn"
+                            gridId="gridExWithFreezeColumn"
+                            :titles="titlesExWithFreezeColumn"
+                            :rows="rowsExWithFreezeColumn"
+                            :dynamicPaging="true"
+                            :totalNum="totalNumWithFreezeColumn"
+                            :totalPage="totalPageWithFreezeColumn"
+                            :limit="totalNumWithFreezeLimit"
+                            :canDrag="true"
+                            :hasFoot="true"
+                            :bIsAdaptToContH="true"
+                            :maxHeight="200"
+                            :columnConfig="true"
+                            v-on:editCellFinished="editCellFinished4GridExWithFreezeColumn"
+                            v-on:sortRowsFunc="sortRowsFunc4GridExWithFreezeColumn"
+                            v-on:onTitleCheckOrUncheck="onTitleCheckOrUncheck4GridExWithFreezeColumn"
+                            v-on:onClickRow="onClickRow4GridExWithFreezeColumn"
+                            v-on:onRowCheckOrUnCheck="onRowCheckOrUnCheck4GridExWithFreezeColumn"
+                            v-on:onRowRadioCheck="onRowRadioCheck4GridExWithFreezeColumn"
+                            v-on:onClickTextCell="onClickTextCell4GridExWithFreezeColumn"
+                            v-on:onIconClick="onIconClick4GridExWithFreezeColumn"
+                            v-on:onOptionChange="onOptionChange4GridExWithFreezeColumn"
+                            v-on:onClickTextIcon="onClickTextIcon4GridExWithFreezeColumn"
+                            v-on:onClickMultiDropdownItem="onClickMultiDropdownItem4GridExWithFreezeColumn"
+                            v-on:onPageChange="onPageChange4GridExWithFreezeColumn"></marvel-table>
             </div>
+            <!--2级DemoView end-->
+          </div>
+        </marvel-tab-item>
+        <marvel-tab-item :isActive="tabItems2[1].isActive">
+          <div class="codeArea">
+            <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
             '></marvel-ace-editor>
           </div>
         </marvel-tab-item>
       </marvel-tab>
     </div>
     <!--2级 end-->
+
+    <!--2级 start-->
+    <div class="describe">一次性获取全量数据表</div>
+    <div class="showArea">
+      <marvel-tab :tabItems="tabItems1">
+        <marvel-tab-item :isActive="tabItems3[0].isActive">
+          <div class="showAreaInner">
+            <!--2级DemoView start-->
+            <button @click="setRowColor4FreezeGrid">setRowColor</button>
+            <button @click="removeRowColor4FreezeGrid">removeRowColor</button>
+            <button @click="getSelectRows4Checkbox4FreezeGrid">getSelectRows4Checkbox</button>
+            <button @click="getSelectRow4Radiobox4FreezeGrid">getSelectRow4Radiobox</button>
+            <button @click="removeRow4FreezeGrid">removeRow</button>
+            <button @click="getRows4FreezeGrid">getRows</button>
+            <button @click="getActiveRows4FreezeGrid">getActiveRows</button>
+            <button @click="disableRow4FreezeGrid">disableRow</button>
+            <button @click="enableRow4FreezeGrid">enableRow</button>
+            <button @click="enableAllRows4FreezeGrid">enableAllRows</button>
+            <button @click="checkRow4FreezeGrid">checkRow</button>
+            <button @click="checkRadioRow4FreezeGrid">checkRadioRow</button>
+            <button @click="disabledDropDownCell4FreezeGrid">disabledDropDownCell</button>
+            <div style="width:100%;height:300px;">
+              <marvel-table ref="gridExWithFreezeColumn"
+                            gridId="gridExWithFreezeColumn"
+                            :titles="titlesExWithFreezeColumn"
+                            :rows="rowsExWithFreezeColumn"
+                            :dynamicPaging="true"
+                            :totalNum="totalNumWithFreezeColumn"
+                            :totalPage="totalPageWithFreezeColumn"
+                            :limit="totalNumWithFreezeLimit"
+                            :canDrag="true"
+                            :hasFoot="true"
+                            :bIsAdaptToContH="true"
+                            :maxHeight="200"
+                            :columnConfig="true"
+                            v-on:editCellFinished="editCellFinished4GridExWithFreezeColumn"
+                            v-on:sortRowsFunc="sortRowsFunc4GridExWithFreezeColumn"
+                            v-on:onTitleCheckOrUncheck="onTitleCheckOrUncheck4GridExWithFreezeColumn"
+                            v-on:onClickRow="onClickRow4GridExWithFreezeColumn"
+                            v-on:onRowCheckOrUnCheck="onRowCheckOrUnCheck4GridExWithFreezeColumn"
+                            v-on:onRowRadioCheck="onRowRadioCheck4GridExWithFreezeColumn"
+                            v-on:onClickTextCell="onClickTextCell4GridExWithFreezeColumn"
+                            v-on:onIconClick="onIconClick4GridExWithFreezeColumn"
+                            v-on:onOptionChange="onOptionChange4GridExWithFreezeColumn"
+                            v-on:onClickTextIcon="onClickTextIcon4GridExWithFreezeColumn"
+                            v-on:onClickMultiDropdownItem="onClickMultiDropdownItem4GridExWithFreezeColumn"
+                            v-on:onPageChange="onPageChange4GridExWithFreezeColumn"></marvel-table>
+            </div>
+            <!--2级DemoView end-->
+          </div>
+        </marvel-tab-item>
+        <marvel-tab-item :isActive="tabItems3[1].isActive">
+          <div class="codeArea">
+            <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
+            '></marvel-ace-editor>
+          </div>
+        </marvel-tab-item>
+      </marvel-tab>
+    </div>
+    <!--2级 end-->
+
+    <!--2级 start-->
+    <div class="describe">一次性获取全量数据表</div>
+    <div class="showArea">
+      <marvel-tab :tabItems="tabItems4">
+        <marvel-tab-item :isActive="tabItems4[0].isActive">
+          <div class="showAreaInner">
+            <!--2级DemoView start-->
+            <button @click="setRowColor4FreezeGrid">setRowColor</button>
+            <button @click="removeRowColor4FreezeGrid">removeRowColor</button>
+            <button @click="getSelectRows4Checkbox4FreezeGrid">getSelectRows4Checkbox</button>
+            <button @click="getSelectRow4Radiobox4FreezeGrid">getSelectRow4Radiobox</button>
+            <button @click="removeRow4FreezeGrid">removeRow</button>
+            <button @click="getRows4FreezeGrid">getRows</button>
+            <button @click="getActiveRows4FreezeGrid">getActiveRows</button>
+            <button @click="disableRow4FreezeGrid">disableRow</button>
+            <button @click="enableRow4FreezeGrid">enableRow</button>
+            <button @click="enableAllRows4FreezeGrid">enableAllRows</button>
+            <button @click="checkRow4FreezeGrid">checkRow</button>
+            <button @click="checkRadioRow4FreezeGrid">checkRadioRow</button>
+            <button @click="disabledDropDownCell4FreezeGrid">disabledDropDownCell</button>
+            <div style="width:100%;height:300px;">
+              <marvel-table ref="gridExWithFreezeColumn"
+                            gridId="gridExWithFreezeColumn"
+                            :titles="titlesExWithFreezeColumn"
+                            :rows="rowsExWithFreezeColumn"
+                            :dynamicPaging="true"
+                            :totalNum="totalNumWithFreezeColumn"
+                            :totalPage="totalPageWithFreezeColumn"
+                            :limit="totalNumWithFreezeLimit"
+                            :canDrag="true"
+                            :hasFoot="true"
+                            :bIsAdaptToContH="true"
+                            :maxHeight="200"
+                            :columnConfig="true"
+                            v-on:editCellFinished="editCellFinished4GridExWithFreezeColumn"
+                            v-on:sortRowsFunc="sortRowsFunc4GridExWithFreezeColumn"
+                            v-on:onTitleCheckOrUncheck="onTitleCheckOrUncheck4GridExWithFreezeColumn"
+                            v-on:onClickRow="onClickRow4GridExWithFreezeColumn"
+                            v-on:onRowCheckOrUnCheck="onRowCheckOrUnCheck4GridExWithFreezeColumn"
+                            v-on:onRowRadioCheck="onRowRadioCheck4GridExWithFreezeColumn"
+                            v-on:onClickTextCell="onClickTextCell4GridExWithFreezeColumn"
+                            v-on:onIconClick="onIconClick4GridExWithFreezeColumn"
+                            v-on:onOptionChange="onOptionChange4GridExWithFreezeColumn"
+                            v-on:onClickTextIcon="onClickTextIcon4GridExWithFreezeColumn"
+                            v-on:onClickMultiDropdownItem="onClickMultiDropdownItem4GridExWithFreezeColumn"
+                            v-on:onPageChange="onPageChange4GridExWithFreezeColumn"></marvel-table>
+            </div>
+            <!--2级DemoView end-->
+          </div>
+        </marvel-tab-item>
+        <marvel-tab-item :isActive="tabItems4[1].isActive">
+          <div class="codeArea">
+            <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
+            '></marvel-ace-editor>
+          </div>
+        </marvel-tab-item>
+      </marvel-tab>
+    </div>
+    <!--2级 end-->
+
+
     <!--endregion-->
     <!--region doc area-->
     <div class="docArea">
@@ -135,6 +278,27 @@
       return {
         //#region document data
         tabItems1: [{
+          label: "Demo View",
+          isActive: true
+        }, {
+          label: "Code View",
+          isActive: false
+        }],
+        tabItems2: [{
+          label: "Demo View",
+          isActive: true
+        }, {
+          label: "Code View",
+          isActive: false
+        }],
+        tabItems3: [{
+          label: "Demo View",
+          isActive: true
+        }, {
+          label: "Code View",
+          isActive: false
+        }],
+        tabItems4: [{
           label: "Demo View",
           isActive: true
         }, {

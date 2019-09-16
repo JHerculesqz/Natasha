@@ -1280,9 +1280,3 @@
   /*endregion*/
 
 </style>
-
-<style>
-  .GridExWithFreezeColumnWrapper .freezeTables .freezeTable .gridWrapper .empty {
-    background: none !important;
-  }
-</style>
