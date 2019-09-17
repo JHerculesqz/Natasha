@@ -1,5 +1,36 @@
 <!--
 功能说明：
+1.props说明
+titles：表格的表头
+rows：表格列
+limit：每页显示的行数
+gridId: 表格控件实例的唯一标识
+editCellFinished: 可编辑单元格编辑完成后的回调
+sortRowsFunc: 自定义排序的回调，不传的话，按照默认的规则排序
+canDrag: 是否可以拖拽列
+hasFoot: 是否有foot
+dynamicPaging: 是否动态分页
+totalNum: 当dynamicPaging为true时，必填
+totalPage: 当dynamicPaging为true时，必填
+pageLimit：分页时，分页显示的数量
+columnConfig：列过滤
+2.支持的列的类型
+text: 纯文本
+input: 可编辑文本
+icon: 可点击的图表，一个单元格中可以有多个
+textIcon：带文字的可点击图表，一个单元格中只能有一个
+dropdown：下拉选项
+checkBox：多选框，不能和radioBox同时存在
+radioBox: 单选框，不能和checkBox同时存在
+multiDropdown：下拉框多选，支持度不好，待优化
+3.支持列的排序
+在表头列中增加"orderBy: true"表示这一列支持排序
+4.支持列的拖拽功能
+规则：canDrag=true的情况下，列的宽度必须是"200px"的形式不能是百分比的形式
+-->
+
+<!--
+功能说明：
 相对marvelGridEx，固定列表格功能有以下删减
 1 不支持表头拖拽更改列宽
 2 不支持子表（展开）项
@@ -472,10 +503,10 @@
       //#region lifeCycle
 
       _initEx: function () {
-        this.leftTableId = this.gridId + StringUtilsEx.uuid();
-        this.centerTableId = this.gridId + StringUtilsEx.uuid();
-        this.rightTableId = this.gridId + StringUtilsEx.uuid();
-        this.footId = this.gridId + StringUtilsEx.uuid();
+        this.leftTableId = this.gridId + "_left";
+        this.centerTableId = this.gridId + "_center";
+        this.rightTableId = this.gridId + "_right";
+        this.footId = this.gridId + "_foot";
 
         //setStyle
         this._setStyle4Tables();
@@ -522,9 +553,9 @@
 
       //#endregion
 
-      //#region leftTable
-
       //#region 一致性 设置
+
+      //#region leftTable
 
       leftTableOnRowHover: function (oRow) {
         var rowId = this._getRowId(oRow);
@@ -555,11 +586,7 @@
 
       //#endregion
 
-      //#endregion
-
       //#region centerTable
-
-      //#region 一致性 设置
 
       centerTableOnRowHover: function (oRow) {
         var rowId = this._getRowId(oRow);
@@ -590,11 +617,7 @@
 
       //#endregion
 
-      //#endregion
-
       //#region rightTable
-
-      //#region 一致性 设置
 
       rightTableOnRowHover: function (oRow) {
         var rowId = this._getRowId(oRow);

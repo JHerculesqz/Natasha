@@ -13,7 +13,6 @@ dynamicPaging: 是否动态分页
 totalNum: 当dynamicPaging为true时，必填
 totalPage: 当dynamicPaging为true时，必填
 pageLimit：分页时，分页显示的数量
-columnConfig：列过滤
 2.支持的列的类型
 text: 纯文本
 input: 可编辑文本
@@ -30,7 +29,7 @@ multiDropdown：下拉框多选，支持度不好，待优化
 -->
 <template>
   <div class="gridWrapper">
-    <div class="grid" :class="contentClass" :style="contentStyle">
+    <div class="grid">
       <table class="gridCont" cellspacing="0" cellpadding="0" border="0">
         <thead :style="{left: offSetX + 'px'}">
         <tr>
@@ -62,55 +61,54 @@ multiDropdown：下拉框多选，支持度不好，待优化
         </tr>
         </thead>
         <tbody>
-        <template v-for="(row,index) in rowsInPage">
-          <tr :class="[getTrStyle(row, index),row[0].value == hoverRowId ? 'rowHover':'']" @click.stop="onClickRow(row)"
-              @mouseenter="onRowHover(row)" @mouseleave="onRowHoverEnd">
-            <td v-if="useDetailRow()" style="width: 35px" :class="foldOrUnFold(row)"
-                @click.stop="onClickFoldOrUnFold(row)"></td>
-            <template v-for="title in titles" v-if="title.visible">
-              <td v-if="title.type == 'checkBox'" :style="getTdStyle(title, row)">
-                <div class="checkBoxWrapper">
-                  <div class="checkBox" @click.stop>
-                    <input type="checkbox" :id="_generateIdentityId(row, 'check')"
-                           :disabled="formBoxDisabled(row)"
-                           :checked="rowCheckboxChecked(row)"
-                           @change="onRowCheckboxChange(row, $event)">
-                    <label :for="_generateIdentityId(row, 'check')"></label>
-                  </div>
-                  <label :for="_generateIdentityId(row, 'check')">{{getCellValueByKey(title.key, row)}}</label>
+        <tr v-for="(row,index) in rowsInPage" :class="[getTrStyle(row, index),row[0].value == hoverRowId ? 'rowHover':'']" @click.stop="onClickRow(row)"
+            @mouseenter="onRowHover(row)" @mouseleave="onRowHoverEnd">
+          <td v-if="useDetailRow()" style="width: 35px" :class="foldOrUnFold(row)"
+              @click.stop="onClickFoldOrUnFold(row)"></td>
+          <template v-for="title in titles" v-if="title.visible">
+            <td v-if="title.type == 'checkBox'" :style="getTdStyle(title, row)">
+              <div class="checkBoxWrapper">
+                <div class="checkBox" @click.stop>
+                  <input type="checkbox" :id="_generateIdentityId(row, 'check')"
+                         :disabled="formBoxDisabled(row)"
+                         :checked="rowCheckboxChecked(row)"
+                         @change="onRowCheckboxChange(row, $event)">
+                  <label :for="_generateIdentityId(row, 'check')"></label>
                 </div>
-              </td>
-              <td v-if="title.type == 'radioBox'" :style="getTdStyle(title, row)">
-                <div class="radioWrapper" @click.stop>
-                  <div class="radio">
-                    <input type="radio" :id="_generateIdentityId(row, 'radio')"
-                           :value="getCellValueByKey('id', row)"
-                           :disabled="formBoxDisabled(row)"
-                           v-model="radioSelect"
-                           @change.stop="onRowRadioboxChange(row, $event)"/>
-                    <label :for="_generateIdentityId(row, 'radio')"></label>
-                  </div>
+                <label :for="_generateIdentityId(row, 'check')">{{getCellValueByKey(title.key, row)}}</label>
+              </div>
+            </td>
+            <td v-if="title.type == 'radioBox'" :style="getTdStyle(title, row)">
+              <div class="radioWrapper" @click.stop>
+                <div class="radio">
+                  <input type="radio" :id="_generateIdentityId(row, 'radio')"
+                         :value="getCellValueByKey('id', row)"
+                         :disabled="formBoxDisabled(row)"
+                         v-model="radioSelect"
+                         @change.stop="onRowRadioboxChange(row, $event)"/>
+                  <label :for="_generateIdentityId(row, 'radio')"></label>
                 </div>
-              </td>
-              <td v-if="title.type == 'text'" :style="getTdStyle(title, row)">
-                <div class="textCell" :title="getCellValueByKey(title.key, row)"
-                     :style="getLabelStyle(title, row)"
-                     @click="onClickTextCell(title.key, row)">
-                  {{getCellValueByKey(title.key, row)}}
+              </div>
+            </td>
+            <td v-if="title.type == 'text'" :style="getTdStyle(title, row)">
+              <div class="textCell" :title="getCellValueByKey(title.key, row)"
+                   :style="getLabelStyle(title, row)"
+                   @click="onClickTextCell(title.key, row)">
+                {{getCellValueByKey(title.key, row)}}
+              </div>
+            </td>
+            <td v-if="title.type == 'input'" :style="getTdStyle(title, row)">
+              <div class="inputWrapper">
+                <div class="radio">
+                  <input type="text" class="inputDefault"
+                         :value="getCellValueByKey(title.key, row)"
+                         @click.stop
+                         @blur="editRowFinished(title.key, row, $event)"
+                         @keyup.enter="editRowFinished(title.key, row, $event)">
                 </div>
-              </td>
-              <td v-if="title.type == 'input'" :style="getTdStyle(title, row)">
-                <div class="inputWrapper">
-                  <div class="radio">
-                    <input type="text" class="inputDefault"
-                           :value="getCellValueByKey(title.key, row)"
-                           @click.stop
-                           @blur="editRowFinished(title.key, row, $event)"
-                           @keyup.enter="editRowFinished(title.key, row, $event)">
-                  </div>
-                </div>
-              </td>
-              <td v-if="title.type == 'icon'" :style="getTdStyle(title, row)">
+              </div>
+            </td>
+            <td v-if="title.type == 'icon'" :style="getTdStyle(title, row)">
                  <span class="iconOnly"
                        v-for="icon in getCellValueByKey(title.key, row)"
                        :class="[icon.value]"
@@ -118,18 +116,50 @@ multiDropdown：下拉框多选，支持度不好，待优化
                        :title="icon.label"
                        @click.stop="onIconClick(title.key, row, icon)">
                  </span>
-              </td>
-              <td v-if="title.type == 'textIcon'" :style="getTdStyle(title, row)">
-                <div class="textIcon" @click.stop="onClickTextIcon(title.key, row)">
+            </td>
+            <td v-if="title.type == 'textIcon'" :style="getTdStyle(title, row)">
+              <div class="textIcon" @click.stop="onClickTextIcon(title.key, row)">
                   <span class="icon"
                         :class="[getCellValueByKey(title.key, row)]"
                         :style="{ color: _getCell(title.key, row).color }"></span>
-                  <span :title="_getCell(title.key, row).label" :style="getLabelStyle(title, row)">{{_getCell(title.key, row).label}}</span>
+                <span :title="_getCell(title.key, row).label" :style="getLabelStyle(title, row)">{{_getCell(title.key, row).label}}</span>
+              </div>
+            </td>
+            <td v-if="title.type == 'dropdown'" :style="getTdStyle(title, row)">
+              <select class="customerSelect"
+                      :disabled="dropDownCellDisabled(title.key, row)"
+                      @click.stop
+                      @change.stop="onOptionChange(title.key, row, $event)">
+                <option class="customerSelectOption"
+                        v-for="item in getCellValueByKey(title.key, row)"
+                        :selected="item.selected == true"
+                        :value="item.value">{{item.value}}
+                </option>
+              </select>
+            </td>
+            <td v-if="title.type == 'multiDropdown'" class="multiDropdown" :style="getTdStyle(title, row)">
+              <div class="label icon-marvelIcon-24"
+                   :title="multiDropdownText(title.key, row)"
+                   v-text="multiDropdownText(title.key, row)"
+                   @click.stop="onClickMultiDropdown(title.key, row)"></div>
+              <div class="options" v-show="_getCell(title.key, row).showDropdown"
+                   @blur="multiDropdownPanelBlur(title.key, row)">
+                <div class="optionItem"
+                     v-for="item in getCellValueByKey(title.key, row)"
+                     :class="{mouseDown: item.selected == true}"
+                     @click.stop="onClickMultiDropdownItem(title.key, row, item)">{{item.value}}
                 </div>
-              </td>
-              <td v-if="title.type == 'dropdown'" :style="getTdStyle(title, row)">
+              </div>
+            </td>
+            <td v-if="title.type == 'customer'" :style="getTdStyle(title, row)">
+              <template v-if="getCellType(title, row) == 'text'">
+                <div class="textCell" :title="getCellValueByKey(title.key, row)"
+                     @click.stop="onClickTextCell(title.key, row)">
+                  {{getCellValueByKey(title.key, row)}}
+                </div>
+              </template>
+              <template v-else-if=" getCellType(title, row)=='dropdown'">
                 <select class="customerSelect"
-                        :disabled="dropDownCellDisabled(title.key, row)"
                         @click.stop
                         @change.stop="onOptionChange(title.key, row, $event)">
                   <option class="customerSelectOption"
@@ -138,90 +168,32 @@ multiDropdown：下拉框多选，支持度不好，待优化
                           :value="item.value">{{item.value}}
                   </option>
                 </select>
-              </td>
-              <td v-if="title.type == 'multiDropdown'" class="multiDropdown" :style="getTdStyle(title, row)">
-                <div class="label icon-marvelIcon-24"
-                     :title="multiDropdownText(title.key, row)"
-                     v-text="multiDropdownText(title.key, row)"
-                     @click.stop="onClickMultiDropdown(title.key, row)"></div>
-                <div class="options" v-show="_getCell(title.key, row).showDropdown"
-                     @blur="multiDropdownPanelBlur(title.key, row)">
-                  <div class="optionItem"
-                       v-for="item in getCellValueByKey(title.key, row)"
-                       :class="{mouseDown: item.selected == true}"
-                       @click.stop="onClickMultiDropdownItem(title.key, row, item)">{{item.value}}
-                  </div>
-                </div>
-              </td>
-              <td v-if="title.type == 'customer'" :style="getTdStyle(title, row)">
-                <template v-if="getCellType(title, row) == 'text'">
-                  <div class="textCell" :title="getCellValueByKey(title.key, row)"
-                       @click.stop="onClickTextCell(title.key, row)">
-                    {{getCellValueByKey(title.key, row)}}
-                  </div>
-                </template>
-                <template v-else-if=" getCellType(title, row)=='dropdown'">
-                  <select class="customerSelect"
-                          @click.stop
-                          @change.stop="onOptionChange(title.key, row, $event)">
-                    <option class="customerSelectOption"
-                            v-for="item in getCellValueByKey(title.key, row)"
-                            :selected="item.selected == true"
-                            :value="item.value">{{item.value}}
-                    </option>
-                  </select>
-                </template>
-              </td>
-              <td v-if="title.type == 'progress'" :style="getTdStyle(title, row)">
-                <div class="progressBarWrapper" :title="getCellValueByKey(title.key, row)">
-                  <div class="progress"
-                       :style="{width:getCellValueByKey(title.key, row),'background-color':getProgressColorByKey(title.key, row)}"></div>
-                </div>
-                <div class="progressLabel" :title="getCellValueByKey(title.key, row)">{{getCellValueByKey(title.key,
-                  row)}}
-                </div>
-              </td>
-            </template>
-          </tr>
-          <template v-if="useDetailRow(row)">
-            <transition name="detail-row-transition">
-              <tr v-if="isDeatilRowVisible(row)">
-                <component :is="detailRowComponent" :row="row"></component>
-              </tr>
-            </transition>
+              </template>
+            </td>
+            <td v-if="title.type == 'progress'" :style="getTdStyle(title, row)">
+              <div class="progressBarWrapper" :title="getCellValueByKey(title.key, row)">
+                <div class="progress"
+                     :style="{width:getCellValueByKey(title.key, row),'background-color':getProgressColorByKey(title.key, row)}"></div>
+              </div>
+              <div class="progressLabel" :title="getCellValueByKey(title.key, row)">{{getCellValueByKey(title.key, row)}}</div>
+            </td>
           </template>
+        </tr>
+        <template v-if="useDetailRow(row)">
+          <transition name="detail-row-transition">
+            <tr v-if="isDeatilRowVisible(row)">
+              <component :is="detailRowComponent" :row="row"></component>
+            </tr>
+          </transition>
         </template>
         </tbody>
       </table>
     </div>
-    <div v-if="hasFoot" class="footArea">
-      <div class="foot">
-        <marvel-paging ref="ref4Paging" :totalNum="totalCount" :pages="totalPageCount"
-                       @onPageChange="onPageChange"></marvel-paging>
-      </div>
-    </div>
-    <div v-if="columnConfig" class="columnConfig icon-cog" :title="$t('columnConfig')"
-         @click="_showColumnConfigPanel"></div>
-    <marvel-table-column-config ref="ref4ColumnConfig"
-                                @handleTblDataToShow="_handleGridDataToShow"></marvel-table-column-config>
   </div>
 </template>
 
-<i18n>
-  {
-  "en": {
-  "columnConfig": "Column Config "
-  },
-  "zh": {
-  "columnConfig": "列配置 "
-  }
-  }
-</i18n>
-
 <script>
-  import MarvelPaging from "../paging/MarvelPaging"
   import _ from "lodash"
-  import MarvelTableColumnConfig from "./MarvelTableColumnConfig";
 
   /**
    *  MarvelTableItem widget description
@@ -229,10 +201,7 @@ multiDropdown：下拉框多选，支持度不好，待优化
    *  @exports MarvelTableItem
    */
   export default {
-    components: {
-      MarvelTableColumnConfig,
-      MarvelPaging
-    },
+    components: {},
     name: 'MarvelTableItem',
     props: {
       titles: {
@@ -275,11 +244,6 @@ multiDropdown：下拉框多选，支持度不好，待优化
         default: "",
         required: false,
       },
-      hasFoot: {
-        type: Boolean,
-        default: true,
-        required: false,
-      },
       dynamicPaging: {
         type: Boolean,
         default: false,
@@ -298,11 +262,6 @@ multiDropdown：下拉框多选，支持度不好，待优化
       pageLimit: {
         type: Number,
         default: 7,
-        required: false,
-      },
-      columnConfig: {
-        type: Boolean,
-        default: false,
         required: false,
       }
     },
@@ -365,35 +324,9 @@ multiDropdown：下拉框多选，支持度不好，待优化
       //#endregion
     },
     computed: {
-      totalCount() {
-        if (this.dynamicPaging) {
-          return this.totalNum;
-        } else {
-          return this.rows.length;
-        }
-      },
-      totalPageCount() {
-        if (this.dynamicPaging) {
-          return this.totalPage;
-        } else {
-          return Math.ceil(this.rows.length / this.limit);
-        }
-      },
       titleCheckboxChecked() {
         return this.selectRowIds.length > 0;
       },
-      contentClass() {
-        let oClass = [];
-        if (this.rows.length === 0) {
-          oClass.push("empty");
-        }
-        return oClass;
-      },
-      contentStyle() {
-        if (!this.hasFoot) {
-          return {height: "100%"};
-        }
-      }
     },
     methods: {
       //#region inner
@@ -604,40 +537,6 @@ multiDropdown：下拉框多选，支持度不好，待优化
         this.resizeTitle = undefined;
       },
       //endregion
-      //#region column config
-      _showColumnConfigPanel: function () {
-        var oData = [];
-        for (var i = 0; i < this.titles.length; i++) {
-          if (this.titles[i].bCanColumnConfig != false) {
-            if (this.titles[i].visible == true) {
-              oData.push({
-                label: this.titles[i].label,
-                belongTo: "right"
-              });
-            } else {
-              oData.push({
-                label: this.titles[i].label,
-                belongTo: "left"
-              });
-            }
-          }
-        }
-        this.$refs.ref4ColumnConfig.init(oData);
-      },
-      _handleGridDataToShow: function (oData) {
-        for (var i = 0; i < oData.length; i++) {
-          for (var j = 0; j < this.titles.length; j++) {
-            if (oData[i].label == this.titles[j].key) {
-              if (oData[i].belongTo == "right") {
-                this.titles[j].visible = true;
-              } else {
-                this.titles[j].visible = false;
-              }
-            }
-          }
-        }
-      },
-      //#endregion
       //region row
       //region common
       getCellValueByKey(strKeyValue, oRow) {
@@ -894,13 +793,6 @@ multiDropdown：下拉框多选，支持度不好，待优化
           this.$refs.ref4Paging.resetCurPageIndex();
         }
       },
-      onPageChange(iPage) {
-        if (this.dynamicPaging) {
-          this.callback4OnPageChange(iPage);
-        } else {
-          this.curPageIndex = iPage;
-        }
-      },
       //endregion
 
       //#endregion
@@ -1133,19 +1025,22 @@ multiDropdown：下拉框多选，支持度不好，待优化
 <style scoped>
   /*region basic*/
 
-  *{
-    font-family: "Microsoft YaHei", "arial",sans-serif;
+  * {
+    font-family: "Microsoft YaHei", "arial", sans-serif;
   }
-  ::-webkit-scrollbar{
-    width:8px;
-    height:8px;
-    background-color: rgba(0,0,0,0);
+
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    background-color: rgba(0, 0, 0, 0);
   }
-  ::-webkit-scrollbar-track{
+
+  ::-webkit-scrollbar-track {
     border-radius: 10px;
-    background-color: rgba(0,0,0,0);
+    background-color: rgba(0, 0, 0, 0);
   }
-  ::-webkit-scrollbar-thumb{
+
+  ::-webkit-scrollbar-thumb {
     border-radius: 10px;
     background-color: #aaa;
   }
@@ -1161,30 +1056,13 @@ multiDropdown：下拉框多选，支持度不好，待优化
   }
 
   .gridWrapper .grid {
-    height: calc(100% - 32px);
+    height: 100%;
     width: 100%;
   }
 
   .gridWrapper .empty {
     /*background: url("../../../../static/images/common/emptyTip2.png") no-repeat center;*/
     background-size: 14%;
-  }
-
-  .gridWrapper .columnConfig {
-    width: 40px;
-    height: 28px;
-    position: absolute;
-    top: 1px;
-    right: 8px;
-    line-height: 28px;
-    text-align: center;
-    background-color: #e1e4e5;
-    color: #777777;
-    cursor: pointer;
-  }
-
-  .gridWrapper .columnConfig:hover {
-    color: #3399ff;
   }
 
   .gridWrapper .grid .gridCont {
@@ -1452,70 +1330,6 @@ multiDropdown：下拉框多选，支持度不好，待优化
     background-color: #66b3ff;
   }
 
-  .gridWrapper .footArea {
-    height: 32px;
-    padding: 4px;
-    box-sizing: border-box;
-    text-align: center;
-    border-top: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
-  }
-
-  .gridWrapper .footArea .foot {
-    display: inline-block;
-    overflow: hidden;
-    height: 100%;
-  }
-
-  .gridWrapper .footArea .foot .pageSwitch {
-    float: left;
-  }
-
-  .gridWrapper .footArea .foot .pageSwitch .item {
-    height: 100%;
-    float: left;
-    line-height: 26px;
-    color: #666;
-    padding: 0 4px;
-    maring: 0 4px;
-    font-size: 12px;
-    cursor: pointer;
-  }
-
-  .gridWrapper .footArea .foot .pageSwitch .item:hover {
-    color: #fff;
-    background-color: #60b0ff;
-  }
-
-  .gridWrapper .footArea .foot .pageSwitch .current {
-    color: #fff;
-    background-color: #3399ff !important;
-  }
-
-  .gridWrapper .footArea .foot .pageDrop {
-    float: left;
-    padding: 0 10px;
-    height: 22px;
-    width: 40px;
-    box-sizing: border-box;
-    border: 1px solid #ccc;
-    border-radius: 2px;
-    line-height: 22px;
-    font-size: 14px;
-    color: #333;
-    outline: none;
-  }
-
-  .gridWrapper .footArea .foot .text {
-    height: 100%;
-    float: left;
-    line-height: 26px;
-    color: #666;
-    margin: 0 4px;
-    padding: 0 4px;
-    font-size: 12px;
-  }
-
   .icon-marvelIcon_2-09 {
     color: #999999 !important;
   }
@@ -1545,15 +1359,6 @@ multiDropdown：下拉框多选，支持度不好，待优化
   }
 
   .dark .empty {
-  }
-
-  .dark .columnConfig {
-    background-color: #2a3255;
-    color: #ffffff;
-  }
-
-  .dark .columnConfig:hover {
-    color: #3dcca6;
   }
 
   .dark .grid .gridCont {
@@ -1687,40 +1492,6 @@ multiDropdown：下拉框多选，支持度不好，待优化
 
   .dark .grid tr td .multiSelected {
     background-color: #66b3ff;
-  }
-
-  .dark .footArea {
-    border-top: none;
-    border-bottom: 1px solid rgb(128, 128, 128);
-  }
-
-  .dark .footArea .foot {
-  }
-
-  .dark .footArea .foot .pageSwitch {
-  }
-
-  .dark .footArea .foot .pageSwitch .item {
-    color: #ffffff;
-  }
-
-  .dark .footArea .foot .pageSwitch .item:hover {
-    color: #fff;
-    background-color: #60b0ff;
-  }
-
-  .dark .footArea .foot .pageSwitch .current {
-    color: #fff;
-    background-color: #3399ff !important;
-  }
-
-  .dark .footArea .foot .pageDrop {
-    border: 1px solid #ccc;
-    color: #333;
-  }
-
-  .dark .footArea .foot .text {
-    color: #ffffff;
   }
 
   .dark .icon-marvelIcon_2-09 {

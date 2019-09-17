@@ -9,7 +9,7 @@
     <!--region widget show area-->
 
     <!--2级 start-->
-    <div class="describe">一次性获取全量数据表</div>
+    <div class="describe">一次性获取全量数据表 & 全量单元格内容展示</div>
     <div class="showArea">
       <marvel-tab :tabItems="tabItems1">
         <marvel-tab-item :isActive="tabItems1[0].isActive">
@@ -30,30 +30,28 @@
             <button @click="disabledDropDownCell4FreezeGrid">disabledDropDownCell</button>
             <div style="width:100%;height:300px;">
               <marvel-table ref="gridExWithFreezeColumn"
-                                                 gridId="gridExWithFreezeColumn"
-                                                 :titles="titlesExWithFreezeColumn"
-                                                 :rows="rowsExWithFreezeColumn"
-                                                 :dynamicPaging="true"
-                                                 :totalNum="totalNumWithFreezeColumn"
-                                                 :totalPage="totalPageWithFreezeColumn"
-                                                 :limit="totalNumWithFreezeLimit"
-                                                 :canDrag="true"
-                                                 :hasFoot="true"
-                                                 :bIsAdaptToContH="true"
-                                                 :maxHeight="200"
-                                                 :columnConfig="true"
-                                                 v-on:editCellFinished="editCellFinished4GridExWithFreezeColumn"
-                                                 v-on:sortRowsFunc="sortRowsFunc4GridExWithFreezeColumn"
-                                                 v-on:onTitleCheckOrUncheck="onTitleCheckOrUncheck4GridExWithFreezeColumn"
-                                                 v-on:onClickRow="onClickRow4GridExWithFreezeColumn"
-                                                 v-on:onRowCheckOrUnCheck="onRowCheckOrUnCheck4GridExWithFreezeColumn"
-                                                 v-on:onRowRadioCheck="onRowRadioCheck4GridExWithFreezeColumn"
-                                                 v-on:onClickTextCell="onClickTextCell4GridExWithFreezeColumn"
-                                                 v-on:onIconClick="onIconClick4GridExWithFreezeColumn"
-                                                 v-on:onOptionChange="onOptionChange4GridExWithFreezeColumn"
-                                                 v-on:onClickTextIcon="onClickTextIcon4GridExWithFreezeColumn"
-                                                 v-on:onClickMultiDropdownItem="onClickMultiDropdownItem4GridExWithFreezeColumn"
-                                                 v-on:onPageChange="onPageChange4GridExWithFreezeColumn"></marvel-table>
+                           gridId="gridExWithFreezeColumn"
+                           :titles="_getData('allEle').titles"
+                           :rows="_getData('allEle').rows"
+                           :dynamicPaging="true"
+                           :totalNum="_getData('allEle').totalNum"
+                           :totalPage="_getData('allEle').totalPage"
+                           :limit="_getData('allEle').limit"
+                           :canDrag="true"
+                           :hasFoot="true"
+                           :columnConfig="true"
+                           v-on:editCellFinished="editCellFinished4GridExWithFreezeColumn"
+                           v-on:sortRowsFunc="sortRowsFunc4GridExWithFreezeColumn"
+                           v-on:onTitleCheckOrUncheck="onTitleCheckOrUncheck4GridExWithFreezeColumn"
+                           v-on:onClickRow="onClickRow4GridExWithFreezeColumn"
+                           v-on:onRowCheckOrUnCheck="onRowCheckOrUnCheck4GridExWithFreezeColumn"
+                           v-on:onRowRadioCheck="onRowRadioCheck4GridExWithFreezeColumn"
+                           v-on:onClickTextCell="onClickTextCell4GridExWithFreezeColumn"
+                           v-on:onIconClick="onIconClick4GridExWithFreezeColumn"
+                           v-on:onOptionChange="onOptionChange4GridExWithFreezeColumn"
+                           v-on:onClickTextIcon="onClickTextIcon4GridExWithFreezeColumn"
+                           v-on:onClickMultiDropdownItem="onClickMultiDropdownItem4GridExWithFreezeColumn"
+                           v-on:onPageChange="onPageChange4GridExWithFreezeColumn"></marvel-table>
             </div>
             <!--2级DemoView end-->
           </div>
@@ -91,12 +89,12 @@
             <div style="width:100%;height:300px;">
               <marvel-table ref="gridExWithFreezeColumn"
                             gridId="gridExWithFreezeColumn"
-                            :titles="titlesExWithFreezeColumn"
-                            :rows="rowsExWithFreezeColumn"
+                            :titles="_getData('tableData').titles"
+                            :rows="_getData('tableData').rows"
                             :dynamicPaging="true"
-                            :totalNum="totalNumWithFreezeColumn"
-                            :totalPage="totalPageWithFreezeColumn"
-                            :limit="totalNumWithFreezeLimit"
+                            :totalNum="_getData('tableData').totalNum"
+                            :totalPage="_getData('tableData').totalPage"
+                            :limit="_getData('tableData').limit"
                             :canDrag="true"
                             :hasFoot="true"
                             :bIsAdaptToContH="true"
@@ -151,12 +149,12 @@
             <div style="width:100%;height:300px;">
               <marvel-table ref="gridExWithFreezeColumn"
                             gridId="gridExWithFreezeColumn"
-                            :titles="titlesExWithFreezeColumn"
-                            :rows="rowsExWithFreezeColumn"
+                            :titles="_getData('tableData').titles"
+                            :rows="_getData('tableData').rows"
                             :dynamicPaging="true"
-                            :totalNum="totalNumWithFreezeColumn"
-                            :totalPage="totalPageWithFreezeColumn"
-                            :limit="totalNumWithFreezeLimit"
+                            :totalNum="_getData('tableData').totalNum"
+                            :totalPage="_getData('tableData').totalPage"
+                            :limit="_getData('tableData').limit"
                             :canDrag="true"
                             :hasFoot="true"
                             :bIsAdaptToContH="true"
@@ -209,14 +207,14 @@
             <button @click="checkRadioRow4FreezeGrid">checkRadioRow</button>
             <button @click="disabledDropDownCell4FreezeGrid">disabledDropDownCell</button>
             <div style="width:100%;height:300px;">
-              <marvel-table ref="gridExWithFreezeColumn"
-                            gridId="gridExWithFreezeColumn"
-                            :titles="titlesExWithFreezeColumn"
-                            :rows="rowsExWithFreezeColumn"
+              <marvel-table ref="table4tableData"
+                            gridId="table4tableData"
+                            :titles="_getData('tableData').titles"
+                            :rows="_getData('tableData').rows"
                             :dynamicPaging="true"
-                            :totalNum="totalNumWithFreezeColumn"
-                            :totalPage="totalPageWithFreezeColumn"
-                            :limit="totalNumWithFreezeLimit"
+                            :totalNum="_getData('tableData').totalNum"
+                            :totalPage="_getData('tableData').totalPage"
+                            :limit="_getData('tableData').limit"
                             :canDrag="true"
                             :hasFoot="true"
                             :bIsAdaptToContH="true"
@@ -264,6 +262,7 @@
   import MarvelTabItem from "^/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "^/widget/aceEditor/MarvelAceEditor";
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
+  import ConfigUtils from "./Page4MarvelTableConfig";
 
   export default {
     name: 'page4MarvelTable',
@@ -307,67 +306,7 @@
         }],
         //#endregion
         //#region custom data
-        titlesExWithFreezeColumn: [{
-          label: "",
-          key: "radioBox",
-          type: "radioBox", //或者为 "checkBox"
-          visible: true,
-          width: "40px",
-          freeze: "left",
-          bCanColumnConfig:false
-        },{
-          label: "",
-          key: "checkBox",
-          type: "checkBox", //或者为 "checkBox"
-          visible: true,
-          width: "40px",
-          freeze: "left",
-        }, {
-          label: "name",
-          key: "name",
-          type: "text",
-          visible: true,
-          orderBy: true,
-          width: "100px",
-          freeze: "left",
-        }, {
-          label: "描述信息",
-          key: "description",
-          type: "input",
-          visible: true,
-          orderBy: true,
-          width: "200px"
-        }, {
-          label: "操作",
-          key: "operation",
-          type: "icon",
-          visible: true,
-          width: "200px"
-        }, {
-          label: "链接",
-          key: "link",
-          type: "textIcon",
-          visible: true,
-          width: "200px"
-        }, {
-          label: "配置项",
-          key: "config",
-          type: "dropdown",
-          visible: true,
-          width: "200px",
-          freeze: "right",
-        }, {
-          label: "目标网元",
-          key: "node",
-          type: "multiDropdown",
-          visible: true,
-          width: "200px",
-          freeze: "right",
-        }],
-        rowsExWithFreezeColumn: [],
-        totalNumWithFreezeColumn: 200,
-        totalPageWithFreezeColumn: 10,
-        totalNumWithFreezeLimit: 20,
+
         //#endregion
       }
     },
@@ -391,8 +330,13 @@
 
       //#endregion
 
+      _getData:function(strName){
+        return ConfigUtils[strName];
+      },
+
       _initGridExWithFreezeColumn: function(iPageIndex){
-        this.rowsExWithFreezeColumn = [];
+        this._getData('allEle').rows = [];
+        this._getData('tableData').rows = [];
         let iStart = (iPageIndex - 1) * 20;
         let iEnd = iPageIndex * 20;
         for (let i = iStart; i < iEnd; i++) {
@@ -465,9 +409,11 @@
               value: "Node4"
             }],
           });
-          this.rowsExWithFreezeColumn.push(oRow);
+          this._getData('allEle').rows.push(oRow);
+          this._getData('tableData').rows.push(oRow);
         }
       },
+
       setRowColor4FreezeGrid: function () {
         this.$refs.gridExWithFreezeColumn.setRowColor(0);
       },
