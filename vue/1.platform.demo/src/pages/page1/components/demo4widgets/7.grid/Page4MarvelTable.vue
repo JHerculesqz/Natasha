@@ -28,30 +28,30 @@
             <button @click="checkRow4FreezeGrid">checkRow</button>
             <button @click="checkRadioRow4FreezeGrid">checkRadioRow</button>
             <button @click="disabledDropDownCell4FreezeGrid">disabledDropDownCell</button>
-            <div style="width:100%;height:300px;">
+            <div style="width:100%;height:260px;">
               <marvel-table ref="gridExWithFreezeColumn"
-                           gridId="gridExWithFreezeColumn"
-                           :titles="_getData('allEle').titles"
-                           :rows="_getData('allEle').rows"
-                           :dynamicPaging="true"
-                           :totalNum="_getData('allEle').totalNum"
-                           :totalPage="_getData('allEle').totalPage"
-                           :limit="_getData('allEle').limit"
-                           :canDrag="true"
-                           :hasFoot="true"
-                           :columnConfig="true"
-                           v-on:editCellFinished="editCellFinished4GridExWithFreezeColumn"
-                           v-on:sortRowsFunc="sortRowsFunc4GridExWithFreezeColumn"
-                           v-on:onTitleCheckOrUncheck="onTitleCheckOrUncheck4GridExWithFreezeColumn"
-                           v-on:onClickRow="onClickRow4GridExWithFreezeColumn"
-                           v-on:onRowCheckOrUnCheck="onRowCheckOrUnCheck4GridExWithFreezeColumn"
-                           v-on:onRowRadioCheck="onRowRadioCheck4GridExWithFreezeColumn"
-                           v-on:onClickTextCell="onClickTextCell4GridExWithFreezeColumn"
-                           v-on:onIconClick="onIconClick4GridExWithFreezeColumn"
-                           v-on:onOptionChange="onOptionChange4GridExWithFreezeColumn"
-                           v-on:onClickTextIcon="onClickTextIcon4GridExWithFreezeColumn"
-                           v-on:onClickMultiDropdownItem="onClickMultiDropdownItem4GridExWithFreezeColumn"
-                           v-on:onPageChange="onPageChange4GridExWithFreezeColumn"></marvel-table>
+                            gridId="gridExWithFreezeColumn"
+                            :titles="titles4allEle"
+                            :rows="rows4allEle"
+                            :limit="limit4allEle"
+                            :canDrag="true"
+                            detailRowComponent="TableDetailsComponent"
+                            :hasFoot="true"
+                            :columnConfig="true"
+                            v-on:editCellFinished="editCellFinished"
+                            v-on:sortRowsFunc="sortRowsFunc"
+                            v-on:onTitleCheckOrUncheck="onTitleCheckOrUncheck"
+                            v-on:onClickRow="onClickRow"
+                            v-on:onRowCheckOrUnCheck="onRowCheckOrUnCheck"
+                            v-on:onRowRadioCheck="onRowRadioCheck"
+                            v-on:onClickTextCell="onClickTextCell"
+                            v-on:onIconClick="onIconClick"
+                            v-on:onOptionChange="onOptionChange"
+                            v-on:onClickTextIcon="onClickTextIcon"
+                            v-on:onClickMultiDropdownItem="onClickMultiDropdownItem"
+                            v-on:onClickSwitch="onClickSwitch"
+                            v-on:onClickImg="onClickImg"
+                            v-on:onPageChange="onPageChange"></marvel-table>
             </div>
             <!--2级DemoView end-->
           </div>
@@ -89,29 +89,29 @@
             <div style="width:100%;height:300px;">
               <marvel-table ref="gridExWithFreezeColumn"
                             gridId="gridExWithFreezeColumn"
-                            :titles="_getData('tableData').titles"
-                            :rows="_getData('tableData').rows"
+                            :titles="titles4tableData"
+                            :rows="rows4tableData"
                             :dynamicPaging="true"
-                            :totalNum="_getData('tableData').totalNum"
-                            :totalPage="_getData('tableData').totalPage"
-                            :limit="_getData('tableData').limit"
+                            :totalNum="totalNum4tableData"
+                            :totalPage="totalPage4tableData"
+                            :limit="limit4tableData"
                             :canDrag="true"
                             :hasFoot="true"
                             :bIsAdaptToContH="true"
                             :maxHeight="200"
                             :columnConfig="true"
-                            v-on:editCellFinished="editCellFinished4GridExWithFreezeColumn"
-                            v-on:sortRowsFunc="sortRowsFunc4GridExWithFreezeColumn"
-                            v-on:onTitleCheckOrUncheck="onTitleCheckOrUncheck4GridExWithFreezeColumn"
-                            v-on:onClickRow="onClickRow4GridExWithFreezeColumn"
-                            v-on:onRowCheckOrUnCheck="onRowCheckOrUnCheck4GridExWithFreezeColumn"
-                            v-on:onRowRadioCheck="onRowRadioCheck4GridExWithFreezeColumn"
-                            v-on:onClickTextCell="onClickTextCell4GridExWithFreezeColumn"
-                            v-on:onIconClick="onIconClick4GridExWithFreezeColumn"
-                            v-on:onOptionChange="onOptionChange4GridExWithFreezeColumn"
-                            v-on:onClickTextIcon="onClickTextIcon4GridExWithFreezeColumn"
-                            v-on:onClickMultiDropdownItem="onClickMultiDropdownItem4GridExWithFreezeColumn"
-                            v-on:onPageChange="onPageChange4GridExWithFreezeColumn"></marvel-table>
+                            v-on:editCellFinished="editCellFinished"
+                            v-on:sortRowsFunc="sortRowsFunc"
+                            v-on:onTitleCheckOrUncheck="onTitleCheckOrUncheck"
+                            v-on:onClickRow="onClickRow"
+                            v-on:onRowCheckOrUnCheck="onRowCheckOrUnCheck"
+                            v-on:onRowRadioCheck="onRowRadioCheck"
+                            v-on:onClickTextCell="onClickTextCell"
+                            v-on:onIconClick="onIconClick"
+                            v-on:onOptionChange="onOptionChange"
+                            v-on:onClickTextIcon="onClickTextIcon"
+                            v-on:onClickMultiDropdownItem="onClickMultiDropdownItem"
+                            v-on:onPageChange="onPageChange"></marvel-table>
             </div>
             <!--2级DemoView end-->
           </div>
@@ -149,29 +149,29 @@
             <div style="width:100%;height:300px;">
               <marvel-table ref="gridExWithFreezeColumn"
                             gridId="gridExWithFreezeColumn"
-                            :titles="_getData('tableData').titles"
-                            :rows="_getData('tableData').rows"
+                            :titles="titles4tableData"
+                            :rows="rows4tableData"
                             :dynamicPaging="true"
-                            :totalNum="_getData('tableData').totalNum"
-                            :totalPage="_getData('tableData').totalPage"
-                            :limit="_getData('tableData').limit"
+                            :totalNum="totalNum4tableData"
+                            :totalPage="totalPage4tableData"
+                            :limit="limit4tableData"
                             :canDrag="true"
                             :hasFoot="true"
                             :bIsAdaptToContH="true"
                             :maxHeight="200"
                             :columnConfig="true"
-                            v-on:editCellFinished="editCellFinished4GridExWithFreezeColumn"
-                            v-on:sortRowsFunc="sortRowsFunc4GridExWithFreezeColumn"
-                            v-on:onTitleCheckOrUncheck="onTitleCheckOrUncheck4GridExWithFreezeColumn"
-                            v-on:onClickRow="onClickRow4GridExWithFreezeColumn"
-                            v-on:onRowCheckOrUnCheck="onRowCheckOrUnCheck4GridExWithFreezeColumn"
-                            v-on:onRowRadioCheck="onRowRadioCheck4GridExWithFreezeColumn"
-                            v-on:onClickTextCell="onClickTextCell4GridExWithFreezeColumn"
-                            v-on:onIconClick="onIconClick4GridExWithFreezeColumn"
-                            v-on:onOptionChange="onOptionChange4GridExWithFreezeColumn"
-                            v-on:onClickTextIcon="onClickTextIcon4GridExWithFreezeColumn"
-                            v-on:onClickMultiDropdownItem="onClickMultiDropdownItem4GridExWithFreezeColumn"
-                            v-on:onPageChange="onPageChange4GridExWithFreezeColumn"></marvel-table>
+                            v-on:editCellFinished="editCellFinished"
+                            v-on:sortRowsFunc="sortRowsFunc"
+                            v-on:onTitleCheckOrUncheck="onTitleCheckOrUncheck"
+                            v-on:onClickRow="onClickRow"
+                            v-on:onRowCheckOrUnCheck="onRowCheckOrUnCheck"
+                            v-on:onRowRadioCheck="onRowRadioCheck"
+                            v-on:onClickTextCell="onClickTextCell"
+                            v-on:onIconClick="onIconClick"
+                            v-on:onOptionChange="onOptionChange"
+                            v-on:onClickTextIcon="onClickTextIcon"
+                            v-on:onClickMultiDropdownItem="onClickMultiDropdownItem"
+                            v-on:onPageChange="onPageChange"></marvel-table>
             </div>
             <!--2级DemoView end-->
           </div>
@@ -209,29 +209,29 @@
             <div style="width:100%;height:300px;">
               <marvel-table ref="table4tableData"
                             gridId="table4tableData"
-                            :titles="_getData('tableData').titles"
-                            :rows="_getData('tableData').rows"
+                            :titles="titles4tableData"
+                            :rows="rows4tableData"
                             :dynamicPaging="true"
-                            :totalNum="_getData('tableData').totalNum"
-                            :totalPage="_getData('tableData').totalPage"
-                            :limit="_getData('tableData').limit"
+                            :totalNum="totalNum4tableData"
+                            :totalPage="totalPage4tableData"
+                            :limit="limit4tableData"
                             :canDrag="true"
                             :hasFoot="true"
                             :bIsAdaptToContH="true"
                             :maxHeight="200"
                             :columnConfig="true"
-                            v-on:editCellFinished="editCellFinished4GridExWithFreezeColumn"
-                            v-on:sortRowsFunc="sortRowsFunc4GridExWithFreezeColumn"
-                            v-on:onTitleCheckOrUncheck="onTitleCheckOrUncheck4GridExWithFreezeColumn"
-                            v-on:onClickRow="onClickRow4GridExWithFreezeColumn"
-                            v-on:onRowCheckOrUnCheck="onRowCheckOrUnCheck4GridExWithFreezeColumn"
-                            v-on:onRowRadioCheck="onRowRadioCheck4GridExWithFreezeColumn"
-                            v-on:onClickTextCell="onClickTextCell4GridExWithFreezeColumn"
-                            v-on:onIconClick="onIconClick4GridExWithFreezeColumn"
-                            v-on:onOptionChange="onOptionChange4GridExWithFreezeColumn"
-                            v-on:onClickTextIcon="onClickTextIcon4GridExWithFreezeColumn"
-                            v-on:onClickMultiDropdownItem="onClickMultiDropdownItem4GridExWithFreezeColumn"
-                            v-on:onPageChange="onPageChange4GridExWithFreezeColumn"></marvel-table>
+                            v-on:editCellFinished="editCellFinished"
+                            v-on:sortRowsFunc="sortRowsFunc"
+                            v-on:onTitleCheckOrUncheck="onTitleCheckOrUncheck"
+                            v-on:onClickRow="onClickRow"
+                            v-on:onRowCheckOrUnCheck="onRowCheckOrUnCheck"
+                            v-on:onRowRadioCheck="onRowRadioCheck"
+                            v-on:onClickTextCell="onClickTextCell"
+                            v-on:onIconClick="onIconClick"
+                            v-on:onOptionChange="onOptionChange"
+                            v-on:onClickTextIcon="onClickTextIcon"
+                            v-on:onClickMultiDropdownItem="onClickMultiDropdownItem"
+                            v-on:onPageChange="onPageChange"></marvel-table>
             </div>
             <!--2级DemoView end-->
           </div>
@@ -257,12 +257,14 @@
 </template>
 
 <script>
+  import Vue from "vue";
   import MarvelTable from "^/widget/table/MarvelTable";
   import MarvelTab from "^/widget/tab/MarvelTab";
   import MarvelTabItem from "^/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "^/widget/aceEditor/MarvelAceEditor";
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
-  import ConfigUtils from "./Page4MarvelTableConfig";
+  import ConfigUtils from "./config4Table/Page4MarvelTableConfig";
+  import TableDetailsComponent from "./config4Table/TableDetailsComponent";
 
   export default {
     name: 'page4MarvelTable',
@@ -306,9 +308,22 @@
         }],
         //#endregion
         //#region custom data
+        titles4allEle:[],
+        rows4allEle:[],
+        totalPage4allEle:1,
+        totalNum4allEle:0,
+        limit4allEle:20,
 
+        titles4tableData:[],
+        rows4tableData:[],
+        totalPage4tableData:1,
+        totalNum4tableData:0,
+        limit4tableData:20,
         //#endregion
       }
+    },
+    created() {
+      Vue.component(TableDetailsComponent.name, TableDetailsComponent);
     },
     mounted: function () {
       //#region init
@@ -325,94 +340,33 @@
       _initEx: function () {
         this.$refs.page4MarvelTableIFrame.setIframe4DemoPage();
 
-        this._initGridExWithFreezeColumn(1);
+        this._initGridData(1);
       },
+
+      _initGridData: function(iPage){
+        this._initGridData4AllEle(iPage);
+        this._initGridData4TableData(iPage);
+      },
+
+      _initGridData4AllEle: function(iPage){
+        var oData = JSON.parse(JSON.stringify(ConfigUtils.getConfigOptions('allEle', iPage)));
+        this.titles4allEle = oData.titles;
+        this.rows4allEle = oData.rows;
+        this.totalPage4allEle = oData.totalPage;
+        this.totalNum4allEle = oData.totalNum;
+        this.limit4allEle = oData.limit;
+      },
+      _initGridData4TableData: function(iPage){
+        var oData = JSON.parse(JSON.stringify(ConfigUtils.getConfigOptions('tableData', iPage)));
+        this.titles4tableData = oData.titles;
+        this.rows4tableData = oData.rows;
+        this.totalPage4tableData = oData.totalPage;
+        this.totalNum4tableData = oData.totalNum;
+        this.limit4tableData = oData.limit;
+      },
+
 
       //#endregion
-
-      _getData:function(strName){
-        return ConfigUtils[strName];
-      },
-
-      _initGridExWithFreezeColumn: function(iPageIndex){
-        this._getData('allEle').rows = [];
-        this._getData('tableData').rows = [];
-        let iStart = (iPageIndex - 1) * 20;
-        let iEnd = iPageIndex * 20;
-        for (let i = iStart; i < iEnd; i++) {
-          let oRow = [];
-          //key:id用于标识这一列的唯一性，在界面上不会绘制出来
-          oRow.push({
-            key: "id",
-            value: i
-          });
-          oRow.push({
-            key: "radioBox",
-            value: "",
-            checked: i == 0 ? true : false
-          });
-          oRow.push({
-            key: "checkBox",
-            value: "",
-            checked: i == 0 ? true : false
-          });
-          oRow.push({
-            key: "name",
-            value: "name_" + i
-          });
-          oRow.push({
-            key: "description",
-            value: "input_cell" + i
-          });
-          oRow.push({
-            key: "operation",
-            value: [{
-              value: "icon-location2",
-              color: "red",
-              label: "lallalala"
-            }, {
-              value: "icon-location2",
-              label: "lallalala"
-            }, {
-              value: "icon-location2 disableIcon",
-              label: "lallalala"
-            }]
-          });
-          oRow.push({
-            key: "link",
-            value: "icon-podcast",
-            color: "#28aad3",
-            label: "shit",
-          });
-          oRow.push({
-            key: "config",
-            value: [{
-              value: "A",
-            }, {
-              value: "B",
-              selected: true
-            }, {
-              value: "C"
-            }],
-          });
-          oRow.push({
-            key: "node",
-            value: [{
-              value: "Node1",
-              selected: true,
-            }, {
-              value: "Node2",
-              selected: true
-            }, {
-              value: "Node3"
-            }, {
-              value: "Node4"
-            }],
-          });
-          this._getData('allEle').rows.push(oRow);
-          this._getData('tableData').rows.push(oRow);
-        }
-      },
 
       setRowColor4FreezeGrid: function () {
         this.$refs.gridExWithFreezeColumn.setRowColor(0);
@@ -458,7 +412,7 @@
       disabledDropDownCell4FreezeGrid: function(){
         this.$refs.gridExWithFreezeColumn.disabledDropDownCell(4, "config", true);
       },
-      editCellFinished4GridExWithFreezeColumn: function(oRow, oCell, oOldVal, oNewVal, oAfterValidateOk){
+      editCellFinished: function(oRow, oCell, oOldVal, oNewVal, oAfterValidateOk){
         console.log("editCellFinished");
         console.log(oRow);
         console.log(oCell);
@@ -466,63 +420,73 @@
         console.log(oNewVal);
         oAfterValidateOk();
       },
-      sortRowsFunc4GridExWithFreezeColumn: function(strKey, order, arrRows){
+      sortRowsFunc: function(strKey, order, arrRows){
         console.log("editCellFinished");
         console.log(strKey);
         console.log(order);
         console.log(arrRows);
       },
-      onTitleCheckOrUncheck4GridExWithFreezeColumn:function(isChecked){
-        console.log("onTitleCheckOrUncheck4GridEx");
+      onTitleCheckOrUncheck:function(isChecked){
+        console.log("onTitleCheckOrUncheck4Table");
         console.log(isChecked);
       },
-      onClickRow4GridExWithFreezeColumn:function(oRow){
-        console.log("onClickRow4GridEx");
+      onClickRow:function(oRow){
+        console.log("onClickRow4Table");
         console.log(oRow);
       },
-      onRowCheckOrUnCheck4GridExWithFreezeColumn:function(oRow, isChecked){
-        console.log("onRowCheckOrUnCheck4GridEx");
+      onRowCheckOrUnCheck:function(oRow, isChecked){
+        console.log("onRowCheckOrUnCheck4Table");
         console.log(oRow);
         console.log(isChecked);
       },
-      onRowRadioCheck4GridExWithFreezeColumn:function(oRow){
-        console.log("onRowRadioCheck4GridEx");
+      onRowRadioCheck:function(oRow){
+        console.log("onRowRadioCheck4Table");
         console.log(oRow);
       },
-      onClickTextCell4GridExWithFreezeColumn:function(oRow, oCell){
-        console.log("onClickTextCell4GridEx");
+      onClickTextCell:function(oRow, oCell){
+        console.log("onClickTextCell4Table");
         console.log(oRow);
         console.log(oCell);
       },
-      onIconClick4GridExWithFreezeColumn:function(oRow, oCell, oIcon){
-        console.log("onIconClick4GridEx");
+      onIconClick:function(oRow, oCell, oIcon){
+        console.log("onIconClick4Table");
         console.log(oRow);
         console.log(oCell);
         console.log(oIcon);
       },
-      onOptionChange4GridExWithFreezeColumn:function(oRow, oCell, strOldValue, strNewValue){
-        console.log("onOptionChange4GridEx");
+      onOptionChange:function(oRow, oCell, strOldValue, strNewValue){
+        console.log("onOptionChange4Table");
         console.log(oRow);
         console.log(oCell);
         console.log(strOldValue);
         console.log(strNewValue);
       },
-      onClickTextIcon4GridExWithFreezeColumn:function(oRow, oCell){
-        console.log("onClickTextIcon4GridEx");
+      onClickTextIcon:function(oRow, oCell){
+        console.log("onClickTextIcon4Table");
         console.log(oRow);
         console.log(oCell);
       },
-      onClickMultiDropdownItem4GridExWithFreezeColumn:function(oRow, oCell, oItem){
-        console.log("onClickMultiDropdownItem4GridEx");
+      onClickMultiDropdownItem:function(oRow, oCell, oItem){
+        console.log("onClickMultiDropdownItem4Table");
         console.log(oRow);
         console.log(oCell);
         console.log(oItem);
       },
-      onPageChange4GridExWithFreezeColumn: function (iPageIndex) {
-        console.log("onPageChange4GridEx");
+      onClickSwitch: function(oRow, oCell){
+        console.log("onClickSwitch");
+        console.log(oRow);
+        console.log(oCell);
+      },
+      onClickImg: function(oRow, oCell){
+        console.log("onClickImg");
+        console.log(oRow);
+        console.log(oCell);
+      },
+      onPageChange: function (iPageIndex) {
+        console.log("onPageChange4Table");
         console.log(iPageIndex);
         setTimeout(() => {
-          this._initGridExWithFreezeColumn(iPageIndex);
+          this._initGridData4TableData(iPageIndex);
         }, 100);
       },
 

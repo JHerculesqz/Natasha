@@ -28,7 +28,7 @@ multiDropdown：下拉框多选，支持度不好，待优化
 规则：canDrag=true的情况下，列的宽度必须是"200px"的形式不能是百分比的形式
 -->
 <template>
-  <div class="gridWrapper">
+  <div class="gridWrapper" :id="gridId" :ref="gridId">
     <div class="grid">
       <table class="gridCont" cellspacing="0" cellpadding="0" border="0">
         <thead :style="{left: offSetX + 'px'}">
@@ -39,12 +39,12 @@ multiDropdown：下拉框多选，支持度不好，待优化
               <th class="gridTitle" :style="{ width: title.width }" :title="title.label">
                 <div v-if="title.type == 'checkBox'" class="checkBoxWrapper">
                   <div class="checkBox">
-                    <input type="checkbox" :id="gridId"
+                    <input type="checkbox" :id="gridId + '_selectAll'"
                            @change.stop="onTitleCheckboxChange(title, $event)"
                            :checked="titleCheckboxChecked">
-                    <label :for="gridId"></label>
+                    <label :for="gridId + '_selectAll'"></label>
                   </div>
-                  <label :for="gridId" class="checkBoxLabel">{{title.label}}</label>
+                  <label :for="gridId + '_selectAll'" class="checkBoxLabel">{{title.label}}</label>
                 </div>
                 <div v-else-if="title.type == 'radioBox'">
                 </div>
@@ -61,105 +61,82 @@ multiDropdown：下拉框多选，支持度不好，待优化
         </tr>
         </thead>
         <tbody>
-        <tr v-for="(row,index) in rowsInPage" :class="[getTrStyle(row, index),row[0].value == hoverRowId ? 'rowHover':'']" @click.stop="onClickRow(row)"
-            @mouseenter="onRowHover(row)" @mouseleave="onRowHoverEnd">
-          <td v-if="useDetailRow()" style="width: 35px" :class="foldOrUnFold(row)"
-              @click.stop="onClickFoldOrUnFold(row)"></td>
-          <template v-for="title in titles" v-if="title.visible">
-            <td v-if="title.type == 'checkBox'" :style="getTdStyle(title, row)">
-              <div class="checkBoxWrapper">
-                <div class="checkBox" @click.stop>
-                  <input type="checkbox" :id="_generateIdentityId(row, 'check')"
-                         :disabled="formBoxDisabled(row)"
-                         :checked="rowCheckboxChecked(row)"
-                         @change="onRowCheckboxChange(row, $event)">
-                  <label :for="_generateIdentityId(row, 'check')"></label>
+        <template v-for="(row,index) in rowsInPage">
+          <tr :class="[getTrStyle(row, index),row[0].value == hoverRowId ? 'rowHover':'']" @click.stop="onClickRow(row)"
+              @mouseenter="onRowHover(row)" @mouseleave="onRowHoverEnd">
+            <td v-if="useDetailRow()" style="width: 35px" :class="foldOrUnFold(row)"
+                @click.stop="onClickFoldOrUnFold(row)"></td>
+            <template v-for="title in titles" v-if="title.visible">
+              <td v-if="title.type == 'checkBox'" :style="getTdStyle(title, row)">
+                <div class="checkBoxWrapper">
+                  <div class="checkBox" @click.stop>
+                    <input type="checkbox" :id="_generateIdentityId(row, 'check')"
+                           :disabled="formBoxDisabled(row)"
+                           :checked="rowCheckboxChecked(row)"
+                           @change="onRowCheckboxChange(row, $event)">
+                    <label :for="_generateIdentityId(row, 'check')"></label>
+                  </div>
+                  <label :for="_generateIdentityId(row, 'check')">{{getCellValueByKey(title.key, row)}}</label>
                 </div>
-                <label :for="_generateIdentityId(row, 'check')">{{getCellValueByKey(title.key, row)}}</label>
-              </div>
-            </td>
-            <td v-if="title.type == 'radioBox'" :style="getTdStyle(title, row)">
-              <div class="radioWrapper" @click.stop>
-                <div class="radio">
-                  <input type="radio" :id="_generateIdentityId(row, 'radio')"
-                         :value="getCellValueByKey('id', row)"
-                         :disabled="formBoxDisabled(row)"
-                         v-model="radioSelect"
-                         @change.stop="onRowRadioboxChange(row, $event)"/>
-                  <label :for="_generateIdentityId(row, 'radio')"></label>
+              </td>
+              <td v-if="title.type == 'radioBox'" :style="getTdStyle(title, row)">
+                <div class="radioWrapper" @click.stop>
+                  <div class="radio">
+                    <input type="radio" :id="_generateIdentityId(row, 'radio')"
+                           :value="getCellValueByKey('id', row)"
+                           :disabled="formBoxDisabled(row)"
+                           v-model="radioSelect"
+                           @change.stop="onRowRadioboxChange(row, $event)"/>
+                    <label :for="_generateIdentityId(row, 'radio')"></label>
+                  </div>
                 </div>
-              </div>
-            </td>
-            <td v-if="title.type == 'text'" :style="getTdStyle(title, row)">
-              <div class="textCell" :title="getCellValueByKey(title.key, row)"
-                   :style="getLabelStyle(title, row)"
-                   @click="onClickTextCell(title.key, row)">
-                {{getCellValueByKey(title.key, row)}}
-              </div>
-            </td>
-            <td v-if="title.type == 'input'" :style="getTdStyle(title, row)">
-              <div class="inputWrapper">
-                <div class="radio">
-                  <input type="text" class="inputDefault"
-                         :value="getCellValueByKey(title.key, row)"
-                         @click.stop
-                         @blur="editRowFinished(title.key, row, $event)"
-                         @keyup.enter="editRowFinished(title.key, row, $event)">
-                </div>
-              </div>
-            </td>
-            <td v-if="title.type == 'icon'" :style="getTdStyle(title, row)">
-                 <span class="iconOnly"
-                       v-for="icon in getCellValueByKey(title.key, row)"
-                       :class="[icon.value]"
-                       :style="{ color: icon.color }"
-                       :title="icon.label"
-                       @click.stop="onIconClick(title.key, row, icon)">
-                 </span>
-            </td>
-            <td v-if="title.type == 'textIcon'" :style="getTdStyle(title, row)">
-              <div class="textIcon" @click.stop="onClickTextIcon(title.key, row)">
-                  <span class="icon"
-                        :class="[getCellValueByKey(title.key, row)]"
-                        :style="{ color: _getCell(title.key, row).color }"></span>
-                <span :title="_getCell(title.key, row).label" :style="getLabelStyle(title, row)">{{_getCell(title.key, row).label}}</span>
-              </div>
-            </td>
-            <td v-if="title.type == 'dropdown'" :style="getTdStyle(title, row)">
-              <select class="customerSelect"
-                      :disabled="dropDownCellDisabled(title.key, row)"
-                      @click.stop
-                      @change.stop="onOptionChange(title.key, row, $event)">
-                <option class="customerSelectOption"
-                        v-for="item in getCellValueByKey(title.key, row)"
-                        :selected="item.selected == true"
-                        :value="item.value">{{item.value}}
-                </option>
-              </select>
-            </td>
-            <td v-if="title.type == 'multiDropdown'" class="multiDropdown" :style="getTdStyle(title, row)">
-              <div class="label icon-marvelIcon-24"
-                   :title="multiDropdownText(title.key, row)"
-                   v-text="multiDropdownText(title.key, row)"
-                   @click.stop="onClickMultiDropdown(title.key, row)"></div>
-              <div class="options" v-show="_getCell(title.key, row).showDropdown"
-                   @blur="multiDropdownPanelBlur(title.key, row)">
-                <div class="optionItem"
-                     v-for="item in getCellValueByKey(title.key, row)"
-                     :class="{mouseDown: item.selected == true}"
-                     @click.stop="onClickMultiDropdownItem(title.key, row, item)">{{item.value}}
-                </div>
-              </div>
-            </td>
-            <td v-if="title.type == 'customer'" :style="getTdStyle(title, row)">
-              <template v-if="getCellType(title, row) == 'text'">
+              </td>
+              <td v-if="title.type == 'text'" :style="getTdStyle(title, row)">
                 <div class="textCell" :title="getCellValueByKey(title.key, row)"
-                     @click.stop="onClickTextCell(title.key, row)">
-                  {{getCellValueByKey(title.key, row)}}
+                     :style="getLabelStyle(title, row)"
+                     @click="onClickTextCell(title.key, row)">
+                  <span class="textCellItem" v-text="getCellValueByKey(title.key, row)"></span>
                 </div>
-              </template>
-              <template v-else-if=" getCellType(title, row)=='dropdown'">
+              </td>
+              <td v-if="title.type == 'multiText'" :style="getTdStyle(title, row)">
+                <div class="textCell">
+                    <span class="textCellItem"
+                          v-for="(item, index) in getCellValueByKey(title.key, row)"
+                          :key="index"
+                          :title="item" v-html="item"></span>
+                </div>
+              </td>
+              <td v-if="title.type == 'input'" :style="getTdStyle(title, row)">
+                <div class="inputWrapper">
+                  <div class="radio">
+                    <input type="text" class="inputDefault"
+                           :value="getCellValueByKey(title.key, row)"
+                           @click.stop
+                           @blur="editRowFinished(title.key, row, $event)"
+                           @keyup.enter="editRowFinished(title.key, row, $event)">
+                  </div>
+                </div>
+              </td>
+              <td v-if="title.type == 'icon'" :style="getTdStyle(title, row)">
+                   <span class="iconOnly"
+                         v-for="icon in getCellValueByKey(title.key, row)"
+                         :class="[icon.value]"
+                         :style="{ color: icon.color }"
+                         :title="icon.label"
+                         @click.stop="onIconClick(title.key, row, icon)">
+                   </span>
+              </td>
+              <td v-if="title.type == 'textIcon'" :style="getTdStyle(title, row)">
+                <div class="textIcon" @click.stop="onClickTextIcon(title.key, row)">
+                    <span class="icon"
+                          :class="[getCellValueByKey(title.key, row)]"
+                          :style="{ color: _getCell(title.key, row).color }"></span>
+                  <span :title="_getCell(title.key, row).label" :style="getLabelStyle(title, row)">{{_getCell(title.key, row).label}}</span>
+                </div>
+              </td>
+              <td v-if="title.type == 'dropdown'" :style="getTdStyle(title, row)">
                 <select class="customerSelect"
+                        :disabled="dropDownCellDisabled(title.key, row)"
                         @click.stop
                         @change.stop="onOptionChange(title.key, row, $event)">
                   <option class="customerSelectOption"
@@ -168,23 +145,86 @@ multiDropdown：下拉框多选，支持度不好，待优化
                           :value="item.value">{{item.value}}
                   </option>
                 </select>
-              </template>
-            </td>
-            <td v-if="title.type == 'progress'" :style="getTdStyle(title, row)">
-              <div class="progressBarWrapper" :title="getCellValueByKey(title.key, row)">
-                <div class="progress"
-                     :style="{width:getCellValueByKey(title.key, row),'background-color':getProgressColorByKey(title.key, row)}"></div>
-              </div>
-              <div class="progressLabel" :title="getCellValueByKey(title.key, row)">{{getCellValueByKey(title.key, row)}}</div>
-            </td>
+              </td>
+              <td v-if="title.type == 'dropdownEx'" :style="getTdStyle(title, row)" style="overflow: visible">
+                <marvel-drop-down-button maxHeight="200px" width="100%"
+                                         style="overflow: visible"
+                                         :disable="dropDownCellDisabled(title.key, row)"
+                                         :dropDownItems="getCellValueByKeyEx(title.key, row)"
+                                         :showSelectIcon="_getCell(title.key, row).showSelectIcon"
+                                         @onOptionSelect="onOptionChangeEx(arguments, title.key, row)"></marvel-drop-down-button>
+              </td>
+              <td v-if="title.type == 'multiDropdown'" class="multiDropdown" :style="getTdStyle(title, row)">
+                <div class="label icon-marvelIcon-24"
+                     :title="multiDropdownText(title.key, row)"
+                     v-text="multiDropdownText(title.key, row)"
+                     @click.stop="onClickMultiDropdown(title.key, row)"></div>
+                <div class="options" v-show="_getCell(title.key, row).showDropdown"
+                     @blur="multiDropdownPanelBlur(title.key, row)">
+                  <div class="optionItem"
+                       v-for="item in getCellValueByKey(title.key, row)"
+                       :class="{mouseDown: item.selected == true}"
+                       @click.stop="onClickMultiDropdownItem(title.key, row, item)">{{item.value}}
+                  </div>
+                </div>
+              </td>
+              <td v-if="title.type == 'progress'" :style="getTdStyle(title, row)">
+                <div class="progressBarWrapper" :title="getCellValueByKey(title.key, row)">
+                  <div class="progress"
+                       :style="{width:getCellValueByKey(title.key, row),'background-color':getProgressColorByKey(title.key, row)}"></div>
+                </div>
+                <div class="progressLabel" :title="getCellValueByKey(title.key, row)">{{getCellValueByKey(title.key, row)}}</div>
+              </td>
+              <td v-if="title.type == 'switch'" :style="getTdStyle(title, row)">
+                <div class="switchWrapper">
+                  <div class="switch"
+                       :class="!getCellValueByKey(title.key, row) ? 'switchNoSelect' : ''"
+                       @click.stop="onClickSwitch(title.key, row)">
+                  </div>
+                </div>
+              </td>
+              <td v-if="title.type == 'img'" :style="getTdStyle(title, row)">
+                <div class="imgWrapper">
+                  <img class="img" :src="getCellValueByKey(title.key, row)"
+                       :title="_getCell(title.key, row).label"
+                       @click.stop="onClickImg(title.key, row)"/>
+                </div>
+              </td>
+              <td v-if="title.type == 'customer'" :style="getTdStyle(title, row)">
+                <template v-if="getCellType(title, row) == 'text'">
+                  <div class="textCell" :title="getCellValueByKey(title.key, row)"
+                       @click.stop="onClickTextCell(title.key, row)">
+                    {{getCellValueByKey(title.key, row)}}
+                  </div>
+                </template>
+                <template v-else-if=" getCellType(title, row)=='dropdown'">
+                  <select class="customerSelect"
+                          @click.stop
+                          @change.stop="onOptionChange(title.key, row, $event)">
+                    <option class="customerSelectOption"
+                            v-for="item in getCellValueByKey(title.key, row)"
+                            :selected="item.selected == true"
+                            :value="item.value">{{item.value}}
+                    </option>
+                  </select>
+                </template>
+                <template v-else>
+                  <div class="textCell" :title="getCellValueByKey(title.key, row)"
+                       :style="getLabelStyle(title, row)"
+                       @click="onClickTextCell(title.key, row)">
+                    <span class="textCellItem" v-html="getCellValueByKey(title.key, row)"></span>
+                  </div>
+                </template>
+              </td>
+            </template>
+          </tr>
+          <template v-if="useDetailRow(row)">
+            <transition name="detail-row-transition">
+              <tr v-if="isDeatilRowVisible(row)">
+                <component :is="detailRowComponent" :row="row"></component>
+              </tr>
+            </transition>
           </template>
-        </tr>
-        <template v-if="useDetailRow(row)">
-          <transition name="detail-row-transition">
-            <tr v-if="isDeatilRowVisible(row)">
-              <component :is="detailRowComponent" :row="row"></component>
-            </tr>
-          </transition>
         </template>
         </tbody>
       </table>
@@ -194,6 +234,7 @@ multiDropdown：下拉框多选，支持度不好，待优化
 
 <script>
   import _ from "lodash"
+  import MarvelDropDownButton from "../button/MarvelDropDownButton";
 
   /**
    *  MarvelTableItem widget description
@@ -201,7 +242,7 @@ multiDropdown：下拉框多选，支持度不好，待优化
    *  @exports MarvelTableItem
    */
   export default {
-    components: {},
+    components: {MarvelDropDownButton},
     name: 'MarvelTableItem',
     props: {
       titles: {
@@ -539,11 +580,33 @@ multiDropdown：下拉框多选，支持度不好，待优化
       //endregion
       //region row
       //region common
+
       getCellValueByKey(strKeyValue, oRow) {
         let oCell = this._getCell(strKeyValue, oRow);
         if (oCell) {
           return oCell.value;
         }
+      },
+      getCellValueByKeyEx(strKeyValue, oRow) {
+        var arrItems = [];
+        let oCell = this._getCell(strKeyValue, oRow);
+        if (oCell) {
+          var arrValues = oCell.value;
+          if (arrValues == undefined) {
+            arrValues = [];
+          }
+          for (var i = 0; i < arrValues.length; i++) {
+            var oItem = {
+              label: arrValues[i].value,
+              icon: arrValues[i].icon
+            }
+            if (arrValues[i].selected) {
+              oItem.active = true;
+            }
+            arrItems.push(oItem);
+          }
+        }
+        return arrItems;
       },
       getProgressColorByKey(strKeyValue, oRow) {
         let oCell = this._getCell(strKeyValue, oRow);
@@ -629,7 +692,7 @@ multiDropdown：下拉框多选，支持度不好，待优化
       foldOrUnFold(oRow) {
         let id = this.getCellValueByKey("id", oRow);
         let index = this.unFoldRowIds.indexOf(id);
-        return index > -1 ? "icon-marvelIcon_2-10" : "icon-marvelIcon_2-09"
+        return index > -1 ? "icon-marvelIcon-64" : "icon-marvelIcon-65"
       },
       onClickFoldOrUnFold(oRow) {
         let id = this.getCellValueByKey("id", oRow);
@@ -748,6 +811,23 @@ multiDropdown：下拉框多选，支持度不好，待优化
         });
         this.callback4OnOptionChange(oRow, oCell, strOldOption[0].value, strNewValue);
       },
+      onOptionChangeEx: function (args, strKeyVal, oRow) {
+        let oCell = this._getCell(strKeyVal, oRow);
+        let oValue = oCell.value;
+        let strNewValue = args[0].label;
+        let strOldOption = [];
+        oValue.forEach((oItem) => {
+          if (oItem.selected === true) {
+            strOldOption = oItem;
+          }
+          if (oItem.value == strNewValue) {
+            this.$set(oItem, "selected", true);
+          } else {
+            this.$set(oItem, "selected", false);
+          }
+        });
+        this.callback4OnOptionChange(oRow, oCell, strOldOption.value, strNewValue);
+      },
       //endregion
       //region textIcon
       onClickTextIcon(strKeyVal, oRow) {
@@ -784,6 +864,15 @@ multiDropdown：下拉框多选，支持度不好，待优化
       multiDropdownPanelBlur(strKeyVal, oRow) {
         let oCell = this._getCell(strKeyVal, oRow);
         this.$set(oCell, "showDropdown", false);
+      },
+      onClickSwitch(strKeyVal, oRow) {
+        let oCell = this._getCell(strKeyVal, oRow);
+        this.$set(oCell, "value", !oCell.value);
+        this.callback4OnClickSwitch(oRow, oCell);
+      },
+      onClickImg(strKeyVal, oRow) {
+        let oCell = this._getCell(strKeyVal, oRow);
+        this.callback4OnClickImg(oRow, oCell);
       },
       //endregion
       //endregion
@@ -833,6 +922,12 @@ multiDropdown：下拉框多选，支持度不好，待优化
       },
       callback4OnClickMultiDropdownItem: function (oRow, oCell, oItem) {
         this.$emit("onClickMultiDropdownItem", oRow, oCell, oItem);
+      },
+      callback4OnClickSwitch: function (oRow, oCell) {
+        this.$emit("onClickSwitch", oRow, oCell);
+      },
+      callback4OnClickImg: function (oRow, oCell) {
+        this.$emit("onClickImg", oRow, oCell);
       },
       callback4OnPageChange: function (iPage) {
         this.$emit("onPageChange", iPage);
@@ -1003,7 +1098,10 @@ multiDropdown：下拉框多选，支持度不好，待优化
       },
       resetFoot: function () {
         this.$refs.ref4Paging.resetPage();
-      }
+      },
+      onPageChange(iPage) {
+        this.curPageIndex = iPage;
+      },
 
       //#endregion
     },
@@ -1224,6 +1322,13 @@ multiDropdown：下拉框多选，支持度不好，待优化
     line-height: 39px;
   }
 
+  .textCellItem {
+    display: block;
+    flex: 1 0 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
   .gridWrapper .grid tr td .customerSelect {
     width: 100%;
     border-radius: 2px;
@@ -1321,11 +1426,6 @@ multiDropdown：下拉框多选，支持度不好，待优化
     color: #fff !important;
   }
 
-  /*.gridWrapper .grid tr td .customerSelectOption:hover {*/
-  /*color: #3399ff;*/
-  /*background-color: #f5f6f7;*/
-  /*}*/
-
   .gridWrapper .grid tr td .multiSelected {
     background-color: #66b3ff;
   }
@@ -1349,6 +1449,70 @@ multiDropdown：下拉框多选，支持度不好，待优化
   .detail-row-transition-enter-to, .detail-row-transition-leave {
     opacity: 1;
   }
+
+  /*switch start*/
+  .switchWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .switchWrapper .switch {
+    position: relative;
+    box-sizing: border-box;
+    background-color: #3dcca6;
+    background-clip: content-box;
+    border-radius: 20px;
+    flex: 0 1 38px;
+    height: 20px;
+    padding: 2px;
+    transition: all .5s ease 0s;
+  }
+
+  .switchWrapper .switchNoSelect {
+    background-color: #999;
+  }
+
+  .switchWrapper .switch::after {
+    position: absolute;
+    left: 18px;
+    top: 0;
+    box-sizing: border-box;
+    content: "";
+    width: 20px;
+    height: 20px;
+    background-color: #fff;
+    border-radius: 100%;
+    cursor: pointer;
+    transition: all .5s ease 0s;
+  }
+
+  .switchWrapper .switchNoSelect::after {
+    left: 0;
+  }
+
+  /*switch end*/
+
+  /*img start*/
+
+  .imgWrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  .imgWrapper > .img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    max-width: 38px;
+    max-height: 38px;
+  }
+
+  /*img end*/
 
   /*region dark theme*/
   .dark .gridWrapper {

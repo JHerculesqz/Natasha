@@ -33,7 +33,7 @@ multiDropdown：下拉框多选，支持度不好，待优化
 功能说明：
 相对marvelGridEx，固定列表格功能有以下删减
 1 不支持表头拖拽更改列宽
-2 不支持子表（展开）项
+2 当存在固定列时，不支持子表（展开）项
 
 新增prop参数
 1 bIsAdaptToContH: 用于高度计算。由于表格添加固定列功能后，高度无法自适应内容，需要使用者显式告知是否适应于内容的高度。默认false（适应于父容器高度）。
@@ -66,6 +66,8 @@ multiDropdown：下拉框多选，支持度不好，待优化
                            v-on:onOptionChange="onOptionChange"
                            v-on:onClickTextIcon="onClickTextIcon"
                            v-on:onClickMultiDropdownItem="onClickMultiDropdownItem"
+                           v-on:onClickSwitch="onClickSwitch"
+                           v-on:onClickImg="onClickImg"
                            v-on:onPageChange="onPageChange"></marvel-table-item>
       </div>
       <div class="freezeTable centerTable"
@@ -78,6 +80,8 @@ multiDropdown：下拉框多选，支持度不好，待优化
                            :limit="limit4TableItem"
                            :editCellFinished="editCellFinished"
                            :sortRowsFunc="sortRowsFuncTriggerByCenterGrid"
+                           :canDrag="canDrag"
+                           :detailRowComponent="detailRowComponent"
                            v-on:onRowHover="centerTableOnRowHover"
                            v-on:onRowHoverEnd="centerTableOnRowHoverEnd"
                            v-on:onTbodyScroll="centerTableOnScroll"
@@ -91,6 +95,8 @@ multiDropdown：下拉框多选，支持度不好，待优化
                            v-on:onOptionChange="onOptionChange"
                            v-on:onClickTextIcon="onClickTextIcon"
                            v-on:onClickMultiDropdownItem="onClickMultiDropdownItem"
+                           v-on:onClickSwitch="onClickSwitch"
+                           v-on:onClickImg="onClickImg"
                            v-on:onPageChange="onPageChange"></marvel-table-item>
       </div>
       <div class="freezeTable freezeRightTable"
@@ -116,6 +122,8 @@ multiDropdown：下拉框多选，支持度不好，待优化
                            v-on:onOptionChange="onOptionChange"
                            v-on:onClickTextIcon="onClickTextIcon"
                            v-on:onClickMultiDropdownItem="onClickMultiDropdownItem"
+                           v-on:onClickSwitch="onClickSwitch"
+                           v-on:onClickImg="onClickImg"
                            v-on:onPageChange="onPageChange"></marvel-table-item>
       </div>
       <div class="emptyTip"></div>
@@ -227,7 +235,17 @@ multiDropdown：下拉框多选，支持度不好，待优化
         type: Boolean,
         default: false,
         required: false,
-      }
+      },
+      canDrag: {
+        type: Boolean,
+        default: false,
+        required: false,
+      },
+      detailRowComponent: {
+        type: String,
+        default: "",
+        required: false,
+      },
     },
     data: function () {
       return {
@@ -241,16 +259,19 @@ multiDropdown：下拉框多选，支持度不好，待优化
         },
         //#endregion
         //#region leftTable
+        bHasLeftTable:false,
         hasAnyColumnShowInLeft: true,
         leftTableId: "",
         leftTableStyle: undefined,
         //#endregion
         //#region centerTable
+        bHasCenterTable:false,
         hasAnyColumnShowInCenter: true,
         centerTableId: '',
         centerTableStyle: undefined,
         //#endregion
         //#region rightTable
+        bHasRightTable:false,
         hasAnyColumnShowInRight: true,
         rightTableId: "",
         rightTableStyle: undefined,
@@ -335,9 +356,6 @@ multiDropdown：下拉框多选，支持度不好，待优化
       //#endregion
       //#endregion
       //#region leftTable
-      bHasLeftTable: function () {
-        return this.leftTitles.length > 0;
-      },
       leftTitles: function () {
         var arrLeftTitles = [];
 
@@ -355,6 +373,9 @@ multiDropdown：下拉框多选，支持度不好，待优化
             }
             arrLeftTitles.push(JSON.parse(JSON.stringify(title)));
           }
+        }
+        if(arrLeftTitles.length ==1 && arrLeftTitles[0].key == 'id'){
+          arrLeftTitles = [];
         }
 
         return arrLeftTitles;
@@ -388,9 +409,6 @@ multiDropdown：下拉框多选，支持度不好，待优化
       },
       //#endregion
       //#region centerTable
-      bHasCenterTable: function () {
-        return this.centerTitles.length > 0;
-      },
       centerTitles: function () {
         var arrCenterTitles = [];
 
@@ -408,6 +426,10 @@ multiDropdown：下拉框多选，支持度不好，待优化
             }
             arrCenterTitles.push(JSON.parse(JSON.stringify(title)));
           }
+        }
+
+        if(arrCenterTitles.length ==1 && arrCenterTitles[0].key == 'id'){
+          arrCenterTitles = [];
         }
 
         return arrCenterTitles;
@@ -439,9 +461,6 @@ multiDropdown：下拉框多选，支持度不好，待优化
       },
       //#endregion
       //#region rightTable
-      bHasRightTable: function () {
-        return this.rightTitles.length > 0;
-      },
       rightTitles: function () {
         var arrRightTitles = [];
 
@@ -459,6 +478,10 @@ multiDropdown：下拉框多选，支持度不好，待优化
             }
             arrRightTitles.push(JSON.parse(JSON.stringify(title)));
           }
+        }
+
+        if(arrRightTitles.length ==1 && arrRightTitles[0].key == 'id'){
+          arrRightTitles = [];
         }
 
         return arrRightTitles;
@@ -507,6 +530,13 @@ multiDropdown：下拉框多选，支持度不好，待优化
         this.centerTableId = this.gridId + "_center";
         this.rightTableId = this.gridId + "_right";
         this.footId = this.gridId + "_foot";
+
+        this.bHasLeftTable = this.leftTitles.length > 0;
+        this.bHasCenterTable = this.centerTitles.length > 0;
+        this.bHasRightTable = this.rightTitles.length > 0;
+
+        console.log("bHasLeftTable");
+        console.log(this.bHasLeftTable);
 
         //setStyle
         this._setStyle4Tables();
@@ -871,10 +901,10 @@ multiDropdown：下拉框多选，支持度不好，待优化
         var arrTargetRows = [];
         var iLength = Math.max(arrLeftRows.length, arrCenterRows.length, arrRightRows.length);
         for (var i = 0; i < iLength; i++) {
-          var leftRow = JSON.parse(JSON.stringify(arrLeftRows[i]));
-          var centerRow = JSON.parse(JSON.stringify(arrCenterRows[i]));
+          var leftRow = JSON.parse(JSON.stringify(arrLeftRows[i]?arrLeftRows[i]:[]));
+          var centerRow = JSON.parse(JSON.stringify(arrCenterRows[i]?arrCenterRows[i]:[]));
           var centerRowLength = centerRow.length;
-          var rightRow = JSON.parse(JSON.stringify(arrRightRows[i]));
+          var rightRow = JSON.parse(JSON.stringify(arrRightRows[i]?arrRightRows[i]:[]));
           var rightRowLength = rightRow.length;
           var oRow = leftRow.concat(centerRow.slice(1, centerRowLength), rightRow.slice(1, rightRowLength));
           arrTargetRows.push(oRow);
@@ -969,8 +999,12 @@ multiDropdown：下拉框多选，支持度不好，待优化
         }
 
         //清除其他表格排序状态
-        this.$refs[this.centerTableId].clearSortStatus();
-        this.$refs[this.rightTableId].clearSortStatus();
+        if(this.bHasCenterTable){
+          this.$refs[this.centerTableId].clearSortStatus();
+        }
+        if(this.bHasRightTable){
+          this.$refs[this.rightTableId].clearSortStatus();
+        }
       },
       sortRowsFuncTriggerByCenterGrid: function (strKey, order, oRows) {
         this.orderBy.key = strKey;
@@ -982,8 +1016,12 @@ multiDropdown：下拉框多选，支持度不好，待优化
         }
 
         //清除其他表格排序状态
-        this.$refs[this.leftTableId].clearSortStatus();
-        this.$refs[this.rightTableId].clearSortStatus();
+        if (this.bHasLeftTable) {
+          this.$refs[this.leftTableId].clearSortStatus();
+        }
+        if (this.bHasRightTable) {
+          this.$refs[this.rightTableId].clearSortStatus();
+        }
       },
       sortRowsFuncTriggerByRightGrid: function (strKey, order, oRows) {
         this.orderBy.key = strKey;
@@ -995,8 +1033,12 @@ multiDropdown：下拉框多选，支持度不好，待优化
         }
 
         //清除其他表格排序状态
-        this.$refs[this.leftTableId].clearSortStatus();
-        this.$refs[this.centerTableId].clearSortStatus();
+        if(this.bHasLeftTable){
+          this.$refs[this.leftTableId].clearSortStatus();
+        }
+        if(this.bHasCenterTable){
+          this.$refs[this.centerTableId].clearSortStatus();
+        }
       },
       onTitleCheckOrUncheck: function (isChecked) {
         this.$emit("onTitleCheckOrUncheck", isChecked);
@@ -1036,19 +1078,39 @@ multiDropdown：下拉框多选，支持度不好，待优化
       onPageChange: function (iPage) {
         this.$emit("onPageChange", iPage);
       },
+      onClickSwitch(oRow, oCell) {
+        var oTargetRow = this._getRowByPartRow(oRow);
+        this.$emit("onClickSwitch", oTargetRow, oCell);
+      },
+      onClickImg(oRow, oCell) {
+        var oTargetRow = this._getRowByPartRow(oRow);
+        this.$emit("onClickImg", oTargetRow, oCell);
+      },
 
       //#endregion
       //#region 3rd
 
       setRowColor(strRowId, bCancleOtherRowActive) {
-        this.$refs[this.leftTableId].setRowColor(strRowId, bCancleOtherRowActive);
-        this.$refs[this.centerTableId].setRowColor(strRowId, bCancleOtherRowActive);
-        this.$refs[this.rightTableId].setRowColor(strRowId, bCancleOtherRowActive);
+        if(this.bHasLeftTable){
+          this.$refs[this.leftTableId].setRowColor(strRowId, bCancleOtherRowActive);
+        }
+        if(this.bHasCenterTable){
+          this.$refs[this.centerTableId].setRowColor(strRowId, bCancleOtherRowActive);
+        }
+        if(this.bHasRightTable){
+          this.$refs[this.rightTableId].setRowColor(strRowId, bCancleOtherRowActive);
+        }
       },
       removeRowColor(strRowId) {
-        this.$refs[this.leftTableId].removeRowColor(strRowId);
-        this.$refs[this.centerTableId].removeRowColor(strRowId);
-        this.$refs[this.rightTableId].removeRowColor(strRowId);
+        if(this.bHasLeftTable){
+          this.$refs[this.leftTableId].removeRowColor(strRowId);
+        }
+        if(this.bHasCenterTable){
+          this.$refs[this.centerTableId].removeRowColor(strRowId);
+        }
+        if(this.bHasRightTable){
+          this.$refs[this.rightTableId].removeRowColor(strRowId);
+        }
       },
       getSelectRows4Checkbox() {
         var arrRows = JSON.parse(JSON.stringify(this.getRows()));
@@ -1093,9 +1155,18 @@ multiDropdown：下拉框多选，支持度不好，待优化
         return arrTargetRows;
       },
       getRows() {
-        var arrLeftTableRows = this.$refs[this.leftTableId].getRows();
-        var arrCenterTableRows = this.$refs[this.centerTableId].getRows();
-        var arrRightTableRows = this.$refs[this.rightTableId].getRows();
+        var arrLeftTableRows = [];
+        var arrCenterTableRows = [];
+        var arrRightTableRows = [];
+        if(this.bHasLeftTable){
+          arrLeftTableRows = this.$refs[this.leftTableId].getRows();
+        }
+        if(this.bHasCenterTable){
+          arrCenterTableRows = this.$refs[this.centerTableId].getRows();
+        }
+        if(this.bHasRightTable){
+          arrRightTableRows = this.$refs[this.rightTableId].getRows();
+        }
 
         var arrRows = this._combineRows(arrLeftTableRows, arrCenterTableRows, arrRightTableRows);
         return arrRows;
@@ -1114,27 +1185,54 @@ multiDropdown：下拉框多选，支持度不好，待优化
         }
       },
       getActiveRows() {
-        var arrLeftTableActiveRows = this.$refs[this.leftTableId].getActiveRows();
-        var arrCenterTableActiveRows = this.$refs[this.centerTableId].getActiveRows();
-        var arrRightTableActiveRows = this.$refs[this.rightTableId].getActiveRows();
+        var arrLeftTableActiveRows = [];
+        var arrCenterTableActiveRows = [];
+        var arrRightTableActiveRows = [];
+        if(this.bHasLeftTable){
+          arrLeftTableActiveRows = this.$refs[this.leftTableId].getActiveRows();
+        }
+        if(this.bHasCenterTable){
+          arrCenterTableActiveRows = this.$refs[this.centerTableId].getActiveRows();
+        }
+        if(this.bHasRightTable){
+          arrRightTableActiveRows = this.$refs[this.rightTableId].getActiveRows();
+        }
 
         var arrRows = this._combineRows(arrLeftTableActiveRows, arrCenterTableActiveRows, arrRightTableActiveRows);
         return arrRows;
       },
       disableRow(strRowId) {
-        this.$refs[this.leftTableId].disableRow(strRowId);
-        this.$refs[this.centerTableId].disableRow(strRowId);
-        this.$refs[this.rightTableId].disableRow(strRowId);
+        if(this.bHasLeftTable){
+          this.$refs[this.leftTableId].disableRow(strRowId);
+        }
+        if(this.bHasCenterTable){
+          this.$refs[this.centerTableId].disableRow(strRowId);
+        }
+        if(this.bHasRightTable){
+          this.$refs[this.rightTableId].disableRow(strRowId);
+        }
       },
       enableRow(strRowId) {
-        this.$refs[this.leftTableId].enableRow(strRowId);
-        this.$refs[this.centerTableId].enableRow(strRowId);
-        this.$refs[this.rightTableId].enableRow(strRowId);
+        if(this.bHasLeftTable){
+          this.$refs[this.leftTableId].enableRow(strRowId);
+        }
+        if(this.bHasCenterTable){
+          this.$refs[this.centerTableId].enableRow(strRowId);
+        }
+        if(this.bHasRightTable){
+          this.$refs[this.rightTableId].enableRow(strRowId);
+        }
       },
       enableAllRows() {
-        this.$refs[this.leftTableId].enableAllRows();
-        this.$refs[this.centerTableId].enableAllRows();
-        this.$refs[this.rightTableId].enableAllRows();
+        if(this.bHasLeftTable){
+          this.$refs[this.leftTableId].enableAllRows();
+        }
+        if(this.bHasCenterTable){
+          this.$refs[this.centerTableId].enableAllRows();
+        }
+        if(this.bHasRightTable){
+          this.$refs[this.rightTableId].enableAllRows();
+        }
       },
       checkOrUnCheckRow4CheckBox(strRowId, bCheck) {
         if (this.whereIsCheckColumn == "left") {
@@ -1155,9 +1253,13 @@ multiDropdown：下拉框多选，支持度不好，待优化
         }
       },
       disabledDropDownCell(strRowId, strKey, bDisabled) {
-        this.$refs[this.leftTableId].disabledDropDownCell(strRowId, strKey, bDisabled);
-        this.$refs[this.centerTableId].disabledDropDownCell(strRowId, strKey, bDisabled);
-        this.$refs[this.rightTableId].disabledDropDownCell(strRowId, strKey, bDisabled);
+        if (this.whereIsCheckColumn == "left") {
+          this.$refs[this.leftTableId].disabledDropDownCell(strRowId, strKey, bDisabled);
+        } else if (this.whereIsCheckColumn == "center") {
+          this.$refs[this.centerTableId].disabledDropDownCell(strRowId, strKey, bDisabled);
+        } else if (this.whereIsCheckColumn == "right") {
+          this.$refs[this.rightTableId].disabledDropDownCell(strRowId, strKey, bDisabled);
+        }
       },
       resetFoot: function () {
         this.$refs[this.footId].resetPage();
@@ -1168,7 +1270,7 @@ multiDropdown：下拉框多选，支持度不好，待优化
     watch: {
       titles: {
         handler() {
-          this._setStyle4Tables();
+          this._initEx();
         },
         deep: true
       },
