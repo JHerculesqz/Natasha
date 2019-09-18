@@ -53,6 +53,7 @@ multiDropdown：下拉框多选，支持度不好，待优化
                            :limit="limit4TableItem"
                            :editCellFinished="editCellFinished"
                            :sortRowsFunc="sortRowsFuncTriggerByLeftGrid"
+                           :searchComponent="searchComponent"
                            v-on:onRowHover="leftTableOnRowHover"
                            v-on:onRowHoverEnd="leftTableOnRowHoverEnd"
                            v-on:onTbodyScroll="leftTableOnScroll"
@@ -81,6 +82,7 @@ multiDropdown：下拉框多选，支持度不好，待优化
                            :editCellFinished="editCellFinished"
                            :sortRowsFunc="sortRowsFuncTriggerByCenterGrid"
                            :canDrag="canDrag"
+                           :searchComponent="searchComponent"
                            :detailRowComponent="detailRowComponent"
                            v-on:onRowHover="centerTableOnRowHover"
                            v-on:onRowHoverEnd="centerTableOnRowHoverEnd"
@@ -109,6 +111,7 @@ multiDropdown：下拉框多选，支持度不好，待优化
                            :limit="limit4TableItem"
                            :editCellFinished="editCellFinished"
                            :sortRowsFunc="sortRowsFuncTriggerByRightGrid"
+                           :searchComponent="searchComponent"
                            v-on:onRowHover="rightTableOnRowHover"
                            v-on:onRowHoverEnd="rightTableOnRowHoverEnd"
                            v-on:onTbodyScroll="rightTableOnScroll"
@@ -236,12 +239,12 @@ multiDropdown：下拉框多选，支持度不好，待优化
         default: false,
         required: false,
       },
-      canDrag: {
-        type: Boolean,
-        default: false,
+      detailRowComponent: {
+        type: String,
+        default: "",
         required: false,
       },
-      detailRowComponent: {
+      searchComponent: {
         type: String,
         default: "",
         required: false,
@@ -374,9 +377,6 @@ multiDropdown：下拉框多选，支持度不好，待优化
             arrLeftTitles.push(JSON.parse(JSON.stringify(title)));
           }
         }
-        if(arrLeftTitles.length ==1 && arrLeftTitles[0].key == 'id'){
-          arrLeftTitles = [];
-        }
 
         return arrLeftTitles;
       },
@@ -428,10 +428,6 @@ multiDropdown：下拉框多选，支持度不好，待优化
           }
         }
 
-        if(arrCenterTitles.length ==1 && arrCenterTitles[0].key == 'id'){
-          arrCenterTitles = [];
-        }
-
         return arrCenterTitles;
       },
       centerRows: function () {
@@ -478,10 +474,6 @@ multiDropdown：下拉框多选，支持度不好，待优化
             }
             arrRightTitles.push(JSON.parse(JSON.stringify(title)));
           }
-        }
-
-        if(arrRightTitles.length ==1 && arrRightTitles[0].key == 'id'){
-          arrRightTitles = [];
         }
 
         return arrRightTitles;
@@ -534,9 +526,6 @@ multiDropdown：下拉框多选，支持度不好，待优化
         this.bHasLeftTable = this.leftTitles.length > 0;
         this.bHasCenterTable = this.centerTitles.length > 0;
         this.bHasRightTable = this.rightTitles.length > 0;
-
-        console.log("bHasLeftTable");
-        console.log(this.bHasLeftTable);
 
         //setStyle
         this._setStyle4Tables();

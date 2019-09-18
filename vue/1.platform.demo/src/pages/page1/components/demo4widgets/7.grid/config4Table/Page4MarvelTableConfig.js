@@ -27,6 +27,7 @@ const configs={
       type: "text",
       visible: true,
       orderBy: true,
+      search: true,
       width: "80px",
     }, {
       label: "multiText",
@@ -34,20 +35,22 @@ const configs={
       type: "multiText",
       visible: true,
       orderBy: true,
-      width: "100px",
+      search: true,
+      width: "110px",
     }, {
       label: "input",
       key: "description",
       type: "input",
       visible: true,
       orderBy: true,
-      width: "120px"
+      search: true,
+      width: "80px"
     }, {
       label: "icon",
       key: "operation",
       type: "icon",
       visible: true,
-      width: "100px"
+      width: "90px"
     }, {
       label: "textIcon",
       key: "link",
@@ -65,7 +68,7 @@ const configs={
       key: "dropdownEx",
       type: "dropdownEx",
       visible: true,
-      width: "100px",
+      width: "120px",
     }, {
       label: "multiDropdown",
       key: "node",
@@ -204,7 +207,7 @@ export default {
       });
       oRow.push({
         key: "description",
-        value: "input_cell" + i
+        value: "input_" + i
       });
       oRow.push({
         key: "operation",
@@ -241,14 +244,14 @@ export default {
       oRow.push({
         key: "dropdownEx",
         value: [{
-          label: "Item1",
-          active: true,
+          value: "Item1",
+          selected: true,
           icon: "icon-pencil"
         }, {
-          label: "Item2",
-         icon: "icon-pen"
+          value: "Item2",
+          icon: "icon-pen"
         }, {
-          label: "Item3",
+          value: "Item3",
           icon: "icon-droplet"
         }]
       });

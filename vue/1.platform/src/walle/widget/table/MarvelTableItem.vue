@@ -52,6 +52,8 @@ multiDropdown：下拉框多选，支持度不好，待优化
                      @click.stop="onClickTitle(title)">
                   <span>{{title.label}}</span>
                   <span v-if="showOrderBy(title)" :class="orderByClass(title)"></span>
+                  <span v-if="showSearch(title)" class="icon-search column-search"
+                        @click.stop="onClickSearch(title, $event)"></span>
                 </div>
                 <div v-if="canDrag" class="title-resize"
                      @mousedown="onResizeMouseDown(title, $event)"></div>
@@ -59,6 +61,10 @@ multiDropdown：下拉框多选，支持度不好，待优化
             </template>
           </template>
         </tr>
+        <div v-show="searchOption.show" class="search-dialog"
+             :style="{left:searchOption.left, top:searchOption.top}">
+          <component :is="searchComponent" :gridTitle="searchOption.gridTitle"></component>
+        </div>
         </thead>
         <tbody>
         <template v-for="(row,index) in rowsInPage">
@@ -285,6 +291,11 @@ multiDropdown：下拉框多选，支持度不好，待优化
         default: "",
         required: false,
       },
+      searchComponent: {
+        type: String,
+        default: "",
+        required: false,
+      },
       dynamicPaging: {
         type: Boolean,
         default: false,
@@ -329,6 +340,14 @@ multiDropdown：下拉框多选，支持度不好，待优化
           order: 1 //1表示升序排列，-1表示降序排列
         },
         innerChange: false,
+        //endregion
+        //region search
+        searchOption: {
+          show: false,
+          left: "0px",
+          top: "0px",
+          gridTitle: undefined,
+        },
         //endregion
         //region resize
         bMousedown: false,
@@ -464,6 +483,9 @@ multiDropdown：下拉框多选，支持度不好，待优化
             });
           }
         });
+
+        //关闭搜索面板
+        this.searchOption.show = false;
       },
       _handleCache() {
         if (this.innerChange) {
@@ -497,14 +519,27 @@ multiDropdown：下拉框多选，支持度不好，待优化
       },
       //endregion
       //region title
+      showSearch(oTitle) {
+        return oTitle.search == true;
+      },
+      onClickSearch(oTitle, oEvent) {
+        this.searchOption.left = oEvent.clientX + "px";
+        this.searchOption.top = oEvent.clientY + "px";
+        this.searchOption.gridTitle = oTitle;
+        this.searchOption.show = true;
+      },
       showOrderBy(oTitle) {
-        return this.orderBy.key === oTitle.key;
+        return oTitle.orderBy === true;
       },
       orderByClass(oTitle) {
-        if (this.orderBy.order === 1) {
-          return "icon-marvelIcon-01";
+        if (this.orderBy.key == oTitle.key) {
+          if (this.orderBy.order === 1) {
+            return "icon-marvelIcon-01";
+          } else {
+            return "icon-marvelIcon-03";
+          }
         } else {
-          return "icon-marvelIcon-03";
+          return "icon-marvelIcon-99";
         }
       },
       onClickTitle(oTitle) {
@@ -1238,6 +1273,18 @@ multiDropdown：下拉框多选，支持度不好，待优化
 
   .gridWrapper .grid .gridCont thead tr .title-resize:hover {
     cursor: ew-resize;
+  }
+
+  table thead .column-search {
+    position: absolute;
+    right: 8px;
+    line-height: 30px;
+    cursor: pointer;
+  }
+
+  .search-dialog {
+    position: fixed;
+    z-index: 100000;
   }
 
   .gridWrapper .grid .gridCont tbody {

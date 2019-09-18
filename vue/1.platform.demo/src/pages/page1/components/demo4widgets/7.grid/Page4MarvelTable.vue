@@ -36,6 +36,7 @@
                             :limit="limit4allEle"
                             :canDrag="true"
                             detailRowComponent="TableDetailsComponent"
+                            searchComponent="TableSearchComponent"
                             :hasFoot="true"
                             :columnConfig="true"
                             v-on:editCellFinished="editCellFinished"
@@ -257,6 +258,7 @@
 </template>
 
 <script>
+  import Bus from "^/core/bus";
   import Vue from "vue";
   import MarvelTable from "^/widget/table/MarvelTable";
   import MarvelTab from "^/widget/tab/MarvelTab";
@@ -265,6 +267,7 @@
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
   import ConfigUtils from "./config4Table/Page4MarvelTableConfig";
   import TableDetailsComponent from "./config4Table/TableDetailsComponent";
+  import TableSearchComponent from "./config4Table/TableSearchComponent"
 
   export default {
     name: 'page4MarvelTable',
@@ -324,6 +327,8 @@
     },
     created() {
       Vue.component(TableDetailsComponent.name, TableDetailsComponent);
+      Vue.component(TableSearchComponent.name, TableSearchComponent);
+      Bus.$on("searchCustomer4Table", this._updateRowEx);
     },
     mounted: function () {
       //#region init
@@ -363,6 +368,10 @@
         this.totalPage4tableData = oData.totalPage;
         this.totalNum4tableData = oData.totalNum;
         this.limit4tableData = oData.limit;
+      },
+
+      _updateRowEx: function(){
+        this._initGridData(1);
       },
 
 
@@ -421,7 +430,7 @@
         oAfterValidateOk();
       },
       sortRowsFunc: function(strKey, order, arrRows){
-        console.log("editCellFinished");
+        console.log("sortRowsFunc");
         console.log(strKey);
         console.log(order);
         console.log(arrRows);
