@@ -1,16 +1,18 @@
 <template>
   <div>
-    <marvel-icon-txt-button :size="btnSize"
-                            :label="btnName"
-                            :icon="btnIcon"
-                            :isWarn="false"
-                            v-on:onClick="onClickBtn"></marvel-icon-txt-button>
+    <marvel-button :ref="id4Btn"
+                   :size="btnSize"
+                   :label="btnName"
+                   :icon="btnIcon"
+                   :isWarn="false"
+                   v-on:onClick="onClickBtn"></marvel-button>
     <input v-show="false" type="file" :multiple="isMulti? 'multiple' : undefined" @change="onSelectFile"/>
   </div>
 </template>
 
 <script>
-  import MarvelIconTxtButton from "../button/MarvelIconTxtButton"
+  import MarvelButton from "../btn/MarvelButton"
+  import StringUtilsEx from '../../component/str'
 
   /**
    *  MarvelUploadSimple widget description
@@ -20,7 +22,7 @@
   export default {
     name: "MarvelUploadSimple",
     components: {
-      MarvelIconTxtButton
+      MarvelButton
     },
     props: {
       btnSize: {
@@ -45,7 +47,9 @@
       }
     },
     data() {
-      return {}
+      return {
+        id4Btn: StringUtilsEx.uuid(),
+      }
     },
     methods: {
       //#region inner
@@ -85,6 +89,11 @@
 
       //#endregion
       //#region 3rd
+
+      setBtnDisable: function (bIsDisable) {
+        this.$refs[this.id4Btn].setBtnDisable(bIsDisable);
+      }
+
       //#endregion
     }
   }

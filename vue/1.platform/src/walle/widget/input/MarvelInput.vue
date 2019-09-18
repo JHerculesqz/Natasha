@@ -4,7 +4,7 @@
     <input class="inputDefault" :type="inputType"
            :title="placeHolder"
            :disabled="bDisabled"
-           v-model="inputMsg"
+           v-model.trim="inputMsg"
            @input="onInput"
            @blur="onBlur"
            @focus="onFocus">

@@ -18,7 +18,7 @@
 </template>
 
 <script>
-  import MarvelButton from "../button/MarvelButton";
+  import MarvelButton from "../btn/MarvelButton";
 
   /**
    *  MarvelList3 widget description

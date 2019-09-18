@@ -16,12 +16,12 @@
 
 <script>
   /**
-   *  MarvelDashboard widget description
+   *  MarvelDashboardC widget description
    *  @vuedoc
-   *  @exports MarvelDashboard
+   *  @exports MarvelDashboardC
    */
   export default {
-    name: 'MarvelDashboardEx',
+    name: 'MarvelDashboard',
     props: {
       title: {
         type: String,

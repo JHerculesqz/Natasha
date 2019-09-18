@@ -1,7 +1,7 @@
 var COOKIEPATH = { path: '/'};
 export default {
   getCookie: function (name) {
-    var arr, reg = new RegExp("(^| )" + name + "= ([^;]*)(;|$)");
+    var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
     if (document.cookie == "") {
       return null;
     } else if (arr = document.cookie.match(reg))

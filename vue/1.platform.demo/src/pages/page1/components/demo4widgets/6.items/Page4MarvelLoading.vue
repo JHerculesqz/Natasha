@@ -224,9 +224,3 @@
 
   /*endregion*/
 </style>
-
-<style>
-  .maskLoading .loadingBoard{
-    top: 45% !important;
-  }
-</style>

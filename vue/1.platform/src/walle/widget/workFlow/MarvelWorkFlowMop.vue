@@ -160,19 +160,19 @@
         var oRightBasicTitle = [{
           key: "startTime",
           label: "开始时间",
-          width: "150px",
+          width: "120px",
           type: "text",
           visible: true,
         }, {
           key: "endTime",
           label: "结束时间",
-          width: "100px",
+          width: "120px",
           type: "text",
           visible: true,
         }, {
           key: "operation",
           label: "操作",
-          width: "100px",
+          width: "80px",
           type: "icon",
           visible: true,
         }];

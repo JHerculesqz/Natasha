@@ -573,6 +573,7 @@ customer：自定义单元格，支持文本单元格和dropdown单元格的切�
         let oTbody = this.$el.querySelector("tbody");
         oTbody.addEventListener("scroll", this.scrollTarget);
         this.listenerWndResize();
+        this.setTbodyCssBy3rd();
       },
       _beforeDestroy: function () {
         //移除事件

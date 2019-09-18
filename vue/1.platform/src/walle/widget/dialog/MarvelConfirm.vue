@@ -29,7 +29,7 @@
       </div>
       <div class="tipDialogBtnArea">
         <div class="wapper">
-          <div class="pos1">
+          <div class="pos1" v-show="showOkBtn">
             <marvel-icon-txt-button :label="buttonName == undefined ? $t('ok') : buttonName" icon="icon-checkmark"
                                     v-on:onClick="onClickOK"></marvel-icon-txt-button>
           </div>
@@ -112,6 +112,11 @@
       cancelButtonName: {
         type: String,
         default: undefined,
+        required: false,
+      },
+      showOkBtn: {
+        type: Boolean,
+        default: true,
         required: false,
       },
       showCancelBtn: {

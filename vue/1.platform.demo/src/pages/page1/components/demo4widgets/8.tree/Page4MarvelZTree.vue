@@ -107,9 +107,10 @@
           children: [{
             name: 'ne5001',
             subName: 'ne5001',
-            icon: "icon-address-book",
+            icon: "",
             check: true,
-            canClick: false
+            canClick: false,
+            disabledCheck:true,
           }, {
             name: 'ne5002',
             subName: 'ne5002',

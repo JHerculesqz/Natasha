@@ -3,17 +3,17 @@
     <div class="topArea">
       <div class="title4objListPageWrapper">{{title}}</div>
       <div class="btnAreaWrapper">
-        <slot name="btnArea"></slot>
-        <marvel-button :ref="'objLstPageCreateBtn3' + componentId" label="批量删除" classCustom="classCustom4Btn"
-                       v-on:onClick="callback4OnClickToBatchDelete"></marvel-button>
-        <marvel-button :ref="'objLstPageCreateBtn2' + componentId" label="批量创建" classCustom="classCustom4Btn"
-                       v-on:onClick="callback4OnClickToBatchCreate"></marvel-button>
-        <marvel-button :ref="'objLstPageCreateBtn1' + componentId" label="创建" classCustom="classCustom4Btn"
+        <marvel-button :ref="'objLstPageCreateBtn1' + componentId" label="创建" classCustom="classCustom4Btn4WorkflowObjLst"
                        v-on:onClick="callback4OnClickToCreate"></marvel-button>
+        <marvel-button :ref="'objLstPageCreateBtn2' + componentId" label="批量创建" classCustom="classCustom4Btn4WorkflowObjLst"
+                       v-on:onClick="callback4OnClickToBatchCreate"></marvel-button>
+        <marvel-button :ref="'objLstPageCreateBtn3' + componentId" label="批量删除" classCustom="classCustom4Btn4WorkflowObjLst"
+                       v-on:onClick="callback4OnClickToBatchDelete"></marvel-button>
+        <slot name="btnArea"></slot>
       </div>
       <div class="searchArea4objList">
-        <marvel-search-with-drop-down @search="callback4OnSearch" width="120px"
-                                      :selectItems="searchSelectItems"></marvel-search-with-drop-down>
+        <marvel-search-box @search="callback4OnSearch" width="120px"
+                                      :selectItems="searchSelectItems"></marvel-search-box>
       </div>
     </div>
     <div class="bottomArea">
@@ -21,6 +21,7 @@
                       :gridId="'objLstGrid' + componentId"
                       :titles="title4objLstInner"
                       :rows="row4objLstInner"
+                      :limit="limit"
                       :dynamicPaging="true"
                       :totalNum="totalNum"
                       :totalPage="totalPage"
@@ -36,9 +37,9 @@
 </template>
 
 <script>
-  import MarvelButton from '../../widget/button/MarvelButton';
+  import MarvelButton from '../../widget/btn/MarvelButton';
   import MarvelGridEx from '../../widget/grid/MarvelGridEx';
-  import MarvelSearchWithDropDown from "../search/MarvelSearchWithDropDown";
+  import MarvelSearchBox from "../searchBox/MarvelSearchBox";
   import StrUtils from "../../component/str";
 
   /**
@@ -49,7 +50,7 @@
   export default {
     name: 'MarvelWorkFlowObjLst',
     components: {
-      MarvelSearchWithDropDown,
+      MarvelSearchBox,
       MarvelButton,
       MarvelGridEx
     },
@@ -216,7 +217,7 @@
           arrRows[i].push({
             key: "checkBox",
             value: "",
-            checked: false,
+            checked: oRes[i].checked?true:false,
             disabled: false,
           });
           arrRows[i].push({
@@ -275,6 +276,12 @@
               }],
             });
           }
+
+          //更新选择数据
+          if(oRes[i].checked){
+            this.arrSelectRows.push(arrRows[i]);
+          }
+
         }
         return arrRows;
       },
@@ -307,8 +314,9 @@
       },
       _onTitleCheckOrUncheck: function (isCheck) {
         this.isSelectAll = isCheck;
+        this.arrSelectRows = this.$refs['objLstGrid' + this.componentId].getSelectRows4Checkbox();
         this._updateBtnStatus();
-        this.callback4OnTitleCheckOrUncheck(isCheck);
+        this.callback4OnTitleCheckOrUncheck(this.arrSelectRows, isCheck);
       },
       _updateBtnStatus:function(){
         if(this.arrSelectRows.length>0 || this.isSelectAll){
@@ -351,8 +359,8 @@
       callback4OnRowCheckOrUnCheck: function (arrRows, oRow, isCheck) {
         this.$emit("onRowCheckOrUnCheck", arrRows, oRow, isCheck);
       },
-      callback4OnTitleCheckOrUncheck: function (arrRows) {
-        this.$emit("onTitleCheckOrUncheck", arrRows);
+      callback4OnTitleCheckOrUncheck: function (arrRows, isCheck) {
+        this.$emit("onTitleCheckOrUncheck", arrRows, isCheck);
       },
       callback4OnSortRows: function (strKey, order, rows) {
         this.$emit("onSortRows", strKey, order, rows);
@@ -433,12 +441,12 @@
   .searchArea4objList{
     width: 320px;
     float: right;
-    margin-right: 20px;
+    margin-left: 20px;
   }
 
-  .classCustom4Btn {
-    float: right;
-    margin-left: 20px;
+  .classCustom4Btn4WorkflowObjLst {
+    float: left;
+    margin-right: 20px;
   }
 
   .bottomArea {

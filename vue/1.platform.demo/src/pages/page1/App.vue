@@ -116,6 +116,7 @@
           expand: false,
           subItems: [
             //#region button
+            {id: "Page4MarvelButtonC", label: "Page4MarvelButton(C)"},
             {id: "Page4MarvelButton", label: "Page4MarvelButton"},
             {id: "Page4MarvelIconButton", label: "Page4MarvelIconButton"},
             {id: "Page4MarvelIconTxtButton", label: "Page4MarvelIconTxtButton"},
@@ -176,6 +177,7 @@
           expand: false,
           subItems: [
             //#region Grid
+            {id: "Page4MarvelTable", label: "Page4MarvelTable"},
             {id: "Page4MarvelGrid", label: "Page4MarvelGrid"},
             {id: "Page4MarvelGridEx", label: "Page4MarvelGridEx"},
             {id: "Page4MarvelGridExFilter", label: "Page4MarvelGridExFilter"},
@@ -201,11 +203,13 @@
           expand: false,
           subItems: [
             //#region Prompt
+            {id: "Page4MarvelPromptC", label: "Page4MarvelPromptC"},
             {id: "Page4MarvelPrompt", label: "Page4MarvelPrompt"},
             {id: "Page4MarvelPromptGLobal", label: "Page4MarvelPromptGLobal"},
             //endregion
 
             //#region Loading
+            {id: "Page4MarvelLoadingC", label: "Page4MarvelLoadingC"},
             {id: "Page4MarvelLoading", label: "Page4MarvelLoading"},
             {id: "Page4MarvelLoadingIconPublic", label: "Page4MarvelLoadingIconPublic"},
             {id: "Page4MarvelLoadingMini", label: "Page4MarvelLoadingMini"},
@@ -214,6 +218,7 @@
             //endregion
 
             //#region Confirm
+            {id: "Page4MarvelConfirmC", label: "Page4MarvelConfirmC"},
             {id: "Page4MarvelConfirm", label: "Page4MarvelConfirm"},
             {id: "Page4MarvelConfirmEx", label: "Page4MarvelConfirmEx"},
             //endregion
@@ -252,6 +257,7 @@
             //endregion
 
             //#region Dashboard
+            {id: "Page4MarvelDashboardC", label: "Page4MarvelDashboardC"},
             {id: "Page4MarvelDashboard", label: "Page4MarvelDashboard"},
             {id: "Page4MarvelDashboardAdaptToContH", label: "Page4MarvelDashboardAdaptToContH"},
             //endregion
@@ -265,6 +271,8 @@
             //endregion
 
             //#region extPanel
+            {id: "page4MarvelFlexiblePanel", label: "page4MarvelFlexiblePanel"},
+            {id: "page4MarvelFloatPanel", label: "page4MarvelFloatPanel"},
             {id: "Page4MarvelBottomExtPanel", label: "Page4MarvelBottomExtPanel"},
             {id: "Page4MarvelLeftExtPanel", label: "Page4MarvelLeftExtPanel"},
             {id: "Page4MarvelRightExtPanel", label: "Page4MarvelRightExtPanel"},
@@ -278,7 +286,6 @@
             {id: "Page4MarvelAceEditor", label: "Page4MarvelAceEditor"},
             {id: "Page4MarvelLegend", label: "Page4MarvelLegend"},
             {id: "Page4MarvelLogView", label: "Page4MarvelLogView"},
-            {id: "Page4MarvelPromptEx", label: "*Page4MarvelPromptEx"},
             {id: "Page4MarvelToolbar", label: "Page4MarvelToolbar"},
             {id: "Page4MarvelWarning", label: "Page4MarvelWarning"},
           ]
@@ -323,10 +330,10 @@
           icon: "icon-book",
           expand: false,
           subItems: [{
-            id: "*Page4MarvelLayout1",
+            id: "Page4MarvelLayout1",
             label: "布局1"
           }, {
-            id: "*Page4MarvelLayout2",
+            id: "Page4MarvelLayout2",
             label: "布局2"
           }]
         },{
@@ -340,8 +347,10 @@
             {id: "Page4MarvelAccordion4", label: "Page4MarvelAccordion4"},
 
 
+            {id: "Page4MarvelMenuContextC", label: "Page4MarvelMenuContextC"},
             {id: "Page4MarvelMenuContext", label: "Page4MarvelMenuContext"},
             {id: "Page4MarvelMenuContext2", label: "Page4MarvelMenuContext2"},
+            {id: "Page4MarvelDropDownMenu", label: "Page4MarvelDropDownMenu"},
             {id: "Page4MarvelMenuDropDown", label: "Page4MarvelMenuDropDown"},
             {id: "Page4MarvelMenuHelp", label: "Page4MarvelMenuHelp"},
             {id: "Page4MarvelMenuNew", label: "Page4MarvelMenuNew"},
@@ -350,6 +359,7 @@
 
             {id: "Page4MarvelInfo", label: "Page4MarvelInfo"},
 
+            {id: "Page4MarvelInputDropDownC", label: "Page4MarvelInputDropDownC"},
             {id: "Page4MarvelInputDropDown", label: "Page4MarvelInputDropDown"},
             {id: "Page4MarvelInputDropDownWithTip", label: "Page4MarvelInputDropDownWithTip"},
 
@@ -362,6 +372,7 @@
             {id: "Page4MarvelSearch", label: "Page4MarvelSearch"},
             {id: "Page4MarvelSearchAdvance", label: "Page4MarvelSearchAdvance"},
             {id: "Page4MarvelSearchWithDropDown", label: "Page4MarvelSearchWithDropDown"},
+            {id: "Page4MarvelSearchBox", label: "Page4MarvelSearchBox"},
             {id: "Page4MarvelSelectCard", label: "Page4MarvelSelectCard"},
 
 
@@ -374,6 +385,7 @@
             {id: "Page4MarvelList3", label: "*Page4MarvelList3"},
             {id: "Page4MarvelList4", label: "Page4MarvelList4"},
             {id: "Page4MarvelList5", label: "Page4MarvelList5"},
+            {id: "Page4MarvelDragHelp", label: "Page4MarvelDragHelp"},
           ]
         },],
         isContainerFold: "",

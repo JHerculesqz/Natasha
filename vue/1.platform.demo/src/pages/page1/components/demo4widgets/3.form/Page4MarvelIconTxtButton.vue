@@ -26,6 +26,11 @@
             <marvel-icon-txt-button size="mini" classCustom="classCustom1" label="mini"
                                     icon="icon-home3"
                                     v-on:onClick="onClick"></marvel-icon-txt-button>
+            <marvel-icon-txt-button classCustom="classCustom1" label="overflow overflow overflow overflow"
+                                    :butStyle="butStyle"
+                                    :maxWidth=100
+                                    icon="icon-home3"
+                                    v-on:onClick="onClick"></marvel-icon-txt-button>
             <!--2级DemoView end-->
           </div>
         </marvel-tab-item>
@@ -42,6 +47,11 @@
                                     icon="icon-home3"
                                     v-on:onClick="onClick"></marvel-icon-txt-button>
             <marvel-icon-txt-button size="mini" classCustom="classCustom1" label="mini"
+                                    icon="icon-home3"
+                                    v-on:onClick="onClick"></marvel-icon-txt-button>
+            <marvel-icon-txt-button classCustom="classCustom1" label="overflow overflow overflow overflow"
+                                    :butStyle="butStyle"
+                                    :maxWidth=100
                                     icon="icon-home3"
                                     v-on:onClick="onClick"></marvel-icon-txt-button>
             '></marvel-ace-editor>
@@ -87,7 +97,9 @@
         }],
         //#endregion
         //#region custom data
-
+        butStyle:{
+          color:'#ff4040'
+        }
         //#endregion
       }
     },

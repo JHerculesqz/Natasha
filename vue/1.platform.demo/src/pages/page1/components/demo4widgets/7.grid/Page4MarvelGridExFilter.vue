@@ -130,8 +130,8 @@
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
   import MarvelGridExFilter from "~~/widget/grid/MarvelGridExFilter";
-  import CustomerSearchComponent from "./CustomerSearchComponent"
-  import CustomerGridComponent from "./CustomerGridComponent"
+  import CustomerSearchComponent from "./config4GridEx/CustomerSearchComponent"
+  import CustomerGridComponent from "./config4GridEx/CustomerGridComponent"
 
   export default {
     name: 'page4MarvelGridExFilter',

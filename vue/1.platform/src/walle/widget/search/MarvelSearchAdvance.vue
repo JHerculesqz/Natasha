@@ -1,8 +1,8 @@
 <template>
   <div class="mainContainer">
     <div class="searchButton">
-      <marvel-icon-txt-button id="mggaiy" :label="labelHead" :icon="icon4PanelShow" iconPos="right"
-                              v-on:onClick="onClickShowPanel"></marvel-icon-txt-button>
+      <marvel-button id="mggaiy" :label="labelHead" :icon="icon4PanelShow" iconPos="right"
+                     v-on:onClick="onClickShowPanel"></marvel-button>
     </div>
     <div class="searchContainer" v-bind:style="getPos4SearchPanel()" v-if="bShowPanel">
       <div class="searchArea" v-for="(item, index) in searchItems">
@@ -16,15 +16,15 @@
         </div>
       </div>
       <div class="search">
-        <marvel-icon-txt-button :label="labelFoot" :icon="icon4Search" iconPos="right"
-                                v-on:onClick="onClickSearch"></marvel-icon-txt-button>
+        <marvel-button :label="labelFoot" :icon="icon4Search" iconPos="right"
+                       v-on:onClick="onClickSearch"></marvel-button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-  import MarvelIconTxtButton from "../button/MarvelIconTxtButton.vue";
+  import MarvelButton from "../btn/MarvelButton.vue";
   import MarvelInput from "../input/MarvelInput.vue";
   import MarvelDropDownButton from "../button/MarvelDropDownButton.vue";
 
@@ -36,7 +36,7 @@
   export default {
     name: "MarvelSearchAdvance",
     components: {
-      MarvelIconTxtButton,
+      MarvelButton,
       MarvelInput,
       MarvelDropDownButton,
     },

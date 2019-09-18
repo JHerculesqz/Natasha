@@ -186,10 +186,10 @@
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
-  import CustomerSearchComponent from "./CustomerSearchComponent"
-  import CustomerButtonComponent from "./CustomerButtonComponent"
-  import CustomerGridComponent1 from "./CustomerGridComponent1"
-  import CommonTitle from "./common_title"
+  import CustomerSearchComponent from "./config4GridEx/CustomerSearchComponent"
+  import CustomerButtonComponent from "./config4GridEx/CustomerButtonComponent"
+  import CustomerGridComponent1 from "./config4GridEx/CustomerGridComponent1"
+  import CommonTitle from "./config4GridEx/common_title"
 
   export default {
     name: 'page4MarvelGridEx',

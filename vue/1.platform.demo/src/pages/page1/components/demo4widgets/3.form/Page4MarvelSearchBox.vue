@@ -1,7 +1,7 @@
 <template>
   <div class="widgetShowSession">
     <!--1级 start-->
-    <div class="title level1">MarvelPromptEx</div>
+    <div class="title level1">MarvelSearchWithDropDown</div>
     <div class="describe">
 
     </div>
@@ -14,11 +14,8 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-            <div style="width:100%; height: 100%;">
-              <button v-on:click="onClick">设置</button>
-              <marvel-prompt-ex ref="ref0"
-                                label="用户日志"
-                                icon="icon-mail4"></marvel-prompt-ex>
+            <div class="panel">
+              <marvel-search-box placeholder="请输入关键字..." @search="search"></marvel-search-box>
             </div>
             <!--2级DemoView end-->
           </div>
@@ -26,11 +23,38 @@
         <marvel-tab-item :isActive="tabItems1[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-            <div style="width:100%; height: 100%;">
-              <button v-on:click="onClick">设置</button>
-              <marvel-prompt-ex ref="ref0"
-                                label="用户日志"
-                                icon="icon-mail4"></marvel-prompt-ex>
+            <div class="panel">
+              <marvel-search-box placeholder="请输入关键字..." @search="search"></marvel-search-box>
+            </div>
+            '></marvel-ace-editor>
+          </div>
+        </marvel-tab-item>
+      </marvel-tab>
+    </div>
+    <!--2级 end-->
+
+    <!--2级 start-->
+
+    <div class="showArea">
+      <marvel-tab :tabItems="tabItems2">
+        <marvel-tab-item :isActive="tabItems2[0].isActive">
+          <div class="showAreaInner">
+            <!--2级DemoView start-->
+            <div class="panel">
+              <button @click="upDateSearchOption">updateSelectOption</button>
+              <marvel-search-box placeholder="请输入关键字..." @search="search2"
+                                        :selectItems="selectItems"></marvel-search-box>
+            </div>
+            <!--2级DemoView end-->
+          </div>
+        </marvel-tab-item>
+        <marvel-tab-item :isActive="tabItems2[1].isActive">
+          <div class="codeArea">
+            <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
+            <div class="panel">
+              <button @click="upDateSearchOption">updateSelectOption</button>
+              <marvel-search-box placeholder="请输入关键字..." @search="search2"
+                                        :selectItems="selectItems"></marvel-search-box>
             </div>
             '></marvel-ace-editor>
           </div>
@@ -41,7 +65,7 @@
     <!--endregion-->
     <!--region doc area-->
     <div class="docArea">
-      <marvel-i-frame ref="page4MarvelPromptExIFrame" id="page4MarvelPromptExIFrame" src="static/jsdoc/module-MarvelPromptEx.html"></marvel-i-frame>
+      <marvel-i-frame ref="page4MarvelSearchWithDropDownIFrame" id="page4MarvelSearchWithDropDownIFrame" src="static/jsdoc/module-MarvelSearchBox.html"></marvel-i-frame>
     </div>
     <!--endregion-->
   </div>
@@ -51,13 +75,13 @@
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
-  import MarvelPromptEx from "^/widget/prompt/MarvelPromptEx";
+  import MarvelSearchBox from '^/widget/searchBox/MarvelSearchBox';
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
 
   export default {
-    name: 'page4MarvelPromptEx',
+    name: 'page4MarvelSearchBox',
     components: {
-      MarvelPromptEx,
+      MarvelSearchBox,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -73,9 +97,26 @@
           label: "Code View",
           isActive: false
         }],
+        tabItems2: [{
+          label: "Demo View",
+          isActive: true
+        }, {
+          label: "Code View",
+          isActive: false
+        }],
         //#endregion
         //#region custom data
-        hasNotify: false,
+        selectItems: [
+          {
+            label: "ip"
+          },
+          {
+            label: "网元名称",
+            selected: true
+          },
+          {
+            label: "组名"
+          }]
         //#endregion
       }
     },
@@ -92,15 +133,27 @@
       //#region lifeCycle
 
       _initEx: function () {
-        this.$refs.page4MarvelPromptExIFrame.setIframe4DemoPage();
+        this.$refs.page4MarvelSearchWithDropDownIFrame.setIframe4DemoPage();
       },
 
       //#endregion
 
-      onClick: function () {
-        this.hasNotify = !this.hasNotify;
-        this.$refs.ref0.setNotify(this.hasNotify);
+      search: function (strSearchKey, strSearchValue) {
+        console.log(strSearchKey);
+        console.log(strSearchValue);
       },
+
+      search2: function (strSearchKey, strSearchValue) {
+        console.log(strSearchKey);
+        console.log(strSearchValue);
+      },
+      upDateSearchOption: function () {
+        this.selectItems[1].selected = false;
+        this.selectItems.push({
+          label: "others",
+          selected: true
+        })
+      }
 
       //#endregion
       //#region callback
@@ -145,11 +198,11 @@
     box-sizing: border-box;
   }
 
-  .docArea{
+  .docArea {
     width: 100%;
   }
 
-  .docArea iframe{
+  .docArea iframe {
     width: 100%;
     height: 100%;
     border: none;
@@ -165,6 +218,11 @@
   /*custom style start*/
 
   /*custom style end*/
+  .panel {
+    padding: 10px;
+    width: 400px;
+    height: 50px;
+  }
 
   /*region dark theme*/
 

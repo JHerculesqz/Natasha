@@ -3,7 +3,7 @@
     <div class="itemsClass" v-for="item in items"
          v-bind:class="{active: item.active, disable: item.disable}"
          v-on:click="onClickItem(item)">
-      <div class="labelName">{{item.label}}</div>
+      <div class="labelName" :title="item.label">{{item.label}}</div>
     </div>
   </div>
 </template>

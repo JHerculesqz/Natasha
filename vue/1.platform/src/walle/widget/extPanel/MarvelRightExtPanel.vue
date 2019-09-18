@@ -1,6 +1,6 @@
 <template>
   <div class="rightExtPanelWrapper">
-    <div class="expandBtn icon-marvelIcon-98"
+    <div class="expandBtn icon-marvelIcon-98" :style="{color:expandBtnBgColor}"
          v-on:click="onExpandBtnClick"></div>
     <div class="expandBtnInner"
          v-bind:class="[icon]"></div>
@@ -41,6 +41,11 @@
         default: false,
         required: false,
       },
+      expandBtnBgColor:{
+        type: String,
+        default: "#ffffff",
+        required: false,
+      }
     },
     data: function () {
       return {

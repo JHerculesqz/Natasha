@@ -117,7 +117,8 @@
     position: absolute;
     opacity: 0;
     z-index: -1;
-    display: none;
+    top: -5000px;
+    left: -5000px;
   }
 
   /*region dark theme*/
