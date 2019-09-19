@@ -9,19 +9,19 @@
     <!--region widget show area-->
 
     <!--2级 start-->
-    <div class="describe">一次性获取全量数据表 & 全量单元格内容展示</div>
+    <div class="describe">一次性获取全量数据表 & 全量单元格内容展示 & 适应内容高度并设置高度最大值200</div>
     <div class="showArea">
       <marvel-tab :tabItems="tabItems1">
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
             <button @click="setRowColor4FreezeGrid">setRowColor</button>
+            <button @click="getActiveRows4FreezeGrid">getActiveRows</button>
             <button @click="removeRowColor4FreezeGrid">removeRowColor</button>
             <button @click="getSelectRows4Checkbox4FreezeGrid">getSelectRows4Checkbox</button>
             <button @click="getSelectRow4Radiobox4FreezeGrid">getSelectRow4Radiobox</button>
             <button @click="removeRow4FreezeGrid">removeRow</button>
             <button @click="getRows4FreezeGrid">getRows</button>
-            <button @click="getActiveRows4FreezeGrid">getActiveRows</button>
             <button @click="disableRow4FreezeGrid">disableRow</button>
             <button @click="enableRow4FreezeGrid">enableRow</button>
             <button @click="enableAllRows4FreezeGrid">enableAllRows</button>
@@ -29,8 +29,8 @@
             <button @click="checkRadioRow4FreezeGrid">checkRadioRow</button>
             <button @click="disabledDropDownCell4FreezeGrid">disabledDropDownCell</button>
             <div style="width:100%;height:260px;">
-              <marvel-table ref="gridExWithFreezeColumn"
-                            gridId="gridExWithFreezeColumn"
+              <marvel-table ref="table4allEle"
+                            gridId="table4allEle"
                             :titles="titles4allEle"
                             :rows="rows4allEle"
                             :limit="limit4allEle"
@@ -39,10 +39,14 @@
                             searchComponent="TableSearchComponent"
                             :hasFoot="true"
                             :columnConfig="true"
+                            :showChangeLimit="true"
+                            :limitRange="[20,30,50,100]"
                             v-on:editCellFinished="editCellFinished"
                             v-on:sortRowsFunc="sortRowsFunc"
                             v-on:onTitleCheckOrUncheck="onTitleCheckOrUncheck"
                             v-on:onClickRow="onClickRow"
+                            v-on:onClickFoldOrUnFold="onClickFoldOrUnFold"
+                            v-on:onDblclickRow="onDblclickRow"
                             v-on:onRowCheckOrUnCheck="onRowCheckOrUnCheck"
                             v-on:onRowRadioCheck="onRowRadioCheck"
                             v-on:onClickTextCell="onClickTextCell"
@@ -51,8 +55,7 @@
                             v-on:onClickTextIcon="onClickTextIcon"
                             v-on:onClickMultiDropdownItem="onClickMultiDropdownItem"
                             v-on:onClickSwitch="onClickSwitch"
-                            v-on:onClickImg="onClickImg"
-                            v-on:onPageChange="onPageChange"></marvel-table>
+                            v-on:onClickImg="onClickImg"></marvel-table>
             </div>
             <!--2级DemoView end-->
           </div>
@@ -68,38 +71,24 @@
     <!--2级 end-->
 
     <!--2级 start-->
-    <div class="describe">一次性获取全量数据表</div>
+    <br>
+    <div class="describe">分页获取数据表 & 适应父容器高度 & 左右设置固定列</div>
     <div class="showArea">
       <marvel-tab :tabItems="tabItems2">
         <marvel-tab-item :isActive="tabItems2[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-            <button @click="setRowColor4FreezeGrid">setRowColor</button>
-            <button @click="removeRowColor4FreezeGrid">removeRowColor</button>
-            <button @click="getSelectRows4Checkbox4FreezeGrid">getSelectRows4Checkbox</button>
-            <button @click="getSelectRow4Radiobox4FreezeGrid">getSelectRow4Radiobox</button>
-            <button @click="removeRow4FreezeGrid">removeRow</button>
-            <button @click="getRows4FreezeGrid">getRows</button>
-            <button @click="getActiveRows4FreezeGrid">getActiveRows</button>
-            <button @click="disableRow4FreezeGrid">disableRow</button>
-            <button @click="enableRow4FreezeGrid">enableRow</button>
-            <button @click="enableAllRows4FreezeGrid">enableAllRows</button>
-            <button @click="checkRow4FreezeGrid">checkRow</button>
-            <button @click="checkRadioRow4FreezeGrid">checkRadioRow</button>
-            <button @click="disabledDropDownCell4FreezeGrid">disabledDropDownCell</button>
-            <div style="width:100%;height:300px;">
-              <marvel-table ref="gridExWithFreezeColumn"
-                            gridId="gridExWithFreezeColumn"
-                            :titles="titles4tableData"
-                            :rows="rows4tableData"
+            <div style="width:100%;height:340px;">
+              <marvel-table ref="tablePaging"
+                            gridId="tablePaging"
+                            :titles="titles4tablePaging"
+                            :rows="rows4tablePaging"
                             :dynamicPaging="true"
-                            :totalNum="totalNum4tableData"
-                            :totalPage="totalPage4tableData"
-                            :limit="limit4tableData"
+                            :totalNum="totalNum4tablePaging"
+                            :totalPage="totalPage4tablePaging"
+                            :limit="limit4tablePaging"
                             :canDrag="true"
                             :hasFoot="true"
-                            :bIsAdaptToContH="true"
-                            :maxHeight="200"
                             :columnConfig="true"
                             v-on:editCellFinished="editCellFinished"
                             v-on:sortRowsFunc="sortRowsFunc"
@@ -112,7 +101,7 @@
                             v-on:onOptionChange="onOptionChange"
                             v-on:onClickTextIcon="onClickTextIcon"
                             v-on:onClickMultiDropdownItem="onClickMultiDropdownItem"
-                            v-on:onPageChange="onPageChange"></marvel-table>
+                            v-on:onPageChange="onPageChange4tablePaging"></marvel-table>
             </div>
             <!--2级DemoView end-->
           </div>
@@ -128,38 +117,25 @@
     <!--2级 end-->
 
     <!--2级 start-->
-    <div class="describe">一次性获取全量数据表</div>
+    <br>
+    <div class="describe">单元格合并</div>
     <div class="showArea">
       <marvel-tab :tabItems="tabItems1">
         <marvel-tab-item :isActive="tabItems3[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-            <button @click="setRowColor4FreezeGrid">setRowColor</button>
-            <button @click="removeRowColor4FreezeGrid">removeRowColor</button>
-            <button @click="getSelectRows4Checkbox4FreezeGrid">getSelectRows4Checkbox</button>
-            <button @click="getSelectRow4Radiobox4FreezeGrid">getSelectRow4Radiobox</button>
-            <button @click="removeRow4FreezeGrid">removeRow</button>
-            <button @click="getRows4FreezeGrid">getRows</button>
-            <button @click="getActiveRows4FreezeGrid">getActiveRows</button>
-            <button @click="disableRow4FreezeGrid">disableRow</button>
-            <button @click="enableRow4FreezeGrid">enableRow</button>
-            <button @click="enableAllRows4FreezeGrid">enableAllRows</button>
-            <button @click="checkRow4FreezeGrid">checkRow</button>
-            <button @click="checkRadioRow4FreezeGrid">checkRadioRow</button>
-            <button @click="disabledDropDownCell4FreezeGrid">disabledDropDownCell</button>
-            <div style="width:100%;height:300px;">
-              <marvel-table ref="gridExWithFreezeColumn"
-                            gridId="gridExWithFreezeColumn"
-                            :titles="titles4tableData"
-                            :rows="rows4tableData"
+            <div style="width:100%;height:340px;">
+              <marvel-table ref="tableCombine"
+                            gridId="tableCombine"
+                            :parentTitles="parentTitles4tableCombineCell"
+                            :titles="titles4tableCombineCell"
+                            :rows="rows4tableCombineCell"
                             :dynamicPaging="true"
-                            :totalNum="totalNum4tableData"
-                            :totalPage="totalPage4tableData"
-                            :limit="limit4tableData"
+                            :totalNum="totalNum4tableCombineCell"
+                            :totalPage="totalPage4tableCombineCell"
+                            :limit="limit4tableCombineCell"
                             :canDrag="true"
                             :hasFoot="true"
-                            :bIsAdaptToContH="true"
-                            :maxHeight="200"
                             :columnConfig="true"
                             v-on:editCellFinished="editCellFinished"
                             v-on:sortRowsFunc="sortRowsFunc"
@@ -172,7 +148,7 @@
                             v-on:onOptionChange="onOptionChange"
                             v-on:onClickTextIcon="onClickTextIcon"
                             v-on:onClickMultiDropdownItem="onClickMultiDropdownItem"
-                            v-on:onPageChange="onPageChange"></marvel-table>
+                            v-on:onPageChange="onPageChange4tableCombine"></marvel-table>
             </div>
             <!--2级DemoView end-->
           </div>
@@ -186,67 +162,6 @@
       </marvel-tab>
     </div>
     <!--2级 end-->
-
-    <!--2级 start-->
-    <div class="describe">一次性获取全量数据表</div>
-    <div class="showArea">
-      <marvel-tab :tabItems="tabItems4">
-        <marvel-tab-item :isActive="tabItems4[0].isActive">
-          <div class="showAreaInner">
-            <!--2级DemoView start-->
-            <button @click="setRowColor4FreezeGrid">setRowColor</button>
-            <button @click="removeRowColor4FreezeGrid">removeRowColor</button>
-            <button @click="getSelectRows4Checkbox4FreezeGrid">getSelectRows4Checkbox</button>
-            <button @click="getSelectRow4Radiobox4FreezeGrid">getSelectRow4Radiobox</button>
-            <button @click="removeRow4FreezeGrid">removeRow</button>
-            <button @click="getRows4FreezeGrid">getRows</button>
-            <button @click="getActiveRows4FreezeGrid">getActiveRows</button>
-            <button @click="disableRow4FreezeGrid">disableRow</button>
-            <button @click="enableRow4FreezeGrid">enableRow</button>
-            <button @click="enableAllRows4FreezeGrid">enableAllRows</button>
-            <button @click="checkRow4FreezeGrid">checkRow</button>
-            <button @click="checkRadioRow4FreezeGrid">checkRadioRow</button>
-            <button @click="disabledDropDownCell4FreezeGrid">disabledDropDownCell</button>
-            <div style="width:100%;height:300px;">
-              <marvel-table ref="table4tableData"
-                            gridId="table4tableData"
-                            :titles="titles4tableData"
-                            :rows="rows4tableData"
-                            :dynamicPaging="true"
-                            :totalNum="totalNum4tableData"
-                            :totalPage="totalPage4tableData"
-                            :limit="limit4tableData"
-                            :canDrag="true"
-                            :hasFoot="true"
-                            :bIsAdaptToContH="true"
-                            :maxHeight="200"
-                            :columnConfig="true"
-                            v-on:editCellFinished="editCellFinished"
-                            v-on:sortRowsFunc="sortRowsFunc"
-                            v-on:onTitleCheckOrUncheck="onTitleCheckOrUncheck"
-                            v-on:onClickRow="onClickRow"
-                            v-on:onRowCheckOrUnCheck="onRowCheckOrUnCheck"
-                            v-on:onRowRadioCheck="onRowRadioCheck"
-                            v-on:onClickTextCell="onClickTextCell"
-                            v-on:onIconClick="onIconClick"
-                            v-on:onOptionChange="onOptionChange"
-                            v-on:onClickTextIcon="onClickTextIcon"
-                            v-on:onClickMultiDropdownItem="onClickMultiDropdownItem"
-                            v-on:onPageChange="onPageChange"></marvel-table>
-            </div>
-            <!--2级DemoView end-->
-          </div>
-        </marvel-tab-item>
-        <marvel-tab-item :isActive="tabItems4[1].isActive">
-          <div class="codeArea">
-            <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-            '></marvel-ace-editor>
-          </div>
-        </marvel-tab-item>
-      </marvel-tab>
-    </div>
-    <!--2级 end-->
-
 
     <!--endregion-->
     <!--region doc area-->
@@ -302,13 +217,6 @@
           label: "Code View",
           isActive: false
         }],
-        tabItems4: [{
-          label: "Demo View",
-          isActive: true
-        }, {
-          label: "Code View",
-          isActive: false
-        }],
         //#endregion
         //#region custom data
         titles4allEle:[],
@@ -317,11 +225,18 @@
         totalNum4allEle:0,
         limit4allEle:20,
 
-        titles4tableData:[],
-        rows4tableData:[],
-        totalPage4tableData:1,
-        totalNum4tableData:0,
-        limit4tableData:20,
+        titles4tablePaging:[],
+        rows4tablePaging:[],
+        totalPage4tablePaging:1,
+        totalNum4tablePaging:0,
+        limit4tablePaging:20,
+
+        parentTitles4tableCombineCell:[],
+        titles4tableCombineCell:[],
+        rows4tableCombineCell:[],
+        totalPage4tableCombineCell:1,
+        totalNum4tableCombineCell:0,
+        limit4tableCombineCell:20,
         //#endregion
       }
     },
@@ -350,24 +265,50 @@
 
       _initGridData: function(iPage){
         this._initGridData4AllEle(iPage);
-        this._initGridData4TableData(iPage);
+        this._initGridData4TablePaging(iPage);
+        this._initGridData4TableCombineCell(iPage);
       },
 
       _initGridData4AllEle: function(iPage){
         var oData = JSON.parse(JSON.stringify(ConfigUtils.getConfigOptions('allEle', iPage)));
         this.titles4allEle = oData.titles;
-        this.rows4allEle = oData.rows;
         this.totalPage4allEle = oData.totalPage;
         this.totalNum4allEle = oData.totalNum;
         this.limit4allEle = oData.limit;
+
+        this._initGridRowData4AllEle(iPage)
       },
-      _initGridData4TableData: function(iPage){
-        var oData = JSON.parse(JSON.stringify(ConfigUtils.getConfigOptions('tableData', iPage)));
-        this.titles4tableData = oData.titles;
-        this.rows4tableData = oData.rows;
-        this.totalPage4tableData = oData.totalPage;
-        this.totalNum4tableData = oData.totalNum;
-        this.limit4tableData = oData.limit;
+      _initGridData4TablePaging: function(iPage){
+        var oData = JSON.parse(JSON.stringify(ConfigUtils.getConfigOptions('tablePaging', iPage)));
+        this.titles4tablePaging = oData.titles;
+        this.totalPage4tablePaging = oData.totalPage;
+        this.totalNum4tablePaging = oData.totalNum;
+        this.limit4tablePaging = oData.limit;
+
+        this._initGridRowData4TablePaging(iPage);
+      },
+      _initGridData4TableCombineCell: function(iPage){
+        var oData = JSON.parse(JSON.stringify(ConfigUtils.getConfigOptions('tableCombineCell', iPage)));
+        this.parentTitles4tableCombineCell = oData.parentTitles;
+        this.titles4tableCombineCell = oData.titles;
+        this.totalPage4tableCombineCell = oData.totalPage;
+        this.totalNum4tableCombineCell = oData.totalNum;
+        this.limit4tableCombineCell = oData.limit;
+
+        this._initGridRowData4TableCombineCell(iPage);
+      },
+
+      _initGridRowData4AllEle: function(iPage){
+        var oData = JSON.parse(JSON.stringify(ConfigUtils.getConfigOptions('allEle', iPage)));
+        this.rows4allEle = oData.rows;
+      },
+      _initGridRowData4TablePaging: function(iPage){
+        var oData = JSON.parse(JSON.stringify(ConfigUtils.getConfigOptions('tablePaging', iPage)));
+        this.rows4tablePaging = oData.rows;
+      },
+      _initGridRowData4TableCombineCell: function(iPage){
+        var oData = JSON.parse(JSON.stringify(ConfigUtils.getConfigOptions('tableCombineCell', iPage)));
+        this.rows4tableCombineCell = oData.rows;
       },
 
       _updateRowEx: function(){
@@ -378,49 +319,51 @@
       //#endregion
 
       setRowColor4FreezeGrid: function () {
-        this.$refs.gridExWithFreezeColumn.setRowColor(0);
+        this.$refs.table4allEle.setRowColor(0);
       },
       removeRowColor4FreezeGrid: function(){
-        this.$refs.gridExWithFreezeColumn.removeRowColor(0);
+        this.$refs.table4allEle.removeRowColor(0);
       },
       getSelectRows4Checkbox4FreezeGrid: function(){
-        let arrRows = this.$refs.gridExWithFreezeColumn.getSelectRows4Checkbox();
+        let arrRows = this.$refs.table4allEle.getSelectRows4Checkbox();
         console.log(arrRows);
       },
       getSelectRow4Radiobox4FreezeGrid: function(){
-        let arrRows = this.$refs.gridExWithFreezeColumn.getSelectRow4Radiobox();
+        let arrRows = this.$refs.table4allEle.getSelectRow4Radiobox();
         console.log(arrRows);
       },
       removeRow4FreezeGrid: function(){
-        this.$refs.gridExWithFreezeColumn.removeRow(0);
+        this.$refs.table4allEle.removeRow(0);
       },
       getRows4FreezeGrid: function(){
-        let arrRows = this.$refs.gridExWithFreezeColumn.getRows();
+        let arrRows = this.$refs.table4allEle.getRows();
         console.log(arrRows);
       },
       getActiveRows4FreezeGrid: function(){
-        let arrRow = this.$refs.gridExWithFreezeColumn.getActiveRows();
+        let arrRow = this.$refs.table4allEle.getActiveRows();
         console.log(arrRow);
       },
       disableRow4FreezeGrid: function(){
-        this.$refs.gridExWithFreezeColumn.disableRow(1);
-        this.$refs.gridExWithFreezeColumn.disableRow(4);
+        this.$refs.table4allEle.disableRow(1);
+        this.$refs.table4allEle.disableRow(4);
       },
       enableRow4FreezeGrid: function(){
-        this.$refs.gridExWithFreezeColumn.enableRow(1);
+        this.$refs.table4allEle.enableRow(1);
       },
       enableAllRows4FreezeGrid: function(){
-        this.$refs.gridExWithFreezeColumn.enableAllRows();
+        this.$refs.table4allEle.enableAllRows();
       },
       checkRow4FreezeGrid: function(){
-        this.$refs.gridExWithFreezeColumn.checkOrUnCheckRow4CheckBox(3, true);
+        this.$refs.table4allEle.checkOrUnCheckRow4CheckBox(3, true);
       },
       checkRadioRow4FreezeGrid: function(){
-        this.$refs.gridExWithFreezeColumn.checkorUnCheckRow4RadioBox(3, true);
+        this.$refs.table4allEle.checkorUnCheckRow4RadioBox(3, true);
       },
       disabledDropDownCell4FreezeGrid: function(){
-        this.$refs.gridExWithFreezeColumn.disabledDropDownCell(4, "config", true);
+        this.$refs.table4allEle.disabledDropDownCell(4, "config", true);
       },
+
+
       editCellFinished: function(oRow, oCell, oOldVal, oNewVal, oAfterValidateOk){
         console.log("editCellFinished");
         console.log(oRow);
@@ -441,6 +384,15 @@
       },
       onClickRow:function(oRow){
         console.log("onClickRow4Table");
+        console.log(oRow);
+      },
+      onClickFoldOrUnFold:function(oRow, bIsFold){
+        console.log("onClickFoldOrUnFold");
+        console.log(oRow);
+        console.log(bIsFold);
+      },
+      onDblclickRow:function(oRow){
+        console.log("onDblclickRow");
         console.log(oRow);
       },
       onRowCheckOrUnCheck:function(oRow, isChecked){
@@ -491,11 +443,19 @@
         console.log(oRow);
         console.log(oCell);
       },
-      onPageChange: function (iPageIndex) {
-        console.log("onPageChange4Table");
+
+      onPageChange4tablePaging: function (iPageIndex) {
+        console.log("onPageChange4tablePaging");
         console.log(iPageIndex);
         setTimeout(() => {
-          this._initGridData4TableData(iPageIndex);
+          this._initGridRowData4TablePaging(iPageIndex);
+        }, 100);
+      },
+      onPageChange4tableCombine: function (iPageIndex) {
+        console.log("onPageChange4tableCombine");
+        console.log(iPageIndex);
+        setTimeout(() => {
+          this._initGridRowData4TableCombineCell(iPageIndex);
         }, 100);
       },
 

@@ -137,6 +137,7 @@
                               :limit="15"
                               :showChangeLimit="true"
                               :limitRange="[15,30,50,100]"
+                              v-on:onClickRow="onClickRowEx"
                               v-on:onPageChange="onPageChange"
                               v-on:onPerPageNumChange="onPerPageNumChange"></marvel-grid-ex>
             </div>

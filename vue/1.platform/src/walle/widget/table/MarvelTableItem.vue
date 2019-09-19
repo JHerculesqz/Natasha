@@ -32,11 +32,38 @@ multiDropdown：下拉框多选，支持度不好，待优化
     <div class="grid">
       <table class="gridCont" cellspacing="0" cellpadding="0" border="0">
         <thead :style="{left: offSetX + 'px'}">
-        <tr>
-          <th class="gridTitle" v-if="useDetailRow()" style="width: 35px"></th>
-          <template v-for="(title,index) in titles">
+        <tr v-if="parentTitles.length>0">
+          <th class="gridTitle" v-if="useDetailRow()" style="width: 35px" rowspan="2"></th>
+          <template v-for="(title,index) in parentTitles">
             <template v-if="title.visible">
-              <th class="gridTitle" :style="{ width: title.width }" :title="title.label">
+              <th class="gridTitle" :style="{ width: parentTitles[index].width }"
+                  :title="title.label" :rowspan="title.rowspan" :colspan="title.colspan">
+                <div v-if="title.type == 'checkBox'" class="checkBoxWrapper">
+                  <div class="checkBox">
+                    <input type="checkbox" :id="gridId + '_selectAll'"
+                           @change.stop="onTitleCheckboxChange(title, $event)"
+                           :checked="titleCheckboxChecked">
+                    <label :for="gridId + '_selectAll'"></label>
+                  </div>
+                  <label :for="gridId + '_selectAll'" class="checkBoxLabel">{{title.label}}</label>
+                </div>
+                <div v-else-if="title.type == 'radioBox'">
+                </div>
+                <div v-else style="text-align: center">
+                  {{title.label}}
+                </div>
+                <div v-if="canDrag" class="parent-title-resize"
+                     @mousedown="onResizeMouseDownInParentTitle(title, $event)"></div>
+              </th>
+            </template>
+          </template>
+        </tr>
+        <tr>
+          <th class="gridTitle" v-if="useDetailRow ()&& parentTitles.length==0" style="width: 35px"></th>
+          <template v-for="(title,index) in titles">
+            <template v-if="title.visible && title.rowspan!= 0 && title.colspan!= 0">
+              <th class="gridTitle" :style="{ width: titles[index].width }" :title="title.label"
+                  :rowspan="title.rowspan" :colspan="title.colspan">
                 <div v-if="title.type == 'checkBox'" class="checkBoxWrapper">
                   <div class="checkBox">
                     <input type="checkbox" :id="gridId + '_selectAll'"
@@ -55,7 +82,7 @@ multiDropdown：下拉框多选，支持度不好，待优化
                   <span v-if="showSearch(title)" class="icon-search column-search"
                         @click.stop="onClickSearch(title, $event)"></span>
                 </div>
-                <div v-if="canDrag" class="title-resize"
+                <div v-if="canDrag && parentTitles.length ==0" class="title-resize"
                      @mousedown="onResizeMouseDown(title, $event)"></div>
               </th>
             </template>
@@ -66,14 +93,16 @@ multiDropdown：下拉框多选，支持度不好，待优化
           <component :is="searchComponent" :gridTitle="searchOption.gridTitle"></component>
         </div>
         </thead>
-        <tbody>
+        <tbody :class="parentTitles.length>0?'reduceH4doubleHead':''">
         <template v-for="(row,index) in rowsInPage">
-          <tr :class="[getTrStyle(row, index),row[0].value == hoverRowId ? 'rowHover':'']" @click.stop="onClickRow(row)"
-              @mouseenter="onRowHover(row)" @mouseleave="onRowHoverEnd">
+          <tr :class="[getTrStyle(row, index),row[0].value == hoverRowId ? 'rowHover':'',hasCombineRows?'hasCombineRows':'']"
+              @click.stop="onClickRow(row)" @dblclick.stop="callback4OnDblclickRow(row)" @mouseenter="onRowHover(row)" @mouseleave="onRowHoverEnd">
             <td v-if="useDetailRow()" style="width: 35px" :class="foldOrUnFold(row)"
                 @click.stop="onClickFoldOrUnFold(row)"></td>
-            <template v-for="title in titles" v-if="title.visible">
-              <td v-if="title.type == 'checkBox'" :style="getTdStyle(title, row)">
+            <template v-for="title in titles" v-if="title.visible && !isHide4Combine(title, row)">
+              <td v-if="title.type == 'checkBox'" :style="getTdStyle(title, row)"
+                  :colspan="getTdColspan(title, row)"
+                  :rowspan="getTdRowspan(title, row)">
                 <div class="checkBoxWrapper">
                   <div class="checkBox" @click.stop>
                     <input type="checkbox" :id="_generateIdentityId(row, 'check')"
@@ -85,7 +114,9 @@ multiDropdown：下拉框多选，支持度不好，待优化
                   <label :for="_generateIdentityId(row, 'check')">{{getCellValueByKey(title.key, row)}}</label>
                 </div>
               </td>
-              <td v-if="title.type == 'radioBox'" :style="getTdStyle(title, row)">
+              <td v-if="title.type == 'radioBox'" :style="getTdStyle(title, row)"
+                  :colspan="getTdColspan(title, row)"
+                  :rowspan="getTdRowspan(title, row)">
                 <div class="radioWrapper" @click.stop>
                   <div class="radio">
                     <input type="radio" :id="_generateIdentityId(row, 'radio')"
@@ -97,14 +128,18 @@ multiDropdown：下拉框多选，支持度不好，待优化
                   </div>
                 </div>
               </td>
-              <td v-if="title.type == 'text'" :style="getTdStyle(title, row)">
+              <td v-if="title.type == 'text'" :style="getTdStyle(title, row)"
+                  :colspan="getTdColspan(title, row)"
+                  :rowspan="getTdRowspan(title, row)">
                 <div class="textCell" :title="getCellValueByKey(title.key, row)"
-                     :style="getLabelStyle(title, row)"
+                     :style="[getLabelStyle(title, row),getTdDivStyle(title, row)]" style="display: inline-block;height: auto;"
                      @click="onClickTextCell(title.key, row)">
                   <span class="textCellItem" v-text="getCellValueByKey(title.key, row)"></span>
                 </div>
               </td>
-              <td v-if="title.type == 'multiText'" :style="getTdStyle(title, row)">
+              <td v-if="title.type == 'multiText'" :style="getTdStyle(title, row)"
+                  :colspan="getTdColspan(title, row)"
+                  :rowspan="getTdRowspan(title, row)">
                 <div class="textCell">
                     <span class="textCellItem"
                           v-for="(item, index) in getCellValueByKey(title.key, row)"
@@ -112,7 +147,9 @@ multiDropdown：下拉框多选，支持度不好，待优化
                           :title="item" v-html="item"></span>
                 </div>
               </td>
-              <td v-if="title.type == 'input'" :style="getTdStyle(title, row)">
+              <td v-if="title.type == 'input'" :style="getTdStyle(title, row)"
+                  :colspan="getTdColspan(title, row)"
+                  :rowspan="getTdRowspan(title, row)">
                 <div class="inputWrapper">
                   <div class="radio">
                     <input type="text" class="inputDefault"
@@ -123,7 +160,9 @@ multiDropdown：下拉框多选，支持度不好，待优化
                   </div>
                 </div>
               </td>
-              <td v-if="title.type == 'icon'" :style="getTdStyle(title, row)">
+              <td v-if="title.type == 'icon'" :style="getTdStyle(title, row)"
+                  :colspan="getTdColspan(title, row)"
+                  :rowspan="getTdRowspan(title, row)">
                    <span class="iconOnly"
                          v-for="icon in getCellValueByKey(title.key, row)"
                          :class="[icon.value]"
@@ -132,7 +171,9 @@ multiDropdown：下拉框多选，支持度不好，待优化
                          @click.stop="onIconClick(title.key, row, icon)">
                    </span>
               </td>
-              <td v-if="title.type == 'textIcon'" :style="getTdStyle(title, row)">
+              <td v-if="title.type == 'textIcon'" :style="getTdStyle(title, row)"
+                  :colspan="getTdColspan(title, row)"
+                  :rowspan="getTdRowspan(title, row)">
                 <div class="textIcon" @click.stop="onClickTextIcon(title.key, row)">
                     <span class="icon"
                           :class="[getCellValueByKey(title.key, row)]"
@@ -140,7 +181,9 @@ multiDropdown：下拉框多选，支持度不好，待优化
                   <span :title="_getCell(title.key, row).label" :style="getLabelStyle(title, row)">{{_getCell(title.key, row).label}}</span>
                 </div>
               </td>
-              <td v-if="title.type == 'dropdown'" :style="getTdStyle(title, row)">
+              <td v-if="title.type == 'dropdown'" :style="getTdStyle(title, row)"
+                  :colspan="getTdColspan(title, row)"
+                  :rowspan="getTdRowspan(title, row)">
                 <select class="customerSelect"
                         :disabled="dropDownCellDisabled(title.key, row)"
                         @click.stop
@@ -152,7 +195,9 @@ multiDropdown：下拉框多选，支持度不好，待优化
                   </option>
                 </select>
               </td>
-              <td v-if="title.type == 'dropdownEx'" :style="getTdStyle(title, row)" style="overflow: visible">
+              <td v-if="title.type == 'dropdownEx'" :style="getTdStyle(title, row)" style="overflow: visible"
+                  :colspan="getTdColspan(title, row)"
+                  :rowspan="getTdRowspan(title, row)">
                 <marvel-drop-down-button maxHeight="200px" width="100%"
                                          style="overflow: visible"
                                          :disable="dropDownCellDisabled(title.key, row)"
@@ -160,7 +205,9 @@ multiDropdown：下拉框多选，支持度不好，待优化
                                          :showSelectIcon="_getCell(title.key, row).showSelectIcon"
                                          @onOptionSelect="onOptionChangeEx(arguments, title.key, row)"></marvel-drop-down-button>
               </td>
-              <td v-if="title.type == 'multiDropdown'" class="multiDropdown" :style="getTdStyle(title, row)">
+              <td v-if="title.type == 'multiDropdown'" class="multiDropdown" :style="getTdStyle(title, row)"
+                  :colspan="getTdColspan(title, row)"
+                  :rowspan="getTdRowspan(title, row)">
                 <div class="label icon-marvelIcon-24"
                      :title="multiDropdownText(title.key, row)"
                      v-text="multiDropdownText(title.key, row)"
@@ -174,14 +221,18 @@ multiDropdown：下拉框多选，支持度不好，待优化
                   </div>
                 </div>
               </td>
-              <td v-if="title.type == 'progress'" :style="getTdStyle(title, row)">
+              <td v-if="title.type == 'progress'" :style="getTdStyle(title, row)"
+                  :colspan="getTdColspan(title, row)"
+                  :rowspan="getTdRowspan(title, row)">
                 <div class="progressBarWrapper" :title="getCellValueByKey(title.key, row)">
                   <div class="progress"
                        :style="{width:getCellValueByKey(title.key, row),'background-color':getProgressColorByKey(title.key, row)}"></div>
                 </div>
                 <div class="progressLabel" :title="getCellValueByKey(title.key, row)">{{getCellValueByKey(title.key, row)}}</div>
               </td>
-              <td v-if="title.type == 'switch'" :style="getTdStyle(title, row)">
+              <td v-if="title.type == 'switch'" :style="getTdStyle(title, row)"
+                  :colspan="getTdColspan(title, row)"
+                  :rowspan="getTdRowspan(title, row)">
                 <div class="switchWrapper">
                   <div class="switch"
                        :class="!getCellValueByKey(title.key, row) ? 'switchNoSelect' : ''"
@@ -189,16 +240,20 @@ multiDropdown：下拉框多选，支持度不好，待优化
                   </div>
                 </div>
               </td>
-              <td v-if="title.type == 'img'" :style="getTdStyle(title, row)">
+              <td v-if="title.type == 'img'" :style="getTdStyle(title, row)"
+                  :colspan="getTdColspan(title, row)"
+                  :rowspan="getTdRowspan(title, row)">
                 <div class="imgWrapper">
                   <img class="img" :src="getCellValueByKey(title.key, row)"
                        :title="_getCell(title.key, row).label"
                        @click.stop="onClickImg(title.key, row)"/>
                 </div>
               </td>
-              <td v-if="title.type == 'customer'" :style="getTdStyle(title, row)">
+              <td v-if="title.type == 'customer'" :style="getTdStyle(title, row)"
+                  :colspan="getTdColspan(title, row)"
+                  :rowspan="getTdRowspan(title, row)">
                 <template v-if="getCellType(title, row) == 'text'">
-                  <div class="textCell" :title="getCellValueByKey(title.key, row)"
+                  <div class="textCell" :title="getCellValueByKey(title.key, row)" style="display: inline-block;height: auto;"
                        @click.stop="onClickTextCell(title.key, row)">
                     {{getCellValueByKey(title.key, row)}}
                   </div>
@@ -251,6 +306,13 @@ multiDropdown：下拉框多选，支持度不好，待优化
     components: {MarvelDropDownButton},
     name: 'MarvelTableItem',
     props: {
+      parentTitles: {
+        type: Array,
+        default: function () {
+          return [];
+        },
+        required: false,
+      },
       titles: {
         type: Array,
         default: undefined,
@@ -351,12 +413,14 @@ multiDropdown：下拉框多选，支持度不好，待优化
         //endregion
         //region resize
         bMousedown: false,
+        resizeParentTitle: undefined,
         resizeTitle: undefined,
         iClientX: 0,
         //endregion
         //region useDetailRow
-        unFoldRowIds: []
+        unFoldRowIds: [],
         //endregion
+        hasCombineRows:false
       }
     },
     created() {
@@ -589,11 +653,34 @@ multiDropdown：下拉框多选，支持度不好，待优化
         //event
         this.callback4OnTitleCheckOrUncheck(isChecked);
       },
+      onResizeMouseDownInParentTitle(oParentTitle, oEvent) {
+        if (oParentTitle.width.indexOf("px") > 0) {
+          this.bMousedown = true;
+          this.resizeParentTitle = oParentTitle;
+          this.iClientX = oEvent.clientX;
+
+          document.body.onselectstart = function () {
+            return false;
+          };
+          document.body.ondragstart = function () {
+            return false;
+          };
+        } else {
+          console.log("Need to resize column, the title.width can not be percentages");
+        }
+      },
       onResizeMouseDown(oTitle, oEvent) {
         if (oTitle.width.indexOf("px") > 0) {
           this.bMousedown = true;
           this.resizeTitle = oTitle;
           this.iClientX = oEvent.clientX;
+
+          document.body.onselectstart = function () {
+            return false;
+          };
+          document.body.ondragstart = function () {
+            return false;
+          };
         } else {
           console.log("Need to resize column, the title.width can not be percentages");
         }
@@ -605,12 +692,50 @@ multiDropdown：下拉框多选，支持度不好，待优化
           let iTargetWidth = iWidth + (iDstClientX - this.iClientX);
           iTargetWidth = Math.max(25, iTargetWidth);//限定最小值为25
           this.resizeTitle.width = iTargetWidth + "px";
+          for(var i = 0; i<this.titles.length; i++){
+            if(this.titles[i].key == this.resizeTitle.key){
+              this.titles[i].width = this.resizeTitle.width;
+            }
+          }
+          this.iClientX = iDstClientX;
+        }else if(this.bMousedown && this.resizeParentTitle){
+          let iDstClientX = oEvent.clientX;
+          let iWidth = Number.parseFloat(this.resizeParentTitle.width);
+          let iTargetWidth = iWidth + (iDstClientX - this.iClientX);
+          var iSubTitleNum = this.resizeParentTitle.subKey.length;
+          iTargetWidth = Math.max(iSubTitleNum *25, iTargetWidth);//每个单元格限定最小值为25
+          var iTargetSubTitleW = iTargetWidth/iSubTitleNum;
+          this.resizeParentTitle.width = iTargetWidth + "px";
+          for(var i = 0; i<this.parentTitles.length; i++){
+            if(this.parentTitles[i].key == this.resizeParentTitle.key){
+              this.parentTitles[i].width = this.resizeParentTitle.width;
+            }
+          }
+          for(var i = 0; i<this.titles.length; i++){
+            var oTitle = this.titles[i];
+            for(var j = 0; j<this.resizeParentTitle.subKey.length; j++){
+              var strSubKey = this.resizeParentTitle.subKey[j];
+              if(oTitle.key == strSubKey){
+                oTitle.width = iTargetSubTitleW + "px";
+              }
+            }
+          }
           this.iClientX = iDstClientX;
         }
       },
       onResizeMouseUp(oEvent) {
-        this.bMousedown = false;
-        this.resizeTitle = undefined;
+        if (this.bMousedown && (this.resizeTitle || this.resizeParentTitle)) {
+          this.bMousedown = false;
+          this.resizeTitle = undefined;
+          this.resizeParentTitle = undefined;
+
+          document.body.onselectstart = function () {
+            return true;
+          };
+          document.body.ondragstart = function () {
+            return true;
+          };
+        }
       },
       //endregion
       //region row
@@ -703,10 +828,45 @@ multiDropdown：下拉框多选，支持度不好，待优化
         };
         return oStyle
       },
+      getTdColspan(oTitle, oRow){
+        let oCell = this._getCell(oTitle.key, oRow);
+        if (oCell && (undefined != oCell.colspan)) {
+          return oCell.colspan;
+        } else {
+          return 1;
+        }
+      },
+      getTdRowspan(oTitle, oRow){
+        let oCell = this._getCell(oTitle.key, oRow);
+        if (oCell && (undefined != oCell.rowspan)) {
+          this.hasCombineRows = true;
+          return oCell.rowspan;
+        } else {
+          return 1;
+        }
+      },
+      isHide4Combine(oTitle, oRow){
+        let oCell = this._getCell(oTitle.key, oRow);
+        if(oCell.rowspan == 0 || oCell.colspan == 0){
+          return true;
+        }else{
+          return false;
+        }
+      },
       getTdStyle(oTitle, oRow) {
         let oStyle = {
           width: oTitle.width
         };
+        return oStyle;
+      },
+      getTdDivStyle(oTitle, oRow) {
+        var oStyle = {};
+        if(this.hasCombineRows){
+          oStyle = {
+            width: parseInt(oTitle.width) - 16 + 'px'
+          };
+        }
+
         return oStyle;
       },
       getCellType(oTitle, oRow) {
@@ -734,8 +894,12 @@ multiDropdown：下拉框多选，支持度不好，待优化
         let index = this.unFoldRowIds.indexOf(id);
         if (index > -1) {
           this.unFoldRowIds.splice(index, 1);
+          //从展开到折叠
+          this.callback4OnClickFoldOrUnFold(oRow, false);
         } else {
           this.unFoldRowIds.push(id);
+          //从折叠到展开
+          this.callback4OnClickFoldOrUnFold(oRow, true);
         }
       },
       isDeatilRowVisible(oRow) {
@@ -928,8 +1092,14 @@ multiDropdown：下拉框多选，支持度不好，待优化
       callback4OnTitleCheckOrUncheck: function (isChecked) {
         this.$emit("onTitleCheckOrUncheck", isChecked);
       },
+      callback4OnClickFoldOrUnFold: function (oRow, bIsFold) {
+        this.$emit("onClickFoldOrUnFold", oRow, bIsFold);
+      },
       callback4OnClickRow: function (oRow) {
         this.$emit("onClickRow", oRow);
+      },
+      callback4OnDblclickRow(oRow) {
+        this.$emit("onDblclickRow", oRow);
       },
       callback4OnRowHover: function (oRow) {
         this.$emit("onRowHover", oRow);
@@ -1148,6 +1318,13 @@ multiDropdown：下拉框多选，支持度不好，待优化
         },
         deep: false
       },
+      limit: {
+        handler(oNewRows, oOldRows) {
+          this._preHandleRowData();
+          this._resetCurPage();
+        },
+        deep: false
+      },
       curPageIndex(iNewVal, iOldVal) {
         this._calcRows4Show();
       }
@@ -1213,6 +1390,10 @@ multiDropdown：下拉框多选，支持度不好，待优化
     table-layout: fixed;
   }
 
+  .hasCombineRows{
+    display: table-row;
+  }
+
   table thead {
     height: 30px;
     background-color: #eee;
@@ -1269,10 +1450,17 @@ multiDropdown：下拉框多选，支持度不好，待优化
     right: -10px;
     width: 20px;
     height: 100%;
+    cursor: ew-resize;
   }
 
-  .gridWrapper .grid .gridCont thead tr .title-resize:hover {
+  .gridWrapper .grid .gridCont thead tr .parent-title-resize {
+    position: absolute;
+    top: 0px;
+    right: -10px;
+    width: 20px;
+    height: 200%;
     cursor: ew-resize;
+    z-index: 1;
   }
 
   table thead .column-search {
@@ -1293,6 +1481,10 @@ multiDropdown：下拉框多选，支持度不好，待优化
     display: block;
     overflow-x: auto;
     overflow-y: scroll;
+  }
+
+  .gridWrapper .grid .gridCont .reduceH4doubleHead{
+    height: calc(100% - 62px);
   }
 
   .gridWrapper .grid .gridCont tbody tr td {
