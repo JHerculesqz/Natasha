@@ -70,6 +70,55 @@
         <marvel-tab-item :isActive="tabItems1[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
+            <button @click="setRowColor4FreezeGrid">setRowColor</button>
+            <button @click="getActiveRows4FreezeGrid">getActiveRows</button>
+            <button @click="removeRowColor4FreezeGrid">removeRowColor</button>
+            <button @click="getSelectRows4Checkbox4FreezeGrid">getSelectRows4Checkbox</button>
+            <button @click="getSelectRow4Radiobox4FreezeGrid">getSelectRow4Radiobox</button>
+            <button @click="removeRow4FreezeGrid">removeRow</button>
+            <button @click="delSelectRows4Checkbox">removeRow4Checkbox</button>
+            <button @click="getCurPageData">getCurPageData</button>
+            <button @click="getRows4FreezeGrid">getRows</button>
+            <button @click="getUnFoldRowIds">getUnFoldRowIds</button>
+            <button @click="foldRows">foldRows</button>
+            <button @click="unFoldRows">unFoldRows</button>
+            <button @click="disableRow4FreezeGrid">disableRow</button>
+            <button @click="enableRow4FreezeGrid">enableRow</button>
+            <button @click="enableAllRows4FreezeGrid">enableAllRows</button>
+            <button @click="checkRow4FreezeGrid">checkRow</button>
+            <button @click="checkRadioRow4FreezeGrid">checkRadioRow</button>
+            <button @click="disabledDropDownCell4FreezeGrid">disabledDropDownCell</button>
+            <button @click="setCurPage">setCurPage 2</button>
+            <button @click="getCurPage">getCurPage</button>
+            <div style="width:100%;height:260px;">
+              <marvel-table ref="table4allEle"
+                            gridId="table4allEle"
+                            :titles="titles4allEle"
+                            :rows="rows4allEle"
+                            :limit="limit4allEle"
+                            :canDrag="true"
+                            detailRowComponent="TableDetailsComponent"
+                            searchComponent="TableSearchComponent"
+                            :hasFoot="true"
+                            :columnConfig="true"
+                            :showChangeLimit="true"
+                            :limitRange="[20,30,50,100]"
+                            v-on:editCellFinished="editCellFinished"
+                            v-on:sortRowsFunc="sortRowsFunc"
+                            v-on:onTitleCheckOrUncheck="onTitleCheckOrUncheck"
+                            v-on:onClickRow="onClickRow"
+                            v-on:onClickFoldOrUnFold="onClickFoldOrUnFold"
+                            v-on:onDblclickRow="onDblclickRow"
+                            v-on:onRowCheckOrUnCheck="onRowCheckOrUnCheck"
+                            v-on:onRowRadioCheck="onRowRadioCheck"
+                            v-on:onClickTextCell="onClickTextCell"
+                            v-on:onIconClick="onIconClick"
+                            v-on:onOptionChange="onOptionChange"
+                            v-on:onClickTextIcon="onClickTextIcon"
+                            v-on:onClickMultiDropdownItem="onClickMultiDropdownItem"
+                            v-on:onClickSwitch="onClickSwitch"
+                            v-on:onClickImg="onClickImg"></marvel-table>
+            </div>
             '></marvel-ace-editor>
           </div>
         </marvel-tab-item>
@@ -116,6 +165,31 @@
         <marvel-tab-item :isActive="tabItems2[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
+            <div style="width:100%;height:340px;">
+              <marvel-table ref="tablePaging"
+                            gridId="tablePaging"
+                            :titles="titles4tablePaging"
+                            :rows="rows4tablePaging"
+                            :dynamicPaging="true"
+                            :totalNum="totalNum4tablePaging"
+                            :totalPage="totalPage4tablePaging"
+                            :limit="limit4tablePaging"
+                            :canDrag="true"
+                            :hasFoot="true"
+                            :columnConfig="true"
+                            v-on:editCellFinished="editCellFinished"
+                            v-on:sortRowsFunc="sortRowsFunc"
+                            v-on:onTitleCheckOrUncheck="onTitleCheckOrUncheck"
+                            v-on:onClickRow="onClickRow"
+                            v-on:onRowCheckOrUnCheck="onRowCheckOrUnCheck"
+                            v-on:onRowRadioCheck="onRowRadioCheck"
+                            v-on:onClickTextCell="onClickTextCell"
+                            v-on:onIconClick="onIconClick"
+                            v-on:onOptionChange="onOptionChange"
+                            v-on:onClickTextIcon="onClickTextIcon"
+                            v-on:onClickMultiDropdownItem="onClickMultiDropdownItem"
+                            v-on:onPageChange="onPageChange4tablePaging"></marvel-table>
+            </div>
             '></marvel-ace-editor>
           </div>
         </marvel-tab-item>
@@ -127,7 +201,7 @@
     <br>
     <div class="describe">单元格合并</div>
     <div class="showArea">
-      <marvel-tab :tabItems="tabItems1">
+      <marvel-tab :tabItems="tabItems3">
         <marvel-tab-item :isActive="tabItems3[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
@@ -163,6 +237,32 @@
         <marvel-tab-item :isActive="tabItems3[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
+            <div style="width:100%;height:340px;">
+              <marvel-table ref="tableCombine"
+                            gridId="tableCombine"
+                            :parentTitles="parentTitles4tableCombineCell"
+                            :titles="titles4tableCombineCell"
+                            :rows="rows4tableCombineCell"
+                            :dynamicPaging="true"
+                            :totalNum="totalNum4tableCombineCell"
+                            :totalPage="totalPage4tableCombineCell"
+                            :limit="limit4tableCombineCell"
+                            :canDrag="true"
+                            :hasFoot="true"
+                            :columnConfig="true"
+                            v-on:editCellFinished="editCellFinished"
+                            v-on:sortRowsFunc="sortRowsFunc"
+                            v-on:onTitleCheckOrUncheck="onTitleCheckOrUncheck"
+                            v-on:onClickRow="onClickRow"
+                            v-on:onRowCheckOrUnCheck="onRowCheckOrUnCheck"
+                            v-on:onRowRadioCheck="onRowRadioCheck"
+                            v-on:onClickTextCell="onClickTextCell"
+                            v-on:onIconClick="onIconClick"
+                            v-on:onOptionChange="onOptionChange"
+                            v-on:onClickTextIcon="onClickTextIcon"
+                            v-on:onClickMultiDropdownItem="onClickMultiDropdownItem"
+                            v-on:onPageChange="onPageChange4tableCombine"></marvel-table>
+            </div>
             '></marvel-ace-editor>
           </div>
         </marvel-tab-item>
