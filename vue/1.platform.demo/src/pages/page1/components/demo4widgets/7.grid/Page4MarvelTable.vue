@@ -21,13 +21,20 @@
             <button @click="getSelectRows4Checkbox4FreezeGrid">getSelectRows4Checkbox</button>
             <button @click="getSelectRow4Radiobox4FreezeGrid">getSelectRow4Radiobox</button>
             <button @click="removeRow4FreezeGrid">removeRow</button>
+            <button @click="delSelectRows4Checkbox">removeRow4Checkbox</button>
+            <button @click="getCurPageData">getCurPageData</button>
             <button @click="getRows4FreezeGrid">getRows</button>
+            <button @click="getUnFoldRowIds">getUnFoldRowIds</button>
+            <button @click="foldRows">foldRows</button>
+            <button @click="unFoldRows">unFoldRows</button>
             <button @click="disableRow4FreezeGrid">disableRow</button>
             <button @click="enableRow4FreezeGrid">enableRow</button>
             <button @click="enableAllRows4FreezeGrid">enableAllRows</button>
             <button @click="checkRow4FreezeGrid">checkRow</button>
             <button @click="checkRadioRow4FreezeGrid">checkRadioRow</button>
             <button @click="disabledDropDownCell4FreezeGrid">disabledDropDownCell</button>
+            <button @click="setCurPage">setCurPage 2</button>
+            <button @click="getCurPage">getCurPage</button>
             <div style="width:100%;height:260px;">
               <marvel-table ref="table4allEle"
                             gridId="table4allEle"
@@ -335,9 +342,26 @@
       removeRow4FreezeGrid: function(){
         this.$refs.table4allEle.removeRow(0);
       },
+      delSelectRows4Checkbox: function(){
+        this.$refs.table4allEle.delSelectRows4Checkbox();
+      },
+      getCurPageData: function(){
+        let arrRows = this.$refs.table4allEle.getCurPageData();
+        console.log(arrRows);
+      },
       getRows4FreezeGrid: function(){
         let arrRows = this.$refs.table4allEle.getRows();
         console.log(arrRows);
+      },
+      getUnFoldRowIds: function(){
+        let arrIds = this.$refs.table4allEle.getUnFoldRowIds();
+        console.log(arrIds);
+      },
+      foldRows: function(){
+        this.$refs.table4allEle.foldRows([3,4]);
+      },
+      unFoldRows: function(){
+        this.$refs.table4allEle.unFoldRows([3,4]);
       },
       getActiveRows4FreezeGrid: function(){
         let arrRow = this.$refs.table4allEle.getActiveRows();
@@ -361,6 +385,13 @@
       },
       disabledDropDownCell4FreezeGrid: function(){
         this.$refs.table4allEle.disabledDropDownCell(4, "config", true);
+      },
+      setCurPage: function(){
+        this.$refs.table4allEle.setCurPage(2);
+      },
+      getCurPage: function(){
+        var currentPage = this.$refs.table4allEle.getCurPage();
+        console.log(currentPage);
       },
 
 

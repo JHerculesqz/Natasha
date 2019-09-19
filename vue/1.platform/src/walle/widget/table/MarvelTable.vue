@@ -1231,6 +1231,13 @@ multiDropdown：下拉框多选，支持度不好，待优化
         arrTargetRows = this._getRowsByRowIds(arrTargetRowIds, arrRows);
         return arrTargetRows;
       },
+      delSelectRows4Checkbox() {
+        var arrSelectRows = this.getSelectRows4Checkbox();
+        for (var i = 0, len = arrSelectRows.length; i < len; i++) {
+          var oRow = arrSelectRows[i];
+          this.removeRow(this._getCellValueByKey("id", oRow));
+        }
+      },
       getSelectRow4Radiobox() {
         var arrRows = JSON.parse(JSON.stringify(this.getRows()));
         var strTargetRowId = "";
@@ -1358,6 +1365,39 @@ multiDropdown：下拉框多选，支持度不好，待优化
         } else if (this.whereIsCheckColumn == "right") {
           this.$refs[this.rightTableId].disabledDropDownCell(strRowId, strKey, bDisabled);
         }
+      },
+      getUnFoldRowIds() {
+        return this.$refs[this.centerTableId].unFoldRowIds;
+      },
+      foldRows(arrRowIds) {
+        return this.$refs[this.centerTableId].foldRows(arrRowIds);
+      },
+      unFoldRows(arrRowIds) {
+        return this.$refs[this.centerTableId].unFoldRows(arrRowIds);
+      },
+      setCurPage(iPage) {
+        this.$refs[this.footId].setCurPage(iPage);
+        this._onPageChange(iPage);
+      },
+      getCurPage() {
+        return this.$refs[this.footId].getCurPageIndex();
+      },
+      getCurPageData() {
+        var arrLeftTableRows = [];
+        var arrCenterTableRows = [];
+        var arrRightTableRows = [];
+        if(this.bHasLeftTable){
+          arrLeftTableRows = this.$refs[this.leftTableId].rowsInPage;
+        }
+        if(this.bHasCenterTable){
+          arrCenterTableRows = this.$refs[this.centerTableId].rowsInPage;
+        }
+        if(this.bHasRightTable){
+          arrRightTableRows = this.$refs[this.rightTableId].rowsInPage;
+        }
+
+        var arrRows = this._combineRows(arrLeftTableRows, arrCenterTableRows, arrRightTableRows);
+        return arrRows;
       },
       resetFoot: function () {
         this.$refs[this.footId].resetPage();

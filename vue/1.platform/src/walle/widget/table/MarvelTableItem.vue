@@ -1307,6 +1307,22 @@ multiDropdown：下拉框多选，支持度不好，待优化
       onPageChange(iPage) {
         this.curPageIndex = iPage;
       },
+      foldRows(arrRowIds) {
+        arrRowIds.forEach((rowId) => {
+          let index = this.unFoldRowIds.indexOf(rowId);
+          if (index > -1) {
+            this.unFoldRowIds.splice(index, 1);
+          }
+        });
+      },
+      unFoldRows(arrRowIds) {
+        arrRowIds.forEach((rowId) => {
+          let index = this.unFoldRowIds.indexOf(rowId);
+          if (index === -1) {
+            this.unFoldRowIds.push(rowId);
+          }
+        });
+      },
 
       //#endregion
     },
