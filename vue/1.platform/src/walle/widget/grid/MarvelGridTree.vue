@@ -136,7 +136,7 @@
       return {
         treeNodesInner: {},
         mapNode: {},
-        limitInner: this.limit,
+        limitInner: (!this.dynamicPaging && !this.hasFoot)? this.treeNodes.length :this.limit,
         rowsInPage: [],
         curPageIndex: 1,
         arrSelectNodes: [],
@@ -207,6 +207,10 @@
       //#endregion
 
       _handlerTreeNodes: function () {
+        //0.update limitInner
+
+        this.limitInner = (!this.dynamicPaging && !this.hasFoot)? this.treeNodes.length :this.limit;
+
         //1.deep copy
         this.treeNodesInner = JSON.parse(JSON.stringify(this.treeNodes));
 
