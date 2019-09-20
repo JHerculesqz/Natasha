@@ -102,12 +102,12 @@
             label: "图标"
           }, {
             id: "Page4MarvelAnimate",
-            label: "*动画"
+            label: "动画"
           }, {
             id: "Page4MarvelFrame",
             label: "布局"
           }, {
-            id: "",
+            id: "Page4MarvelColor",
             label: "色彩"
           },]
         }, {
@@ -116,16 +116,7 @@
           expand: false,
           subItems: [
             //#region button
-            {id: "Page4MarvelButtonC", label: "Page4MarvelButton(C)"},
-            {id: "Page4MarvelButton", label: "Page4MarvelButton"},
-            {id: "Page4MarvelIconButton", label: "Page4MarvelIconButton"},
-            {id: "Page4MarvelIconTxtButton", label: "Page4MarvelIconTxtButton"},
-            {id: "Page4MarvelTabButton", label: "*Page4MarvelTabButton"},
-            {id: "Page4MarvelTxtButton", label: "Page4MarvelTxtButton"},
-            //endregion
-
-            //#region link
-            {id: "Page4MarvelLink", label: "*Page4MarvelLink"},
+            {id: "Page4MarvelButtonC", label: "Page4MarvelButton"},
             //endregion
 
             //#region Radio
@@ -178,10 +169,6 @@
           subItems: [
             //#region Grid
             {id: "Page4MarvelTable", label: "Page4MarvelTable"},
-            {id: "Page4MarvelGrid", label: "Page4MarvelGrid"},
-            {id: "Page4MarvelGridEx", label: "Page4MarvelGridEx"},
-            {id: "Page4MarvelGridExFilter", label: "Page4MarvelGridExFilter"},
-            {id: "Page4MarvelGridExWithFreezeColumn", label: "Page4MarvelGridExWithFreezeColumn"},
             //endregion
 
             //#region Progress
@@ -203,24 +190,16 @@
           expand: false,
           subItems: [
             //#region Prompt
-            {id: "Page4MarvelPromptC", label: "Page4MarvelPromptC"},
-            {id: "Page4MarvelPrompt", label: "Page4MarvelPrompt"},
-            {id: "Page4MarvelPromptGLobal", label: "Page4MarvelPromptGLobal"},
+            {id: "Page4MarvelPromptC", label: "Page4MarvelPrompt"},
             //endregion
 
             //#region Loading
-            {id: "Page4MarvelLoadingC", label: "Page4MarvelLoadingC"},
-            {id: "Page4MarvelLoading", label: "Page4MarvelLoading"},
-            {id: "Page4MarvelLoadingIconPublic", label: "Page4MarvelLoadingIconPublic"},
+            {id: "Page4MarvelLoadingC", label: "Page4MarvelLoading"},
             {id: "Page4MarvelLoadingMini", label: "Page4MarvelLoadingMini"},
-            {id: "Page4MarvelLoadingPublic", label: "Page4MarvelLoadingPublic"},
-            {id: "Page4MarvelLoadingPublicEx", label: "Page4MarvelLoadingPublicEx"},
             //endregion
 
             //#region Confirm
-            {id: "Page4MarvelConfirmC", label: "Page4MarvelConfirmC"},
-            {id: "Page4MarvelConfirm", label: "Page4MarvelConfirm"},
-            {id: "Page4MarvelConfirmEx", label: "Page4MarvelConfirmEx"},
+            {id: "Page4MarvelConfirmC", label: "Page4MarvelConfirm"},
             //endregion
           ]
         },{
@@ -273,9 +252,6 @@
             //#region extPanel
             {id: "page4MarvelFlexiblePanel", label: "page4MarvelFlexiblePanel"},
             {id: "page4MarvelFloatPanel", label: "page4MarvelFloatPanel"},
-            {id: "Page4MarvelBottomExtPanel", label: "Page4MarvelBottomExtPanel"},
-            {id: "Page4MarvelLeftExtPanel", label: "Page4MarvelLeftExtPanel"},
-            {id: "Page4MarvelRightExtPanel", label: "Page4MarvelRightExtPanel"},
             //endregion
           ]
         }, {
@@ -346,39 +322,55 @@
             {id: "Page4MarvelAccordion3", label: "Page4MarvelAccordion3"},
             {id: "Page4MarvelAccordion4", label: "Page4MarvelAccordion4"},
 
-
-            {id: "Page4MarvelMenuContextC", label: "Page4MarvelMenuContextC"},
-            {id: "Page4MarvelMenuContext", label: "Page4MarvelMenuContext"},
-            {id: "Page4MarvelMenuContext2", label: "Page4MarvelMenuContext2"},
+            {id: "Page4MarvelMenuContextC", label: "Page4MarvelMenuContext"},
             {id: "Page4MarvelDropDownMenu", label: "Page4MarvelDropDownMenu"},
-            {id: "Page4MarvelMenuDropDown", label: "Page4MarvelMenuDropDown"},
-            {id: "Page4MarvelMenuHelp", label: "Page4MarvelMenuHelp"},
-            {id: "Page4MarvelMenuNew", label: "Page4MarvelMenuNew"},
             {id: "Page4MarvelDiff", label: "*Page4MarvelDiff"},
-            {id: "Page4MarvelDragHelp", label: "Page4MarvelDragHelp"},
 
             {id: "Page4MarvelInfo", label: "Page4MarvelInfo"},
 
-            {id: "Page4MarvelInputDropDownC", label: "Page4MarvelInputDropDownC"},
-            {id: "Page4MarvelInputDropDown", label: "Page4MarvelInputDropDown"},
-            {id: "Page4MarvelInputDropDownWithTip", label: "Page4MarvelInputDropDownWithTip"},
+            {id: "Page4MarvelInputDropDownC", label: "Page4MarvelInputDropDown"},
 
             {id: "Page4MarvelListInput", label: "*Page4MarvelListInput"},
             {id: "Page4MarvelMultiDropDown", label: "Page4MarvelMultiDropDown"},
 
-
-
-
-            {id: "Page4MarvelSearch", label: "Page4MarvelSearch"},
-            {id: "Page4MarvelSearchAdvance", label: "Page4MarvelSearchAdvance"},
-            {id: "Page4MarvelSearchWithDropDown", label: "Page4MarvelSearchWithDropDown"},
             {id: "Page4MarvelSearchBox", label: "Page4MarvelSearchBox"},
+            {id: "Page4MarvelSearchAdvance", label: "Page4MarvelSearchAdvance"},
             {id: "Page4MarvelSelectCard", label: "Page4MarvelSelectCard"},
 
-
-            {id: "Page4MarvelGridM", label: "*Page4MarvelGridM"},
+            {id: "Page4MarvelGridM", label: "Page4MarvelGridM"},
             {id: "Page4MarvelGridPriority", label: "Page4MarvelGridPriority"},
             {id: "Page4MarvelGridTree", label: "Page4MarvelGridTree"},
+          ]
+        },{
+          label: "已合并控件",
+          icon: "icon-pacman",
+          expand: false,
+          subItems: [
+            //#region 合并
+            {id: "Page4MarvelButton", label: "Page4MarvelButton"},
+            {id: "Page4MarvelIconButton", label: "Page4MarvelIconButton"},
+            {id: "Page4MarvelIconTxtButton", label: "Page4MarvelIconTxtButton"},
+            {id: "Page4MarvelTabButton", label: "*Page4MarvelTabButton"},
+            {id: "Page4MarvelTxtButton", label: "Page4MarvelTxtButton"},
+
+
+            {id: "Page4MarvelConfirm", label: "Page4MarvelConfirm"},
+            {id: "Page4MarvelConfirmEx", label: "Page4MarvelConfirmEx"},
+
+
+            {id: "Page4MarvelMenuContext", label: "Page4MarvelMenuContext"},
+            {id: "Page4MarvelMenuContext2", label: "Page4MarvelMenuContext2"},
+
+
+            {id: "Page4MarvelMenuDropDown", label: "Page4MarvelMenuDropDown"},
+            {id: "Page4MarvelMenuHelp", label: "Page4MarvelMenuHelp"},
+
+
+            {id: "Page4MarvelBottomExtPanel", label: "Page4MarvelBottomExtPanel"},
+            {id: "Page4MarvelLeftExtPanel", label: "Page4MarvelLeftExtPanel"},
+            {id: "Page4MarvelRightExtPanel", label: "Page4MarvelRightExtPanel"},
+
+
             {id: "Page4MarvelList1", label: "*Page4MarvelList1"},
             {id: "Page4MarvelList2", label: "Page4MarvelList2"},
             {id: "Page4MarvelList2Analysis", label: "Page4MarvelList2Analysis"},
@@ -386,6 +378,38 @@
             {id: "Page4MarvelList4", label: "Page4MarvelList4"},
             {id: "Page4MarvelList5", label: "Page4MarvelList5"},
             {id: "Page4MarvelDragHelp", label: "Page4MarvelDragHelp"},
+
+
+            {id: "Page4MarvelInputDropDown", label: "Page4MarvelInputDropDown"},
+            {id: "Page4MarvelInputDropDownWithTip", label: "Page4MarvelInputDropDownWithTip"},
+
+
+            {id: "Page4MarvelLoading", label: "Page4MarvelLoading"},
+            {id: "Page4MarvelLoadingIconPublic", label: "Page4MarvelLoadingIconPublic"},
+            {id: "Page4MarvelLoadingPublic", label: "Page4MarvelLoadingPublic"},
+            {id: "Page4MarvelLoadingPublicEx", label: "Page4MarvelLoadingPublicEx"},
+
+
+            {id: "Page4MarvelPrompt", label: "Page4MarvelPrompt"},
+            {id: "Page4MarvelPromptGLobal", label: "Page4MarvelPromptGLobal"},
+
+            {id: "Page4MarvelSearch", label: "Page4MarvelSearch"},
+            {id: "Page4MarvelSearchWithDropDown", label: "Page4MarvelSearchWithDropDown"},
+
+            {id: "Page4MarvelGrid", label: "Page4MarvelGrid"},
+            {id: "Page4MarvelGridEx", label: "Page4MarvelGridEx"},
+            {id: "Page4MarvelGridExFilter", label: "Page4MarvelGridExFilter"},
+            {id: "Page4MarvelGridExWithFreezeColumn", label: "Page4MarvelGridExWithFreezeColumn"},
+            //#endregion
+
+            //#region 移至业务侧
+            {id: "Page4MarvelMenuNew", label: "Page4MarvelMenuNew"},
+            //#endregion
+
+            //#region to delete
+            {id: "Page4MarvelLink", label: "*Page4MarvelLink"},
+            //#endregion
+
           ]
         },],
         isContainerFold: "",

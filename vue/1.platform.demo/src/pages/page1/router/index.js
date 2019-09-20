@@ -9,6 +9,7 @@ import Page4Theme from '../components/demo4widgets/1.quickStart/Page4Theme'
 
 import Page4Icons from '../components/demo4widgets/2.basic/Page4Icons'
 import Page4MarvelAnimate from '../components/demo4widgets/2.basic/Page4MarvelAnimate'
+import Page4MarvelColor from '../components/demo4widgets/2.basic/Page4MarvelColor'
 import Page4MarvelFrame from '../components/demo4widgets/2.basic/Page4MarvelFrame'
 
 import Page4MarvelBidirectionalSelect from '../components/demo4widgets/3.form/Page4MarvelBidirectionalSelect'
@@ -174,6 +175,10 @@ export default new Router({
       path: '/Page4MarvelAnimate',
       name: 'Page4MarvelAnimate',
       component:Page4MarvelAnimate
+    },{
+      path: '/Page4MarvelColor',
+      name: 'Page4MarvelColor',
+      component:Page4MarvelColor
     },{
       path: '/Page4MarvelFrame',
       name: 'Page4MarvelFrame',
