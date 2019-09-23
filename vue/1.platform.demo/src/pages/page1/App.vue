@@ -30,7 +30,7 @@
       </ul>
     </div>
     <div class="content">
-      <div class="page1">
+      <div class="page1" v-bind:class="isContainerFold">
         <div class="leftArea">
           <!--accordionArea start-->
           <marvel-accordion :isFolder="false" :hasShadow="true"
@@ -42,7 +42,7 @@
                             v-on:accordionSubItemClick="accordionSubItemClick"></marvel-accordion>
           <!--accordionArea end-->
         </div>
-        <div class="rightArea" v-bind:class="isContainerFold">
+        <div class="rightArea">
           <!--        <component v-bind:is="rightModuleName"></component>-->
           <transition name="fade">
             <router-view></router-view>
@@ -176,7 +176,6 @@
             //endregion
 
             //#region Tree
-            {id: "Page4MarvelLazyLoadTree", label: "*Page4MarvelLazyLoadTree"},
             {id: "Page4MarvelZTree", label: "Page4MarvelZTree"},
             //endregion
 
@@ -407,7 +406,8 @@
             //#endregion
 
             //#region to delete
-            {id: "Page4MarvelLink", label: "*Page4MarvelLink"},
+            // {id: "Page4MarvelLazyLoadTree", label: "*Page4MarvelLazyLoadTree"},
+            // {id: "Page4MarvelLink", label: "*Page4MarvelLink"},
             //#endregion
 
           ]
@@ -578,8 +578,12 @@
     overflow-y: auto;
   }
 
-  .page1 .fold {
-    width: calc(100% - 76px);
+  .fold .leftArea{
+    width: 84px;
+  }
+
+  .fold .rightArea{
+    width: calc(100% - 84px);
   }
 
   .dark .rightArea {

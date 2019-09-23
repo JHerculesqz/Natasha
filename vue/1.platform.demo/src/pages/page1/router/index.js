@@ -27,7 +27,6 @@ import Page4MarvelInput from '../components/demo4widgets/3.form/Page4MarvelInput
 import Page4MarvelInputDropDownC from '../components/demo4widgets/3.form/Page4MarvelInputDropDownC'
 import Page4MarvelInputDropDown from '../components/demo4widgets/3.form/Page4MarvelInputDropDown'
 import Page4MarvelInputDropDownWithTip from '../components/demo4widgets/3.form/Page4MarvelInputDropDownWithTip'
-import Page4MarvelLink from '../components/demo4widgets/3.form/Page4MarvelLink'
 import Page4MarvelListInput from '../components/demo4widgets/3.form/Page4MarvelListInput'
 import Page4MarvelMultiDropDown from '../components/demo4widgets/3.form/Page4MarvelMultiDropDown'
 import Page4MarvelMultiInput from '../components/demo4widgets/3.form/Page4MarvelMultiInput'
@@ -112,7 +111,6 @@ import Page4MarvelList3 from '../components/demo4widgets/7.grid/Page4MarvelList3
 import Page4MarvelList4 from '../components/demo4widgets/7.grid/Page4MarvelList4'
 import Page4MarvelList5 from '../components/demo4widgets/7.grid/Page4MarvelList5'
 
-import Page4MarvelLazyLoadTree from '../components/demo4widgets/8.tree/Page4MarvelLazyLoadTree'
 import Page4MarvelZTree from '../components/demo4widgets/8.tree/Page4MarvelZTree'
 
 import Page4MarvelChartBar from '../components/demo4widgets/9.chart/Page4MarvelChartBar'
@@ -243,10 +241,6 @@ export default new Router({
       path: '/Page4MarvelInputDropDownWithTip',
       name: 'Page4MarvelInputDropDownWithTip',
       component:Page4MarvelInputDropDownWithTip
-    },{
-      path: '/Page4MarvelLink',
-      name: 'Page4MarvelLink',
-      component:Page4MarvelLink
     },{
       path: '/Page4MarvelListInput',
       name: 'Page4MarvelListInput',
@@ -563,10 +557,6 @@ export default new Router({
       path: '/Page4MarvelDragHelp',
       name: 'Page4MarvelDragHelp',
       component:Page4MarvelDragHelp
-    },{
-      path: '/Page4MarvelLazyLoadTree',
-      name: 'Page4MarvelLazyLoadTree',
-      component:Page4MarvelLazyLoadTree
     },{
       path: '/Page4MarvelZTree',
       name: 'Page4MarvelZTree',
