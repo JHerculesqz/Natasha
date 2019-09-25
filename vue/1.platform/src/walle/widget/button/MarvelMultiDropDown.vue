@@ -4,7 +4,7 @@
          v-bind:class="{ disable:isDisable, dropdownBtnShowBorder: show }"
          :style="{ width: width }">
       <div class="label" v-on:click.stop="showOrHide">
-        <div class="left">
+        <div class="left" :title="labelTitle">
           <div class="name" v-for="item in selectItems" :title="item.label">
             {{ item.label }}
             <div class="icon icon-cross" @click.stop="onClickRemove(item)"></div>
@@ -95,6 +95,7 @@
     data() {
       return {
         show: false,
+        labelTitle: "",
         selectItems: [],
         id4SelectAllOption: ""
       };
@@ -142,6 +143,17 @@
         this.selectItems = this.items.filter((oItem) => {
           return oItem.checked == true;
         });
+      },
+      _genLabelTitle() {
+        this.labelTitle = "";
+        for(var i = 0; i<this.selectItems.length; i++){
+          var oItem = this.selectItems[i];
+          if(i==0){
+            this.labelTitle = this.labelTitle + oItem.label;
+          }else{
+            this.labelTitle = this.labelTitle + ',' + oItem.label;
+          }
+        }
       },
       hideDropDownPanel() {
         this.show = false;
@@ -230,6 +242,11 @@
       items: {
         handler(oNewVal, oOldVal) {
           this._initSelectItems();
+        }
+      },
+      selectItems:{
+        handler(){
+          this._genLabelTitle();
         }
       }
     },

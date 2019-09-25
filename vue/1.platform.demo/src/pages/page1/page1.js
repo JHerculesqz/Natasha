@@ -9,6 +9,7 @@ import dom from '~~/component/dom'
 import SkinUtilsEx from '~~/component/skin'
 import I18nUtilsEx from '~~/component/i18n'
 import 'natasha-icon/style.css'
+import "babel-polyfill"
 
 Vue.config.productionTip = false;
 

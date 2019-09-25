@@ -300,6 +300,11 @@ multiDropdown：下拉框多选，支持度不好，待优化
         default: "",
         required: false,
       },
+      sortRowsFunc: {
+        type: Function,
+        default: undefined,
+        required: false,
+      },
     },
     data: function () {
       return {
@@ -1080,8 +1085,8 @@ multiDropdown：下拉框多选，支持度不好，待优化
       sortRowsFuncTriggerByLeftGrid: function (strKey, order, oRows) {
         this.orderBy.key = strKey;
         this.orderBy.order = order;
-        if (this.dynamicPaging == true) {
-          this.$emit("sortRowsFunc", this.orderBy.key, this.orderBy.order, this.rows);
+        if (this.dynamicPaging == true && this.sortRowsFunc) {
+          this.sortRowsFunc(this.orderBy.key, this.orderBy.order, this.rows);
         } else {
           this._sortRows();
         }
@@ -1097,8 +1102,8 @@ multiDropdown：下拉框多选，支持度不好，待优化
       sortRowsFuncTriggerByCenterGrid: function (strKey, order, oRows) {
         this.orderBy.key = strKey;
         this.orderBy.order = order;
-        if (this.dynamicPaging == true) {
-          this.$emit("sortRowsFunc", this.orderBy.key, this.orderBy.order, this.rows);
+        if (this.dynamicPaging == true && this.sortRowsFunc) {
+          this.sortRowsFunc(this.orderBy.key, this.orderBy.order, this.rows);
         } else {
           this._sortRows();
         }
@@ -1114,8 +1119,8 @@ multiDropdown：下拉框多选，支持度不好，待优化
       sortRowsFuncTriggerByRightGrid: function (strKey, order, oRows) {
         this.orderBy.key = strKey;
         this.orderBy.order = order;
-        if (this.dynamicPaging == true) {
-          this.$emit("sortRowsFunc", this.orderBy.key, this.orderBy.order, this.rows);
+        if (this.dynamicPaging == true && this.sortRowsFunc) {
+          this.sortRowsFunc(this.orderBy.key, this.orderBy.order, this.rows);
         } else {
           this._sortRows();
         }

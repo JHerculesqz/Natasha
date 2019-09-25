@@ -32,11 +32,11 @@ multiDropdown：下拉框多选，支持度不好，待优化
     <div class="grid">
       <table class="gridCont" cellspacing="0" cellpadding="0" border="0">
         <thead :style="{left: offSetX + 'px'}">
-        <tr v-if="parentTitles.length>0">
+        <tr v-if="innerParentTitles.length>0">
           <th class="gridTitle" v-if="useDetailRow()" style="width: 35px" rowspan="2"></th>
-          <template v-for="(title,index) in parentTitles">
+          <template v-for="(title,index) in innerParentTitles">
             <template v-if="title.visible">
-              <th class="gridTitle" :style="{ width: parentTitles[index].width }"
+              <th class="gridTitle" :style="{ width: innerParentTitles[index].width }"
                   :title="title.label" :rowspan="title.rowspan" :colspan="title.colspan">
                 <div v-if="title.type == 'checkBox'" class="checkBoxWrapper">
                   <div class="checkBox">
@@ -59,10 +59,10 @@ multiDropdown：下拉框多选，支持度不好，待优化
           </template>
         </tr>
         <tr>
-          <th class="gridTitle" v-if="useDetailRow ()&& parentTitles.length==0" style="width: 35px"></th>
-          <template v-for="(title,index) in titles">
+          <th class="gridTitle" v-if="useDetailRow ()&& innerParentTitles.length==0" style="width: 35px"></th>
+          <template v-for="(title,index) in innerTitles">
             <template v-if="title.visible && title.rowspan!= 0 && title.colspan!= 0">
-              <th class="gridTitle" :style="{ width: titles[index].width }" :title="title.label"
+              <th class="gridTitle" :style="{ width: innerTitles[index].width }" :title="title.label"
                   :rowspan="title.rowspan" :colspan="title.colspan">
                 <div v-if="title.type == 'checkBox'" class="checkBoxWrapper">
                   <div class="checkBox">
@@ -82,7 +82,7 @@ multiDropdown：下拉框多选，支持度不好，待优化
                   <span v-if="showSearch(title)" class="icon-search column-search"
                         @click.stop="onClickSearch(title, $event)"></span>
                 </div>
-                <div v-if="canDrag && parentTitles.length ==0" class="title-resize"
+                <div v-if="canDrag && innerParentTitles.length ==0" class="title-resize"
                      @mousedown="onResizeMouseDown(title, $event)"></div>
               </th>
             </template>
@@ -93,13 +93,13 @@ multiDropdown：下拉框多选，支持度不好，待优化
           <component :is="searchComponent" :gridTitle="searchOption.gridTitle"></component>
         </div>
         </thead>
-        <tbody :class="parentTitles.length>0?'reduceH4doubleHead':''">
+        <tbody :class="innerParentTitles.length>0?'reduceH4doubleHead':''">
         <template v-for="(row,index) in rowsInPage">
           <tr :class="[getTrStyle(row, index),row[0].value == hoverRowId ? 'rowHover':'',hasCombineRows?'hasCombineRows':'']"
               @click.stop="onClickRow(row)" @dblclick.stop="callback4OnDblclickRow(row)" @mouseenter="onRowHover(row)" @mouseleave="onRowHoverEnd">
             <td v-if="useDetailRow()" style="width: 35px" :class="foldOrUnFold(row)"
                 @click.stop="onClickFoldOrUnFold(row)"></td>
-            <template v-for="title in titles" v-if="title.visible && !isHide4Combine(title, row)">
+            <template v-for="title in innerTitles" v-if="title.visible && !isHide4Combine(title, row)">
               <td v-if="title.type == 'checkBox'" :style="getTdStyle(title, row)"
                   :colspan="getTdColspan(title, row)"
                   :rowspan="getTdRowspan(title, row)">
@@ -388,6 +388,10 @@ multiDropdown：下拉框多选，支持度不好，待优化
         curPageIndex: 1,
         skip: 0,
         //endregion
+        //#region title
+        innerParentTitles:[],
+        innerTitles:[],
+        //#endregion
         //region rows
         rowsInPage: [],
         selectRowIds: [],
@@ -459,6 +463,7 @@ multiDropdown：下拉框多选，支持度不好，待优化
 
       _createdEx: function () {
         //预处理数据
+        this._preHandleTitleData();
         this._preHandleRowData();
         //关闭multipleDropdown的面板
         document.body.addEventListener("click", this._closeMultipleDropDownPanel);
@@ -489,14 +494,15 @@ multiDropdown：下拉框多选，支持度不好，待优化
 
       //region 数据处理
       _preHandleTitleData() {
-
+        this.innerParentTitles = JSON.parse(JSON.stringify(this.parentTitles));
+        this.innerTitles = JSON.parse(JSON.stringify(this.titles));
       },
       _preHandleRowData() {
         //清空缓存
         this._handleCache();
 
         //设置checkbox/radio的勾选
-        this.titles.forEach((oTitle) => {
+        this.innerTitles.forEach((oTitle) => {
           if (oTitle.type == "checkBox") {
             this.rows.forEach((oRow) => {
               let oCheckBoxCell = this._getCell(oTitle.key, oRow);
@@ -539,7 +545,7 @@ multiDropdown：下拉框多选，支持度不好，待优化
         this._calcRows4Show();
       },
       _closeMultipleDropDownPanel() {
-        this.titles.forEach((oTitle) => {
+        this.innerTitles.forEach((oTitle) => {
           if (oTitle.type == "multiDropdown") {
             this.rows.forEach((oRow) => {
               let oMultiDropdownCell = this._getCell(oTitle.key, oRow);
@@ -692,9 +698,9 @@ multiDropdown：下拉框多选，支持度不好，待优化
           let iTargetWidth = iWidth + (iDstClientX - this.iClientX);
           iTargetWidth = Math.max(25, iTargetWidth);//限定最小值为25
           this.resizeTitle.width = iTargetWidth + "px";
-          for(var i = 0; i<this.titles.length; i++){
-            if(this.titles[i].key == this.resizeTitle.key){
-              this.titles[i].width = this.resizeTitle.width;
+          for(var i = 0; i<this.innerTitles.length; i++){
+            if(this.innerTitles[i].key == this.resizeTitle.key){
+              this.innerTitles[i].width = this.resizeTitle.width;
             }
           }
           this.iClientX = iDstClientX;
@@ -706,13 +712,13 @@ multiDropdown：下拉框多选，支持度不好，待优化
           iTargetWidth = Math.max(iSubTitleNum *25, iTargetWidth);//每个单元格限定最小值为25
           var iTargetSubTitleW = iTargetWidth/iSubTitleNum;
           this.resizeParentTitle.width = iTargetWidth + "px";
-          for(var i = 0; i<this.parentTitles.length; i++){
-            if(this.parentTitles[i].key == this.resizeParentTitle.key){
-              this.parentTitles[i].width = this.resizeParentTitle.width;
+          for(var i = 0; i<this.innerParentTitles.length; i++){
+            if(this.innerParentTitles[i].key == this.resizeParentTitle.key){
+              this.innerParentTitles[i].width = this.resizeParentTitle.width;
             }
           }
-          for(var i = 0; i<this.titles.length; i++){
-            var oTitle = this.titles[i];
+          for(var i = 0; i<this.innerTitles.length; i++){
+            var oTitle = this.innerTitles[i];
             for(var j = 0; j<this.resizeParentTitle.subKey.length; j++){
               var strSubKey = this.resizeParentTitle.subKey[j];
               if(oTitle.key == strSubKey){
@@ -1340,6 +1346,18 @@ multiDropdown：下拉框多选，支持度不好，待优化
           this._resetCurPage();
         },
         deep: false
+      },
+      parentTitles: {
+        handler() {
+          this._preHandleTitleData();
+        },
+        deep: true
+      },
+      titles: {
+        handler() {
+          this._preHandleTitleData();
+        },
+        deep: true
       },
       curPageIndex(iNewVal, iOldVal) {
         this._calcRows4Show();
