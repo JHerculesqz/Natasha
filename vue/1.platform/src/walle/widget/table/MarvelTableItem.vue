@@ -31,7 +31,7 @@ multiDropdown：下拉框多选，支持度不好，待优化
   <div class="gridWrapper" :id="gridId" :ref="gridId">
     <div class="grid">
       <table class="gridCont" cellspacing="0" cellpadding="0" border="0">
-        <thead :style="{left: offSetX + 'px'}">
+        <thead :style="{left: offSetX + 'px','padding-right': scrollW + 'px'}">
         <tr v-if="innerParentTitles.length>0">
           <th class="gridTitle" v-if="useDetailRow()" style="width: 35px" rowspan="2"></th>
           <template v-for="(title,index) in innerParentTitles">
@@ -295,6 +295,7 @@ multiDropdown：下拉框多选，支持度不好，待优化
 
 <script>
   import _ from "lodash"
+  import BrowserUtils from "../../component/browser"
   import MarvelDropDownButton from "../button/MarvelDropDownButton";
 
   /**
@@ -455,6 +456,14 @@ multiDropdown：下拉框多选，支持度不好，待优化
       titleCheckboxChecked() {
         return this.selectRowIds.length > 0;
       },
+      scrollW(){
+        var browserInfo = BrowserUtils.getBrowserInfo();
+        if(browserInfo.chrome == true){
+          return 8;
+        }else{
+          return 16
+        }
+      }
     },
     methods: {
       //#region inner
@@ -1443,7 +1452,6 @@ multiDropdown：下拉框多选，支持度不好，待优化
   }
 
   .gridWrapper .grid .gridCont thead {
-    padding-right: 8px;
     position: relative;
     box-sizing: border-box;
   }

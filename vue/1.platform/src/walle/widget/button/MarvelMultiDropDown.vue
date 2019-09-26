@@ -5,7 +5,12 @@
          :style="{ width: width }">
       <div class="label" v-on:click.stop="showOrHide">
         <div class="left" :title="labelTitle">
-          <div class="name" v-for="item in selectItems" :title="item.label">
+          <div class="name" v-for="item in selectItems" :title="labelTitle">
+            {{ item.label }}
+            <div class="icon icon-cross" @click.stop="onClickRemove(item)"></div>
+          </div>
+          <br>
+          <div class="name" v-for="item in selectItems" :title="item.label" style="float: left;position: relative;top: -28px;">
             {{ item.label }}
             <div class="icon icon-cross" @click.stop="onClickRemove(item)"></div>
           </div>
