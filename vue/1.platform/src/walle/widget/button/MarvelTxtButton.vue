@@ -1,5 +1,5 @@
 <template>
-  <div class="textBtn"
+  <div class="textBtn" :title="label"
        v-bind:class="[disable, classCustom, {tip:isWarn}]"
        v-on:click="onClick">{{ label }}
   </div>

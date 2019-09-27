@@ -12,7 +12,7 @@
         <slot name="btnArea"></slot>
       </div>
       <div class="searchArea4objList">
-        <marvel-search-box @search="callback4OnSearch" width="120px"
+        <marvel-search-box @search="callback4OnSearch" width="120px" maxHeight="260px"
                                       :selectItems="searchSelectItems"></marvel-search-box>
       </div>
     </div>

@@ -1262,7 +1262,7 @@ multiDropdown：下拉框多选，支持度不好，待优化
         }
 
         arrTargetRows = this._getRowsByRowIds([strTargetRowId], arrRows);
-        return arrTargetRows;
+        return arrTargetRows[0];
       },
       getRows() {
         var arrLeftTableRows = [];

@@ -71,7 +71,8 @@
         show: false,
         top: 0,
         left: 0,
-        currentEnterMenuItem: {}
+        currentEnterMenuItem: {},
+        buObj: undefined
       }
     },
     methods: {
@@ -99,9 +100,10 @@
       //#endregion
       //#region 3rd
 
-      showSubMenu: function (iX, iY) {
+      showSubMenu: function (iX, iY, oBuObj) {
         //1.show subMenu
         this.show = true;
+        this.buObj = oBuObj;
 
         if (this.containerId == "") {
           this.top = iY;
