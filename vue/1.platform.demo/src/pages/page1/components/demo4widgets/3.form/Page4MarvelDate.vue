@@ -15,6 +15,8 @@
           <div class="showAreaInner">
             <!--2级DemoView start-->
             <div style="width: 400px;">
+              <button v-on:click="getDate">getDate</button>
+              <br>
               <marvel-date ref="marvelDateTest" yearStart="2014" yearEnd="2030" yearSelect="2017"
                            monthSelect="2" daySelect="3"></marvel-date>
             </div>
@@ -94,6 +96,11 @@
       },
 
       //#endregion
+
+      getDate: function () {
+        var strValue = this.$refs.marvelDateTest.getTime();
+        console.log(strValue);
+      },
 
       //#endregion
       //#region callback

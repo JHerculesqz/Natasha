@@ -94,7 +94,7 @@
       //#region callback
 
       onMenuItemClick: function (strMenuItemLabel, oItem) {
-        this.$emit("onMenuItemClick", strMenuItemLabel, oItem);
+        this.$emit("onMenuItemClick", strMenuItemLabel, oItem, this.buObj);
       },
 
       //#endregion

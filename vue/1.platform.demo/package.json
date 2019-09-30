@@ -25,13 +25,11 @@
     "vue-resource": "^1.3.4",
     "vuex": "^2.3.1",
 
-    "echarts": "^4.1.0",
-
     "lodash": "^4.17.4",
     "moment": "^2.18.1",
     "jquery": "^3.2.1",
 
-    "natasha-vue": "^1.0.27",
+    "natasha-vue": "^1.0.29",
     "babel-polyfill": "^6.26.0"
   },
   "devDependencies": {

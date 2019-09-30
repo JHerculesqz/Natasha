@@ -1247,15 +1247,15 @@ multiDropdown：下拉框多选，支持度不好，待优化
         var arrRows = JSON.parse(JSON.stringify(this.getRows()));
         var strTargetRowId = "";
         var arrTargetRows = [];
-        if (this.whereIsCheckColumn == "left") {
+        if (this.whereIsRadioColumn == "left") {
           //checkbox 在左侧固定列中
           var oLeftTableSelectRows = this.$refs[this.leftTableId].getSelectRow4Radiobox();
           strTargetRowId = this._getRowId(oLeftTableSelectRows)
-        } else if (this.whereIsCheckColumn == "center") {
+        } else if (this.whereIsRadioColumn == "center") {
           //checkbox 在左侧固定列中
           var oCenterTableSelectRows = this.$refs[this.centerTableId].getSelectRow4Radiobox();
           strTargetRowId = this._getRowId(oCenterTableSelectRows)
-        } else if (this.whereIsCheckColumn == "right") {
+        } else if (this.whereIsRadioColumn == "right") {
           //checkbox 在左侧固定列中
           var oRightTableSelectRows = this.$refs[this.rightTableId].getSelectRow4Radiobox();
           strTargetRowId = this._getRowId(oRightTableSelectRows)
@@ -1405,7 +1405,7 @@ multiDropdown：下拉框多选，支持度不好，待优化
         return arrRows;
       },
       resetFoot: function () {
-        this.$refs[this.footId].resetPage();
+        this.$refs[this.footId].resetCurPageIndex();
       }
 
       //#endregion

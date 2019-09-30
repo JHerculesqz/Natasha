@@ -154,6 +154,7 @@ multiDropdown：下拉框多选，支持度不好，待优化
                   <div class="radio">
                     <input type="text" class="inputDefault"
                            :value="getCellValueByKey(title.key, row)"
+                           :disabled="dropDownCellDisabled(title.key, row)"
                            @click.stop
                            @blur="editRowFinished(title.key, row, $event)"
                            @keyup.enter="editRowFinished(title.key, row, $event)">
