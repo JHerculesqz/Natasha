@@ -141,6 +141,13 @@ import Page4MarvelDevPanelEx from '../components/demo4widgets/12.devPanel/Page4M
 import Page4MarvelLayout1 from '../components/demo4widgets/2.basic/Page4MarvelLayout1'
 import Page4MarvelLayout2 from '../components/demo4widgets/2.basic/Page4MarvelLayout2'
 
+/*region 解决vue-router^3.0.1当前页跳转到当前页NavigationDuplicated bug*/
+const originalPush = Router.prototype.push
+Router.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err)
+}
+/*endregion*/
+
 Vue.use(Router)
 
 export default new Router({
