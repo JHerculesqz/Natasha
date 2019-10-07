@@ -40,7 +40,7 @@ exports.entries = function() {
   var map = {}
   entryFiles.forEach((filePath) => {
     var filename = filePath.substring(filePath.lastIndexOf('\/') + 1, filePath.lastIndexOf('.'))
-    map[filename] = filePath
+    map[filename] = ["babel-polyfill", filePath]
   })
   return map
 }

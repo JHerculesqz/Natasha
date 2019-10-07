@@ -1,7 +1,7 @@
 <template>
   <div class="widgetShowSession">
     <!--1级 start-->
-    <div class="title level1">MarvelDate</div>
+    <div class="title level1">Color</div>
     <div class="describe">
 
     </div>
@@ -14,11 +14,11 @@
         <marvel-tab-item :isActive="tabItems1[0].isActive">
           <div class="showAreaInner">
             <!--2级DemoView start-->
-            <div style="width: 400px;">
-              <button v-on:click="getDate">getDate</button>
-              <br>
-              <marvel-date ref="marvelDateTest" yearStart="2014" yearEnd="2030" yearSelect="2017"
-                           monthSelect="2" daySelect="3"></marvel-date>
+            <div style="width:200px;">
+              <button v-on:click="onClick4SlideInLeft">slideInLeft</button>
+              <button v-on:click="onClick4SlideInRight">slideInRight</button>
+              <button v-on:click="onClick4FadeInAndFadeOut">fadeInAndFadeOut</button>
+              <marvel-animate ref="animate"><div>animate</div></marvel-animate>
             </div>
             <!--2级DemoView end-->
           </div>
@@ -26,9 +26,11 @@
         <marvel-tab-item :isActive="tabItems1[1].isActive">
           <div class="codeArea">
             <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
-            <div style="width: 400px;">
-              <marvel-date yearStart="2014" yearEnd="2030" yearSelect="2017"
-                           monthSelect="2" daySelect="3"></marvel-date>
+            <div style="width:200px;">
+              <button v-on:click="onClick4SlideInLeft">slideInLeft</button>
+              <button v-on:click="onClick4SlideInRight">slideInRight</button>
+              <button v-on:click="onClick4FadeInAndFadeOut">fadeInAndFadeOut</button>
+              <marvel-animate ref="animate"><div>animate</div></marvel-animate>
             </div>
             '></marvel-ace-editor>
           </div>
@@ -39,7 +41,7 @@
     <!--endregion-->
     <!--region doc area-->
     <div class="docArea">
-      <marvel-i-frame ref="Page4MarvelDateIFrame" id="Page4MarvelDateIFrame" src="static/jsdoc/module-MarvelDate.html"></marvel-i-frame>
+      <marvel-i-frame ref="page4MarvelAnimateIFrame" id="page4MarvelAnimateIFrame" src="static/jsdoc/module-MarvelAnimate.html"></marvel-i-frame>
     </div>
     <!--endregion-->
   </div>
@@ -49,13 +51,13 @@
   import MarvelTab from "~~/widget/tab/MarvelTab";
   import MarvelTabItem from "~~/widget/tab/MarvelTabItem";
   import MarvelAceEditor from "~~/widget/aceEditor/MarvelAceEditor";
-  import MarvelDate from "~~/widget/date/MarvelDate";
+  import MarvelAnimate from "~~/widget/animate/MarvelAnimate";
   import MarvelIFrame from "../../../../../components/MarvelIFrame";
 
   export default {
-    name: 'page4MarvelDate',
+    name: 'page4MarvelColor',
     components: {
-      MarvelDate,
+      MarvelAnimate,
       MarvelIFrame,
       MarvelAceEditor,
       MarvelTab,
@@ -90,16 +92,19 @@
       //#region lifeCycle
 
       _initEx: function () {
-        this.$refs.Page4MarvelDateIFrame.setIframe4DemoPage();
-
-        this.$refs.marvelDateTest.setSelectYMD("2019", "8", "23");
+        this.$refs.page4MarvelAnimateIFrame.setIframe4DemoPage();
       },
 
       //#endregion
 
-      getDate: function () {
-        var strValue = this.$refs.marvelDateTest.getTime();
-        console.log(strValue);
+      onClick4SlideInLeft: function () {
+        this.$refs.animate.doAnimate("slideInLeft");
+      },
+      onClick4SlideInRight: function () {
+        this.$refs.animate.doAnimate("slideInRight");
+      },
+      onClick4FadeInAndFadeOut: function () {
+        this.$refs.animate.doAnimate("fadeInAndFadeOut");
       },
 
       //#endregion

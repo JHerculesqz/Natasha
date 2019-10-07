@@ -218,8 +218,8 @@
         };
 
         if(this.isExpand){
-          styleOption['width'] = this.contHeight + 'px';
-          styleOption['height'] = this.contWidth + 'px';
+          styleOption['width'] = this.contWidth + 'px';
+          styleOption['height'] = this.contHeight + 'px';
           if (this.contPos == "top-left") {
             styleOption['margin-top'] = - this.contHeight + 'px';
             styleOption['margin-left'] = - this.contWidth + 'px';
@@ -249,10 +249,10 @@
           };
         }else{
           this.floatPanelWrapperStyle = {
-            top: this.positionInTop != undefined ? this.positionInTop + 'px' : undefined,
-            right: this.positionInRight != undefined ? this.positionInRight + iIconWH + 'px' : undefined,
-            bottom: this.positionInBottom != undefined ? this.positionInBottom + iIconWH + 'px' : undefined,
-            left: this.positionInLeft != undefined ? this.positionInLeft + 'px' : undefined,
+            top: this.positionInTop != undefined ? this.positionInTop - iIconWH + 'px' : undefined,
+            right: this.positionInRight != undefined ? this.positionInRight + 'px' : undefined,
+            bottom: this.positionInBottom != undefined ? this.positionInBottom + 'px' : undefined,
+            left: this.positionInLeft != undefined ? this.positionInLeft + iIconWH + 'px' : undefined,
             'z-index': this.zIndex,
           };
         }

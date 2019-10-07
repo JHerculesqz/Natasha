@@ -12,12 +12,12 @@
         <slot name="btnArea"></slot>
       </div>
       <div class="searchArea4objList">
-        <marvel-search-box @search="callback4OnSearch" width="120px"
+        <marvel-search-box @search="callback4OnSearch" width="120px" maxHeight="260px"
                                       :selectItems="searchSelectItems"></marvel-search-box>
       </div>
     </div>
     <div class="bottomArea">
-      <marvel-grid-ex :ref="'objLstGrid' + componentId"
+      <marvel-table :ref="'objLstGrid' + componentId"
                       :gridId="'objLstGrid' + componentId"
                       :titles="title4objLstInner"
                       :rows="row4objLstInner"
@@ -31,14 +31,14 @@
                       v-on:onTitleCheckOrUncheck="_onTitleCheckOrUncheck"
                       v-on:onRowCheckOrUnCheck="_onRowCheckOrUnCheck"
                       v-on:onIconClick="_onIconClick"
-                      v-on:onPageChange="callback4OnPageChange"></marvel-grid-ex>
+                      v-on:onPageChange="callback4OnPageChange"></marvel-table>
     </div>
   </div>
 </template>
 
 <script>
   import MarvelButton from '../../widget/btn/MarvelButton';
-  import MarvelGridEx from '../../widget/grid/MarvelGridEx';
+  import MarvelTable from '../../widget/table/MarvelTable';
   import MarvelSearchBox from "../searchBox/MarvelSearchBox";
   import StrUtils from "../../component/str";
 
@@ -52,7 +52,7 @@
     components: {
       MarvelSearchBox,
       MarvelButton,
-      MarvelGridEx
+      MarvelTable
     },
     props: {
       title: {
@@ -250,16 +250,16 @@
             var oCell = arrRows[i][j];
             if (oCell.key == 'operation') {
               bHasOperationAlready = true;
-              oCell.value.unshift({
-                value: "icon-bin",
-                color: "#3399ff",
-                title: "删除"
-              });
-              oCell.value.unshift({
+              oCell.value.push({
                 value: "icon-enter",
                 color: "#3399ff",
                 title: "查看"
               });
+              oCell.value.push({
+                value: "icon-bin",
+                color: "#3399ff",
+                title: "删除"
+              })
             }
           }
           if (!bHasOperationAlready) {

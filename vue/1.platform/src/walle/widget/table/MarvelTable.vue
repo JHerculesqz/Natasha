@@ -48,6 +48,7 @@ multiDropdown：下拉框多选，支持度不好，待优化
            :style="leftTableStyle">
         <marvel-table-item :ref="leftTableId"
                            :gridId="leftTableId"
+                           :parentTitles="leftParentTitles"
                            :titles="leftTitles"
                            :rows="leftRows"
                            :limit="limit4TableItem"
@@ -60,6 +61,7 @@ multiDropdown：下拉框多选，支持度不好，待优化
                            :hasFoot="false"
                            v-on:onTitleCheckOrUncheck="onTitleCheckOrUncheck"
                            v-on:onClickRow="onClickRow"
+                           v-on:onDblclickRow="onDblclickRow"
                            v-on:onRowCheckOrUnCheck="onRowCheckOrUnCheck"
                            v-on:onRowRadioCheck="onRowRadioCheck"
                            v-on:onClickTextCell="onClickTextCell"
@@ -76,6 +78,7 @@ multiDropdown：下拉框多选，支持度不好，待优化
            :style="centerTableStyle">
         <marvel-table-item :ref="centerTableId"
                            :gridId="centerTableId"
+                           :parentTitles="centerParentTitles"
                            :titles="centerTitles"
                            :rows="centerRows"
                            :limit="limit4TableItem"
@@ -84,12 +87,14 @@ multiDropdown：下拉框多选，支持度不好，待优化
                            :canDrag="canDrag"
                            :searchComponent="searchComponent"
                            :detailRowComponent="detailRowComponent"
+                           v-on:onClickFoldOrUnFold="onClickFoldOrUnFold"
                            v-on:onRowHover="centerTableOnRowHover"
                            v-on:onRowHoverEnd="centerTableOnRowHoverEnd"
                            v-on:onTbodyScroll="centerTableOnScroll"
                            :hasFoot="false"
                            v-on:onTitleCheckOrUncheck="onTitleCheckOrUncheck"
                            v-on:onClickRow="onClickRow"
+                           v-on:onDblclickRow="onDblclickRow"
                            v-on:onRowCheckOrUnCheck="onRowCheckOrUnCheck"
                            v-on:onRowRadioCheck="onRowRadioCheck"
                            v-on:onClickTextCell="onClickTextCell"
@@ -106,6 +111,7 @@ multiDropdown：下拉框多选，支持度不好，待优化
            :style="rightTableStyle">
         <marvel-table-item :ref="rightTableId"
                            :gridId="rightTableId"
+                           :parentTitles="rightParentTitles"
                            :titles="rightTitles"
                            :rows="rightRows"
                            :limit="limit4TableItem"
@@ -118,6 +124,7 @@ multiDropdown：下拉框多选，支持度不好，待优化
                            :hasFoot="false"
                            v-on:onTitleCheckOrUncheck="onTitleCheckOrUncheck"
                            v-on:onClickRow="onClickRow"
+                           v-on:onDblclickRow="onDblclickRow"
                            v-on:onRowCheckOrUnCheck="onRowCheckOrUnCheck"
                            v-on:onRowRadioCheck="onRowRadioCheck"
                            v-on:onClickTextCell="onClickTextCell"
@@ -133,7 +140,17 @@ multiDropdown：下拉框多选，支持度不好，待优化
     </div>
     <div v-if="hasFoot" class="footArea">
       <div class="foot">
-        <marvel-paging :ref="footId" :totalNum="totalCount" :pages="totalPageCount"
+        <marvel-paging :ref="footId"
+                       :totalNum="totalCount"
+                       :pages="totalPageCount"
+                       :perPageNum="limit"
+                       :showPageNum="showPageNum"
+                       :limit="pageLimit"
+                       :showChangeLimit="showChangeLimit"
+                       :limitRange="limitRange"
+                       :showNumSelected="showNumSelected"
+                       :showPageSwitch="showPageSwitch"
+                       @onPerPageNumChange="_onPerPageNumChange"
                        @onPageChange="_onPageChange"></marvel-paging>
       </div>
     </div>
@@ -174,6 +191,13 @@ multiDropdown：下拉框多选，支持度不好，待优化
     },
     name: 'MarvelTable',
     props: {
+      parentTitles: {
+        type: Array,
+        default: function () {
+          return [];
+        },
+        required: false,
+      },
       titles: {
         type: Array,
         default: undefined,
@@ -219,9 +243,36 @@ multiDropdown：下拉框多选，支持度不好，待优化
         default: undefined,
         required: false,
       },
+      showPageNum: {
+        type: Boolean,
+        default: true,
+        required: false,
+      },
       pageLimit: {
         type: Number,
         default: 7,
+        required: false,
+      },
+      showChangeLimit: {
+        type: Boolean,
+        default: false,
+        required: false,
+      },
+      limitRange: {
+        type: Array,
+        default: function () {
+          return []
+        },
+        required: false,
+      },
+      showNumSelected: {
+        type: Boolean,
+        default: false,
+        required: false,
+      },
+      showPageSwitch: {
+        type: Boolean,
+        default: true,
         required: false,
       },
       bIsAdaptToContH: {
@@ -249,6 +300,11 @@ multiDropdown：下拉框多选，支持度不好，待优化
         default: "",
         required: false,
       },
+      sortRowsFunc: {
+        type: Function,
+        default: undefined,
+        required: false,
+      },
     },
     data: function () {
       return {
@@ -260,6 +316,7 @@ multiDropdown：下拉框多选，支持度不好，待优化
           key: "",
           order: 1 //1表示升序排列，-1表示降序排列
         },
+        limit4TableItem: 10,
         //#endregion
         //#region leftTable
         bHasLeftTable:false,
@@ -289,13 +346,6 @@ multiDropdown：下拉框多选，支持度不好，待优化
     },
     computed: {
       //#region common
-      limit4TableItem: function () {
-        if (this.dynamicPaging) {
-          return this.rows.length;
-        } else {
-          return this.limit;
-        }
-      },
       totalCount: function () {
         if (this.dynamicPaging) {
           return this.totalNum;
@@ -359,6 +409,21 @@ multiDropdown：下拉框多选，支持度不好，待优化
       //#endregion
       //#endregion
       //#region leftTable
+      leftParentTitles: function () {
+        var arrLeftParentTitles = [];
+
+        //将title 分入对应的区域
+        for (const title of this.parentTitles) {
+          if (title.key == "id") {
+            //使用同一id列
+            arrLeftParentTitles.push(JSON.parse(JSON.stringify(title)));
+          } else if (title.freeze && title.freeze == "left") {
+            arrLeftParentTitles.push(JSON.parse(JSON.stringify(title)));
+          }
+        }
+
+        return arrLeftParentTitles;
+      },
       leftTitles: function () {
         var arrLeftTitles = [];
 
@@ -409,6 +474,21 @@ multiDropdown：下拉框多选，支持度不好，待优化
       },
       //#endregion
       //#region centerTable
+      centerParentTitles: function () {
+        var arrCenterParentTitles = [];
+
+        //将title 分入对应的区域
+        for (const title of this.parentTitles) {
+          if (title.key == "id") {
+            //使用同一id列
+            arrCenterParentTitles.push(JSON.parse(JSON.stringify(title)));
+          } else if (title.freeze == undefined || title.freeze == '') {
+            arrCenterParentTitles.push(JSON.parse(JSON.stringify(title)));
+          }
+        }
+
+        return arrCenterParentTitles;
+      },
       centerTitles: function () {
         var arrCenterTitles = [];
 
@@ -457,6 +537,21 @@ multiDropdown：下拉框多选，支持度不好，待优化
       },
       //#endregion
       //#region rightTable
+      rightParentTitles: function () {
+        var arrRightParentTitles = [];
+
+        //将title 分入对应的区域
+        for (const title of this.parentTitles) {
+          if (title.key == "id") {
+            //使用同一id列
+            arrRightParentTitles.push(JSON.parse(JSON.stringify(title)));
+          } else if (title.freeze && title.freeze == "right") {
+            arrRightParentTitles.push(JSON.parse(JSON.stringify(title)));
+          }
+        }
+
+        return arrRightParentTitles;
+      },
       rightTitles: function () {
         var arrRightTitles = [];
 
@@ -518,6 +613,7 @@ multiDropdown：下拉框多选，支持度不好，待优化
       //#region lifeCycle
 
       _initEx: function () {
+        this.limit4TableItem = this.limit;
         this.leftTableId = this.gridId + "_left";
         this.centerTableId = this.gridId + "_center";
         this.rightTableId = this.gridId + "_right";
@@ -685,6 +781,14 @@ multiDropdown：下拉框多选，支持度不好，待优化
           if (this.bHasRightTable) {
             this.$refs[this.rightTableId].onPageChange(iPage);
           }
+        }
+      },
+      _onPerPageNumChange: function(perPageNum){
+        this.limit4TableItem = perPageNum;
+        if (this.dynamicPaging) {
+          this.onPerPageNumChange(perPageNum);
+        } else {
+          this.curPageIndex = 1;
         }
       },
 
@@ -981,8 +1085,8 @@ multiDropdown：下拉框多选，支持度不好，待优化
       sortRowsFuncTriggerByLeftGrid: function (strKey, order, oRows) {
         this.orderBy.key = strKey;
         this.orderBy.order = order;
-        if (this.dynamicPaging == true) {
-          this.$emit("sortRowsFunc", this.orderBy.key, this.orderBy.order, this.rows);
+        if (this.dynamicPaging == true && this.sortRowsFunc) {
+          this.sortRowsFunc(this.orderBy.key, this.orderBy.order, this.rows);
         } else {
           this._sortRows();
         }
@@ -998,8 +1102,8 @@ multiDropdown：下拉框多选，支持度不好，待优化
       sortRowsFuncTriggerByCenterGrid: function (strKey, order, oRows) {
         this.orderBy.key = strKey;
         this.orderBy.order = order;
-        if (this.dynamicPaging == true) {
-          this.$emit("sortRowsFunc", this.orderBy.key, this.orderBy.order, this.rows);
+        if (this.dynamicPaging == true && this.sortRowsFunc) {
+          this.sortRowsFunc(this.orderBy.key, this.orderBy.order, this.rows);
         } else {
           this._sortRows();
         }
@@ -1015,8 +1119,8 @@ multiDropdown：下拉框多选，支持度不好，待优化
       sortRowsFuncTriggerByRightGrid: function (strKey, order, oRows) {
         this.orderBy.key = strKey;
         this.orderBy.order = order;
-        if (this.dynamicPaging == true) {
-          this.$emit("sortRowsFunc", this.orderBy.key, this.orderBy.order, this.rows);
+        if (this.dynamicPaging == true && this.sortRowsFunc) {
+          this.sortRowsFunc(this.orderBy.key, this.orderBy.order, this.rows);
         } else {
           this._sortRows();
         }
@@ -1035,6 +1139,10 @@ multiDropdown：下拉框多选，支持度不好，待优化
       onClickRow: function (oRow) {
         var oTargetRow = this._getRowByPartRow(oRow);
         this.$emit("onClickRow", oTargetRow);
+      },
+      onDblclickRow: function (oRow) {
+        var oTargetRow = this._getRowByPartRow(oRow);
+        this.$emit("onDblclickRow", oTargetRow);
       },
       onRowCheckOrUnCheck: function (oRow, isChecked) {
         var oTargetRow = this._getRowByPartRow(oRow);
@@ -1067,6 +1175,9 @@ multiDropdown：下拉框多选，支持度不好，待优化
       onPageChange: function (iPage) {
         this.$emit("onPageChange", iPage);
       },
+      onPerPageNumChange: function (perPageNum) {
+        this.$emit("onPerPageNumChange", perPageNum);
+      },
       onClickSwitch(oRow, oCell) {
         var oTargetRow = this._getRowByPartRow(oRow);
         this.$emit("onClickSwitch", oTargetRow, oCell);
@@ -1074,6 +1185,9 @@ multiDropdown：下拉框多选，支持度不好，待优化
       onClickImg(oRow, oCell) {
         var oTargetRow = this._getRowByPartRow(oRow);
         this.$emit("onClickImg", oTargetRow, oCell);
+      },
+      onClickFoldOrUnFold: function (oRow, bIsFold) {
+        this.$emit("onClickFoldOrUnFold", oRow, bIsFold);
       },
 
       //#endregion
@@ -1122,26 +1236,33 @@ multiDropdown：下拉框多选，支持度不好，待优化
         arrTargetRows = this._getRowsByRowIds(arrTargetRowIds, arrRows);
         return arrTargetRows;
       },
+      delSelectRows4Checkbox() {
+        var arrSelectRows = this.getSelectRows4Checkbox();
+        for (var i = 0, len = arrSelectRows.length; i < len; i++) {
+          var oRow = arrSelectRows[i];
+          this.removeRow(this._getCellValueByKey("id", oRow));
+        }
+      },
       getSelectRow4Radiobox() {
         var arrRows = JSON.parse(JSON.stringify(this.getRows()));
         var strTargetRowId = "";
         var arrTargetRows = [];
-        if (this.whereIsCheckColumn == "left") {
+        if (this.whereIsRadioColumn == "left") {
           //checkbox 在左侧固定列中
           var oLeftTableSelectRows = this.$refs[this.leftTableId].getSelectRow4Radiobox();
           strTargetRowId = this._getRowId(oLeftTableSelectRows)
-        } else if (this.whereIsCheckColumn == "center") {
+        } else if (this.whereIsRadioColumn == "center") {
           //checkbox 在左侧固定列中
           var oCenterTableSelectRows = this.$refs[this.centerTableId].getSelectRow4Radiobox();
           strTargetRowId = this._getRowId(oCenterTableSelectRows)
-        } else if (this.whereIsCheckColumn == "right") {
+        } else if (this.whereIsRadioColumn == "right") {
           //checkbox 在左侧固定列中
           var oRightTableSelectRows = this.$refs[this.rightTableId].getSelectRow4Radiobox();
           strTargetRowId = this._getRowId(oRightTableSelectRows)
         }
 
         arrTargetRows = this._getRowsByRowIds([strTargetRowId], arrRows);
-        return arrTargetRows;
+        return arrTargetRows[0];
       },
       getRows() {
         var arrLeftTableRows = [];
@@ -1250,8 +1371,41 @@ multiDropdown：下拉框多选，支持度不好，待优化
           this.$refs[this.rightTableId].disabledDropDownCell(strRowId, strKey, bDisabled);
         }
       },
+      getUnFoldRowIds() {
+        return this.$refs[this.centerTableId].unFoldRowIds;
+      },
+      foldRows(arrRowIds) {
+        return this.$refs[this.centerTableId].foldRows(arrRowIds);
+      },
+      unFoldRows(arrRowIds) {
+        return this.$refs[this.centerTableId].unFoldRows(arrRowIds);
+      },
+      setCurPage(iPage) {
+        this.$refs[this.footId].setCurPage(iPage);
+        this._onPageChange(iPage);
+      },
+      getCurPage() {
+        return this.$refs[this.footId].getCurPageIndex();
+      },
+      getCurPageData() {
+        var arrLeftTableRows = [];
+        var arrCenterTableRows = [];
+        var arrRightTableRows = [];
+        if(this.bHasLeftTable){
+          arrLeftTableRows = this.$refs[this.leftTableId].rowsInPage;
+        }
+        if(this.bHasCenterTable){
+          arrCenterTableRows = this.$refs[this.centerTableId].rowsInPage;
+        }
+        if(this.bHasRightTable){
+          arrRightTableRows = this.$refs[this.rightTableId].rowsInPage;
+        }
+
+        var arrRows = this._combineRows(arrLeftTableRows, arrCenterTableRows, arrRightTableRows);
+        return arrRows;
+      },
       resetFoot: function () {
-        this.$refs[this.footId].resetPage();
+        this.$refs[this.footId].resetCurPageIndex();
       }
 
       //#endregion
@@ -1304,7 +1458,7 @@ multiDropdown：下拉框多选，支持度不好，待优化
   }
 
   .GridExWithFreezeColumnWrapper .columnConfig {
-    width: 40px;
+    width: 30px;
     height: 28px;
     position: absolute;
     top: 1px;
