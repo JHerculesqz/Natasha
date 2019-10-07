@@ -34,7 +34,7 @@
         <div class="leftArea">
           <!--accordionArea start-->
           <marvel-accordion :isFolder="false" :hasShadow="true"
-                            title="使用说明" titleIcon="icon-evil2"
+                            title="使用说明" titleIcon="icon-marvelIcon-62"
                             :defaultSelectLabel="defaultSelectLabel"
                             :items="accordionItems"
                             v-on:accordionItemClick="accordionItemClick"
