@@ -4,7 +4,7 @@
   <div class="wizardsWrapper">
     <div class="wizardsItem"
          v-for="item in items"
-         v-bind:class="[{ complected: item.complected }, {unClickable: !isClickable}]"
+         v-bind:class="[{ complected: item.complected }, {unClickable: !isClickable}, {disableWizardItem: item.disable}]"
          v-bind:style="{ width: 100 / items.length + '%' }" v-on:click="onWizardClick(item)">
       <div class="name" :title="item.label">{{ item.label }}</div>
       <div class="decoration">
@@ -51,6 +51,9 @@
       //#region inner
 
       onWizardClick: function (oItem) {
+        if(oItem.disable){
+          return;
+        }
         if(this.isClickable){
           if (this.hasJudgeBeforeWizardSwitch) {
             this.callback4OnWizardClick(oItem);
@@ -141,6 +144,10 @@
     cursor: default !important;
   }
 
+  .wizardsWrapper .disableWizardItem {
+    cursor: default !important;
+  }
+
   .wizardsWrapper .wizardsItem .name {
     height: 18px;
     line-height: 18px;
@@ -203,6 +210,14 @@
 
   .wizardsWrapper .complected .decoration .num {
     color: #fff;
+  }
+
+  .wizardsWrapper .disableWizardItem .name{
+    opacity: 0.6;
+  }
+
+  .wizardsWrapper .disableWizardItem .decoration .num{
+    opacity: 0.5;
   }
 
   /*region dark theme*/

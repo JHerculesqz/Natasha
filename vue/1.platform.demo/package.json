@@ -29,7 +29,7 @@
     "moment": "^2.18.1",
     "jquery": "^3.2.1",
 
-    "natasha-vue": "^1.0.30",
+    "natasha-vue": "^1.0.31",
     "babel-polyfill": "^6.26.0"
   },
   "devDependencies": {

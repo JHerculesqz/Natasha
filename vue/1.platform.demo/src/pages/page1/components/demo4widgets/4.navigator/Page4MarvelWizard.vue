@@ -76,7 +76,8 @@
           index: 1
         }, {
           label: "Condition",
-          index: 2
+          index: 2,
+          disable: true
         }, {
           label: "Action",
           index: 3

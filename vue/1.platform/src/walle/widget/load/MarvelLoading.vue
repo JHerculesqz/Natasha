@@ -117,6 +117,14 @@
             key: strKey,
             strMsg: strLoadingMsg
           });
+        }else{
+          for(var i = 0; i<this.showList.length; i++){
+            var oLoading = this.showList[i];
+            if(oLoading.key == strKey){
+              /*update*/
+              oLoading.strMsg = strLoadingMsg;
+            }
+          }
         }
       },
       imsgMarvelLoadingHide: function (strKey) {

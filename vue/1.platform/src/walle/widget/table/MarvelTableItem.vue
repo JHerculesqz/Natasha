@@ -166,9 +166,9 @@ multiDropdown：下拉框多选，支持度不好，待优化
                   :rowspan="getTdRowspan(title, row)">
                    <span class="iconOnly"
                          v-for="icon in getCellValueByKey(title.key, row)"
-                         :class="[icon.value]"
+                         :class="[icon.value, {disableIcon:icon.disable}]"
                          :style="{ color: icon.color }"
-                         :title="icon.label"
+                         :title="icon.title?icon.title:icon.label"
                          @click.stop="onIconClick(title.key, row, icon)">
                    </span>
               </td>
@@ -873,6 +873,13 @@ multiDropdown：下拉框多选，支持度不好，待优化
         let oStyle = {
           width: oTitle.width
         };
+        let oCell = this._getCell(oTitle.key, oRow);
+        let strBgColor = "";
+        oCell && (strBgColor = oCell.bgColor);
+        strBgColor && (oStyle["background-color"] = strBgColor);
+        if (oCell && oCell.config && oCell.config.color) {
+          oStyle["color"] = oCell.config.color;
+        }
         return oStyle;
       },
       getTdDivStyle(oTitle, oRow) {

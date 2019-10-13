@@ -250,16 +250,6 @@
             var oCell = arrRows[i][j];
             if (oCell.key == 'operation') {
               bHasOperationAlready = true;
-              oCell.value.push({
-                value: "icon-enter",
-                color: "#3399ff",
-                title: "查看"
-              });
-              oCell.value.push({
-                value: "icon-bin",
-                color: "#3399ff",
-                title: "删除"
-              })
             }
           }
           if (!bHasOperationAlready) {
@@ -268,7 +258,7 @@
               value: [{
                 value: "icon-enter",
                 color: "#3399ff",
-                title: "查看"
+                title: "查看任务"
               }, {
                 value: "icon-bin",
                 color: "#3399ff",

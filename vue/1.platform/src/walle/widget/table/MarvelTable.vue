@@ -1245,24 +1245,32 @@ multiDropdown：下拉框多选，支持度不好，待优化
       },
       getSelectRow4Radiobox() {
         var arrRows = JSON.parse(JSON.stringify(this.getRows()));
-        var strTargetRowId = "";
+        var strTargetRowId = undefined;
         var arrTargetRows = [];
         if (this.whereIsRadioColumn == "left") {
           //checkbox 在左侧固定列中
           var oLeftTableSelectRows = this.$refs[this.leftTableId].getSelectRow4Radiobox();
-          strTargetRowId = this._getRowId(oLeftTableSelectRows)
+          if(oLeftTableSelectRows){
+            strTargetRowId = this._getRowId(oLeftTableSelectRows)
+          }
         } else if (this.whereIsRadioColumn == "center") {
           //checkbox 在左侧固定列中
           var oCenterTableSelectRows = this.$refs[this.centerTableId].getSelectRow4Radiobox();
-          strTargetRowId = this._getRowId(oCenterTableSelectRows)
+          if(oCenterTableSelectRows){
+            strTargetRowId = this._getRowId(oCenterTableSelectRows)
+          }
         } else if (this.whereIsRadioColumn == "right") {
           //checkbox 在左侧固定列中
           var oRightTableSelectRows = this.$refs[this.rightTableId].getSelectRow4Radiobox();
-          strTargetRowId = this._getRowId(oRightTableSelectRows)
+          if(oRightTableSelectRows){
+            strTargetRowId = this._getRowId(oRightTableSelectRows)
+          }
         }
 
-        arrTargetRows = this._getRowsByRowIds([strTargetRowId], arrRows);
-        return arrTargetRows[0];
+        if(strTargetRowId){
+          arrTargetRows = this._getRowsByRowIds([strTargetRowId], arrRows);
+          return arrTargetRows[0];
+        }
       },
       getRows() {
         var arrLeftTableRows = [];
