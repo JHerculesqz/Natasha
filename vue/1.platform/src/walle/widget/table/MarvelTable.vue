@@ -305,6 +305,11 @@ multiDropdown：下拉框多选，支持度不好，待优化
         default: undefined,
         required: false,
       },
+      minRowH: {
+        type: Boolean,
+        default: false,
+        required: false,
+      }
     },
     data: function () {
       return {

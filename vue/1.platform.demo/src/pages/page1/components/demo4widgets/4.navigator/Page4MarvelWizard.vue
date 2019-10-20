@@ -34,6 +34,41 @@
       </marvel-tab>
     </div>
     <!--2级 end-->
+    <!--2级 start-->
+
+    <div class="showArea">
+      <marvel-tab :tabItems="tabItems2">
+        <marvel-tab-item :isActive="tabItems2[0].isActive">
+          <div class="showAreaInner">
+            <!--2级DemoView start-->
+            <div>
+              <button v-on:click="setProgress">setProgress</button>
+              <marvel-wizard ref="ref1" :items="items2" :isClickable="true" :isVertical="true">
+                <div slot="aa">aa</div>
+                <div slot="bb">bb</div>
+                <div slot="cc">cc</div>
+              </marvel-wizard>
+            </div>
+            <!--2级DemoView end-->
+          </div>
+        </marvel-tab-item>
+        <marvel-tab-item :isActive="tabItems2[1].isActive">
+          <div class="codeArea">
+            <marvel-ace-editor ref="aceEditor" theme="dracula" :fontSize="15" :readOnly="true" lan="html" codeIn='
+             <div>
+              <button v-on:click="setProgress">setProgress</button>
+              <marvel-wizard ref="ref1" :items="items2" :isClickable="true" :isVertical="true">
+                <div slot="aa">aa</div>
+                <div slot="bb">bb</div>
+                <div slot="cc">cc</div>
+              </marvel-wizard>
+            </div>
+            '></marvel-ace-editor>
+          </div>
+        </marvel-tab-item>
+      </marvel-tab>
+    </div>
+    <!--2级 end-->
     <!--endregion-->
     <!--region doc area-->
     <div class="docArea">
@@ -69,6 +104,13 @@
           label: "Code View",
           isActive: false
         }],
+        tabItems2: [{
+          label: "Demo View",
+          isActive: true
+        }, {
+          label: "Code View",
+          isActive: false
+        }],
         //#endregion
         //#region custom data
         items: [{
@@ -80,6 +122,23 @@
           disable: true
         }, {
           label: "Action",
+          index: 3
+        }],
+        items2: [{
+          label: "Basic Information",
+          slotName:"aa",
+          contentH:"100px",
+          index: 1
+        }, {
+          label: "Condition",
+          slotName:"bb",
+          contentH:"200px",
+          index: 2,
+          disable: true
+        }, {
+          label: "Action",
+          slotName:"cc",
+          contentH:"300px",
           index: 3
         }],
         //#endregion

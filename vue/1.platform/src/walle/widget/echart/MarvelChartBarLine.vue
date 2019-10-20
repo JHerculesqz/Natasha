@@ -227,6 +227,16 @@
             top: this.chartData.top
           };
         }
+        if(this.chartData.grid != undefined){
+          option['grid'] = this.chartData.grid;
+        }
+        if(this.chartData.legend != undefined){
+          for(let key in this.chartData.legend){
+            if(this.chartData.legend.hasOwnProperty(key)){
+              option['legend'][key] = this.chartData.legend[key];
+            }
+          }
+        }
         if (this.chartData.axisLabel != undefined) {
           option['xAxis'][0].axisLabel = this.chartData.axisLabel;
         }

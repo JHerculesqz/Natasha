@@ -27,6 +27,7 @@
                       :totalPage="totalPage"
                       :canDrag="true"
                       :hasFoot="true"
+                      :minRowH="true"
                       :sortRowsFunc="_sortRowsFunc"
                       v-on:onTitleCheckOrUncheck="_onTitleCheckOrUncheck"
                       v-on:onRowCheckOrUnCheck="_onRowCheckOrUnCheck"
