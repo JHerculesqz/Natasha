@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?9x470q');
-  src:  url('fonts/icomoon.eot?9x470q#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?9x470q') format('truetype'),
-    url('fonts/icomoon.woff?9x470q') format('woff'),
-    url('fonts/icomoon.svg?9x470q#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?qukjsu');
+  src:  url('fonts/icomoon.eot?qukjsu#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?qukjsu') format('truetype'),
+    url('fonts/icomoon.woff?qukjsu') format('woff'),
+    url('fonts/icomoon.svg?qukjsu#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -544,32 +544,36 @@
   content: "\e981";
   
 }
-.icon-module:before {
+.icon-marvelIcon-114:before {
   content: "\e982";
   
 }
-.icon-project:before {
+.icon-module:before {
   content: "\e983";
   
 }
-.icon-properties:before {
+.icon-project:before {
   content: "\e984";
   
 }
-.icon-py:before {
+.icon-properties:before {
   content: "\e985";
   
 }
-.icon-xml:before {
+.icon-py:before {
   content: "\e986";
   
 }
-.icon-yang:before {
+.icon-xml:before {
   content: "\e987";
   
 }
-.icon-ying:before {
+.icon-yang:before {
   content: "\e988";
+  
+}
+.icon-ying:before {
+  content: "\ea2d";
   
 }
 .icon-home:before {
@@ -1063,9 +1067,6 @@
 }
 .icon-spoon-knife:before {
   content: "\ea2c";
-}
-.icon-leaf:before {
-  content: "\ea2d";
 }
 .icon-rocket:before {
   content: "\ea2e";
