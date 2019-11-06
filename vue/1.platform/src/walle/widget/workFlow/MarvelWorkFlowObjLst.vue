@@ -22,6 +22,8 @@
                       :titles="title4objLstInner"
                       :rows="row4objLstInner"
                       :limit="limit"
+                      :showChangeLimit="showChangeLimit"
+                      :limitRange="limitRange"
                       :dynamicPaging="true"
                       :totalNum="totalNum"
                       :totalPage="totalPage"
@@ -32,6 +34,7 @@
                       v-on:onTitleCheckOrUncheck="_onTitleCheckOrUncheck"
                       v-on:onRowCheckOrUnCheck="_onRowCheckOrUnCheck"
                       v-on:onIconClick="_onIconClick"
+                      v-on:onPerPageNumChange="callback4OnPerPageNumChange"
                       v-on:onPageChange="callback4OnPageChange"></marvel-table>
     </div>
   </div>
@@ -89,6 +92,18 @@
       limit: {
         type: Number,
         default: 26,
+        required: false,
+      },
+      showChangeLimit: {
+        type: Boolean,
+        default: true,
+        required: false,
+      },
+      limitRange: {
+        type: Array,
+        default: function () {
+          return [26, 50, 100, 200]
+        },
         required: false,
       }
     },
@@ -337,6 +352,9 @@
       },
       callback4OnPageChange: function (iPageIndex, perPageNum) {
         this.$emit("onPageChange", iPageIndex, perPageNum);
+      },
+      callback4OnPerPageNumChange: function (perPageNum) {
+        this.$emit("onPerPageNumChange", perPageNum);
       },
       callback4OnIconClick4Delete: function (oRow) {
         this.$emit("onIconClick4Delete", oRow);

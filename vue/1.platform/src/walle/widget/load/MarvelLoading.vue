@@ -117,14 +117,12 @@
             key: strKey,
             strMsg: strLoadingMsg
           });
-        }else{
-          for(var i = 0; i<this.showList.length; i++){
-            var oLoading = this.showList[i];
-            if(oLoading.key == strKey){
-              /*update*/
-              oLoading.strMsg = strLoadingMsg;
-            }
-          }
+        }
+      },
+      imsgMarvelLoadingUpdate: function (strKey, strLoadingMsg) {
+        var iIndexInList = this._getIndexInList(strKey);
+        if (iIndexInList != -1) {
+          this.showList[iIndexInList].strMsg = strLoadingMsg;
         }
       },
       imsgMarvelLoadingHide: function (strKey) {

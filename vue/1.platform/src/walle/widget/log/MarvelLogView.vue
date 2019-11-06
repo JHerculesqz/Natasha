@@ -23,7 +23,7 @@
     </div>
     <div :id="logSessionWrapperId" class="logSessionWrapper">
       <br>
-      <div class="logSession" v-for="logItem in logItems">
+      <div class="logSession" :class="{activeLog: logItem.logId == activeLogId}" v-for="logItem in logItems">
         <span class="logText"
               :id="logItem.logId"
               :class="[
@@ -66,6 +66,7 @@
     },
     data: function () {
       return{
+        activeLogId:undefined,
         logSessionWrapperId:undefined
       }
     },
@@ -125,11 +126,12 @@
       //#region 3rd
 
       anchorTo: function (strAnchorId) {
+        this.activeLogId = strAnchorId;
         var anchor = document.getElementById(strAnchorId);
         var oParentDiv = document.getElementById(this.logSessionWrapperId);
         if(anchor){
           var iOffsetTop =anchor.offsetTop;
-          oParentDiv.scrollTop = iOffsetTop;
+          oParentDiv.scrollTop = iOffsetTop - 20; //设置距顶部20的间隙
         }else{
           console.log("can not find " + strAnchorId);
         }
@@ -206,10 +208,22 @@
     box-sizing: border-box;
   }
 
+  .logSession{
+    margin-bottom: 3px;
+    padding: 0 6px;
+    box-sizing: border-box;
+  }
+
+  .activeLog{
+    border: 1px solid rgba(51,153,255,0.6);
+    box-sizing: border-box;
+    background-color: rgba(51,153,255,0.06);
+  }
+
   .logText{
     color: #333;
     font-size: 12px;
-    line-height: 18px;
+    line-height: 14px;
   }
 
   .noticeLog{

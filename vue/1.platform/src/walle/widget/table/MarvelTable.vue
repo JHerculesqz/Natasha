@@ -59,6 +59,7 @@ multiDropdown：下拉框多选，支持度不好，待优化
                            v-on:onRowHoverEnd="leftTableOnRowHoverEnd"
                            v-on:onTbodyScroll="leftTableOnScroll"
                            :hasFoot="false"
+                           :minRowH="minRowH"
                            v-on:onTitleCheckOrUncheck="onTitleCheckOrUncheck"
                            v-on:onClickRow="onClickRow"
                            v-on:onDblclickRow="onDblclickRow"
@@ -92,6 +93,7 @@ multiDropdown：下拉框多选，支持度不好，待优化
                            v-on:onRowHoverEnd="centerTableOnRowHoverEnd"
                            v-on:onTbodyScroll="centerTableOnScroll"
                            :hasFoot="false"
+                           :minRowH="minRowH"
                            v-on:onTitleCheckOrUncheck="onTitleCheckOrUncheck"
                            v-on:onClickRow="onClickRow"
                            v-on:onDblclickRow="onDblclickRow"
@@ -122,6 +124,7 @@ multiDropdown：下拉框多选，支持度不好，待优化
                            v-on:onRowHoverEnd="rightTableOnRowHoverEnd"
                            v-on:onTbodyScroll="rightTableOnScroll"
                            :hasFoot="false"
+                           :minRowH="minRowH"
                            v-on:onTitleCheckOrUncheck="onTitleCheckOrUncheck"
                            v-on:onClickRow="onClickRow"
                            v-on:onDblclickRow="onDblclickRow"
@@ -526,13 +529,41 @@ multiDropdown：下拉框多选，支持度不好，待优化
             if (cell.key == "id") {
               centerRow.push(JSON.parse(JSON.stringify(cell)));
             } else {
+              //需要额外处理rowCell无对应的title的情况，统一放入center进行缓存
+
+              //匹配左表
+              var bIsInLeft = false;
+              for (const oLeftTitle of this.leftTitles) {
+                if (cell.key == oLeftTitle.key) {
+                  bIsInLeft = true;
+                  break;
+                }
+              }
+
               //匹配中间表
+              var bIsInCenter = false;
               for (const oCenterTitle of this.centerTitles) {
                 if (cell.key == oCenterTitle.key) {
+                  bIsInCenter = true;
                   centerRow.push(JSON.parse(JSON.stringify(cell)));
                   break;
                 }
               }
+
+              //匹配右表
+              var bIsInRight = false;
+              for (const oRightTitle of this.rightTitles) {
+                if (cell.key == oRightTitle.key) {
+                  bIsInRight = true;
+                  break;
+                }
+              }
+
+              if(!bIsInLeft && !bIsInCenter && !bIsInRight){
+                //无对应表头的数据统一放到center中
+                centerRow.push(JSON.parse(JSON.stringify(cell)));
+              }
+
             }
           }
           centerRows.push(JSON.parse(JSON.stringify(centerRow)));
@@ -1499,7 +1530,8 @@ multiDropdown：下拉框多选，支持度不好，待优化
   .GridExWithFreezeColumnWrapper .freezeTables .emptyTip {
     position: absolute;
     width: 100%;
-    height: 100%;
+    height: calc(100% - 34px);
+    top: 34px;
     background: url("../../../../static/images/common/emptyTip2.png") no-repeat center;
     background-size: 14%;
     display: none;

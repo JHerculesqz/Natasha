@@ -868,6 +868,9 @@ multiDropdown：下拉框多选，支持度不好，待优化
       },
       isHide4Combine(oTitle, oRow){
         let oCell = this._getCell(oTitle.key, oRow);
+        if(oCell == undefined){
+          return false;
+        }
         if(oCell.rowspan == 0 || oCell.colspan == 0){
           return true;
         }else{

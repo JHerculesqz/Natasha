@@ -12,7 +12,7 @@
         <div class="circle icon-marvelIcon-09"></div>
         <div class="num" :title="item.index">{{ item.index }}</div>
       </div>
-      <div v-if="isVertical" class="wizardsCont" v-bind:style="{ height: isVertical?item.contentH:''}">
+      <div class="wizardsCont" v-bind:style="{ height: isVertical?item.contentH:''}">
         <slot :name="item.slotName"></slot>
       </div>
     </div>
@@ -153,6 +153,7 @@
   }
 
   .verticalWizard .wizardsItem{
+    height: unset;
     float: unset;
     overflow: hidden;
   }
@@ -179,7 +180,7 @@
   .verticalWizard .wizardsItem .name{
     max-width: 200px;
     float: left;
-    width: 200px;
+    width: 100px;
     position: relative;
     top: 16px;
   }
@@ -245,8 +246,12 @@
   .wizardsWrapper .wizardsItem .decoration .num {}
 
   .wizardsWrapper .wizardsItem .wizardsCont {
+
+  }
+
+  .verticalWizard .wizardsItem .wizardsCont {
     float: right;
-    width: calc(100% - 250px);
+    width: calc(100% - 150px);
   }
 
   .wizardsWrapper .complected .name {
