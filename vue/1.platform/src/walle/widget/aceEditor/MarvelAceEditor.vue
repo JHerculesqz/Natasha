@@ -5,10 +5,10 @@
 </template>
 
 <script>
-  import ace from 'natasha-ace'
-  import 'natasha-ace/ace-custom/build/webpack-resolver'
-  import 'natasha-ace/ace-custom/build/src-noconflict/theme-dracula'
-  import 'natasha-ace/ace-custom/build/src-noconflict/mode-javascript'
+  import ace from 'ace-builds'
+  import 'ace-builds/webpack-resolver'
+  import 'ace-builds/src-noconflict/theme-dracula'
+  import 'ace-builds/src-noconflict/mode-javascript'
   import StringUtilsEx from '../../component/str'
 
   /**
@@ -92,14 +92,6 @@
 
         //清除中线
         this.oEditor.setShowPrintMargin(false);
-
-        //启用提示菜单
-        ace.require("ace/ext/language_tools");
-        this.oEditor.setOptions({
-          enableBasicAutocompletion: true,
-          enableSnippets: true,
-          enableLiveAutocompletion: true
-        });
 
         //setCode
         if (this.codeIn !== undefined && this.lan !== undefined) {
@@ -244,7 +236,8 @@
   /*region basic*/
 
   *{
-    font-family: "Microsoft YaHei", "arial",sans-serif;
+    font-family:'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;
+    font-weight: normal;
   }
   ::-webkit-scrollbar{
     width:8px;
