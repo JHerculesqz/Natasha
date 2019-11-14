@@ -2,7 +2,7 @@
   <div class="gridWrapper" :class="{gridWrapper4Grid:!isTree}" v-show="nodeItemInner.isShow">
     <table class="gridCont" cellspacing="0" cellpadding="0">
       <tbody>
-      <tr>
+      <tr @click.stop="callback4OnClickRow(nodeItemInner)" :class="{gridTreeActiveRow:hasActiveStatus&&(currentActiveRow!= undefined)&&(nodeItemInner.id == currentActiveRow.id)}">
         <td v-for="(title,index) in titles" v-bind:style="{width: title.width}" v-show="title.visible">
           <div v-if="_isTreeNodeCell(title)" v-bind:style="_calcTreeNodeCellStyle(nodeItemInner)">
             <div class="treeItemIcon" v-bind:class="_openEx(nodeItemInner)"
@@ -58,8 +58,10 @@
             <marvel-grid-tree-node :key="oNodeChildItem.nodeLevel + oNodeChildItem.name" :nodeItem="oNodeChildItem"
                                    :titles="titles"
                                    :isTree="isTree"
+                                   :currentActiveRow="currentActiveRow"
                                    @onCheckOrNotRecussionTreeNode="onCheckOrNotRecussionTreeNode"
                                    @onExpandOrNotTreeNode="onExpandOrNotTreeNode"
+                                   @onClickRow="callback4OnClickRow"
                                    @onIconClick="onIconClick">
             </marvel-grid-tree-node>
           </template>
@@ -84,6 +86,11 @@
         default: undefined,
         required: true,
       },
+      currentActiveRow: {
+        type: Object,
+        default: undefined,
+        required: false,
+      },
       titles: {
         type: Array,
         default: undefined,
@@ -96,6 +103,11 @@
       isTree:{
         type: Boolean,
         default: true,
+        required: false,
+      },
+      hasActiveStatus:{
+        type: Boolean,
+        default: false,
         required: false,
       },
     },
@@ -215,6 +227,9 @@
       //#endregion
       //#region callback
 
+      callback4OnClickRow: function (nodeItemInner) {
+        this.$emit("onClickRow", nodeItemInner);
+      },
       callback4OnIconClick: function (nodeItemInner, oIcon) {
         this.$emit("onIconClick", nodeItemInner, oIcon);
       },
@@ -282,6 +297,10 @@
     width: 100%;
     height: 100%;
     box-sizing: border-box;
+  }
+
+  .gridTreeActiveRow{
+    background-color: #60b0ff !important;
   }
 
   .expandBorder {

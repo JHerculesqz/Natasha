@@ -1,11 +1,14 @@
 <template>
   <div class="workFlowMopWrapper">
     <div class="mopLeft">
-      <marvel-grid-tree :hasFoot="false"
+      <marvel-grid-tree :ref="gridTreeRef"
+                        :hasFoot="false"
                         :titles="title4MopLstInner"
                         :treeNodes="treeNode4MopLstInner"
                         :dynamicPaging="false"
                         :isTree="false"
+                        :hasActiveStatus="mopLstHasActiveStatus"
+                        @onClickRow="_onClickRow"
                         @onIconClick="_onIconClick"></marvel-grid-tree>
     </div>
     <div class="mopRight">
@@ -80,10 +83,31 @@
           return [];
         },
         required: false,
-      }
+      },
+      hasStartTime:{
+        type: Boolean,
+        default: true,
+        required: false,
+      },
+      hasEndTime:{
+        type: Boolean,
+        default: true,
+        required: false,
+      },
+      hasOperation:{
+        type: Boolean,
+        default: true,
+        required: false,
+      },
+      mopLstHasActiveStatus: {
+        type: Boolean,
+        default: true,
+        required: false,
+      },
     },
     data: function () {
       return {
+        gridTreeRef: undefined,
         logRef: undefined,
         tabItemsInner: [{
           id: StrUtils.uuid(),
@@ -115,6 +139,7 @@
 
       _initEx: function () {
         var self = this;
+        this.gridTreeRef = StrUtils.uuid();
         this.logRef = StrUtils.uuid();
         this.$nextTick(function () {
           self._genTabs();
@@ -150,32 +175,47 @@
           type: "text",
           visible: false,
         }, {
-          key: "name",
-          label: "名称",
-          width: "200px",
+          key: "orderNum",
+          label: "序号",
+          width: "50px",
           type: "text",
           visible: true,
           isTreeNodeCell: true,
-        }];
-        var oRightBasicTitle = [{
-          key: "startTime",
-          label: "开始时间",
-          width: "120px",
+        }, {
+          key: "name",
+          label: "步骤名称",
+          width: "200px",
           type: "text",
           visible: true,
-        }, {
-          key: "endTime",
-          label: "结束时间",
-          width: "120px",
-          type: "text",
-          visible: true,
-        }, {
-          key: "operation",
-          label: "操作",
-          width: "80px",
-          type: "icon",
-          visible: true,
         }];
+        var oRightBasicTitle = [];
+        if(this.hasStartTime){
+          oRightBasicTitle.push({
+            key: "startTime",
+            label: "开始时间",
+            width: "120px",
+            type: "text",
+            visible: true,
+          });
+        }
+        if(this.hasEndTime){
+          oRightBasicTitle.push({
+            key: "endTime",
+            label: "结束时间",
+            width: "120px",
+            type: "text",
+            visible: true,
+          });
+        }
+        if(this.hasOperation){
+          oRightBasicTitle.push({
+            key: "operation",
+            label: "操作",
+            width: "80px",
+            type: "icon",
+            visible: true,
+          });
+        }
         var arrNewTitleV1 = oLeftBasicTitle.concat(arrTitles);
         var arrNewTitleV2 = arrNewTitleV1.concat(oRightBasicTitle);
 
@@ -188,29 +228,31 @@
       },
       _genRows: function (arrRows, iNodeLevel) {
         for (var i = 0; i < arrRows.length; i++) {
-          //基础操作按钮
-          var oOperations = [{
-            title: "查看步骤",
-            value: "icon-marvelIcon-34",
-            color: "#3399ff"
-          },{
-            title: "查看日志",
-            value: "icon-file-text2",
-            color: "#3399ff"
-          }];
-          //添加自定义按钮
-          if(this.customMopOptionIcons!=undefined && this.customMopOptionIcons.length>0){
-            for(var j = 0; j<this.customMopOptionIcons.length; j++){
-              oOperations.push(this.customMopOptionIcons[j])
+          if(this.hasOperation){
+            //基础操作按钮
+            var oOperations = [{
+              title: "查看步骤",
+              value: "icon-marvelIcon-34",
+              color: "#3399ff"
+            },{
+              title: "查看日志",
+              value: "icon-file-text2",
+              color: "#3399ff"
+            }];
+            //添加自定义按钮
+            if(this.customMopOptionIcons!=undefined && this.customMopOptionIcons.length>0){
+              for(var j = 0; j<this.customMopOptionIcons.length; j++){
+                oOperations.push(this.customMopOptionIcons[j])
+              }
             }
-          }
-          //数据组装
-          if(arrRows[i].operation != undefined){
-            for(var k = oOperations.length - 1; k>=0; k--){
-              arrRows[i].operation.unshift(oOperations[k]);
+            //数据组装
+            if(arrRows[i].operation != undefined){
+              for(var k = oOperations.length - 1; k>=0; k--){
+                arrRows[i].operation.unshift(oOperations[k]);
+              }
+            }else{
+              arrRows[i].operation = JSON.parse(JSON.stringify(oOperations));
             }
-          }else{
-            arrRows[i].operation = JSON.parse(JSON.stringify(oOperations));
           }
 
           arrRows[i].nodeLevel = iNodeLevel;
@@ -243,11 +285,19 @@
           //mop一行的id 与 log的taskId相对应
           this.tabItemsInner[0].isActive = false;
           this.tabItemsInner[1].isActive = true;
-          var logId = oRow.id;
+          var logId = oRow.idRef;
           this.$refs[this.logRef][0].anchorTo(logId);
         }else{
           this._callback4OnIconClick4Custom(oRow, oCell);
         }
+      },
+      _onClickRow: function (oRow) {
+        //anchorLogTo
+        //mop一行的id 与 log的taskId相对应
+        var logId = oRow.idRef;
+        this.$refs[this.logRef][0].anchorTo(logId);
+
+        this._callback4OnClickRow(oRow);
       },
 
       //#endregion
@@ -255,6 +305,9 @@
       //#endregion
       //#region callback
 
+      _callback4OnClickRow: function (oRow) {
+        this.$emit("onClickRow", oRow)
+      },
       _callback4OnFilterBtnClick: function (oCheckParams, oItem) {
         this.$emit("onFilterBtnClick", oCheckParams, oItem)
       },
@@ -273,6 +326,15 @@
 
       //#endregion
       //#region 3rd
+      
+      scrollToBottom: function () {
+        this.$refs[this.gridTreeRef].scrollToBottom();
+      },
+      setRowActive: function (oRow) {
+        this.$refs[this.gridTreeRef].setRowActive(oRow);
+        this._callback4OnClickRow(oRow);
+      }
+      
       //#endregion
     },
     watch: {
@@ -323,13 +385,13 @@
   }
 
   .mopLeft {
-    width: calc(100% - 620px);
+    width: 760px;
     float: left;
     height: 100%;
   }
 
   .mopRight {
-    width: 600px;
+    width: calc(100% - 780px);
     float: left;
     height: 100%;
     margin-left: 20px;

@@ -22,15 +22,19 @@
                       :titles="title4objLstInner"
                       :rows="row4objLstInner"
                       :limit="limit"
+                      :showChangeLimit="showChangeLimit"
+                      :limitRange="limitRange"
                       :dynamicPaging="true"
                       :totalNum="totalNum"
                       :totalPage="totalPage"
                       :canDrag="true"
                       :hasFoot="true"
+                      :minRowH="true"
                       :sortRowsFunc="_sortRowsFunc"
                       v-on:onTitleCheckOrUncheck="_onTitleCheckOrUncheck"
                       v-on:onRowCheckOrUnCheck="_onRowCheckOrUnCheck"
                       v-on:onIconClick="_onIconClick"
+                      v-on:onPerPageNumChange="callback4OnPerPageNumChange"
                       v-on:onPageChange="callback4OnPageChange"></marvel-table>
     </div>
   </div>
@@ -88,6 +92,18 @@
       limit: {
         type: Number,
         default: 26,
+        required: false,
+      },
+      showChangeLimit: {
+        type: Boolean,
+        default: true,
+        required: false,
+      },
+      limitRange: {
+        type: Array,
+        default: function () {
+          return [26, 50, 100, 200]
+        },
         required: false,
       }
     },
@@ -250,16 +266,6 @@
             var oCell = arrRows[i][j];
             if (oCell.key == 'operation') {
               bHasOperationAlready = true;
-              oCell.value.push({
-                value: "icon-enter",
-                color: "#3399ff",
-                title: "查看"
-              });
-              oCell.value.push({
-                value: "icon-bin",
-                color: "#3399ff",
-                title: "删除"
-              })
             }
           }
           if (!bHasOperationAlready) {
@@ -268,7 +274,7 @@
               value: [{
                 value: "icon-enter",
                 color: "#3399ff",
-                title: "查看"
+                title: "查看任务"
               }, {
                 value: "icon-bin",
                 color: "#3399ff",
@@ -346,6 +352,9 @@
       },
       callback4OnPageChange: function (iPageIndex, perPageNum) {
         this.$emit("onPageChange", iPageIndex, perPageNum);
+      },
+      callback4OnPerPageNumChange: function (perPageNum) {
+        this.$emit("onPerPageNumChange", perPageNum);
       },
       callback4OnIconClick4Delete: function (oRow) {
         this.$emit("onIconClick4Delete", oRow);

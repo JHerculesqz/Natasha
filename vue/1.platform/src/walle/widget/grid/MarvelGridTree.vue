@@ -15,15 +15,18 @@
     </div>
     <div class="bodyWrapper" id="bodyWrapper" v-bind:style="_genBodyHeightstyle()">
       <table class="gridCont" cellspacing="0" cellpadding="0" border="0">
-        <tbody>
+        <tbody :id="tableId + '_MarvelGridTreeTableBody'">
         <tr v-for="oNode in rowsInPage">
           <td>
             <marvel-grid-tree-node :key="oNode.nodeLevel + oNode.name"
                                    :nodeItem="oNode"
                                    :titles="titles"
                                    :isTree="isTree"
+                                   :hasActiveStatus="hasActiveStatus"
+                                   :currentActiveRow="currentActiveRow"
                                    @onCheckOrNotRecussionTreeNode="onCheckOrNotRecussionTreeNode"
                                    @onExpandOrNotTreeNode="onExpandOrNotTreeNode"
+                                   @onClickRow="callback4OnClickRow"
                                    @onIconClick="onIconClick">
             </marvel-grid-tree-node>
           </td>
@@ -52,6 +55,7 @@
 <script>
   import MarvelGridTreeNode from "./MarvelGridTreeNode";
   import MarvelPaging from "../paging/MarvelPaging";
+  import StringUtils from "../../component/str";
 
   /**
    *  MarvelGridTree widget description
@@ -131,9 +135,15 @@
         default: false,
         required: false,
       },
+      hasActiveStatus: {
+        type: Boolean,
+        default: false,
+        required: false,
+      },
     },
     data: function () {
       return {
+        tableId: '',
         treeNodesInner: {},
         mapNode: {},
         limitInner: (!this.dynamicPaging && !this.hasFoot)? this.treeNodes.length :this.limit,
@@ -144,7 +154,8 @@
         pageLimit: this.isTree ? 3 : 7,
         showPageNum: this.isTree ? false : true,
         showChangeLimit: this.isTree ? false : true,
-        offSetX:0
+        offSetX:0,
+        currentActiveRow:undefined,
       }
     },
     mounted: function () {
@@ -194,6 +205,7 @@
       //#region lifeCycle
 
       _initEx: function () {
+        this.tableId = StringUtils.uuid();
         this._handlerTreeNodes();
 
         let oTbody = this.$el.querySelector("#bodyWrapper");
@@ -583,6 +595,11 @@
       //#endregion
       //#region callback
 
+      callback4OnClickRow: function (nodeItemInner) {
+        this.currentActiveRow = nodeItemInner;
+        this.$emit("onClickRow", nodeItemInner);
+      },
+
       callback4OnIconClick: function (nodeItemInner, oIcon) {
         this.$emit("onIconClick", nodeItemInner, oIcon);
       },
@@ -636,6 +653,15 @@
           }
         }
       },
+      scrollToBottom: function () {
+        var oTable = document.getElementById("bodyWrapper");
+        var oTableBody = document.getElementById(this.tableId + "_MarvelGridTreeTableBody");
+        var iOffsetTop =parseInt(oTableBody.offsetHeight);
+        oTable.scrollTop = iOffsetTop;
+      },
+      setRowActive: function (oRow) {
+        this.currentActiveRow = oRow;
+      }
 
       //#endregion
     },

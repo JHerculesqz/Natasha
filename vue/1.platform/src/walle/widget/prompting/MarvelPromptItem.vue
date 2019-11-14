@@ -167,21 +167,21 @@
   }
 
   .promptInfo {
-    background-color: rgba(61, 204, 166, 0.4);
+    background-color: #b1ebdb;
     border-color: #4d9e88;
     color: #4d9e88;
     font-size: 16px;
   }
 
   .promptTip {
-    background-color: rgba(51, 153, 255, 0.4);
+    background-color: #add6ff;
     border-color: #1b8adb;
     color: #1b8adb;
     font-size: 16px;
   }
 
   .promptError {
-    background-color: rgba(255, 76, 76, 0.4);
+    background-color: #ffb7b7;
     border-color: #e54545;
     color: #e54545;
     font-size: 16px;
@@ -229,5 +229,17 @@
 
   .dark .promptContainer{
     text-shadow: 1px 1px 1px rgba(0,0,0,0.6);
+  }
+
+  .dark .promptInfo {
+    background-color: #256362;
+  }
+
+  .dark .promptTip {
+    background-color: #214e86;
+  }
+
+  .dark .promptError {
+    background-color: #732f3e;
   }
 </style>

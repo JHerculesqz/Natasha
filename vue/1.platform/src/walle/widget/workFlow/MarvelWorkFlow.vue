@@ -133,7 +133,7 @@
     height: calc(100% - 80px);
     background-color: #f6f6f6;
     overflow: auto;
-    padding: 10px;
+    padding-top: 10px;
     box-sizing: border-box;
   }
 </style>

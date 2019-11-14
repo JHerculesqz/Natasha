@@ -249,7 +249,7 @@ customer：自定义单元格，支持文本单元格和dropdown单元格的切�
             <!--自定义二级面板-->
             <template v-if="useDetailRow(row)">
               <transition name="detail-row-transition">
-                <tr v-if="isDeatilRowVisible(row)" v-bind:style="{'padding-right': isShowPadding}"
+                <tr v-if="isDeatilRowVisible(row)" v-bind:style="{'padding-right': isShowPadding}" style="min-width: 100%;width: auto"
                     :id="getFoldRowTrId(row)">
                   <component :is="detailRowComponent" :ref="getDetailRowRef(row)" :row="row"></component>
                 </tr>

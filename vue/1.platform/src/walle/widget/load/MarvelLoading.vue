@@ -119,6 +119,12 @@
           });
         }
       },
+      imsgMarvelLoadingUpdate: function (strKey, strLoadingMsg) {
+        var iIndexInList = this._getIndexInList(strKey);
+        if (iIndexInList != -1) {
+          this.showList[iIndexInList].strMsg = strLoadingMsg;
+        }
+      },
       imsgMarvelLoadingHide: function (strKey) {
         //is already registry
         var iIndexInList = this._getIndexInList(strKey);

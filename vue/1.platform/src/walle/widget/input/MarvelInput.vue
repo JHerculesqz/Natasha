@@ -51,6 +51,7 @@
     },
     data: function () {
       return {
+        lastInputMsg: "",
         inputMsg: "",
         bShowErrMsg: true
       }
@@ -85,17 +86,18 @@
       },
       onBlur: function () {
         this.bShowErrMsg = false;
-        this.callback4OnBlur(this.inputMsg);
+        this.callback4OnBlur(this.inputMsg, this.lastInputMsg);
       },
       onFocus: function () {
+        this.lastInputMsg = this.inputMsg;
         this.bShowErrMsg = true;
       },
 
       //#endregion
       //#region callback
 
-      callback4OnBlur: function (strInput) {
-        this.$emit("onBlur", strInput);
+      callback4OnBlur: function (strInput, strLastInput) {
+        this.$emit("onBlur", strInput, strLastInput);
       },
       callback4OnInput: function (strInput) {
         this.$emit("onInput", strInput);

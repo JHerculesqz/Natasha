@@ -59,6 +59,7 @@ multiDropdown：下拉框多选，支持度不好，待优化
                            v-on:onRowHoverEnd="leftTableOnRowHoverEnd"
                            v-on:onTbodyScroll="leftTableOnScroll"
                            :hasFoot="false"
+                           :minRowH="minRowH"
                            v-on:onTitleCheckOrUncheck="onTitleCheckOrUncheck"
                            v-on:onClickRow="onClickRow"
                            v-on:onDblclickRow="onDblclickRow"
@@ -92,6 +93,7 @@ multiDropdown：下拉框多选，支持度不好，待优化
                            v-on:onRowHoverEnd="centerTableOnRowHoverEnd"
                            v-on:onTbodyScroll="centerTableOnScroll"
                            :hasFoot="false"
+                           :minRowH="minRowH"
                            v-on:onTitleCheckOrUncheck="onTitleCheckOrUncheck"
                            v-on:onClickRow="onClickRow"
                            v-on:onDblclickRow="onDblclickRow"
@@ -122,6 +124,7 @@ multiDropdown：下拉框多选，支持度不好，待优化
                            v-on:onRowHoverEnd="rightTableOnRowHoverEnd"
                            v-on:onTbodyScroll="rightTableOnScroll"
                            :hasFoot="false"
+                           :minRowH="minRowH"
                            v-on:onTitleCheckOrUncheck="onTitleCheckOrUncheck"
                            v-on:onClickRow="onClickRow"
                            v-on:onDblclickRow="onDblclickRow"
@@ -305,6 +308,11 @@ multiDropdown：下拉框多选，支持度不好，待优化
         default: undefined,
         required: false,
       },
+      minRowH: {
+        type: Boolean,
+        default: false,
+        required: false,
+      }
     },
     data: function () {
       return {
@@ -521,13 +529,41 @@ multiDropdown：下拉框多选，支持度不好，待优化
             if (cell.key == "id") {
               centerRow.push(JSON.parse(JSON.stringify(cell)));
             } else {
+              //需要额外处理rowCell无对应的title的情况，统一放入center进行缓存
+
+              //匹配左表
+              var bIsInLeft = false;
+              for (const oLeftTitle of this.leftTitles) {
+                if (cell.key == oLeftTitle.key) {
+                  bIsInLeft = true;
+                  break;
+                }
+              }
+
               //匹配中间表
+              var bIsInCenter = false;
               for (const oCenterTitle of this.centerTitles) {
                 if (cell.key == oCenterTitle.key) {
+                  bIsInCenter = true;
                   centerRow.push(JSON.parse(JSON.stringify(cell)));
                   break;
                 }
               }
+
+              //匹配右表
+              var bIsInRight = false;
+              for (const oRightTitle of this.rightTitles) {
+                if (cell.key == oRightTitle.key) {
+                  bIsInRight = true;
+                  break;
+                }
+              }
+
+              if(!bIsInLeft && !bIsInCenter && !bIsInRight){
+                //无对应表头的数据统一放到center中
+                centerRow.push(JSON.parse(JSON.stringify(cell)));
+              }
+
             }
           }
           centerRows.push(JSON.parse(JSON.stringify(centerRow)));
@@ -1245,24 +1281,32 @@ multiDropdown：下拉框多选，支持度不好，待优化
       },
       getSelectRow4Radiobox() {
         var arrRows = JSON.parse(JSON.stringify(this.getRows()));
-        var strTargetRowId = "";
+        var strTargetRowId = undefined;
         var arrTargetRows = [];
         if (this.whereIsRadioColumn == "left") {
           //checkbox 在左侧固定列中
           var oLeftTableSelectRows = this.$refs[this.leftTableId].getSelectRow4Radiobox();
-          strTargetRowId = this._getRowId(oLeftTableSelectRows)
+          if(oLeftTableSelectRows){
+            strTargetRowId = this._getRowId(oLeftTableSelectRows)
+          }
         } else if (this.whereIsRadioColumn == "center") {
           //checkbox 在左侧固定列中
           var oCenterTableSelectRows = this.$refs[this.centerTableId].getSelectRow4Radiobox();
-          strTargetRowId = this._getRowId(oCenterTableSelectRows)
+          if(oCenterTableSelectRows){
+            strTargetRowId = this._getRowId(oCenterTableSelectRows)
+          }
         } else if (this.whereIsRadioColumn == "right") {
           //checkbox 在左侧固定列中
           var oRightTableSelectRows = this.$refs[this.rightTableId].getSelectRow4Radiobox();
-          strTargetRowId = this._getRowId(oRightTableSelectRows)
+          if(oRightTableSelectRows){
+            strTargetRowId = this._getRowId(oRightTableSelectRows)
+          }
         }
 
-        arrTargetRows = this._getRowsByRowIds([strTargetRowId], arrRows);
-        return arrTargetRows[0];
+        if(strTargetRowId){
+          arrTargetRows = this._getRowsByRowIds([strTargetRowId], arrRows);
+          return arrTargetRows[0];
+        }
       },
       getRows() {
         var arrLeftTableRows = [];
@@ -1486,7 +1530,8 @@ multiDropdown：下拉框多选，支持度不好，待优化
   .GridExWithFreezeColumnWrapper .freezeTables .emptyTip {
     position: absolute;
     width: 100%;
-    height: 100%;
+    height: calc(100% - 34px);
+    top: 34px;
     background: url("../../../../static/images/common/emptyTip2.png") no-repeat center;
     background-size: 14%;
     display: none;

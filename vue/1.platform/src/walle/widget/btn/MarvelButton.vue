@@ -178,6 +178,9 @@
     position: relative;
     color: #fff;
     background-color: #3399ff;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 
   .primaryBtn:before{
@@ -218,6 +221,9 @@
     border: 1px solid #3399ff;
     color: #333;
     box-sizing: border-box;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 
   .plainBtn:before{
@@ -260,6 +266,9 @@
     border: 1px dashed #cccccc;
     position: relative;
     box-sizing: border-box;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 
   .dottedLineBtn:before{

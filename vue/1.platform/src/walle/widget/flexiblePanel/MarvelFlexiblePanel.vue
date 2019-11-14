@@ -2,7 +2,7 @@
   <div class="flexiblePanelWrapper" :class="'pos4' + pos">
     <div class="expandBtn" :class="expandBtnIcon" :style="{color:expandBtnBgColor}"
          v-on:click="onExpandBtnClick">
-      <div class="expandBtnInner" :class="expandBtnIconInner"></div>
+      <div class="expandBtnInner" :class="expandBtnIconInner" :style="{color:expandBtnIconColor}"></div>
     </div>
     <div class="content" :style="contentStyle"
          v-show="showEx">
@@ -75,6 +75,11 @@
         required: false,
       },
       expandBtnBgColor:{
+        type: String,
+        default: "",
+        required: false,
+      },
+      expandBtnIconColor:{
         type: String,
         default: "",
         required: false,
@@ -518,7 +523,7 @@
   }
 
   .pos4left .expandBtn{
-    right: -16px;
+    right: -14px;
     top: 50%;
     margin-top: -32px;
     width: 16px;

@@ -95,7 +95,7 @@ multiDropdown：下拉框多选，支持度不好，待优化
         </thead>
         <tbody :class="innerParentTitles.length>0?'reduceH4doubleHead':''">
         <template v-for="(row,index) in rowsInPage">
-          <tr :class="[getTrStyle(row, index),row[0].value == hoverRowId ? 'rowHover':'',hasCombineRows?'hasCombineRows':'']"
+          <tr :class="[getTrStyle(row, index),row[0].value == hoverRowId ? 'rowHover':'',hasCombineRows?'hasCombineRows':'',minRowH?'minRowH':'']"
               @click.stop="onClickRow(row)" @dblclick.stop="callback4OnDblclickRow(row)" @mouseenter="onRowHover(row)" @mouseleave="onRowHoverEnd">
             <td v-if="useDetailRow()" style="width: 35px" :class="foldOrUnFold(row)"
                 @click.stop="onClickFoldOrUnFold(row)"></td>
@@ -166,9 +166,9 @@ multiDropdown：下拉框多选，支持度不好，待优化
                   :rowspan="getTdRowspan(title, row)">
                    <span class="iconOnly"
                          v-for="icon in getCellValueByKey(title.key, row)"
-                         :class="[icon.value]"
+                         :class="[icon.value, {disableIcon:icon.disable}]"
                          :style="{ color: icon.color }"
-                         :title="icon.label"
+                         :title="icon.title?icon.title:icon.label"
                          @click.stop="onIconClick(title.key, row, icon)">
                    </span>
               </td>
@@ -378,6 +378,11 @@ multiDropdown：下拉框多选，支持度不好，待优化
       pageLimit: {
         type: Number,
         default: 7,
+        required: false,
+      },
+      minRowH: {
+        type: Boolean,
+        default: false,
         required: false,
       }
     },
@@ -863,6 +868,9 @@ multiDropdown：下拉框多选，支持度不好，待优化
       },
       isHide4Combine(oTitle, oRow){
         let oCell = this._getCell(oTitle.key, oRow);
+        if(oCell == undefined){
+          return false;
+        }
         if(oCell.rowspan == 0 || oCell.colspan == 0){
           return true;
         }else{
@@ -873,6 +881,13 @@ multiDropdown：下拉框多选，支持度不好，待优化
         let oStyle = {
           width: oTitle.width
         };
+        let oCell = this._getCell(oTitle.key, oRow);
+        let strBgColor = "";
+        oCell && (strBgColor = oCell.bgColor);
+        strBgColor && (oStyle["background-color"] = strBgColor);
+        if (oCell && oCell.config && oCell.config.color) {
+          oStyle["color"] = oCell.config.color;
+        }
         return oStyle;
       },
       getTdDivStyle(oTitle, oRow) {
@@ -1542,6 +1557,10 @@ multiDropdown：下拉框多选，支持度不好，待优化
     font-size: 15px;
   }
 
+  .minRowH td{
+    height: 34px !important;
+  }
+
   .gridWrapper .grid .gridCont tbody tr td select:disabled {
     background-color: #f0f0f0;
     color: #999999;
@@ -1602,6 +1621,10 @@ multiDropdown：下拉框多选，支持度不好，待优化
     width: 100%;
     height: 100%;
     line-height: 39px;
+  }
+
+  .gridWrapper .grid .minRowH td .textCell{
+    line-height: unset !important;
   }
 
   .textCellItem {

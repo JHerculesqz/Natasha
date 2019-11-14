@@ -1,16 +1,19 @@
 <template>
   <!--使用潜规则 父容器高度应保证大于78px-->
   <!-- wizards start-->
-  <div class="wizardsWrapper">
+  <div class="wizardsWrapper" :class="{verticalWizard:isVertical}">
     <div class="wizardsItem"
          v-for="item in items"
-         v-bind:class="[{ complected: item.complected }, {unClickable: !isClickable}]"
-         v-bind:style="{ width: 100 / items.length + '%' }" v-on:click="onWizardClick(item)">
+         v-bind:class="[{ complected: item.complected }, {unClickable: !isClickable}, {disableWizardItem: item.disable}]"
+         v-bind:style="{ width: isVertical?'':100 / items.length + '%' }" v-on:click="onWizardClick(item)">
       <div class="name" :title="item.label">{{ item.label }}</div>
-      <div class="decoration">
+      <div class="decoration" v-bind:style="{ height: isVertical?item.contentH:''}">
         <div class="bar"></div>
         <div class="circle icon-marvelIcon-09"></div>
         <div class="num" :title="item.index">{{ item.index }}</div>
+      </div>
+      <div class="wizardsCont" v-bind:style="{ height: isVertical?item.contentH:''}">
+        <slot :name="item.slotName"></slot>
       </div>
     </div>
   </div>
@@ -41,6 +44,11 @@
         default: false,
         required: false,
       },
+      isVertical: {
+        type: Boolean,
+        default: false,
+        required: false,
+      },
     },
     data: function () {
       return {
@@ -51,6 +59,9 @@
       //#region inner
 
       onWizardClick: function (oItem) {
+        if(oItem.disable){
+          return;
+        }
         if(this.isClickable){
           if (this.hasJudgeBeforeWizardSwitch) {
             this.callback4OnWizardClick(oItem);
@@ -131,13 +142,27 @@
     overflow: hidden;
   }
 
+  .verticalWizard {
+    overflow: auto;
+  }
+
   .wizardsWrapper .wizardsItem {
     height: 100%;
     float: left;
     cursor: pointer;
   }
 
+  .verticalWizard .wizardsItem{
+    height: unset;
+    float: unset;
+    overflow: hidden;
+  }
+
   .wizardsWrapper .unClickable {
+    cursor: default !important;
+  }
+
+  .wizardsWrapper .disableWizardItem {
     cursor: default !important;
   }
 
@@ -152,9 +177,24 @@
     text-overflow: ellipsis;
   }
 
+  .verticalWizard .wizardsItem .name{
+    max-width: 200px;
+    float: left;
+    width: 100px;
+    position: relative;
+    top: 16px;
+  }
+
   .wizardsWrapper .wizardsItem .decoration {
     height: 50px;
     position: relative;
+  }
+
+  .verticalWizard .wizardsItem .decoration {
+    height: auto;
+    float: left;
+    width: 50px;
+    min-height: 100px;
   }
 
   .wizardsWrapper .wizardsItem .decoration .bar {
@@ -163,6 +203,14 @@
     width: 100%;
     top: 22.5px;
     left: 0px;
+    background-color: #e2e2e2;
+  }
+
+  .verticalWizard .wizardsItem .decoration .bar {
+    top: 0px;
+    width: 5px;
+    height: 100%;
+    left: 22px;
     background-color: #e2e2e2;
   }
 
@@ -178,6 +226,12 @@
     color: #e2e2e2;
   }
 
+  .verticalWizard .wizardsItem .decoration .circle {
+    height: auto;
+    position: unset;
+    transform: rotate(90deg);
+  }
+
   .wizardsWrapper .wizardsItem .decoration .num {
     height: 100%;
     line-height: 50px;
@@ -187,6 +241,17 @@
     left: 0;
     text-align: center;
     font-size: 16px;
+  }
+
+  .wizardsWrapper .wizardsItem .decoration .num {}
+
+  .wizardsWrapper .wizardsItem .wizardsCont {
+
+  }
+
+  .verticalWizard .wizardsItem .wizardsCont {
+    float: right;
+    width: calc(100% - 150px);
   }
 
   .wizardsWrapper .complected .name {
@@ -203,6 +268,14 @@
 
   .wizardsWrapper .complected .decoration .num {
     color: #fff;
+  }
+
+  .wizardsWrapper .disableWizardItem .name{
+    opacity: 0.6;
+  }
+
+  .wizardsWrapper .disableWizardItem .decoration .num{
+    opacity: 0.5;
   }
 
   /*region dark theme*/

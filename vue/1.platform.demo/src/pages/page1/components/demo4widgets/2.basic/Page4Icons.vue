@@ -247,6 +247,20 @@
       </div>
       <div class="glyph fs1">
         <div class="clearfix bshadow0 pbs">
+          <span class="icon-marvelIcon_2-15"></span>
+          <span class="mls"> icon-marvelIcon_2-15</span>
+        </div>
+        <fieldset class="fs0 size1of1 clearfix hidden-false">
+          <input type="text" readonly value="e911" class="unit size1of2" />
+          <input type="text" maxlength="1" readonly value="&#xe911;" class="unitRight size1of2 talign-right" />
+        </fieldset>
+        <div class="fs0 bshadow0 clearfix hidden-true">
+          <span class="unit pvs fgc1">liga: </span>
+          <input type="text" readonly value="" class="liga unitRight" />
+        </div>
+      </div>
+      <div class="glyph fs1">
+        <div class="clearfix bshadow0 pbs">
           <span class="icon-marvelIcon-01"></span>
           <span class="mls"> icon-marvelIcon-01</span>
         </div>
@@ -1821,6 +1835,20 @@
         <fieldset class="fs0 size1of1 clearfix hidden-false">
           <input type="text" readonly value="e981" class="unit size1of2" />
           <input type="text" maxlength="1" readonly value="&#xe981;" class="unitRight size1of2 talign-right" />
+        </fieldset>
+        <div class="fs0 bshadow0 clearfix hidden-true">
+          <span class="unit pvs fgc1">liga: </span>
+          <input type="text" readonly value="" class="liga unitRight" />
+        </div>
+      </div>
+      <div class="glyph fs1">
+        <div class="clearfix bshadow0 pbs">
+          <span class="icon-marvelIcon-114"></span>
+          <span class="mls"> icon-marvelIcon-114</span>
+        </div>
+        <fieldset class="fs0 size1of1 clearfix hidden-false">
+          <input type="text" readonly value="e982" class="unit size1of2" />
+          <input type="text" maxlength="1" readonly value="&#xe982;" class="unitRight size1of2 talign-right" />
         </fieldset>
         <div class="fs0 bshadow0 clearfix hidden-true">
           <span class="unit pvs fgc1">liga: </span>

@@ -49,6 +49,11 @@
         default: undefined,
         required: true,
       },
+      hasJudgeBeforeItemClick: {
+        type: Boolean,
+        default: false,
+        required: false,
+      },
     },
     data: function () {
       return {
@@ -59,8 +64,12 @@
       //#region inner
 
       onClickItem: function (oItem, index) {
-        this.currentSelectItemIndex = index;
-        this.callback4OnClickItem(oItem, index);
+        if(this.hasJudgeBeforeItemClick){
+          this.callback4OnClickItem(oItem, index);
+        }else{
+          this.currentSelectItemIndex = index;
+          this.callback4OnClickItem(oItem, index);
+        }
       },
       onClickToFirst: function () {
         for (; ;) {
